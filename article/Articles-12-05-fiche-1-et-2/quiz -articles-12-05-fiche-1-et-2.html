@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon QCM Modifiable</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+        .options { margin: 10px 0; }
+        button { margin-top: 15px; padding: 10px; cursor: pointer; width: 100%; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+
+        /* Style pour aligner le texte et l'image côte à côte */
+        .zone-entete {
+            display: flex;         
+            align-items: center;   
+            justify-content: space-between; 
+            gap: 20px;             
+            margin-bottom: 20px;
+        }
+        #quiz-image {
+            max-width: 140px;      
+            max-height: 140px;
+            object-fit: contain;   
+            border-radius: 6px;    
+        }
+        #question {
+            flex: 1;               
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        /* Style ajouté pour le lecteur Audio */
+        #quiz-audio {
+            width: 100%;
+            margin: 10px 0 15px 0;
+        }
+
+        /* Styles pour le rapport de fin */
+        .bloc-bilan {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 5px solid #ccc;
+            background-color: #fcfcfc;
+            text-align: left;
+        }
+        .bilan-juste { border-left-color: #28a745; background-color: #ebf7ee; }
+        .bilan-faux { border-left-color: #dc3545; background-color: #fdf2f2; }
+        .texte-juste { color: #28a745; font-weight: bold; }
+        .texte-faux { color: #dc3545; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div class="zone-entete">
+        <h2 id="question">Question s'affichera ici</h2>
+        <img id="quiz-image" src="" alt="Illustration" style="display: none;">
+    </div>
+    
+    <audio id="quiz-audio" controls style="display: none;"></audio>
+    
+    <div id="options-container"></div>
+    <button id="submit-btn">Valider la réponse</button>
+</div>
+
+<script>
+// --- ZONE MODIFIABLE : Ajoutez ou modifiez vos questions ici ---
+const mesQuestions = [
+ {
+        type: "qcm",
+        question: "Merci au LEC pour l'unité 12.05 Article « au » Voulez-vous commencer ? ",
+        reponses: ["oui"],
+        correcte: 0, 
+        image: "lec.jpg",
+        audio: ""  // <-- Écrivez ici le nom de votre fichier (ex: "audio_q1.mp3") si besoin
+    },	
+
+
+   
+    {
+        type: "multi-trous",
+        question: "Complétez avec le pronom possessif qui convient :  au - à la",
+        noms: ["Il part *** mairie", "Ils vont *** marché", "Vous êtes *** bureau", "Je pars *** laverie", "Il court *** stade"],
+        correcte: ["à la", "au", "au", "à la", "au"],
+        image: "",
+        audio: ""
+    },
+	
+	
+	 {
+        type: "multi-trous",
+        question: "Complétez avec le pronom possessif qui convient :   au - à la",
+        noms: ["Nous partons *** bar", "Tu es *** bijouterie", "Je vais *** charcuterie", "Vous courez *** parc", "Nous jouons *** jardin"],
+        correcte: ["au", "à la", "à la", "au", "au"],
+        image: "",
+        audio: ""
+    },
+	
+	{
+        type: "multi-trous",
+        question: "Complétez avec le pronom possessif qui convient :   au - à la",
+        noms: ["Ils sont *** cave", "Vous habitez *** hôtel", "Nous courons *** poste", "Elle dîne *** restaurant", "On est *** salon"],
+        correcte: ["à la", "à l'", "à la", "au", "au"],
+        image: "",
+        audio: ""
+    },
+	
+	 {
+        type: "multi-trous",
+        question: "Complétez avec le pronom possessif qui convient :   au - à la",
+        noms: ["Tu vas *** parfumerie", "Elles restent *** hôpital", "Ils partent *** école", "Elle va *** boucherie"],
+        correcte: ["à la", "à l'", "à l'", "à la"],
+        image: "",
+        audio: ""
+    },
+	
+	
+	
+   
+];
+// --------------------------------------------------------------
+
+let indexQuestionActuelle = 0;
+let score = 0;
+const historiqueReponses = [];
+
+function chargerQuestion() {
+    const q = mesQuestions[indexQuestionActuelle];
+    document.getElementById("question").textContent = q.question;
+    
+    const imageElement = document.getElementById("quiz-image");
+    if (imageElement) {
+        if (q.image && q.image !== "") {
+            imageElement.src = q.image;
+            imageElement.style.display = "block";
+        } else {
+            imageElement.style.display = "none";
+        }
+    }
+
+    const audioElement = document.getElementById("quiz-audio");
+    if (audioElement) {
+        if (q.audio && q.audio !== "") {
+            audioElement.src = q.audio;
+            audioElement.style.display = "block"; 
+            audioElement.load();                  
+        } else {
+            audioElement.style.display = "none";  
+            audioElement.src = "";
+        }
+    }
+
+    const optionsDiv = document.getElementById("options-container");
+    optionsDiv.innerHTML = ""; 
+    
+    if (q.type === "texte") {
+        optionsDiv.innerHTML = `
+            <input type="text" id="reponse-texte" placeholder="Tapez votre réponse ici..." 
+                   style="padding: 10px; width: 96%; font-size: 16px; margin-top: 10px; border-radius: 4px; border: 1px solid #ccc;">
+        `;
+    } 
+    else if (q.type === "multi-trous") {
+        let htmlFormulaire = '<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">';
+        
+        q.noms.forEach((nom, index) => {
+            let ligneHtml = "";
+            
+            // Si la phrase contient "***", on met la case de saisie au milieu
+            if (nom.includes("***")) {
+                const parties = nom.split("***");
+                ligneHtml = `
+                    <div style="display: flex; align-items: center; background: #f9f9f9; padding: 8px 12px; border-radius: 4px; border: 1px solid #eee; font-size: 16px;">
+                        <span style="font-weight: bold; margin-right: 8px;">${parties[0]}</span>
+                        <input type="text" class="reponse-multi" data-index="${index}" placeholder="..." 
+                               style="padding: 6px; width: 80px; font-size: 15px; border: 1px solid #ccc; border-radius: 4px; text-align: center; margin-right: 8px;">
+                        <span style="font-weight: bold;">${parties[1]}</span>
+                    </div>
+                `;
+            } else {
+                // Secours au cas où il n'y a pas de "***" (alignement classique à droite)
+                ligneHtml = `
+                    <div style="display: flex; align-items: center; justify-content: space-between; background: #f9f9f9; padding: 8px 12px; border-radius: 4px; border: 1px solid #eee;">
+                        <span style="font-weight: bold; font-size: 16px; width: 45%;">${nom} :</span>
+                        <input type="text" class="reponse-multi" data-index="${index}" placeholder="Réponse..." 
+                               style="padding: 8px; width: 48%; font-size: 15px; border: 1px solid #ccc; border-radius: 4px;">
+                    </div>
+                `;
+            }
+            htmlFormulaire += ligneHtml;
+        });
+        
+        htmlFormulaire += '</div>';
+        optionsDiv.innerHTML = htmlFormulaire;
+    } 
+    else {
+        q.reponses.forEach((reponse, index) => {
+            optionsDiv.innerHTML += `
+                <div class="options">
+                    <input type="radio" name="quiz" id="opt${index}" value="${index}">
+                    <label for="opt${index}" style="font-size: 16px; margin-left: 8px; cursor:pointer;">${reponse}</label>
+                </div>`;
+        });
+    }
+}
+
+document.getElementById("submit-btn").addEventListener("click", () => {
+    const q = mesQuestions[indexQuestionActuelle];
+    
+    const audioElement = document.getElementById("quiz-audio");
+    if (audioElement) { audioElement.pause(); }
+
+    let estCorrect = false;
+    let detailBilan = ""; 
+
+    if (q.type === "texte") {
+        const inputTexte = document.getElementById("reponse-texte");
+        if (!inputTexte || inputTexte.value.trim() === "") return alert("Veuillez écrire une réponse !");
+        
+        const valeurSaisie = inputTexte.value.trim();
+        estCorrect = (valeurSaisie.toLowerCase() === q.correcte.toLowerCase());
+        detailBilan = `Votre réponse : "<strong>${valeurSaisie}</strong>" | Attendu : "<strong>${q.correcte}</strong>"`;
+        
+        if (estCorrect) score++;
+    } 
+    else if (q.type === "multi-trous") {
+        const toutesLesCases = document.querySelectorAll('.reponse-multi');
+        let toutesJustes = true;
+        let uneCaseVide = false;
+        let tableauSaisies = [];
+
+        toutesLesCases.forEach((input) => {
+            const indexAttendu = parseInt(input.getAttribute('data-index'));
+            const valeurSaisie = input.value.trim();
+            tableauSaisies.push(valeurSaisie);
+
+            if (valeurSaisie === "") uneCaseVide = true;
+            if (valeurSaisie.toLowerCase() !== q.correcte[indexAttendu].toLowerCase()) {
+                toutesJustes = false;
+            }
+        });
+
+        if (uneCaseVide) return alert("Veuillez remplir toutes les zones de texte !");
+        
+        estCorrect = toutesJustes;
+        detailBilan = "<ul style='margin:5px 0; padding-left:20px;'>";
+        q.noms.forEach((nom, idx) => {
+            let affichageTexte = nom.replace("***", ` [ <strong>${tableauSaisies[idx]}</strong> ] `);
+            detailBilan += `<li>${affichageTexte} (Attendu : "<strong>${q.correcte[idx]}</strong>")</li>`;
+        });
+        detailBilan += "</ul>";
+        
+        if (estCorrect) score++;
+    } 
+    else {
+        const selection = document.querySelector('input[name="quiz"]:checked');
+        if (!selection) return alert("Veuillez sélectionner une réponse !");
+        
+        const indexChoisi = parseInt(selection.value);
+        const reponsesPossibles = q.correcte;
+        
+        if (Array.isArray(reponsesPossibles)) {
+            estCorrect = reponsesPossibles.includes(indexChoisi);
+            detailBilan = `Vous avez cliqué sur : "<strong>${q.reponses[indexChoisi]}</strong>" (Toutes les options étaient valides)`;
+        } else {
+            estCorrect = (indexChoisi === reponsesPossibles);
+            detailBilan = `Votre choix : "<strong>${q.reponses[indexChoisi]}</strong>" | Attendu : "<strong>${q.reponses[reponsesPossibles]}</strong>"`;
+        }
+        
+        if (estCorrect) score++;
+    }
+    
+    historiqueReponses.push({
+        question: q.question,
+        estCorrect: estCorrect,
+        detail: detailBilan
+    });
+    
+    indexQuestionActuelle++;
+    if (indexQuestionActuelle < mesQuestions.length) {
+        chargerQuestion();
+    } else {
+        afficherRapportFinal();
+    }
+});
+
+function afficherRapportFinal() {
+    let htmlBilan = `
+        <div style="text-align:center; padding: 10px;">
+            <h2>Fin du quiz !</h2>
+            <p style="font-size: 22px; margin-bottom: 30px;">Votre score : <strong>${score} / ${mesQuestions.length}</strong></p>
+            <h3>Rapport détaillé de vos réponses :</h3>
+        </div>
+    `;
+
+    historiqueReponses.forEach((item, index) => {
+        const classeStyle = item.estCorrect ? "bloc-bilan bilan-juste" : "bloc-bilan bilan-faux";
+        const pastilleStatut = item.estCorrect ? "<span class='texte-juste'>[✓ Correct]</span>" : "<span class='texte-faux'>[✗ Incorrect]</span>";
+
+        htmlBilan += `
+            <div class="${classeStyle}">
+                <strong>Question ${index + 1}:</strong> ${item.question} <br>
+                <div style="margin-top: 8px; font-size: 14px; color: #444;">
+                    ${pastilleStatut} ${item.detail}
+                </div>
+            </div>
+        `;
+    });
+
+    document.getElementById("quiz-container").innerHTML = htmlBilan;
+}
+
+chargerQuestion();
+</script>
+</body>
+</html>
