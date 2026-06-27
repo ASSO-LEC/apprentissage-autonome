@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niveau B2 : Les Articles Définis et Indéfinis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            padding: 30px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        p {
+            text-align: justify;
+        }
+        input {
+            width: 50px;
+            padding: 4px 6px;
+            margin: 0 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+            background-color: #e8f4fd;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #score {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Exercice : Complétez avec le bon article</h1>
+    <p><em>Consigne : Remplissez les blancs avec l'article qui convient (<strong>un, une, des, le, la, l', les</strong>). Attention aux majuscules en début de phrase !</em></p>
+    <hr>
+    
+    <form id="quizForm">
+        
+        <p>
+			1) Bientôt Claude Gueux devint <input type="text" data-ans="un"> modèle. <br>
+			2)  Dans <input type="text" data-ans="la"> prison, <input type="text" data-ans="les"> journées se passaient à travailler, <input type="text" data-ans="les"> nuits à dormir. <br>
+			3) <input type="text" data-ans="Le"> silence était <input type="text" data-ans="la"> règle absolue.<br> 
+			4) <input type="text" data-ans="Les"> gardiens veillaient sur <input type="text" data-ans="les"> rangs, <input type="text" data-ans="les"> inspecteurs surveillaient <input type="text" data-ans="les"> cours. <br>
+			5) <input type="text" data-ans="Un"> jour, <input type="text" data-ans="un"> détenu voulut parler à <input type="text" data-ans="un"> camarade ; <br>
+			6) <input type="text" data-ans="le"> gardien l'aperçut, et <input type="text" data-ans="le"> rapport fut fait. <br> 
+			7) <input type="text" data-ans="La"> punition tomba immédiatement : <input type="text" data-ans="un"> isolement total pendant <input type="text" data-ans="une"> semaine.
+
+	   </p>
+        <p>
+            8) Cependant, Claude avait <input type="text" data-ans="un"> ami parmi <input type="text" data-ans="les"> autres condamnés.<br> 
+			9) C'était <input type="text" data-ans="un"> jeune homme nommé Albin. Albin était <input type="text" data-ans="un"> être doux, pâle, qui partageait <input type="text" data-ans="les"> rations de pain avec ceux qui avaient faim. <br> 
+			10) <input type="text" data-ans="La"> sympathie grandit entre <input type="text" data-ans="les"> deux hommes.<br> 
+			11) <input type="text" data-ans="Les"> autres détenus regardaient <input type="text" data-ans="cette"> amitié avec <input type="text" data-ans="un"> profond respect, <br>
+			12) car <input type="text" data-ans="le"> courage de Claude impressionnait <input type="text" data-ans="la"> foule <input type="text" data-ans="des"> malheureux enfermés ici.
+	
+		
+		</p>
+        
+
+        <div class="btn-container">
+            <button type="button" onclick="verifierReponses()">Vérifier mes réponses par JPJ</button>
+        </div>
+    </form>
+
+    <div id="score"></div>
+</div>
+
+<script>
+function verifierReponses() {
+    const inputs = document.querySelectorAll('#quizForm input');
+    let score = 0;
+    let total = inputs.length;
+
+    inputs.forEach(input => {
+        // Nettoyage de la réponse de l'utilisateur (minuscules, retrait des espaces inutiles)
+        let reponseUtilisateur = input.value.trim().toLowerCase();
+        let bonneReponse = input.getAttribute('data-ans').toLowerCase();
+
+        // Gestion des majuscules automatiques pour le début des phrases
+        // Si la bonne réponse attendue commence par une majuscule dans le contexte, on accepte les deux.
+        if (reponseUtilisateur === bonneReponse) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const scoreDiv = document.getElementById('score');
+    scoreDiv.innerHTML = `Votre score : ${score} / ${total} (${Math.round((score/total)*100)}% de bonnes réponses)`;
+    
+    if(score === total) {
+        scoreDiv.style.color = '#28a745';
+        scoreDiv.innerHTML += "<br>🎉 Félicitations ! Un sans-faute parfait !";
+    } else if (score >= total / 2) {
+        scoreDiv.style.color = '#3498db';
+        scoreDiv.innerHTML += "<br>Pas mal ! Encore un petit effort.";
+    } else {
+        scoreDiv.style.color = '#dc3545';
+        scoreDiv.innerHTML += "<br>Courage, relisez bien la leçon sur les articles et réessayez !";
+    }
+}
+</script>
+
+</body>
+</html>
