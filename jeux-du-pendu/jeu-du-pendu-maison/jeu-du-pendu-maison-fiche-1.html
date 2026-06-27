@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Pendu avec Aide Visuelle Immédiate</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; padding: 20px; }
+        .word-display { font-size: 2rem; letter-spacing: 0.5rem; margin: 20px; font-weight: bold; }
+        .letters-container { display: flex; flex-wrap: wrap; justify-content: center; max-width: 600px; margin: 0 auto; }
+        .letter-btn { margin: 5px; padding: 10px 15px; font-size: 1.1rem; cursor: pointer; background-color: #fff; border: 2px solid #ccc; border-radius: 5px; }
+        .letter-btn:disabled { background-color: #ddd; cursor: not-allowed; }
+        .message { font-size: 1.5rem; margin: 20px; font-weight: bold; }
+        .info { margin: 10px; color: #555; }
+        button#restart { padding: 10px 20px; font-size: 1rem; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+        
+        /* Style pour la zone d'image d'aide */
+        .image-container { margin: 20px auto; min-height: 200px; display: flex; justify-content: center; align-items: center; }
+        .game-image { max-width: 250px; max-height: 250px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px solid #333; /* Cadre plus prononcé pour l'aide */ }
+        .victory-image { border: 2px solid green; box-shadow: 0 4px 15px rgba(0,255,0,0.3); } /* Style spécial victoire */
+    </style>
+</head>
+<body>
+
+    <h1>Le Jeu du Pendu   Merci au LEC pour la fiche maison 1</h1>
+    <div class="info">Vies restantes : <span id="lives">6</span></div>
+    
+    <div class="image-container">
+        <img id="gameImage" class="game-image" src="" alt="Aide visuelle">
+    </div>
+
+    <div class="word-display" id="wordDisplay"></div>
+    <div class="letters-container" id="lettersContainer"></div>
+    <div class="message" id="message"></div>
+    
+    <button id="restart" onclick="initGame()">Recommencer</button>
+
+    <script>
+        // 1. LA LISTE DES MOTS ET LEURS IMAGES ASSOCIEES
+        // Remplacez les liens "images/..." par vos vrais fichiers ou des URL internet
+        const listeMots = [
+            { mot: "armoire", imgIndex: "armoire.jpg" },
+            { mot: "baignoire", imgIndex: "baignoire.jpg" },
+            { mot: "bibliothèque", imgIndex: "bibliotheque.jpg" },
+            { mot: "bureau", imgIndex: "bureau.jpg" },
+            { mot: "canapé", imgIndex: "canape.jpg" },
+            { mot: "chaise", imgIndex: "chaise.jpg" },
+            { mot: "commode", imgIndex: "commode.jpg" },
+            { mot: "congélateur", imgIndex: "congelateur.jpg" },
+            { mot: "cuisinière", imgIndex: "cuisiniere.jpg" },
+            { mot: "douche", imgIndex: "douche.jpg" }, 
+            { mot: "évier", imgIndex: "evier.jpg" },
+            { mot: "fauteuil", imgIndex: "fauteuil.jpg" },
+            { mot: "four", imgIndex: "four.jpg" },
+            { mot: "lampe", imgIndex: "lampe.jpg" },
+            { mot: "lavabo", imgIndex: "lavabo.jpg" },
+            { mot: "lave-linge", imgIndex: "lavelinge.jpg" }, 
+            { mot: "lave-vaisselle", imgIndex: "lavevaisselle.jpg" },
+            { mot: "lit", imgIndex: "lit.jpg" },
+            { mot: "lits superposés", imgIndex: "litssuperposes.jpg" },
+            { mot: "placard", imgIndex: "placard.jpg" },
+            { mot: "porte", imgIndex: "porte.jpg" },
+            { mot: "porte-manteau", imgIndex: "portemanteau.jpg" },
+            { mot: "réfrigérateur", imgIndex: "refrigerateur.jpg" },
+            { mot: "le sèche-linge", imgIndex: "sechelinge.jpg" },
+            { mot: "la table", imgIndex: "table.jpg" }, 
+            { mot: "table basse", imgIndex: "tablebasse.jpg" },
+            { mot: "table de chevet", imgIndex: "tablechevet.jpg" },
+            { mot: "tabouret", imgIndex: "tabouret.jpg" }
+        ];
+
+        // 2. IMAGE DE VICTOIRE (utilisée quand le mot est trouvé)
+        const imageVictoire = "victoire.jpg";
+
+        let currentWordObject = null;
+        let wordToGuess = "";
+        let displayedWord = [];
+        let maxLives = 6;
+        let currentLives = maxLives;
+
+        function normalizeString(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        function initGame() {
+            currentLives = maxLives;
+            document.getElementById("lives").textContent = currentLives;
+            document.getElementById("message").textContent = "";
+            
+            // Tirage aléatoire de l'objet contenant le mot et son image
+            const randomIndex = Math.floor(Math.random() * listeMots.length);
+            currentWordObject = listeMots[randomIndex];
+            wordToGuess = currentWordObject.mot;
+
+            // --- NOUVEAUTÉ : Afficher l'image d'aide DÈS LE DÉBUT ---
+            const imgElement = document.getElementById("gameImage");
+            imgElement.src = currentWordObject.imgIndex; // Charge l'image du meuble
+            imgElement.classList.remove("victory-image"); // Enlever style victoire si présent
+            imgElement.style.display = "block"; // S'assurer qu'elle est visible
+            
+            // Préparation des tirets / espaces
+            displayedWord = [];
+            for (let char of wordToGuess) {
+                if (char === " ") {
+                    displayedWord.push(" ");
+                } else if (char === "-") {
+                    displayedWord.push("-");
+                } else {
+                    displayedWord.push("_");
+                }
+            }
+            
+            renderWord();
+            generateKeyboard();
+        }
+
+        function renderWord() {
+            const htmlDisplay = displayedWord.map(char => char === " " ? "&nbsp;&nbsp;" : char).join(" ");
+            document.getElementById("wordDisplay").innerHTML = htmlDisplay;
+        }
+
+        function generateKeyboard() {
+            const container = document.getElementById("lettersContainer");
+            container.innerHTML = "";
+            const alphabet = "abcdefghijklmnopqrstuvwxyz";
+            for (let letter of alphabet) {
+                const btn = document.createElement("button");
+                btn.textContent = letter.toUpperCase();
+                btn.classList.add("letter-btn");
+                btn.onclick = () => guessLetter(letter, btn);
+                container.appendChild(btn);
+            }
+        }
+
+        function guessLetter(letter, buttonElement) {
+            buttonElement.disabled = true;
+            let letterFound = false;
+            const normalizedTarget = normalizeString(wordToGuess);
+
+            for (let i = 0; i < normalizedTarget.length; i++) {
+                if (normalizedTarget[i] === letter) {
+                    displayedWord[i] = wordToGuess[i];
+                    letterFound = true;
+                }
+            }
+
+            if (letterFound) {
+                renderWord();
+                checkWin();
+            } else {
+                currentLives--;
+                document.getElementById("lives").textContent = currentLives;
+                checkLose();
+            }
+        }
+
+        function checkWin() {
+            if (!displayedWord.includes("_")) {
+                document.getElementById("message").textContent = " Bravo ! Vous avez gagné !";
+                disableAllButtons();
+                
+                // --- ACTION VICTOIRE : Remplacer l'aide par l'image de réussite ---
+                const imgElement = document.getElementById("gameImage");
+                imgElement.src = Victoire;
+                imgElement.classList.add("victory-image"); // Appliquer style spécial
+            }
+        }
+
+        function checkLose() {
+            if (currentLives <= 0) {
+                document.getElementById("message").textContent = `💥 Perdu ! Le mot était : "${wordToGuess}"`;
+                disableAllButtons();
+                // L'image d'aide reste affichée, montrant la solution visuelle.
+            }
+        }
+
+        function disableAllButtons() {
+            const buttons = document.querySelectorAll(".letter-btn");
+            buttons.forEach(btn => btn.disabled = true);
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
