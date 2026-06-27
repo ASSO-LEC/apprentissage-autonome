@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niveau A1 : Les Articles</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 2;
+            padding: 20px;
+            background-color: #fcfcfc;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e1e8ed;
+        }
+        
+        /* Style de la page de garde */
+        #page-garde {
+            text-align: center;
+            padding: 30px 10px;
+        }
+        #page-garde h1 {
+            color: #e67e22;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        #page-garde h2 {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .badge {
+            background-color: #e67e22;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #fdf6f0;
+            border-left: 5px solid #e67e22;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: left;
+            max-width: 550px;
+            margin: 0 auto 40px auto;
+        }
+        .instructions ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        
+        /* Bouton Commencer */
+        .btn-commencer {
+            padding: 15px 40px;
+            font-size: 18px;
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+            transition: all 0.2s;
+        }
+        .btn-commencer:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+        }
+
+        /* Style de la zone de texte */
+        #zone-exercice {
+            display: none;
+        }
+        #zone-exercice h1 {
+            color: #e67e22;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        
+        p {
+            text-align: justify;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+        input {
+            width: 55px;
+            padding: 4px 5px;
+            margin: 0 4px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        input:focus {
+            outline: none;
+            border-color: #e67e22;
+            background-color: #fdf6f0;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .btn-corriger {
+            padding: 14px 35px;
+            font-size: 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-corriger:hover {
+            background-color: #219653;
+        }
+        #score {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- 1. ÉCRAN DE GARDE -->
+    <div id="page-garde">
+        <span class="badge">Niveau A1 par JPJ</span>
+        <h1>Les Articles définis, indéfinis, singulier et pluriel</h1>
+        <h2>Histoire : La famille Petit</h2>
+        
+        <div class="instructions">
+            <strong>📋 Comment faire l'exercice ?</strong>
+            <ul>
+                <li>Écris le bon article dans les cases : <strong>un, une, des, le, la, l', les</strong>.</li>
+                <li> <strong>Attention :</strong> Au début de la phrase, mets une <strong>majuscule</strong> (ex: <em>Le, La, Un, Une</em>) <strong> ne pas oubliez l'apostrophe <dtrong> pour <strong> l'<strong>.</li>
+                <li>Bon courage !</li>
+            </ul>
+        </div>
+        
+        <button type="button" class="btn-commencer" onclick="demarrerExercice()">Commencer</button>
+    </div>
+
+    <!-- 2. ZONE DE L'EXERCICE -->
+    <div id="zone-exercice">
+        <h1>Complète l'histoire</h1>
+        <hr>
+        
+        <form id="quizForm">
+           
+            
+            <p>
+				13)   <input type="text" data-ans="Le"> père travaille dans <input type="text" data-ans="un"> bureau au centre-ville. <br> 
+				14) Il prend <input type="text" data-ans="la"> voiture. C'est <input type="text" data-ans="une"> petite voiture rouge. <br> 
+				15) <input type="text" data-ans="La"> mère travaille dans <input type="text" data-ans="un"> grand magasin. <br> 
+				16) Elle parle avec <input type="text" data-ans="les"> clients toute <input type="text" data-ans="la"> journée.
+						
+			</p>
+            
+            <p>
+                17) Le soir, <input type="text" data-ans="la"> famille est ensemble dans <input type="text" data-ans="le"> salon. <br> 
+				18) <input type="text" data-ans="Les"> enfants regardent <input type="text" data-ans="une"> vidéo ou font <input type="text" data-ans="les"> devoirs. <br> 
+				19) <input type="text" data-ans="Le"> chien dort sur <input type="text" data-ans="le"> tapis. <br> 
+				20) Ensuite, ils mangent <input type="text" data-ans="une"> bonne soupe et <input type="text" data-ans="un"> fruit pour <input type="text" data-ans="le"> dîner. <br> 
+				20) C'est <input type="text" data-ans="une"> vie simple et heureuse !
+			
+						
+			</p>
+
+            <div class="btn-container">
+                <button type="button" class="btn-corriger" onclick="verifierReponses()">Vérifier mes réponses par JPJ</button>
+            </div>
+        </form>
+
+        <div id="score"></div>
+    </div>
+</div>
+
+<script>
+function demarrerExercice() {
+    document.getElementById('page-garde').style.display = 'none';
+    document.getElementById('zone-exercice').style.display = 'block';
+}
+
+function verifierReponses() {
+    const inputs = document.querySelectorAll('#quizForm input');
+    let score = 0;
+    let total = inputs.length;
+
+    inputs.forEach(input => {
+        let reponseUtilisateur = input.value.trim().toLowerCase();
+        let bonneReponse = input.getAttribute('data-ans').toLowerCase();
+
+        if (reponseUtilisateur === bonneReponse) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const scoreDiv = document.getElementById('score');
+    scoreDiv.innerHTML = `Ton score : ${score} / ${total} (${Math.round((score/total)*100)}% de bonnes réponses)`;
+    
+    if(score === total) {
+        scoreDiv.style.color = '#28a745';
+        scoreDiv.innerHTML += "<br>Bravo ! C'est un sans-faute ! Tu comprends vraiement bien les articles!";
+    } else if (score >= total * 0.7) {
+        scoreDiv.style.color = '#e67e22';
+        scoreDiv.innerHTML += "<br>Très bien ! Tu comprends bien les articles. Mais on peut en parler en cours pour améliorer ton connaissances.";
+    } else {
+        scoreDiv.style.color = '#dc3545';
+        scoreDiv.innerHTML += "<br>Regarde les cases rouges, corrige tes erreurs et essaie encore ! ou parles en cours,on verra ce que tu n'as pas bien assimilé";
+    }
+    
+    scoreDiv.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
