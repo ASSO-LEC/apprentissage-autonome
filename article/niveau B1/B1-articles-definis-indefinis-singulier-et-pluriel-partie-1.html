@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niveau B1 : Les Articles</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.9;
+            padding: 20px;
+            background-color: #f4f6f9;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Style de la page de garde */
+        #page-garde {
+            text-align: center;
+            padding: 40px 10px;
+        }
+        #page-garde h1 {
+            color: #9b59b6;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        #page-garde h2 {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .badge {
+            background-color: #9b59b6;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #faf5fc;
+            border-left: 5px solid #9b59b6;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: left;
+            max-width: 650px;
+            margin: 0 auto 40px auto;
+        }
+        .instructions ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        
+        /* Bouton Commencer */
+        .btn-commencer {
+            padding: 15px 40px;
+            font-size: 18px;
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+            transition: all 0.2s;
+        }
+        .btn-commencer:hover {
+            background-color: #8e44ad;
+            transform: translateY(-2px);
+        }
+
+        /* Style de la zone de texte */
+        #zone-exercice {
+            display: none;
+        }
+        #zone-exercice h1 {
+            color: #9b59b6;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        
+        p {
+            text-align: justify;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 55px;
+            padding: 3px 5px;
+            margin: 0 2px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        input:focus {
+            outline: none;
+            border-color: #9b59b6;
+            background-color: #faf5fc;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .btn-corriger {
+            padding: 14px 35px;
+            font-size: 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-corriger:hover {
+            background-color: #219653;
+        }
+        #score {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- 1. ÉCRAN DE GARDE -->
+    <div id="page-garde">
+        <span class="badge">Niveau FLE B1</span>
+        <h1>Maîtrise des Articles</h1>
+        <h2>Sujet de société : L'ère du numérique Partie 1</h2>
+        
+        <div class="instructions">
+            <strong>📋 Objectifs du niveau B1 :</strong>
+            <ul>
+                <li>Savoir choisir entre définis et indéfinis dans des contextes abstraits ou d'actualité.</li>
+                <li>Gérer l'omission ou l'ajout d'articles devant des concepts généraux.</li>
+                <li>Remplissez les cases avec : <strong>un, une, des, le, la, l', les</strong>.</li>
+                <li>⚠️ <strong>Rappel :</strong> Les majuscules sont obligatoires en début de phrase. .</li>
+            </ul>
+        </div>
+        
+        <button type="button" class="btn-commencer" onclick="demarrerExercice()">Lancer la 1ère partie par JPJ</button>
+    </div>
+
+    <!-- 2. ZONE DE L'EXERCICE -->
+    <div id="zone-exercice">
+        <h1>Complétez l'analyse avec les articles appropriés</h1>
+        <hr>
+        
+        <form id="quizForm">
+            <p>
+             1) De nos jours, <input type="text" data-ans="la"> technologie occupe <input type="text" data-ans="une"> place centrale dans notre quotidien. <br>
+			 2) <input type="text" data-ans="Le"> matin, <input type="text" data-ans="l'">utilisateur moyen éteint <input type="text" data-ans="le"> réveil de son smartphone avant même d'ouvrir <input type="text" data-ans="les"> yeux. <br> 
+			 3) C'est <input type="text" data-ans="le"> début d'un cycle incessant. <br> 
+			 4) <input type="text" data-ans="Les"> réseaux sociaux, <input type="text" data-ans="les"> applications de messagerie et <input type="text" data-ans="les"> courriels professionnels dictent <input type="text" data-ans="le"> rythme de <input type="text" data-ans="la"> journée. <br> 
+			 5) <input type="text" data-ans="Un"> grand nombre d'experts estiment que <input type="text" data-ans="cette"> dépendance modifie profondément <input type="text" data-ans="les"> relations humaines et <input type="text" data-ans="la"> communication.
+
+		   </p>
+            
+            <p>
+             6)Récemment, <input type="text" data-ans="un"> jeune ingénieur a mené <input type="text" data-ans="une"> expérience intéressante. <br> 
+             7) Il a décidé de passer <input type="text" data-ans="une"> semaine entière sans utiliser <input type="text" data-ans="d'"> Internet. <br> 
+			 8) Au départ, <input type="text" data-ans="la"> tentative semblait être <input type="text" data-ans="un"> véritable cauchemar. <br> 
+			 9) Il a ressenti <input type="text" data-ans="un"> grand vide, <input type="text" data-ans="une"> anxiété face à <input type="text" data-ans="l'">isolement et <input type="text" data-ans="le"> sentiment de perdre <input type="text" data-ans="le"> contrôle.<br> 
+			10) Sans <input type="text" data-ans="le"> GPS, trouver <input type="text" data-ans="une"> adresse devenait <input type="text" data-ans="un"> défi complexe, <br>
+			11)  et sans <input type="text" data-ans="les"> applications bancaires, gérer <input type="text" data-ans="l'">argent demandait <input type="text" data-ans="une"> tout autre organisation.
+			
+			</p>
+            
+            <p>
+             12) Pourtant, dès <input type="text" data-ans="le"> troisième jour, <input type="text" data-ans="des"> changements positifs sont apparus. <br> 
+			 13) <input type="text" data-ans="L'">ingénieur a redécouvert <input type="text" data-ans="le"> plaisir de lire <input type="text" data-ans="un"> livre en papier. <br> 
+			 14) Durant <input type="text" data-ans="les"> soirées, au lieu de regarder <input type="text" data-ans="des"> vidéos sur <input type="text" data-ans="un"> écran, <br> 
+			 15) il a partagé <input type="text" data-ans="des"> discussions passionnantes avec <input type="text" data-ans="des"> amis autour d'un repas. <br> 
+			 16) <input type="text" data-ans="La"> concentration, souvent perturbée par <input type="text" data-ans="les"> notifications, est revenue. <br> 
+			 17) Il a constaté <input type="text" data-ans="une"> nette amélioration de <input type="text" data-ans="la"> qualité de son sommeil.
+		   </p>
+            
+          
+
+            <div class="btn-container">
+                <button type="button" class="btn-corriger" onclick="verifierReponses()">Analyser mes résultats par JPJ</button>
+            </div>
+        </form>
+
+        <div id="score"></div>
+    </div>
+</div>
+
+<script>
+function demarrerExercice() {
+    document.getElementById('page-garde').style.display = 'none';
+    document.getElementById('zone-exercice').style.display = 'block';
+}
+
+function verifierReponses() {
+    const inputs = document.querySelectorAll('#quizForm input');
+    let score = 0;
+    let total = inputs.length;
+
+    inputs.forEach(input => {
+        let reponseUtilisateur = input.value.trim().toLowerCase();
+        let bonneReponse = input.getAttribute('data-ans').toLowerCase();
+
+        // Permet l'omission d'un article ou la négation "d'" si nécessaire
+        if (reponseUtilisateur === bonneReponse) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const scoreDiv = document.getElementById('score');
+    scoreDiv.innerHTML = `Votre score : ${score} / ${total} (${Math.round((score/total)*100)}% de bonnes réponses)`;
+    
+    if(score === total) {
+        scoreDiv.style.color = '#28a745';
+        scoreDiv.innerHTML += "<br>Excellent ! Vous maîtrisez les subtilités des articles au niveau B1 !";
+    } else if (score >= total * 0.75) {
+        scoreDiv.style.color = '#9b59b6';
+        scoreDiv.innerHTML += "<br>Très bon niveau. Analysez vos quelques erreurs pour viser le sans-faute.";
+    } else {
+        scoreDiv.style.color = '#dc3545';
+        scoreDiv.innerHTML += "<br>Des confusions persistent, notamment face aux concepts abstraits ou aux pluriels. Relisez le texte corrigé et parlons en cours si tu veux.";
+    }
+    
+    scoreDiv.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niveau B1 : Les Articles</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.9;
+            padding: 20px;
+            background-color: #f4f6f9;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Style de la page de garde */
+        #page-garde {
+            text-align: center;
+            padding: 40px 10px;
+        }
+        #page-garde h1 {
+            color: #9b59b6;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        #page-garde h2 {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .badge {
+            background-color: #9b59b6;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #faf5fc;
+            border-left: 5px solid #9b59b6;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: left;
+            max-width: 650px;
+            margin: 0 auto 40px auto;
+        }
+        .instructions ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        
+        /* Bouton Commencer */
+        .btn-commencer {
+            padding: 15px 40px;
+            font-size: 18px;
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+            transition: all 0.2s;
+        }
+        .btn-commencer:hover {
+            background-color: #8e44ad;
+            transform: translateY(-2px);
+        }
+
+        /* Style de la zone de texte */
+        #zone-exercice {
+            display: none;
+        }
+        #zone-exercice h1 {
+            color: #9b59b6;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        
+        p {
+            text-align: justify;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 55px;
+            padding: 3px 5px;
+            margin: 0 2px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        input:focus {
+            outline: none;
+            border-color: #9b59b6;
+            background-color: #faf5fc;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .btn-corriger {
+            padding: 14px 35px;
+            font-size: 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-corriger:hover {
+            background-color: #219653;
+        }
+        #score {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- 1. ÉCRAN DE GARDE -->
+    <div id="page-garde">
+        <span class="badge">Niveau FLE B1</span>
+        <h1>Maîtrise des Articles</h1>
+        <h2>Sujet de société : L'ère du numérique Partie 2</h2>
+        
+        <div class="instructions">
+            <strong>📋 Objectifs du niveau B1 :</strong>
+            <ul>
+                <li>Savoir choisir entre définis et indéfinis dans des contextes abstraits ou d'actualité.</li>
+                <li>Gérer l'omission ou l'ajout d'articles devant des concepts généraux.</li>
+                <li>Remplissez les cases avec : <strong>un, une, des, le, la, l', les</strong>.</li>
+                <li>⚠️ <strong>Rappel :</strong> Les majuscules sont obligatoires en début de phrase. .</li>
+            </ul>
+        </div>
+        
+        <button type="button" class="btn-commencer" onclick="demarrerExercice()">Lancer la 2ème partie par JPJ</button>
+    </div>
+
+    <!-- 2. ZONE DE L'EXERCICE -->
+    <div id="zone-exercice">
+        <h1>Complétez l'analyse avec les articles appropriés</h1>
+        <hr>
+        
+        <form id="quizForm">
+                       
+            <p>
+                 1) Parallèlement, <input type="text" data-ans="l'">émergence de <input type="text" data-ans="l'">intelligence artificielle pose <input type="text" data-ans="des"> questions éthiques majeures. <br< 
+				 2) <input type="text" data-ans="Les"> algorithmes peuvent désormais rédiger <input type="text" data-ans="des"> articles, générer <input type="text" data-ans="des"> images et même simuler <input type="text" data-ans="la"> voix d'un être humain. <br> 
+				 3) Pour <input type="text" data-ans="les"> créateurs, c'est <input type="text" data-ans="une"> menace pour <input type="text" data-ans="le"> droit d'auteur. <br>
+				 4) <input type="text" data-ans="Un"> artiste peintre affirmait récemment dans <input type="text" data-ans="un"> journal : <br> 
+				 5) « <input type="text" data-ans="L'">IA produit <input type="text" data-ans="des"> œuvres en quelques secondes, mais elle n'aura jamais <input type="text" data-ans="l'">âme ni <input type="text" data-ans="la"> sensibilité d'un humain. »
+			
+			</p>
+            
+            <p>
+                 6) Dans <input type="text" data-ans="le"> domaine de <input type="text" data-ans="la"> médecine, en revanche, <input type="text" data-ans="les"> perspectives sont formidables.<br>  
+				 7) <input type="text" data-ans="Les"> ordinateurs analysent <input type="text" data-ans="les"> données à <input type="text" data-ans="une"> vitesse incroyable pour détecter <input type="text" data-ans="des"> maladies précocement. 
+				 8) <br> <input type="text" data-ans="Un"> médecin expliquait qu'<input type="text" data-ans="une"> machine peut repérer <input type="text" data-ans="un"> problème invisible pour <input type="text" data-ans="l'">œil humain. <br> 
+				 9) Cependant, <input type="text" data-ans="le"> contact humain reste <input type="text" data-ans="le"> pilier fondamental de <input type="text" data-ans="la"> guérison, <br>
+				10)  car <input type="text" data-ans="un"> robot ne peut offrir <input type="text" data-ans="la"> moindre empathie à <input type="text" data-ans="un"> patient en détresse.
+			
+			</p>
+            
+            <p>
+                11) Pour conclure, <input type="text" data-ans="le"> progrès n'est ni <input type="text" data-ans="une"> bonne ni <input type="text" data-ans="une"> mauvaise chose en soi.<br> 
+				12) Tout dépend de <input type="text" data-ans="la"> manière dont <input type="text" data-ans="la"> société choisit d'adopter <input type="text" data-ans="les"> nouveaux outils. <br> 
+				13) Trouver <input type="text" data-ans="le"> juste équilibre entre <input type="text" data-ans="l'">innovation et <input type="text" data-ans="la"> préservation de nos valeurs est sans doute <input type="text" data-ans="le"> plus grand défi de <input type="text" data-ans="l'">humanité moderne. <br> 
+				14) <input type="text" data-ans="Les"> citoyens doivent rester vigilants pour que <input type="text" data-ans="la"> machine demeure toujours <input type="text" data-ans="un"> instrument au service de <input type="text" data-ans="l'">homme, et non l'inverse.
+			
+			
+			</p>
+
+            <div class="btn-container">
+                <button type="button" class="btn-corriger" onclick="verifierReponses()">Analyser mes résultats par JPJ</button>
+            </div>
+        </form>
+
+        <div id="score"></div>
+    </div>
+</div>
+
+<script>
+function demarrerExercice() {
+    document.getElementById('page-garde').style.display = 'none';
+    document.getElementById('zone-exercice').style.display = 'block';
+}
+
+function verifierReponses() {
+    const inputs = document.querySelectorAll('#quizForm input');
+    let score = 0;
+    let total = inputs.length;
+
+    inputs.forEach(input => {
+        let reponseUtilisateur = input.value.trim().toLowerCase();
+        let bonneReponse = input.getAttribute('data-ans').toLowerCase();
+
+        // Permet l'omission d'un article ou la négation "d'" si nécessaire
+        if (reponseUtilisateur === bonneReponse) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const scoreDiv = document.getElementById('score');
+    scoreDiv.innerHTML = `Votre score : ${score} / ${total} (${Math.round((score/total)*100)}% de bonnes réponses)`;
+    
+    if(score === total) {
+        scoreDiv.style.color = '#28a745';
+        scoreDiv.innerHTML += "<br>Excellent ! Vous maîtrisez les subtilités des articles au niveau B1 !";
+    } else if (score >= total * 0.75) {
+        scoreDiv.style.color = '#9b59b6';
+        scoreDiv.innerHTML += "<br>Très bon niveau. Analysez vos quelques erreurs pour viser le sans-faute.";
+    } else {
+        scoreDiv.style.color = '#dc3545';
+        scoreDiv.innerHTML += "<br>Des confusions persistent, notamment face aux concepts abstraits ou aux pluriels. Relisez le texte corrigé et parlons en cours si tu veux.";
+    }
+    
+    scoreDiv.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
