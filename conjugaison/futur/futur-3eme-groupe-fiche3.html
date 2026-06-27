@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Futur Simple (Verbes du 3ème groupe)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 650px;
+            width: 100%;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+        .instruction {
+            background-color: #e8f4f8;
+            padding: 10px 15px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .question-block {
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #e0e0e0;
+            font-size: 1.1rem;
+        }
+        .verb-hint {
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        input[type="text"] {
+            padding: 6px 10px;
+            font-size: 1rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            width: 140px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .correct {
+            background-color: #2ecc71 !important;
+            color: white;
+            border-color: #27ae60 !important;
+        }
+        .incorrect {
+            background-color: #e74c3c !important;
+            color: white;
+            border-color: #c0392b !important;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        .feedback {
+            font-size: 0.9rem;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .feedback.ok { color: #27ae60; }
+        .feedback.ko { color: #c0392b; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Exercice de Conjugaison</h1>
+    <p class="subtitle">Le Futur Simple (Faire, Mettre, Écrire...) fiche n°3 du LEC</p>
+    
+    <div class="instruction">
+        Consigne : Conjugue le verbe entre parenthèses au futur simple. Attention aux verbes comme "faire" qui changent de radical !
+    </div>
+
+    <form id="quizForm">
+        <div id="quiz-questions"></div>
+
+        <div class="btn-container">
+            <button type="button" onclick="verifierReponses()">Vérifier mes réponses par JPJ</button>
+        </div>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+// Base de données des phrases fournies
+const questionsData = [
+    { avant: "Tu ", verbe: "Faire", apres: " la vaisselle.", attendu: "feras" },
+    { avant: "On ", verbe: "Interdire", apres: " le téléphone portable.", attendu: "interdira" },
+    { avant: "Nous ", verbe: "Mettre", apres: " une chemise.", attendu: "mettrons" },
+    { avant: "Elles ", verbe: "Croire", apres: " en elles.", attendu: "croiront" },
+    { avant: "Il ", verbe: "Vivre", apres: " seul.", attendu: "vivra" },
+    { avant: "Ils ", verbe: "Suivre", apres: " cette piste.", attendu: "suivront" },
+    { avant: "On", verbe: "Écrire", apres: " une lettre.", attendu: "écrira" },
+    { avant: "Vous ", verbe: "Rire", apres: " de vos bêtises.", attendu: "rirez" },
+    { avant: "Je", verbe: "Lire", apres: " ce livre.", attendu: "lirai" },
+    { avant: "Elles ", verbe: "Boire", apres: " du thé.", attendu: "boiront" },
+    { avant: "On ", verbe: "Inscrire", apres: " les nouveaux élèves.", attendu: "inscrira" },
+    { avant: "Les soldats ", verbe: "Poursuivre", apres: " l'ennemi.", attendu: "poursuivront" },
+    { avant: "Vous ", verbe: "Sourire", apres: ".", attendu: "sourirez" },
+    { avant: "Nous ", verbe: "Battre", apres: " nos adversaires.", attendu: "battrons" }
+];
+
+const container = document.getElementById('quiz-questions');
+
+questionsData.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.className = 'question-block';
+    div.innerHTML = `
+        ${index + 1}. ${item.avant} 
+        <input type="text" id="q${index}" autocomplete="off"> 
+        ${item.apres} 
+        <span class="verb-hint">(${item.verbe})</span>
+        <span id="feedback${index}" class="feedback"></span>
+    `;
+    container.appendChild(div);
+});
+
+function verifierReponses() {
+    let score = 0;
+    
+    questionsData.forEach((item, index) => {
+        const input = document.getElementById(`q${index}`);
+        const feedback = document.getElementById(`feedback${index}`);
+        const reponseEleve = input.value.trim().toLowerCase();
+        
+        const attenduMinuscule = item.attendu.toLowerCase();
+        // Option alternative sans accent pour "On écrira" -> "on ecrira"
+        const attenduSansAccent = attenduMinuscule.replace('é', 'e');
+        
+        if (reponseEleve === attenduMinuscule || reponseEleve === attenduSansAccent) {
+            input.className = "correct";
+            feedback.innerHTML = "✓";
+            feedback.className = "feedback ok";
+            score++;
+        } else {
+            input.className = "incorrect";
+            feedback.innerHTML = `✗ (Attendu : ${item.attendu})`;
+            feedback.className = "feedback ko";
+        }
+    });
+    
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `Votre score : ${score} / ${questionsData.length}`;
+    
+    if (score === questionsData.length) {
+        resultDiv.style.color = "#27ae60";
+        resultDiv.innerHTML += " - Excellent ! 🎉";
+    } else if (score >= questionsData.length / 2) {
+        resultDiv.style.color = "#e67e22";
+        resultDiv.innerHTML += " - Pas mal, continuez à réviser ! 👍";
+    } else {
+        resultDiv.style.color = "#c0392b";
+        resultDiv.innerHTML += " - Courage, relisez bien vos terminaisons. 💪";
+    }
+}
+</script>
+
+</body>
+</html>
