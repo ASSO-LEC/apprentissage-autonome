@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apprentissage Autonome FLE 🇫🇷</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            margin: 0;
+        }
+        h1 { color: #2c3e50; margin-bottom: 30px; text-align: center; }
+        
+        .main-container {
+            display: flex;
+            gap: 30px;
+            max-width: 900px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .category-card {
+            background: white;
+            flex: 1;
+            min-width: 300px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 6px solid #3498db;
+        }
+        .category-card.games { border-top-color: #27ae60; }
+
+        h2 { margin-top: 0; color: #2c3e50; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+        
+        .btn-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: block;
+            padding: 12px 15px;
+            background-color: #ebf5fb;
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border: 1px solid #d4e6f1;
+        }
+        .btn:hover {
+            background-color: #3498db;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .games .btn { background-color: #e8f8f5; border-color: #d1f2eb; color: #16a085; }
+        .games .btn:hover { background-color: #27ae60; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>🇫🇷 Bienvenue dans votre Espace d'Apprentissage Autonome</h1>
+
+    <div class="main-container">
+        
+        <div class="category-card">
+            <h2>📖 Mes Cours de Grammaire</h2>
+            <div class="btn-list">
+                <a class="btn" href="cours/verbes-4-grands.html">➡️ Conjugaison : Les 4 grands verbes</a>
+                <a class="btn" href="cours/verbes-1er-groupe.html">➡️ Le présent : Les verbes en -ER (1er groupe)</a>
+            </div>
+        </div>
+
+        <div class="category-card games">
+            <h2>🎮 Mes Jeux & Exercices</h2>
+            <div class="btn-list">
+                <a class="btn" href="jeux/mots-fleches-fruits.html">🍊 Mots Fléchés : Les Fruits</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
