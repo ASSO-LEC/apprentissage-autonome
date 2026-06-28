@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conjugaison Avoir Être Aller Faire</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f0f7;
+            color: #333;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(100, 50, 150, 0.08);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            color: #4a2c5a;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .texte-exercice {
+            font-size: 1.25rem;
+            line-height: 2.3;
+            text-align: justify;
+            background-color: #faf9fc;
+            padding: 25px;
+            border-left: 5px solid #8e44ad;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+        input[type="text"] {
+            padding: 2px 6px;
+            font-size: 1.15rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            width: 85px;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: all 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #8e44ad;
+            outline: none;
+            background-color: #fbf9fc;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #8e44ad;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #732d91;
+        }
+        #resultat {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 1.3rem;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .correct-input { border-color: #2ecc71 !important; background-color: #e8f8f5 !important; }
+        .incorrect-input { border-color: #e74c3c !important; background-color: #fceae9 !important; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>📝 Exercice : Un projet pour le week-end</h1>
+    <div class="instructions">Conjugue les verbes être, avoir, aller ou faire au présent.</div>
+
+    <form id="quizForm">
+        <div class="texte-exercice">
+            1) Aujourd'hui, mes collègues et moi, nous <input type="text" class="verbe" data-answer="sommes"> fatigués, 
+			<br> 2) mais nous <input type="text" class="verbe" data-answer="avons"> de grands projets. 
+            <br> 3) Ce soir, je <input type="text" class="verbe" data-answer="vais"> au cinéma avec mon frère. 
+            <br> 4) Demain, s'il <input type="text" class="verbe" data-answer="fait"> beau, tu <input type="text" class="verbe" data-answer="vas"> à la plage ? 
+            <br> 5) Mes cousins <input type="text" class="verbe" data-answer="font"> une randonnée en montagne 
+			<br> 6) car ils <input type="text" class="verbe" data-answer="ont"> besoin d'air pur. 
+            <br> 7) Ma tante <input type="text" class="verbe" data-answer="est"> très sportive, 
+			<br> 8) elle <input type="text" class="verbe" data-answer="fait"> du vélo tous les dimanches. 
+            <br> 9) Tout le monde <input type="text" class="verbe" data-answer="va"> bien dans la famille. 
+            <br> 10) Et vous, qu'est-ce que vous <input type="text" class="verbe" data-answer="faites"> ? 
+            <br> 11) Est-ce que vous <input type="text" class="verbe" data-answer="êtes"> libres ? 
+            <br> 12) J'<input type="text" class="verbe" data-answer="ai"> une invitation pour vous. 
+            <br> 13) Nous <input type="text" class="verbe" data-answer="allons"> au restaurant ensemble ! 
+            <br> 14) Le repas <input type="text" class="verbe" data-answer="est"> délicieux et le serveur <input type="text" class="verbe" data-answer="a"> beaucoup d'humour. 
+            <br> 15) C'<input type="text" class="verbe" data-answer="est"> une excellente idée.
+        </div>
+
+        <button type="button" onclick="verifierQuiz()">Valider mes réponses par JPJ</button>
+    </form>
+
+    <div id="resultat"></div>
+</div>
+
+<script>
+function verifierQuiz() {
+    const inputs = document.querySelectorAll('.verbe');
+    let score = 0;
+    const total = inputs.length;
+
+    inputs.forEach(input => {
+        const reponseUtilisateur = input.value.trim().toLowerCase();
+        const bonneReponse = input.getAttribute('data-answer').toLowerCase();
+
+        if (reponseUtilisateur === bonneReponse) {
+            score++;
+            input.className = "verbe correct-input";
+            input.title = "Bravo !";
+        } else {
+            input.className = "verbe incorrect-input";
+            // Donne un indice au survol si la réponse est fausse
+            input.title = "La réponse était : " + bonneReponse;
+        }
+    });
+
+    const divResultat = document.getElementById('resultat');
+    divResultat.style.display = "block";
+    
+    let message = `Votre score : ${score} / ${total}<br>`;
+    if (score === total) {
+        divResultat.className = "success";
+        message += "Félicitations ! C'est un sans-faute parfait !";
+    } else if (score >= total * 0.6) {
+        divResultat.className = "success";
+        message += "👍 Bon travail ! Corrige tes erreurs en passant la souris sur les cases rouges.";
+    } else {
+        divResultat.className = "error";
+        message += "💪  Ne t'inquiète pas, réessaie pour mémoriser les formes difficiles, on en reparle si tu veux en cours.";
+    }
+    
+    divResultat.innerHTML = message;
+    divResultat.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
