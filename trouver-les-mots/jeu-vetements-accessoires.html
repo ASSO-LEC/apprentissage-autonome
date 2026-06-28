@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Jeu des Accessoires et Costumes par JPJ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .counter {
+            text-align: center;
+            font-weight: bold;
+            color: #16a085; /* Une couleur vert d'eau pour ce thème chic */
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        .word-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            flex-wrap: wrap;
+        }
+        .definition {
+            font-size: 1rem;
+            max-width: 65%;
+            line-height: 1.4;
+        }
+        .letter-boxes {
+            display: flex;
+            gap: 4px;
+        }
+        .letter-input {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid #7f8c8d;
+            border-radius: 4px;
+        }
+        .letter-input.space-box {
+            background-color: #e0e0e0;
+            border-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .letter-input.correct {
+            background-color: #16a085;
+            color: white;
+            border-color: #117a65;
+        }
+        .btn-retour {
+            display: block;
+            width: 150px;
+            margin: 25px auto 0 auto;
+            text-align: center;
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .btn-retour:hover {
+            background-color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>💼 Le Jeu des Accessoires et Costumes par JPJ</h1>
+    <div class="counter">Mots trouvés : <span id="score">0</span> / 15</div>
+
+    <div id="game-board">
+        <!-- Les lignes du jeu seront générées ici par JavaScript -->
+    </div>
+
+    <a href="../index.html" class="btn-retour">🏠 Accueil</a>
+</div>
+
+<script>
+    // Liste des mots avec espaces corrects pour les accessoires et vêtements chic
+    const gameData = [
+        { info: "1. 🤵 Ensemble chic pour homme composé d'une veste et d'un pantalon assortis.", word: "COSTUME" },
+        { info: "2. 👔 Bande de tissu longue et étroite que l'on noue sous le col d'une chemise.", word: "CRAVATE" },
+        { info: "3. 👖 Bande de cuir ou de tissu qu'on serre autour de la taille pour tenir le pantalon.", word: "CEINTURE" },
+        { info: "4. 👜 Objet avec des anses que l'on porte au bras pour ranger ses affaires de tous les jours.", word: "SAC A MAIN" },
+        { info: "5. 💼 Ensemble chic pour femme composé d'une veste et d'une jupe assorties.", word: "TAILLEUR" },
+        { info: "6. 👖 Ensemble chic pour femme composé d'une veste et d'un pantalon assortis.", word: "TAILLEUR PANTALON" },
+        { info: "7. 🧥 Vêtement de mi-saison léger et imperméable, souvent beige avec une ceinture.", word: "TRENCH" },
+        { info: "8. 🌂 Petit objet portatif qu'on ouvre au-dessus de la tête pour s'abriter de la pluie.", word: "PARAPLUIE" },
+        { info: "9. 🧥 Vêtement sans manches qui se porte par-dessus une chemise, sous la veste de costume.", word: "GILET" },
+        { info: "10. 👔 Petit nœud en forme de papillon que l'on met au col d'une chemise pour les grandes fêtes.", word: "NOEUD PAPILLON" },
+        { info: "11. 💍 Petit anneau de métal précieux (or ou argent) que l'on porte au doigt.", word: "BAGUE" },
+        { info: "12. 🧣 Grand carré de tissu soyeux ou léger que les femmes mettent autour du cou ou sur la tête.", word: "FOULARD" },
+        { info: "13. ⌚ Petit appareil que l'on attache au poignet pour lire l'heure.", word: "MONTRE" },
+        { info: "14. 💎 Bijou en chaîne ou en perles que l'on porte autour du cou.", word: "COLLIER" },
+        { info: "15. 🦺 Vêtement léger sans manches en tissu fin ou en jean, à boutons, qui complète une tenue.", word: "VESTON" }
+    ];
+
+    const board = document.getElementById('game-board');
+    let foundWords = new Set();
+
+    function initGame() {
+        gameData.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'word-row';
+
+            const defDiv = document.createElement('div');
+            defDiv.className = 'definition';
+            defDiv.innerHTML = item.info;
+            row.appendChild(defDiv);
+
+            const boxesDiv = document.createElement('div');
+            boxesDiv.className = 'letter-boxes';
+
+            for (let i = 0; i < item.word.length; i++) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'letter-input';
+                input.maxLength = 1;
+                input.dataset.wordIndex = index;
+                input.dataset.letterIndex = i;
+
+                if (item.word[i] === ' ') {
+                    input.className = 'letter-input space-box';
+                    input.value = ' ';
+                    input.disabled = true;
+                } else {
+                    input.addEventListener('input', (e) => handleInput(e, input, item.word, index));
+                    input.addEventListener('keydown', (e) => handleKeyDown(e, input));
+                }
+
+                boxesDiv.appendChild(input);
+            }
+
+            row.appendChild(boxesDiv);
+            board.appendChild(row);
+        });
+    }
+
+    function handleInput(e, input, correctWord, wordIndex) {
+        const val = input.value.toUpperCase();
+        input.value = val;
+
+        if (val) {
+            let next = input.nextElementSibling;
+            if (next && next.classList.contains('space-box')) {
+                next = next.nextElementSibling;
+            }
+            if (next) next.focus();
+        }
+
+        checkWord(wordIndex, correctWord);
+    }
+
+    function handleKeyDown(e, input) {
+        if (e.key === 'Backspace' && !input.value) {
+            let prev = input.previousElementSibling;
+            if (prev && prev.classList.contains('space-box')) {
+                prev = prev.previousElementSibling;
+            }
+            if (prev) {
+                prev.focus();
+                prev.value = '';
+            }
+        }
+    }
+
+    function checkWord(wordIndex, correctWord) {
+        const rows = document.getElementsByClassName('word-row');
+        const inputs = rows[wordIndex].getElementsByClassName('letter-input');
+        let currentGuess = '';
+
+        for (let input of inputs) {
+            currentGuess += input.value;
+        }
+
+        if (currentGuess === correctWord) {
+            for (let input of inputs) {
+                input.classList.add('correct');
+                input.disabled = true;
+            }
+            foundWords.add(wordIndex);
+            document.getElementById('score').innerText = foundWords.size;
+        }
+    }
+
+    initGame();
+</script>
+
+</body>
+</html>
