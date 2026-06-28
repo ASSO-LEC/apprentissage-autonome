@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Jeu des Vêtements de Dessous et de Nuit par JPJ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .counter {
+            text-align: center;
+            font-weight: bold;
+            color: #9b59b6;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        .word-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            flex-wrap: wrap;
+        }
+        .definition {
+            font-size: 1rem;
+            max-width: 65%;
+            line-height: 1.4;
+        }
+        .letter-boxes {
+            display: flex;
+            gap: 4px;
+        }
+        .letter-input {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid #7f8c8d;
+            border-radius: 4px;
+        }
+        .letter-input.space-box {
+            background-color: #e0e0e0;
+            border-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .letter-input.correct {
+            background-color: #9b59b6;
+            color: white;
+            border-color: #8e44ad;
+        }
+        .btn-retour {
+            display: block;
+            width: 150px;
+            margin: 25px auto 0 auto;
+            text-align: center;
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .btn-retour:hover {
+            background-color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🩲 Le Jeu des Vêtements de Dessouspar JPJ</h1>
+    <div class="counter">Mots trouvés : <span id="score">0</span> / 12</div>
+
+    <div id="game-board">
+        <!-- Les lignes du jeu seront générées ici par JavaScript -->
+    </div>
+
+    <a href="../index.html" class="btn-retour">🏠 Accueil</a>
+</div>
+
+<script>
+    // Liste mise à jour avec les vrais espaces orthographiques
+    const gameData = [
+        { info: "1. 🩳 Vêtement de nuit composé d'un haut et d'un bas pour dormir chaudement.", word: "PYJAMA" },
+        { info: "2. 🩲 Sous-vêtement féminin en tissu léger qui couvre le bas du bassin.", word: "CULOTTE" },
+        { info: "3. 🩲 Sous-vêtement masculin court et moulant qui maintient le bas du corps.", word: "SLIP" },
+        { info: "4. 👙 Sous-vêtement féminin qui soutient et protège la poitrine.", word: "SOUTIEN GORGE" },
+        { info: "5. 🩳 Sous-vêtement masculin ressemblant à un petit short en coton léger.", word: "CALECON" },
+        { info: "6. 🩳 Sous-vêtement masculin et féminin, moulant comme un slip mais long comme un short.", word: "BOXER" },
+        { info: "7. 💄 Robe de nuit très légère que portent les femmes pour dormir en été.", word: "NUISETTE" },
+        { info: "8. 🥋 Grand vêtement d'intérieur long et confortable qu'on enfile au saut du lit.", word: "PEIGNOIR" },
+        { info: "9. 👕 Maillot de corps sans manches, souvent blanc, qu'on met sous une chemise en hiver.", word: "TRICOT DE PEAU" },
+        { info: "10. 🧦 Collants en nylon ou en laine qui couvrent les jambes des pieds jusqu'à la taille.", word: "COLLANTS" },
+        { info: "11. 🥋 Gilet d'intérieur long en tissu doux que l'on ferme avec une ceinture.", word: "ROBE DE CHAMBRE" },
+        { info: "12. 🩴 Chaussures d'intérieur très douces et plates pour marcher dans la maison.", word: "PANTOUFLES" }
+    ];
+
+    const board = document.getElementById('game-board');
+    let foundWords = new Set();
+
+    function initGame() {
+        gameData.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'word-row';
+
+            const defDiv = document.createElement('div');
+            defDiv.className = 'definition';
+            defDiv.innerHTML = item.info;
+            row.appendChild(defDiv);
+
+            const boxesDiv = document.createElement('div');
+            boxesDiv.className = 'letter-boxes';
+
+            for (let i = 0; i < item.word.length; i++) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'letter-input';
+                input.maxLength = 1;
+                input.dataset.wordIndex = index;
+                input.dataset.letterIndex = i;
+
+                if (item.word[i] === ' ') {
+                    input.className = 'letter-input space-box';
+                    input.value = ' ';
+                    input.disabled = true;
+                } else {
+                    input.addEventListener('input', (e) => handleInput(e, input, item.word, index));
+                    input.addEventListener('keydown', (e) => handleKeyDown(e, input));
+                }
+
+                boxesDiv.appendChild(input);
+            }
+
+            row.appendChild(boxesDiv);
+            board.appendChild(row);
+        });
+    }
+
+    function handleInput(e, input, correctWord, wordIndex) {
+        const val = input.value.toUpperCase();
+        input.value = val;
+
+        if (val) {
+            let next = input.nextElementSibling;
+            // Si la case suivante est un espace bloqué, on passe à celle d'après
+            if (next && next.classList.contains('space-box')) {
+                next = next.nextElementSibling;
+            }
+            if (next) next.focus();
+        }
+
+        checkWord(wordIndex, correctWord);
+    }
+
+    function handleKeyDown(e, input) {
+        if (e.key === 'Backspace' && !input.value) {
+            let prev = input.previousElementSibling;
+            // Si la case précédente est un espace, on recule encore d'une case
+            if (prev && prev.classList.contains('space-box')) {
+                prev = prev.previousElementSibling;
+            }
+            if (prev) {
+                prev.focus();
+                prev.value = '';
+            }
+        }
+    }
+
+    function checkWord(wordIndex, correctWord) {
+        const rows = document.getElementsByClassName('word-row');
+        const inputs = rows[wordIndex].getElementsByClassName('letter-input');
+        let currentGuess = '';
+
+        for (let input of inputs) {
+            currentGuess += input.value;
+        }
+
+        if (currentGuess === correctWord) {
+            for (let input of inputs) {
+                input.classList.add('correct');
+                input.disabled = true;
+            }
+            foundWords.add(wordIndex);
+            document.getElementById('score').innerText = foundWords.size;
+        }
+    }
+
+    initGame();
+</script>
+
+</body>
+</html>
