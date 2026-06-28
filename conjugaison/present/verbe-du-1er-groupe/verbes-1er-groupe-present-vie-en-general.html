@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Vie en Général</title>
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-hover: #0f766e;
+            --success: #16a34a;
+            --error: #dc2626;
+            --bg: #f0fdfa;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 30px auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .description {
+            text-align: center;
+            color: #4b5563;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .instructions {
+            background-color: #ccfbf1;
+            border-left: 4px solid var(--primary);
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .exercice-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .exercice-item {
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .exercice-item:last-child {
+            border-bottom: none;
+        }
+
+        .num {
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 5px;
+            min-width: 25px;
+        }
+
+        input[type="text"] {
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 15px;
+            width: 110px;
+            outline: none;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+        }
+
+        .verb-hint {
+            color: #374151;
+            font-style: italic;
+            font-weight: 500;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-reset {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-reset:hover {
+            background-color: #e5e7eb;
+        }
+
+        input.correct {
+            border-color: var(--success) !important;
+            background-color: #f0fdf4;
+            color: #14532d;
+            font-weight: bold;
+        }
+
+        input.incorrect {
+            border-color: var(--error) !important;
+            background-color: #fef2f2;
+            color: #7f1d1d;
+            font-weight: bold;
+        }
+
+        .result-panel {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .result-panel.show {
+            display: block;
+        }
+
+        .result-good {
+            background-color: #dcfce7;
+            color: #14532d;
+        }
+
+        .result-try {
+            background-color: #ffedd5;
+            color: #7c2d12;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>La Vie en Général</h1>
+    <div class="description">Le présent de l'indicatif — Verbes du 1er groupe (-er)</div>
+    
+    <div class="instructions">
+        <strong>Consigne :</strong> Complétez les phrases de la vie quotidienne en conjuguant le verbe entre parenthèses au présent.
+    </div>
+
+    <form id="quizForm">
+        <ol class="exercice-list">
+            <li class="exercice-item">
+                <span class="num">1.</span> Tous les matins, je <input type="text" data-answer="commence" autocomplete="off"> le travail à 8 heures. <span class="verb-hint">(commencer)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">2.</span> Tu <input type="text" data-answer="habites" autocomplete="off"> dans une grande ville ou à la campagne ? <span class="verb-hint">(habiter)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">3.</span> En automne, il <input type="text" data-answer="tombe" autocomplete="off"> beaucoup de pluie. <span class="verb-hint">(tomber)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">4.</span> Le week-end, elle <input type="text" data-answer="danse" autocomplete="off"> avec ses amies. <span class="verb-hint">(danser)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">5.</span> En général, on <input type="text" data-answer="déjeune" autocomplete="off"> au restaurant le midi. <span class="verb-hint">(déjeuner)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">6.</span> Nous <input type="text" data-answer="passons" autocomplete="off"> des vacances fantastiques à la mer. <span class="verb-hint">(passer)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">7.</span> Pour aller au travail, vous <input type="text" data-answer="marchez" autocomplete="off"> dix minutes. <span class="verb-hint">(marcher)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">8.</span> Les étudiants <input type="text" data-answer="posent" autocomplete="off"> des questions au professeur. <span class="verb-hint">(poser)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">9.</span> J' <input type="text" data-answer="écoute" autocomplete="off"> la radio dans les transports en commun. <span class="verb-hint">(écouter)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">10.</span> Tu <input type="text" data-answer="achètes" autocomplete="off"> des fruits frais au marché. <span class="verb-hint">(acheter)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">11.</span> En hiver, le soleil <input type="text" data-answer="brille" autocomplete="off"> mais il fait froid. <span class="verb-hint">(briller)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">12.</span> Nous <input type="text" data-answer="regardons" autocomplete="off"> un film intéressant au cinéma. <span class="verb-hint">(regarder)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">13.</span> Vous <input type="text" data-answer="voyagez" autocomplete="off"> souvent pour votre travail ? <span class="verb-hint">(voyager)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">14.</span> Ils <input type="text" data-answer="gagnent" autocomplete="off"> le match de tennis. <span class="verb-hint">(gagner)</span>
+            </li>
+            <li class="exercice-item">
+                <span class="num">15.</span> Elles <input type="text" data-answer="cherchent" autocomplete="off"> un nouvel appartement sur Internet. <span class="verb-hint">(chercher)</span>
+            </li>
+        </ol>
+
+        <div id="resultBox" class="result-panel"></div>
+
+        <div class="actions">
+            <button type="button" class="btn-submit" onclick="verifierExercice()">Corriger par JPJ</button>
+            <button type="button" class="btn-reset" onclick="recommencer()">Recommencer</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function verifierExercice() {
+        const inputs = document.querySelectorAll('input[type="text"]');
+        let score = 0;
+        const total = inputs.length;
+
+        inputs.forEach(input => {
+            const reponseEleve = input.value.trim().toLowerCase();
+            const bonneReponse = input.getAttribute('data-answer').toLowerCase();
+
+            if (reponseEleve === bonneReponse) {
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+                score++;
+            } else {
+                input.classList.remove('correct');
+                input.classList.add('incorrect');
+            }
+        });
+
+        const resultBox = document.getElementById('resultBox');
+        resultBox.className = "result-panel show";
+        
+        if (score === total) {
+            resultBox.classList.add('result-good');
+            resultBox.innerHTML = `Bravo ! Score parfait : ${score} / ${total} ! 🌍✨`;
+        } else {
+            resultBox.classList.add('result-try');
+            resultBox.innerHTML = `Score : ${score} / ${total}. Corrigez les cases en rouge et essayez encore ! 📝`;
+        }
+    }
+
+    function recommencer() {
+        const inputs = document.querySelectorAll('input[type="text"]');
+        inputs.forEach(input => {
+            input.value = '';
+            input.classList.remove('correct', 'incorrect');
+        });
+        
+        const resultBox = document.getElementById('resultBox');
+        resultBox.className = "result-panel";
+        resultBox.innerHTML = "";
+    }
+</script>
+
+</body>
+</html>

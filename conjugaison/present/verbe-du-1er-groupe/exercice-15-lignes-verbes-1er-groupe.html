@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice FLE A1 - Le Présent (1er groupe)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2b6cb0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .instruction {
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 4px 4px 0;
+        }
+        .exercise-list {
+            list-style: none;
+            padding: 0;
+        }
+        .exercise-item {
+            margin-bottom: 18px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .num {
+            font-weight: bold;
+            color: #4a5568;
+            min-width: 30px;
+        }
+        input[type="text"] {
+            padding: 6px 10px;
+            border: 2px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 130px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3182ce;
+            background-color: #fffdf0;
+        }
+        .infinitif {
+            color: #718096;
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-left: 5px;
+        }
+        .status-icon {
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .correct {
+            border-color: #38a169 !important;
+            background-color: #f0fff4;
+        }
+        .incorrect {
+            border-color: #e53e3e !important;
+            background-color: #fff5f5;
+        }
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-submit {
+            background-color: #3182ce;
+            color: white;
+        }
+        .btn-submit:hover { background-color: #2b6cb0; }
+        .btn-reset {
+            background-color: #edf2f7;
+            color: #4a5568;
+        }
+        .btn-reset:hover { background-color: #e2e8f0; }
+        .score {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2b6cb0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Conjugaison au présent de l'indicatif</h1>
+    <div class="instruction">
+        <strong>Consigne :</strong> Conjuguez le verbe entre parenthèses au <strong>présent de l'indicatif</strong>. Écrivez votre réponse dans la case, puis cliquez sur "Vérifier mes réponses".
+    </div>
+
+    <form id="quizForm">
+        <ul class="exercise-list" id="exerciseList"></ul>
+        
+        <div class="btn-container">
+            <button type="button" class="btn-submit" onclick="verifierReponses()">Vérifier mes réponses par JPJ</button>
+            <button type="button" class="btn-reset" onclick="recommencer()">Recommencer</button>
+        </div>
+    </form>
+
+    <div id="scoreZone" class="score"></div>
+</div>
+
+<script>
+    const questions = [
+        { id: 1, start: "Chaque matin, je", end: "avec mon voisin.", verb: "parler", ans: "parle" },
+        { id: 2, start: "Tu", end: "à Paris ou à Lyon ?", verb: "habiter", ans: "habites" },
+        { id: 3, start: "Il", end: "écouter de la musique classique.", verb: "aimer", ans: "aime" },
+        { id: 4, start: "Elle", end: "dans une grande banque.", verb: "travailler", ans: "travaille" },
+        { id: 5, start: "Nous", end: "un film intéressant à la télévision.", verb: "regarder", ans: "regardons" },
+        { id: 6, start: "Vous", end: "bien les explications du professeur.", verb: "écouter", ans: "écoutez" },
+        { id: 7, start: "Ils", end: "leurs clés dans toute la maison.", verb: "chercher", ans: "cherchent" },
+        { id: 8, start: "Elles", end: "le français trois fois par semaine.", verb: "étudier", ans: "étudient" },
+        { id: 9, start: "Nous", end: "un croissant chaud pour le petit-déjeuner.", verb: "manger", ans: "mangeons" },
+        { id: 10, start: "Tu", end: "des fruits et des légumes au marché.", verb: "acheter", ans: "achètes" },
+        { id: 11, start: "Je", end: "un musée magnifique aujourd'hui.", verb: "visiter", ans: "visite" },
+        { id: 12, start: "Vous", end: "souvent pour le travail ?", verb: "voyager", ans: "voyagez" },
+        { id: 13, start: "Ma sœur", end: "du piano depuis cinq ans.", verb: "jouer", ans: "joue" },
+        { id: 14, start: "Mes amis", end: "des collègues ce soir.", verb: "inviter", ans: "invitent" },
+        { id: 15, start: "On", end: "le cours à 9 heures précises.", verb: "commencer", ans: "commence" }
+    ];
+
+    function genererExercice() {
+        const list = document.getElementById('exerciseList');
+        list.innerHTML = questions.map(q => `
+            <li class="exercise-item">
+                <span class="num">${q.id}.</span>
+                <span>${q.start}</span>
+                <input type="text" id="q${q.id}" autocomplete="off">
+                <span>${q.end}</span>
+                <span class="infinitif">(${q.verb})</span>
+                <span id="icon${q.id}" class="status-icon"></span>
+            </li>
+        `).join('');
+    }
+
+    function verifierReponses() {
+        let score = 0;
+        questions.forEach(q => {
+            const input = document.getElementById(`q${q.id}`);
+            const icon = document.getElementById(`icon${q.id}`);
+            const userAnswer = input.value.trim().toLowerCase();
+            
+            if (userAnswer === q.ans.toLowerCase()) {
+                input.className = 'correct';
+                icon.textContent = '✅';
+                icon.style.color = '#38a169';
+                score++;
+            } else {
+                input.className = 'incorrect';
+                icon.textContent = `❌ (Correction : ${q.ans})`;
+                icon.style.color = '#e53e3e';
+            }
+        });
+
+        const scoreZone = document.getElementById('scoreZone');
+        scoreZone.style.display = 'block';
+        scoreZone.textContent = `Votre score : ${score} / ${questions.length}`;
+    }
+
+    function recommencer() {
+        document.getElementById('quizForm').reset();
+        questions.forEach(q => {
+            const input = document.getElementById(`q${q.id}`);
+            const icon = document.getElementById(`icon${q.id}`);
+            input.className = '';
+            icon.textContent = '';
+        });
+        document.getElementById('scoreZone').style.display = 'none';
+    }
+
+    window.onload = genererExercice;
+</script>
+</body>
+</html>
