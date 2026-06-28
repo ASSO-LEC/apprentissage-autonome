@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Jeu des Vêtements d'Été par JPJ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .counter {
+            text-align: center;
+            font-weight: bold;
+            color: #e67e22; /* Une couleur orangée plus estivale ! */
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        .word-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            flex-wrap: wrap;
+        }
+        .definition {
+            font-size: 1rem;
+            max-width: 65%;
+            line-height: 1.4;
+        }
+        .letter-boxes {
+            display: flex;
+            gap: 4px;
+        }
+        .letter-input {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid #7f8c8d;
+            border-radius: 4px;
+        }
+        .letter-input.correct {
+            background-color: #e67e22;
+            color: white;
+            border-color: #d35400;
+        }
+        .btn-retour {
+            display: block;
+            width: 150px;
+            margin: 25px auto 0 auto;
+            text-align: center;
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .btn-retour:hover {
+            background-color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>☀️ Le Jeu des Vêtements d'Été< par JPJ/h1>
+    <div class="counter">Mots trouvés : <span id="score">0</span> / 15</div>
+
+    <div id="game-board">
+        <!-- Les lignes du jeu seront générées ici par JavaScript -->
+    </div>
+
+    <a href="../index.html" class="btn-retour">🏠 Accueil</a>
+</div>
+
+<script>
+    // Liste des mots et définitions pour l'été (15 mots au total)
+    const gameData = [
+        { info: "1. 👗 Vêtement typiquement féminin d'un seul morceau qui couvre le buste et les jambes.", word: "ROBE" },
+        { info: "2. 🩳 Pantalon très court qui s'arrête au-dessus des genoux, parfait quand il fait chaud.", word: "SHORT" },
+        { info: "3. 🩱 On le met pour aller se baigner à la mer ou à la piscine.", word: "MAILLOT" },
+        { info: "4. 👕 Vêtement léger en coton à manches courtes, souvent en forme de T.", word: "TSHIRT" },
+        { info: "5. 👗 Vêtement féminin qui s'attache à la taille et laisse les jambes libres.", word: "JUPE" },
+        { info: "6. 🩴 Chaussures d'été très simples avec une lanière en plastique entre les orteils.", word: "TONGS" },
+        { info: "7. 👡 Chaussures d'été légères et ouvertes avec des lanières, parfois avec un talon.", word: "SANDALES" },
+        { info: "8. 👒 On le met sur la tête pour se protéger des rayons du soleil.", word: "CHAPEAU" },
+        { info: "9. 🕶️ On les met sur les yeux pour se protéger de la lumière forte du soleil.", word: "LUNETTES" },
+        { info: "10. 👕 T-shirt léger sans manches qui laisse les bras complètement nus.", word: "DEBARDEUR" },
+        { info: "11. 👔 Chemise d'été à manches courtes, souvent avec des motifs de fleurs ou de vacances.", word: "CHEMISETTE" },
+        { info: "12. 👕 Chemise légère en tissu doux avec un col et seulement deux ou trois boutons.", word: "POLO" },
+        { info: "13. 👟 Chaussures en toile légères et confortables pour marcher en été.", word: "ESPADRILLES" },
+        { info: "14. 🧢 Petite coiffe en tissu avec une visière devant pour protéger les yeux du soleil.", word: "CASQUETTE" },
+        { info: "15. 🧣 Grand morceau de tissu léger qu'on noue autour de la taille par-dessus le maillot.", word: "PAREO" }
+    ];
+
+    const board = document.getElementById('game-board');
+    let foundWords = new Set();
+
+    function initGame() {
+        gameData.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'word-row';
+
+            const defDiv = document.createElement('div');
+            defDiv.className = 'definition';
+            defDiv.innerHTML = item.info;
+            row.appendChild(defDiv);
+
+            const boxesDiv = document.createElement('div');
+            boxesDiv.className = 'letter-boxes';
+
+            for (let i = 0; i < item.word.length; i++) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'letter-input';
+                input.maxLength = 1;
+                input.dataset.wordIndex = index;
+                input.dataset.letterIndex = i;
+
+                input.addEventListener('input', (e) => handleInput(e, input, item.word, index));
+                input.addEventListener('keydown', (e) => handleKeyDown(e, input));
+
+                boxesDiv.appendChild(input);
+            }
+
+            row.appendChild(boxesDiv);
+            board.appendChild(row);
+        });
+    }
+
+    function handleInput(e, input, correctWord, wordIndex) {
+        const val = input.value.toUpperCase();
+        input.value = val;
+
+        if (val) {
+            const next = input.nextElementSibling;
+            if (next) next.focus();
+        }
+
+        checkWord(wordIndex, correctWord);
+    }
+
+    function handleKeyDown(e, input) {
+        if (e.key === 'Backspace' && !input.value) {
+            const prev = input.previousElementSibling;
+            if (prev) {
+                prev.focus();
+                prev.value = '';
+            }
+        }
+    }
+
+    function checkWord(wordIndex, correctWord) {
+        const rows = document.getElementsByClassName('word-row');
+        const inputs = rows[wordIndex].getElementsByClassName('letter-input');
+        let currentGuess = '';
+
+        for (let input of inputs) {
+            currentGuess += input.value;
+        }
+
+        if (currentGuess === correctWord) {
+            for (let input of inputs) {
+                input.classList.add('correct');
+                input.disabled = true;
+            }
+            foundWords.add(wordIndex);
+            document.getElementById('score').innerText = foundWords.size;
+        }
+    }
+
+    initGame();
+</script>
+
+</body>
+</html>
