@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conjugaison 10 verbes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f3f6;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            max-width: 900px;
+            width: 100%;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .sub {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .verbes-liste {
+            background-color: #eef2f7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: #34495e;
+            border: 1px solid #d6dbdf;
+        }
+        .dialogue-box {
+            background-color: #fbfbfc;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            line-height: 2.2;
+            font-size: 1.15rem;
+        }
+        .dialogue-box h3 {
+            margin-top: 0;
+            color: #2980b9;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        input[type="text"] {
+            padding: 2px 6px;
+            font-size: 1.1rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            width: 90px;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: all 0.2s;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+            background-color: #f7f9fa;
+        }
+        .actions {
+            position: sticky;
+            bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 15px;
+        }
+        button {
+            flex: 1;
+            padding: 15px;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-check { background-color: #2ecc71; }
+        .btn-check:hover { background-color: #27ae60; }
+        #resultat {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 1.4rem;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .correct-input { border-color: #2ecc71 !important; background-color: #e8f8f5 !important; }
+        .incorrect-input { border-color: #e74c3c !important; background-color: #fceae9 !important; }
+        .indice { color: #7f8c8d; font-size: 0.9rem; font-weight: normal; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Conjugaison au présent des 10 verbes les plus utiliser</h1>
+    <div class="sub">Au bureau - Le matin à la maison  — verbes à trouver au présent ! Bon courage</div>
+
+    <div class="verbes-liste">
+        Verbes à utiliser : ÊTRE • AVOIR • FAIRE • DIRE • ALLER • VOIR • SAVOIR • POUVOIR • VOULOIR • VENIR
+    </div>
+
+    <form id="quizForm">
+                
+
+        <!-- Dialogue 1 -->
+        <div class="dialogue-box">
+            <h3>1. Au bureau</h3>
+            — 1) Vos collègues <input type="text" class="v" data-a="sont"> déjà là ? <span class="indice">(être)</span><br>
+            — 2) Non, ils <input type="text" class="v" data-a="viennent"> en retard à cause de la grève. <span class="indice">(venir)</span><br>
+            — 3) Le directeur <input type="text" class="v" data-a="fait"> une réunion importante à 9h. <span class="indice">(faire)</span><br>
+			— 4) Il <input type="text" class="v" data-a="va"> être en colère. <span class="indice">(aller)</span><br>
+            — 5) Vous <input type="text" class="v" data-a="pouvez"> lui envoyer un message ? <span class="indice">(pouvoir)</span><br>
+			— 6) Vous <input type="text" class="v" data-a="savez"> où il est ? <span class="indice">(savoir)</span><br>
+            — 7) Je ne <input type="text" class="v" data-a="sais"> pas, <span class="indice">(savoir)</span><br>
+			— 8) mais je <input type="text" class="v" data-a="vois"> sa secrétaire. <span class="indice">(voir)</span><br>
+			— 9) Elle  <input type="text" class="v" data-a="va"> nous dire quoi faire. <span class="indice">(aller)</span><br>
+            — 10) Heureusement que nous <input type="text" class="v" data-a="avons"> une bonne équipe ! <span class="indice">(avoir)</span>
+        </div>
+
+        <!-- Dialogue 2 -->
+        <div class="dialogue-box">
+            <h3>2. Le matin à la maison</h3>
+            — 11) Tu <input type="text" class="v" data-a="as"> l'heure s'il te plaît ? <span class="indice">(avoir)</span><br>
+			— 12) Je ne <input type="text" class="v" data-a="vois"> rien sans mes lunettes. <span class="indice">(voir)</span><br>
+            — 13) Il <input type="text" class="v" data-a="est"> huit heures. <span class="indice">(être)</span><br>
+			— 14) Tu <input type="text" class="v" data-a="vas"> être en retard pour ton cours. <span class="indice">(aller)</span><br>
+            — 15) Mince ! Ok, je <input type="text" class="v" data-a="fais"> mon sac. <span class="indice">(faire)</span><br>
+			— 16) Tu <input type="text" class="v" data-a="sais"> où il est ? <span class="indice">(savoir)</span><br>
+            — 17) Il est sur la chaise. Les enfants <input type="text" class="v" data-a="veulent"> manger, <span class="indice">(vouloir)</span><br>
+			— 18) tu <input type="text" class="v" data-a="peux"> leur couper du pain ? <span class="indice">(pouvoir)</span><br>
+            — 19) Non, le bus <input type="text" class="v" data-a="vient"> d'arriver dans la rue. <span class="indice">(venir)</span><br>
+			— 20) Je vous <input type="text" class="v" data-a="dis"> à ce soir ! <span class="indice">(dire)</span>
+        </div>
+
+
+        <div class="actions">
+            <button type="button" class="btn-check" onclick="corrigerLeQuiz()">Soumettre mes réponses</button>
+        </div>
+    </form>
+
+    <div id="resultat"></div>
+</div>
+
+<script>
+function corrigerLeQuiz() {
+    const inputs = document.querySelectorAll('.v');
+    let score = 0;
+    const total = inputs.length;
+
+    inputs.forEach(input => {
+        const repUtilisateur = input.value.trim().toLowerCase();
+        const bonneRep = input.getAttribute('data-a').toLowerCase();
+
+        // Gestion de l'inversion sujet verbe (ex: vas-tu, dites-vous, allez-vous)
+        if (repUtilisateur === bonneRep) {
+            score++;
+            input.className = "v correct-input";
+            input.title = "Parfait !";
+        } else {
+            input.className = "v incorrect-input";
+            input.title = "La bonne conjugaison était : " + bonneRep;
+        }
+    });
+
+    const divResultat = document.getElementById('resultat');
+    divResultat.style.display = "block";
+    
+    let message = `Votre Score Global : ${score} / ${total} (${Math.round((score/total)*100)}% de bonnes réponses)<br>`;
+    
+     if (score === total) {
+        divResultat.className = "success";
+        message += "🏆 Extraordinaire ! Un sans-faute parfait ! ";
+    } else if (score >= total * 0.8) {
+        divResultat.className = "success";
+        message += "👍 Excellent travail ! Tu maîtrises bien les verbes irréguliers du présent.";
+    } else if (score >= total * 0.5) {
+        divResultat.className = "success";
+        message += "🙂 Bon effort ! Analyse tes erreurs (en rouge) pour continuer à progresser, on peut en parler en cours.";
+    } else {
+        divResultat.className = "error";
+        message += "💪 Ne te décourage pas ! La conjugaison demande de l'entraînement. Révise tes verbes et réessaie, on peut en parler en cours.";
+    }
+    
+    divResultat.innerHTML = message;
+    divResultat.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
