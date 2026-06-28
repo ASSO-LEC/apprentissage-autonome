@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Apprentissage Autonome</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+        .section-theme {
+            margin-bottom: 35px;
+        }
+        .section-theme h2 {
+            color: #2c3e50;
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-left: 5px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        .sub-section {
+            margin-left: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+        .sub-section:last-child {
+            border-bottom: none;
+        }
+        .sub-section h3 {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .grid-boutons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 12px;
+        }
+        .btn {
+            display: block;
+            padding: 12px 15px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-article { background-color: #9b59b6; color: white; }
+        .btn-article:hover { background-color: #8e44ad; }
+        .btn-conjugaison { background-color: #3498db; color: white; }
+        .btn-conjugaison:hover { background-color: #2980b9; }
+        .btn-jeu { background-color: #2ecc71; color: white; }
+        .btn-jeu:hover { background-color: #27ae60; }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <h1>🎒 Mon Espace d'Apprentissage Autonome</h1>
+
+    <!-- SECTION ARTICLES -->
+    <div class="section-theme">
+        <h2 style="border-left-color: #9b59b6;">📝 Les Articles</h2>
+        
+        <!-- Fiche Spéciale 12-05 -->
+        <div class="sub-section">
+            <h3>Fiche Spéciale 12-05</h3>
+            <div class="grid-boutons">
+                <a class="btn btn-article" href="article/Articles-12-05-fiche-1-et-2/quiz -articles-12-05-fiche-1-et-2.html">Quiz Fiche 1 et 2</a>
+            </div>
+        </div>
+
+        <!-- Niveau A1 -->
+        <div class="sub-section">
+            <h3>Niveau A1</h3>
+            <div class="grid-boutons">
+                <a class="btn btn-article" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-1-à-12.html">Articles Définis/Indéfinis (1-12)</a>
+                <a class="btn btn-article" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-13-à-20.html">Articles Définis/Indéfinis (13-20)</a>
+                <a class="btn btn-article" href="article/niveau A1/quiz-article-défini-partie-1.html">Quiz Article Défini - P1</a>
+                <a class="btn btn-article" href="article/niveau A1/quiz-article-défini-partie-2.html">Quiz Article Défini - P2</a>
+                <a class="btn btn-article" href="article/niveau A1/quiz-article-défini-partie-3.html">Quiz Article Défini - P3</a>
+            </div>
+        </div>
+
+        <!-- Niveau A2 -->
+        <div class="sub-section">
+            <h3>Niveau A2</h3>
+            <div class="grid-boutons">
+                <!-- IMPORTANT : Remplacez "exercice-a2.html" par le vrai nom de votre fichier quand il sera en ligne -->
+                <a class="btn btn-article" href="article/niveau A2/exercice-a2.html">⏳ Premier exercice A2 à venir</a>
+            </div>
+        </div>
+
+        <!-- Niveau B1 -->
+        <div class="sub-section">
+            <h3>Niveau B1</h3>
+            <div class="grid-boutons">
+                <a class="btn btn-article" href="article/niveau B1/exercice-b1.html">⏳ Premier exercice B1 à venir</a>
+            </div>
+        </div>
+
+        <!-- Niveau B2 -->
+        <div class="sub-section">
+            <h3>Niveau B2</h3>
+            <div class="grid-boutons">
+                <a class="btn btn-article" href="article/niveau B2/exercice-b2.html">⏳ Premier exercice B2 à venir</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION CONJUGAISON -->
+    <div class="section-theme">
+        <h2 style="border-left-color: #3498db;">✍️ Conjugaison</h2>
+        
+        <!-- Le Futur -->
+        <div class="sub-section">
+            <h3>Le Futur Simple</h3>
+            <div class="grid-boutons">
+                <a class="btn btn-conjugaison" href="conjugaison/futur/futur-1er-groupe.html">Futur - 1er Groupe</a>
+                <a class="btn btn-conjugaison" href="conjugaison/futur/futur-2eme-groupe.html">Futur - 2ème Groupe</a>
+                <a class="btn btn-conjugaison" href="conjugaison/futur/futur-3eme-groupe-en-ir.html">Futur - 3ème Groupe (IR)</a>
+            </div>
+        </div>
+
+        <!-- Le Présent (Prêt pour vos futurs fichiers) -->
+        <div class="sub-section">
+            <h3>Le Présent</h3>
+            <div class="grid-boutons">
+                <a class="btn btn-conjugaison" href="conjugaison/present/present-1er-groupe.html">⏳ Exercices de présent à venir</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION JEUX -->
+    <div class="section-theme">
+        <h2 style="border-left-color: #2ecc71;">🎮 Jeux du Pendu</h2>
+        <div class="grid-boutons">
+            <a class="btn btn-jeu" href="jeux-du-pendu/jeu-du-pendu-maison/jeu-du-pendu-maison-1-et-2.html">🏡 Le Pendu de la Maison</a>
+            <a class="btn btn-jeu" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Le Pendu des Fruits</a>
+            <a class="btn btn-jeu" href="jeux-du-pendu/jeu-du-pendu-la-meteo/jeu-du-pendu-la-meteo.html">☁️ Le Pendu de la Météo</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
