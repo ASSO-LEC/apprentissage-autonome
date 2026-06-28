@@ -13,7 +13,7 @@
             margin: 0;
         }
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             background: white;
             padding: 30px;
@@ -27,55 +27,85 @@
             border-bottom: 3px solid #f0f0f0;
             padding-bottom: 20px;
         }
-        .section-theme {
-            margin-bottom: 35px;
-        }
-        .section-theme h2 {
-            color: #2c3e50;
+        
+        /* Style des grands Dossiers et Sous-dossiers */
+        details {
             background-color: #f8f9fa;
-            padding: 10px 15px;
-            border-left: 5px solid #bdc3c7;
-            border-radius: 4px;
-        }
-        .sub-section {
-            margin-left: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #eee;
-        }
-        .sub-section:last-child {
-            border-bottom: none;
-        }
-        .sub-section h3 {
-            color: #7f8c8d;
-            font-size: 1.1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
             margin-bottom: 12px;
+            padding: 5px;
+            transition: all 0.3s ease;
         }
+        details[open] {
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        summary {
+            font-size: 1.15rem;
+            font-weight: 600;
+            padding: 12px;
+            cursor: pointer;
+            color: #2c3e50;
+            list-style: none; /* Enlève la flèche par défaut */
+            display: flex;
+            align-items: center;
+        }
+        summary::before {
+            content: "📁";
+            margin-right: 12px;
+            transition: transform 0.2s;
+        }
+        details[open] > summary::before {
+            content: "📂";
+        }
+        
+        /* Style spécifique pour les Sous-Dossiers imbriqués */
+        details details {
+            margin-left: 20px;
+            margin-top: 10px;
+            background-color: #f1f5f9;
+            border-left: 4px solid #94a3b8;
+        }
+        details details summary {
+            font-size: 1rem;
+            padding: 8px 12px;
+        }
+        details details summary::before {
+            content: "📁";
+        }
+
+        /* Grille d'exercices à l'intérieur d'un sous-dossier */
         .grid-boutons {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 10px;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 6px;
+            margin-top: 5px;
         }
+        
+        /* Liens des exercices */
         .btn {
             display: block;
-            padding: 12px 15px;
+            padding: 10px 12px;
             text-align: center;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.9rem;
             border-radius: 6px;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background-color: #edf2f7;
+            color: #4a5568;
+            border: 1px solid #cbd5e1;
         }
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #3182ce;
+            color: white;
+            border-color: #3182ce;
+            transform: translateY(-1px);
         }
-        .btn-article { background-color: #9b59b6; color: white; }
-        .btn-article:hover { background-color: #8e44ad; }
-        .btn-conjugaison { background-color: #3498db; color: white; }
-        .btn-conjugaison:hover { background-color: #2980b9; }
-        .btn-jeu { background-color: #2ecc71; color: white; }
-        .btn-jeu:hover { background-color: #27ae60; }
     </style>
 </head>
 <body>
@@ -83,88 +113,87 @@
 <div class="container">
     <h1>🎒 Mon Espace d'Apprentissage Autonome</h1>
 
-    <!-- SECTION ARTICLES -->
-    <div class="section-theme">
-        <h2 style="border-left-color: #9b59b6;">📝 Les Articles</h2>
+    <!-- 1. GRAND DOSSIER : ARTICLES -->
+    <details>
+        <summary>Les Articles</summary>
         
-        <!-- Fiche Spéciale 12-05 -->
-        <div class="sub-section">
-            <h3>Fiche Spéciale 12-05</h3>
+        <!-- Sous-dossier Fiche 12-05 -->
+        <details>
+            <summary>Fiche Spéciale 12-05</summary>
             <div class="grid-boutons">
-                <a class="btn btn-article" href="article/Articles-12-05-fiche-1-et-2/quiz -articles-12-05-fiche-1-et-2.html">Quiz Fiche 1 et 2</a>
+                <a class="btn" href="article/Articles-12-05-fiche-1-et-2/quiz -articles-12-05-fiche-1-et-2.html">🎯 Quiz Fiche 1 et 2</a>
             </div>
-        </div>
+        </details>
 
-        <!-- Niveau A1 -->
-        <div class="sub-section">
-            <h3>Niveau A1</h3>
+        <!-- Sous-dossier A1 -->
+        <details>
+            <summary>Niveau A1</summary>
             <div class="grid-boutons">
-                <a class="btn btn-article" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-1-à-12.html">Articles Définis/Indéfinis (1-12)</a>
-                <a class="btn btn-article" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-13-à-20.html">Articles Définis/Indéfinis (13-20)</a>
-                <a class="btn btn-article" href="article/niveau A1/quiz-article-défini-partie-1.html">Quiz Article Défini - P1</a>
-                <a class="btn btn-article" href="article/niveau A1/quiz-article-défini-partie-2.html">Quiz Article Défini - P2</a>
-                <a class="btn btn-article" href="article/niveau A1/quiz-article-défini-partie-3.html">Quiz Article Défini - P3</a>
+                <a class="btn" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-1-à-12.html">📝 Articles (1-12)</a>
+                <a class="btn" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-13-à-20.html">📝 Articles (13-20)</a>
+                <a class="btn" href="article/niveau A1/quiz-article-défini-partie-1.html">❓ Quiz Partie 1</a>
+                <a class="btn" href="article/niveau A1/quiz-article-défini-partie-2.html">❓ Quiz Partie 2</a>
+                <a class="btn" href="article/niveau A1/quiz-article-défini-partie-3.html">❓ Quiz Partie 3</a>
             </div>
-        </div>
+        </details>
 
-        <!-- Niveau A2 -->
-        <div class="sub-section">
-            <h3>Niveau A2</h3>
+        <!-- Sous-dossier A2 -->
+        <details>
+            <summary>Niveau A2</summary>
             <div class="grid-boutons">
-                <!-- IMPORTANT : Remplacez "exercice-a2.html" par le vrai nom de votre fichier quand il sera en ligne -->
-                <a class="btn btn-article" href="article/niveau A2/exercice-a2.html">⏳ Premier exercice A2 à venir</a>
+                <span style="color: #a0aec0; font-style: italic; padding: 10px;">Aucun exercice pour le moment</span>
             </div>
-        </div>
+        </details>
 
-        <!-- Niveau B1 -->
-        <div class="sub-section">
-            <h3>Niveau B1</h3>
+        <!-- Sous-dossier B1 -->
+        <details>
+            <summary>Niveau B1</summary>
             <div class="grid-boutons">
-                <a class="btn btn-article" href="article/niveau B1/exercice-b1.html">⏳ Premier exercice B1 à venir</a>
+                <span style="color: #a0aec0; font-style: italic; padding: 10px;">Aucun exercice pour le moment</span>
             </div>
-        </div>
+        </details>
 
-        <!-- Niveau B2 -->
-        <div class="sub-section">
-            <h3>Niveau B2</h3>
+        <!-- Sous-dossier B2 -->
+        <details>
+            <summary>Niveau B2</summary>
             <div class="grid-boutons">
-                <a class="btn btn-article" href="article/niveau B2/exercice-b2.html">⏳ Premier exercice B2 à venir</a>
+                <span style="color: #a0aec0; font-style: italic; padding: 10px;">Aucun exercice pour le moment</span>
             </div>
-        </div>
-    </div>
+        </details>
+    </details>
 
-    <!-- SECTION CONJUGAISON -->
-    <div class="section-theme">
-        <h2 style="border-left-color: #3498db;">✍️ Conjugaison</h2>
+    <!-- 2. GRAND DOSSIER : CONJUGAISON -->
+    <details>
+        <summary>Conjugaison</summary>
         
-        <!-- Le Futur -->
-        <div class="sub-section">
-            <h3>Le Futur Simple</h3>
+        <!-- Sous-dossier Futur -->
+        <details>
+            <summary>Le Futur Simple</summary>
             <div class="grid-boutons">
-                <a class="btn btn-conjugaison" href="conjugaison/futur/futur-1er-groupe.html">Futur - 1er Groupe</a>
-                <a class="btn btn-conjugaison" href="conjugaison/futur/futur-2eme-groupe.html">Futur - 2ème Groupe</a>
-                <a class="btn btn-conjugaison" href="conjugaison/futur/futur-3eme-groupe-en-ir.html">Futur - 3ème Groupe (IR)</a>
+                <a class="btn" href="conjugaison/futur/futur-1er-groupe.html">⏳ Futur - 1er Groupe</a>
+                <a class="btn" href="conjugaison/futur/futur-2eme-groupe.html">⏳ Futur - 2ème Groupe</a>
+                <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-ir.html">⏳ Futur - 3ème Groupe (IR)</a>
             </div>
-        </div>
+        </details>
 
-        <!-- Le Présent (Prêt pour vos futurs fichiers) -->
-        <div class="sub-section">
-            <h3>Le Présent</h3>
+        <!-- Sous-dossier Présent -->
+        <details>
+            <summary>Le Présent</summary>
             <div class="grid-boutons">
-                <a class="btn btn-conjugaison" href="conjugaison/present/present-1er-groupe.html">⏳ Exercices de présent à venir</a>
+                <span style="color: #a0aec0; font-style: italic; padding: 10px;">Aucun exercice pour le moment</span>
             </div>
-        </div>
-    </div>
+        </details>
+    </details>
 
-    <!-- SECTION JEUX -->
-    <div class="section-theme">
-        <h2 style="border-left-color: #2ecc71;">🎮 Jeux du Pendu</h2>
+    <!-- 3. GRAND DOSSIER : JEUX DU PENDU -->
+    <details>
+        <summary>Jeux du Pendu</summary>
         <div class="grid-boutons">
-            <a class="btn btn-jeu" href="jeux-du-pendu/jeu-du-pendu-maison/jeu-du-pendu-maison-1-et-2.html">🏡 Le Pendu de la Maison</a>
-            <a class="btn btn-jeu" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Le Pendu des Fruits</a>
-            <a class="btn btn-jeu" href="jeux-du-pendu/jeu-du-pendu-la-meteo/jeu-du-pendu-la-meteo.html">☁️ Le Pendu de la Météo</a>
+            <a class="btn" href="jeux-du-pendu/jeu-du-pendu-maison/jeu-du-pendu-maison-1-et-2.html">🏡 Le Pendu de la Maison</a>
+            <a class="btn" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Le Pendu des Fruits</a>
+            <a class="btn" href="jeux-du-pendu/jeu-du-pendu-la-meteo/jeu-du-pendu-la-meteo.html">☁️ Le Pendu de la Météo</a>
         </div>
-    </div>
+    </details>
 
 </div>
 
