@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Jeu des Vêtements d'Hiver par JPJ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .counter {
+            text-align: center;
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        .word-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            flex-wrap: wrap;
+        }
+        .definition {
+            font-size: 1rem;
+            max-width: 65%;
+            line-height: 1.4;
+        }
+        .letter-boxes {
+            display: flex;
+            gap: 4px;
+        }
+        .letter-input {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid #7f8c8d;
+            border-radius: 4px;
+        }
+        .letter-input.correct {
+            background-color: #2ecc71;
+            color: white;
+            border-color: #27ae60;
+        }
+        .btn-retour {
+            display: block;
+            width: 150px;
+            margin: 25px auto 0 auto;
+            text-align: center;
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .btn-retour:hover {
+            background-color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🧥 Le Jeu des Vêtements d'Hiver par JPJ</h1>
+    <div class="counter">Mots trouvés : <span id="score">0</span> / 15</div>
+
+    <div id="game-board">
+        <!-- Les lignes du jeu seront générées ici par JavaScript -->
+    </div>
+
+    <a href="../index.html" class="btn-retour">🏠 Accueil</a>
+</div>
+
+<script>
+    // Liste des mots et définitions (15 mots au total)
+    const gameData = [
+        { info: "1. 🧥 On le porte dehors en hiver par-dessus les vêtements pour ne pas avoir froid.", word: "MANTEAU" },
+        { info: "2. 🧣 Long morceau de tissu en laine qu'on met autour du cou quand il fait froid.", word: "ECHARPE" },
+        { info: "3. 🧤 Ils protègent les mains et séparent chaque doigt.", word: "GANTS" },
+        { info: "4. 🧶 Vêtement chaud en laine avec des manches longues qu'on enfile par la tête.", word: "PULL" },
+        { info: "5. 🧦 On les met aux pieds dans les chaussures pour avoir chaud.", word: "CHAUSSETTES" },
+        { info: "6. 🥾 Chaussures montantes et solides pour marcher dans le froid ou la neige.", word: "BOTTES" },
+        { info: "7. 🧢 Bonnet de laine chaud qui couvre la tête et les oreilles.", word: "BONNET" },
+        { info: "8. 🧥 Vêtement chaud et imperméable, souvent avec une capuche, pour la pluie ou le ski.", word: "ANORAK" },
+        { info: "9. 👔 Vêtement d'hiver en laine, boutonné devant, comme un gilet chaud.", word: "CARDIGAN" },
+        { info: "10. 🧥 Vêtement de dessus court, s'arrêtant à la taille, qui se ferme avec un zip.", word: "BLOUSON" },
+        { info: "11. 🪵 Gros pull d'hiver en laine très épaisse, souvent avec des torsades.", word: "TRICOT" },
+        { info: "12. 👢 Petites bottes courtes qui s'arrêtent à la cheville.", word: "BOTTINES" },
+        { info: "13. 👔 Vêtement léger à manches longues ou courtes avec des boutons et un col.", word: "CHEMISE" },
+        { info: "14. 👖 Vêtement qui couvre les jambes depuis la taille jusqu'aux chevilles.", word: "PANTALON" },
+        { info: "15. 🧥 Vêtement de sport chaud à manches longues, souvent en coton molletonné.", word: "SWEAT" }
+    ];
+
+    const board = document.getElementById('game-board');
+    let foundWords = new Set();
+
+    function initGame() {
+        gameData.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'word-row';
+
+            const defDiv = document.createElement('div');
+            defDiv.className = 'definition';
+            defDiv.innerHTML = item.info;
+            row.appendChild(defDiv);
+
+            const boxesDiv = document.createElement('div');
+            boxesDiv.className = 'letter-boxes';
+
+            for (let i = 0; i < item.word.length; i++) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'letter-input';
+                input.maxLength = 1;
+                input.dataset.wordIndex = index;
+                input.dataset.letterIndex = i;
+
+                input.addEventListener('input', (e) => handleInput(e, input, item.word, index));
+                input.addEventListener('keydown', (e) => handleKeyDown(e, input));
+
+                boxesDiv.appendChild(input);
+            }
+
+            row.appendChild(boxesDiv);
+            board.appendChild(row);
+        });
+    }
+
+    function handleInput(e, input, correctWord, wordIndex) {
+        const val = input.value.toUpperCase();
+        input.value = val;
+
+        if (val) {
+            // Passer à la case suivante
+            const next = input.nextElementSibling;
+            if (next) next.focus();
+        }
+
+        checkWord(wordIndex, correctWord);
+    }
+
+    function handleKeyDown(e, input) {
+        if (e.key === 'Backspace' && !input.value) {
+            // Retour à la case précédente si vide
+            const prev = input.previousElementSibling;
+            if (prev) {
+                prev.focus();
+                prev.value = '';
+            }
+        }
+    }
+
+    function checkWord(wordIndex, correctWord) {
+        const rows = document.getElementsByClassName('word-row');
+        const inputs = rows[wordIndex].getElementsByClassName('letter-input');
+        let currentGuess = '';
+
+        for (let input of inputs) {
+            currentGuess += input.value;
+        }
+
+        if (currentGuess === correctWord) {
+            for (let input of inputs) {
+                input.classList.add('correct');
+                input.disabled = true;
+            }
+            foundWords.add(wordIndex);
+            document.getElementById('score').innerText = foundWords.size;
+        }
+    }
+
+    initGame();
+</script>
+
+</body>
+</html>
