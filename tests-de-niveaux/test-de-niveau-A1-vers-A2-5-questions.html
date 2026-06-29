@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test A1/A2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .context {
+            font-style: italic;
+            background-color: #eef2f3;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 15px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin-bottom: 10px;
+        }
+        button.option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        button.option-btn:hover {
+            background-color: #e0eae9;
+            border-color: #3498db;
+        }
+        .result-container {
+            text-align: center;
+        }
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 20px 0;
+        }
+        .niveau {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2980b9;
+        }
+        .restart-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        .restart-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container" id="quiz">
+    <!-- Le contenu sera injecté par JavaScript -->
+</div>
+
+<script>
+// 1. Les données du QCM (Questions, propositions et bonnes réponses)
+const quizData = [
+    {
+        question: "1. Conjugaison (Le passé) : Complète la phrase suivante au temps qui convient :",
+        context: "« Hier, je/j' _________ au restaurant avec ma famille. »",
+        options: [
+            { text: "A) mange", isCorrect: false },
+            { text: "B) ai mangé", isCorrect: true },
+            { text: "C) vais manger", isCorrect: false }
+        ]
+    },
+    {
+        question: "2. Les connecteurs logiques : Choisis le mot correct pour lier les deux phrases :",
+        context: "« Je ne vais pas au travail aujourd'hui _________ je suis malade. »",
+        options: [
+            { text: "A) mais", isCorrect: false },
+            { text: "B) et", isCorrect: false },
+            { text: "C) parce que", isCorrect: true }
+        ]
+    },
+    {
+        question: "3. Compréhension écrite : Lis ce message et choisis la bonne affirmation :",
+        context: "« Salut Thomas ! Ce soir, je t'attends à la maison à 19h pour le dîner. N'oublie pas d'apporter le pain. À tout à l'heure, Pauline. »",
+        options: [
+            { text: "A) Thomas invite Pauline à dîner.", isCorrect: false },
+            { text: "B) Thomas doit acheter du pain avant d'aller chez Pauline.", isCorrect: true },
+            { text: "C) Le dîner est à midi.", isCorrect: false }
+        ]
+    },
+    {
+        question: "4. Vocabulaire (Les magasins) :",
+        context: "Où va-t-on pour acheter des médicaments en France ?",
+        options: [
+            { text: "A) À la boulangerie", isCorrect: false },
+            { text: "B) À la pharmacie", isCorrect: true },
+            { text: "C) À la bibliothèque", isCorrect: false }
+        ]
+    },
+    {
+        question: "5. Expression écrite : Laquelle de ces trois réponses est la plus naturelle pour un niveau A2 à la question :",
+        context: "« Qu'est-ce que tu as fait le week-end dernier ? »",
+        options: [
+            { text: "A) « Week-end bon. Plage et soleil. »", isCorrect: false },
+            { text: "B) « Le week-end dernier, je suis allé à la plage avec des amis. Samedi soir, nous avons mangé dans un petit restaurant très sympa. »", isCorrect: true },
+            { text: "C) « Le week-end, je vais à la plage. J'aime le soleil. »", isCorrect: false }
+        ]
+    }
+];
+
+// 2. Variables pour suivre l'état du jeu
+let currentQuestionIndex = 0;
+let score = 0;
+
+const quizContainer = document.getElementById('quiz');
+
+// 3. Fonction pour afficher une question
+function loadQuestion() {
+    const currentQuestion = quizData[currentQuestionIndex];
+    
+    // Génération du HTML pour la question actuelle
+    let htmlContent = `
+        <div class="question">${currentQuestion.question}</div>
+        <div class="context">${currentQuestion.context}</div>
+        <ul class="options">
+    `;
+    
+    currentQuestion.options.forEach((option, index) => {
+        htmlContent += `
+            <li>
+                <button class="option-btn" onclick="selectOption(${option.isCorrect})">
+                    ${option.text}
+                </button>
+            </li>
+        `;
+    });
+    
+    htmlContent += `</ul>`;
+    quizContainer.innerHTML = htmlContent;
+}
+
+// 4. Fonction appelée quand l'utilisateur clique sur une réponse
+function selectOption(isCorrect) {
+    if (isCorrect) {
+        score++;
+    }
+    
+    currentQuestionIndex++;
+    
+    if (currentQuestionIndex < quizData.length) {
+        loadQuestion();
+    } else {
+        showResults();
+    }
+}
+
+// 5. Fonction pour afficher le bilan final
+function showResults() {
+    let niveau = "";
+    let conseils = "";
+    
+    if (score === 5) {
+        niveau = "Niveau A2 validé !";
+        conseils = "Félicitations ! Tu maîtrises bien les bases du niveau A2 (les temps du passé, la structure des phrases et les connecteurs). Tu es prêt pour attaquer le niveau B1 !";
+    } else if (score >= 3) {
+        niveau = "En transition vers le A2";
+        conseils = "Bon travail ! Tu as de bonnes bases. Tu commences à comprendre les structures de phrases plus complexes, continue tes efforts pour stabiliser le passé composé.";
+    } else {
+        niveau = "Niveau A1";
+        conseils = "C'est un bon début ! Tu es actuellement au niveau A1. Prends le temps de bien réviser le présent des verbes et le vocabulaire de la vie quotidienne pour progresser.";
+    }
+
+    quizContainer.innerHTML = `
+        <div class="result-container">
+            <h1>Résultats du Test</h1>
+            <div class="score">${score} / ${quizData.length}</div>
+            <div class="niveau">${niveau}</div>
+            <p style="margin-top: 20px; line-height: 1.5;">${conseils}</p>
+            <button class="restart-btn" onclick="restartQuiz()">Recommencer le test</button>
+        </div>
+    `;
+}
+
+// 6. Fonction pour relancer le QCM
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    loadQuestion();
+}
+
+// Lancement initial du quiz au chargement de la page
+loadQuestion();
+</script>
+
+</body>
+</html>

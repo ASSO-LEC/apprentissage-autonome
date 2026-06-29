@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NNiveau A1 / A2 (25 Questions)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #2c3e50;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            max-width: 650px;
+            width: 100%;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.6rem;
+            color: #2980b9;
+        }
+        .progress {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        .question {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .context {
+            font-style: italic;
+            background-color: #f8f9fa;
+            padding: 12px 15px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 20px;
+            border-radius: 0 4px 4px 0;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .options li {
+            margin-bottom: 12px;
+        }
+        button.option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 14px;
+            border: 1px solid #dcdde1;
+            border-radius: 6px;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease-in-out;
+        }
+        button.option-btn:hover {
+            background-color: #e8f4fd;
+            border-color: #3498db;
+            transform: translateX(3px);
+        }
+        .result-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 15px 0;
+        }
+        .badge {
+            display: inline-block;
+            background-color: #2980b9;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .advice {
+            line-height: 1.6;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            text-align: left;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .restart-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .restart-btn:hover {
+            background-color: #219653;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container" id="quiz-box">
+    <!-- Rempli par JavaScript -->
+</div>
+
+<script>
+const quizData = [
+    // --- SECTION 1 : CONJUGAISON & TEMPS ---
+    {
+        question: "1. Quel verbe correspond au sujet dans cette salutation ?",
+        context: "« Comment ça _________ ? »",
+        options: [{ text: "A) vas", isC: false }, { text: "B) va", isC: true }, { text: "C) allez", isC: false }]
+    },
+    {
+        question: "2. Choisissez la bonne forme au présent :",
+        context: "« Ma sœur _________ un appartement à Paris. »",
+        options: [{ text: "A) a", isC: true }, { text: "B) as", isC: false }, { text: "C) ont", isC: false }]
+    },
+    {
+        question: "3. Complétez avec la bonne conjugaison du premier groupe :",
+        context: "« Les étudiants _________ le français tous les jours. »",
+        options: [{ text: "A) étudiez", isC: false }, { text: "B) étudie", isC: false }, { text: "C) étudient", isC: true }]
+    },
+    {
+        question: "4. Indiquez la bonne forme du verbe FAIRE au présent :",
+        context: "« Qu'est-ce que vous _________ ce week-end ? »",
+        options: [{ text: "A) faites", isC: true }, { text: "B) faisez", isC: false }, { text: "C) font", isC: false }]
+    },
+    {
+        question: "5. Complétez la phrase au passé composé :",
+        context: "« Ce matin, Paul _________ un café et il est parti. »",
+        options: [{ text: "A) a pris", isC: true }, { text: "B) prend", isC: false }, { text: "C) va prendre", isC: false }]
+    },
+    {
+        question: "6. Choisissez l'auxiliaire correct au passé composé :",
+        context: "« Marie _________ allée au cinéma hier soir. »",
+        options: [{ text: "A) a", isC: false }, { text: "B) est", isC: true }, { text: "C) va", isC: false }]
+    },
+    {
+        question: "7. Exprimez un projet futur immédiat (futur proche) :",
+        context: "« Demain, nous _________ visiter un musée. »",
+        options: [{ text: "A) allons", isC: false }, { text: "B) allons faire", isC: false }, { text: "C) allons visiter", isC: true }]
+    },
+    {
+        question: "8. Complétez cette description au passé (imparfait) :",
+        context: "« Quand j'_________ enfant, j'habitais à la campagne. »",
+        options: [{ text: "A) ai été", isC: false }, { text: "B) étais", isC: true }, { text: "C) suis", isC: false }]
+    },
+
+    // --- SECTION 2 : GRAMMAIRE & STRUCTURES ---
+    {
+        question: "9. Choisissez l'article correct :",
+        context: "« Je n'aime pas le café, je préfère _________ thé. »",
+        options: [{ text: "A) du", isC: false }, { text: "B) le", isC: true }, { text: "C) un", isC: false }]
+    },
+    {
+        question: "10. Choisissez l'article correct après une négation :",
+        context: "« Je n'ai pas _________ voiture. »",
+        options: [{ text: "A) de", isC: true }, { text: "B) une", isC: false }, { text: "C) la", isC: false }]
+    },
+    {
+        question: "11. Quel adjectif possessif convient ici ?",
+        context: "« C'est la voiture de Thomas et Julie. C'est _________ voiture. »",
+        options: [{ text: "A) leur", isC: true }, { text: "B) ses", isC: false }, { text: "C) votre", isC: false }]
+    },
+    {
+        question: "12. Complétez avec la bonne préposition de lieu :",
+        context: "« Mon ami habite _________ Japon, et moi j'habite _________ France. »",
+        options: [{ text: "A) en / au", isC: false }, { text: "B) au / en", isC: true }, { text: "C) à / en", isC: false }]
+    },
+    {
+        question: "13. Choisissez le pronom complément correct :",
+        context: "« Tu appelles souvent tes parents ? — Oui, je _________ téléphone tous les dimanches. »",
+        options: [{ text: "A) les", isC: false }, { text: "B) leur", isC: true }, { text: "C) eux", isC: false }]
+    },
+    {
+        question: "14. Quelle structure exprime correctement l'obligation ?",
+        context: "« Il _________ acheter un ticket avant de monter dans le train. »",
+        options: [{ text: "A) doit", isC: false }, { text: "B) faut", isC: false }, { text: "C) faut que", isC: false }, { text: "D) faut ou doit (Il faut / Il doit)", isC: true }] // Adapté pour simplicité : option D est la seule correcte
+    },
+    {
+        question: "15. Utilisez le bon pronom de quantité :",
+        context: "« Tu veux du sucre dans ton thé ? — Oui merci, j'_________ veux un peu. »",
+        options: [{ text: "A) le", isC: false }, { text: "B) en", isC: true }, { text: "C) y", isC: false }]
+    },
+
+    // --- SECTION 3 : VOCABULAIRE & VIE QUOTIDIENNE ---
+    {
+        question: "16. Quel mot désigne le moment du repas du soir ?",
+        context: "« En général, en France, on prend le _________ vers 20 heures. »",
+        options: [{ text: "A) déjeuner", isC: false }, { text: "B) petit-déjeuner", isC: false }, { text: "C) dîner", isC: true }]
+    },
+    {
+        question: "17. Dans quelle pièce fait-on la cuisine ?",
+        context: "« Je prépare le repas dans la _________. »",
+        options: [{ text: "A) salle de bains", isC: false }, { text: "B) cuisine", isC: true }, { text: "C) chambre", isC: false }]
+    },
+    {
+        question: "18. Quel mot exprime un lien de parenté ?",
+        context: "« Le fils de mon frère est mon _________. »",
+        options: [{ text: "A) cousin", isC: false }, { text: "B) neveu", isC: true }, { text: "C) oncle", isC: false }]
+    },
+    {
+        question: "19. Trouvez le contraire de l'adjectif :",
+        context: "« Ce train n'est pas rapide, il est très _________. »",
+        options: [{ text: "A) lent", isC: true }, { text: "B) court", isC: false }, { text: "C) cher", isC: false }]
+    },
+    {
+        question: "20. Quelle heure est-il ?",
+        context: "« 14h30 en français se dit : Il est deux heures et _________. »",
+        options: [{ text: "A) quart", isC: false }, { text: "B) moins le quart", isC: false }, { text: "C) demie", isC: true }]
+    },
+
+    // --- SECTION 4 : SITUATIONS DE COMMUNICATION ---
+    {
+        question: "21. Quelle phrase utilisez-vous pour demander le coût de quelque chose ?",
+        context: "« Dans un magasin, vous dites : _________ »",
+        options: [{ text: "A) C'est où ?", isC: false }, { text: "B) Ça fait combien ?", isC: true }, { text: "C) Qu'est-ce que c'est ?", isC: false }]
+    },
+    {
+        question: "22. Comment réagissez-vous si vous ne comprenez pas quelqu'un ?",
+        context: "« Pardon, est-ce que vous pouvez _________ s'il vous plaît ? »",
+        options: [{ text: "A) parler", isC: false }, { text: "B) répéter", isC: true }, { text: "C) répondre", isC: false }]
+    },
+    {
+        question: "23. Quelle formule utilisez-vous pour accepter poliment une invitation ?",
+        context: "« Tu viens faire la fête samedi ? — _________ ! »",
+        options: [{ text: "A) Avec plaisir", isC: true }, { text: "B) Désolé, je ne peux pas", isC: false }, { text: "C) De rien", isC: false }]
+    },
+    {
+        question: "24. Au restaurant, que dites-vous pour demander l'addition ?",
+        context: "« Garçon, _________ s'il vous plaît. »",
+        options: [{ text: "A) le menu", isC: false }, { text: "B) la carte", isC: false }, { text: "C) l'addition", isC: true }]
+    },
+    {
+        question: "25. Comment décrivez-vous votre état si vous avez trop travaillé ?",
+        context: "« Je vais me coucher, je suis _________. »",
+        options: [{ text: "A) fatigué", isC: true }, { text: "B) fâché", isC: false }, { text: "C) pressé", isC: false }]
+    }
+];
+
+// Ajustement de la question 14 pour éviter des bugs d'affichage
+quizData[13].options = [
+    { text: "A) faut (Il faut acheter...)", isC: true },
+    { text: "B) doit (Il doit acheter...)", isC: false }, // En réalité les deux fonctionnent selon la structure, mais l'énoncé cible "Il..." donc les deux marchent. On va simplifier le code pour valider la bonne formulation.
+];
+// Correction propre des options de la Q14 pour le code :
+quizData[13] = {
+    question: "14. Quelle structure exprime correctement l'obligation impersonnelle ?",
+    context: "« Pour aller à Paris, il _________ prendre un billet. »",
+    options: [{ text: "A) doit", isC: false }, { text: "B) faut", isC: true }, { text: "C) a", isC: false }]
+};
+
+let currentIdx = 0;
+let finalScore = 0;
+
+function showQuestion() {
+    const box = document.getElementById('quiz-box');
+    const q = quizData[currentIdx];
+    
+    let optionsHtml = '';
+    q.options.forEach(opt => {
+        optionsHtml += `<li><button class="option-btn" onclick="handleAnswer(${opt.isC})">${opt.text}</button></li>`;
+    });
+
+    box.innerHTML = `
+        <div class="header">
+            <h1>Test d'Évaluation FLE</h1>
+            <div class="progress">Question ${currentIdx + 1} sur ${quizData.length}</div>
+        </div>
+        <div class="question">${q.question}</div>
+        <div class="context">${q.context}</div>
+        <ul class="options">${optionsHtml}</ul>
+    `;
+}
+
+function handleAnswer(isCorrect) {
+    if (isCorrect) finalScore++;
+    currentIdx++;
+    
+    if (currentIdx < quizData.length) {
+        showQuestion();
+    } else {
+        evalResult();
+    }
+}
+
+function evalResult() {
+    const box = document.getElementById('quiz-box');
+    let title = "";
+    let desc = "";
+    
+    if (finalScore <= 10) {
+        title = "Niveau Débutant — A1 Débutant / En cours";
+        desc = "<strong>Ton profil :</strong> Tu possèdes les tout premiers repères de la langue française (mots simples, salutations, présent de base). C'est un excellent départ !<br><br><strong>Mes conseils :</strong> Concentre-toi sur la construction de phrases simples au présent (Sujet + Verbe + Complément), apprends les verbes essentiels (être, avoir, faire, aller) et enrichis ton vocabulaire de la maison et de la famille.";
+    } else if (finalScore <= 18) {
+        title = "Niveau Élémentaire — A1 Validé / En transition vers le A2";
+        desc = "<strong>Ton profil :</strong> Tu as dépassé le niveau grand débutant ! Tu comprends les messages simples de la vie courante et les règles basiques de la grammaire.<br><br><strong>Mes conseils :</strong> Pour t'installer confortablement dans le niveau A2, tu dois maintenant travailler la narration au passé (le Passé Composé) et commencer à lier tes phrases avec des mots comme 'parce que', 'mais' ou 'donc'.";
+    } else {
+        title = "Niveau Intermédiaire Élémentaire — A2 Validé !";
+        desc = "<strong>Ton profil :</strong> Bravo ! Tu as une très bonne maîtrise des structures du niveau A2. Tu es capable de parler du passé, d'exprimer des choix, des obligations, et de te débrouiller seul dans la plupart des situations quotidiennes (magasins, restaurant, transports).<br><br><strong>Mes conseils :</strong> Tu as le bagage nécessaire pour commencer à explorer le niveau B1 ! Essaie de lire des textes plus longs, d'écouter des podcasts en français facile et d'étudier l'imparfait et le futur simple.";
+    }
+
+    box.innerHTML = `
+        <div class="result-container">
+            <div class="header"><h1>Bilan de ton Test</h1></div>
+            <div class="score">${finalScore} / ${quizData.length}</div>
+            <div class="badge">${title}</div>
+            <div class="advice">${desc}</div>
+            <button class="restart-btn" onclick="resetQuiz()">Refaire le test</button>
+        </div>
+    `;
+}
+
+function resetQuiz() {
+    currentIdx = 0;
+    finalScore = 0;
+    showQuestion();
+}
+
+// Initialisation
+showQuestion();
+</script>
+</body>
+</html>
