@@ -20,14 +20,33 @@
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-
         
         h1 {
             text-align: center;
             color: #2c3e50;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             border-bottom: 3px solid #f0f0f0;
             padding-bottom: 20px;
+        }
+
+        /* Style des Blocs Thématiques Encadrés */
+        .bloc-thematique {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .bloc-thematique h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
         }
         
         /* Style des grands Dossiers et Sous-dossiers */
@@ -44,7 +63,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         summary {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 600;
             padding: 12px;
             cursor: pointer;
@@ -70,7 +89,7 @@
             border-left: 4px solid #94a3b8;
         }
         details details summary {
-            font-size: 1rem;
+            font-size: 0.95rem;
             padding: 8px 12px;
         }
         details details summary::before {
@@ -108,6 +127,19 @@
             border-color: #3182ce;
             transform: translateY(-1px);
         }
+
+        /* Variantes de couleurs pour les boutons spécifiques */
+        .btn-green { border-color: #2ecc71; color: #2ecc71; }
+        .btn-green:hover { background-color: #2ecc71; border-color: #2ecc71; color: white; }
+
+        .btn-orange { border-color: #e67e22; color: #e67e22; }
+        .btn-orange:hover { background-color: #e67e22; border-color: #e67e22; color: white; }
+
+        .btn-purple { border-color: #9b59b6; color: #9b59b6; }
+        .btn-purple:hover { background-color: #9b59b6; border-color: #9b59b6; color: white; }
+
+        .btn-teal { border-color: #16a085; color: #16a085; }
+        .btn-teal:hover { background-color: #16a085; border-color: #16a085; color: white; }
     </style>
 </head>
 <body>
@@ -115,106 +147,110 @@
 <div class="container">
     <h1>🎒 Mon Espace d'Apprentissage Autonome</h1>
 
-<p style="text-align: center;">
-    <img src="lec.jpg" alt= "Lire Ecrire Comprendre l'Espace d'Apprentissage" style="width: 150px; height: auto;">
-</p>
+    <p style="text-align: center; margin-bottom: 30px;">
+        <img src="lec.jpg" alt="Lire Ecrire Comprendre l'Espace d'Apprentissage" style="width: 150px; height: auto;">
+    </p>
 
-
-    <!-- 1. GRAND DOSSIER : ARTICLES -->
-    <details>
-        <summary>Les Articles</summary>
+    <!-- ==================== BLOC 1 : GRAMMAIRE ==================== -->
+    <div class="bloc-thematique" style="border-color: #3182ce;">
+        <h2>📝 Section Grammaire</h2>
         
-        <!-- Sous-dossier Fiche 12-05 -->
+        <!-- GRAND DOSSIER : ARTICLES -->
         <details>
-            <summary>Fiche Spéciale 12-05</summary>
-            <div class="grid-boutons">
-                <a class="btn" href="article/Articles-12-05-fiche-1-et-2/quiz -articles-12-05-fiche-1-et-2.html">🎯 Quiz Fiche 1 et 2</a>
-            </div>
-        </details>
-
-        <!-- Sous-dossier A1 -->
-        <details>
-            <summary>Niveau A1</summary>
-            <div class="grid-boutons">
-                <a class="btn" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-1-à-12.html">📝 Articles (1-12)</a>
-                <a class="btn" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-13-à-20.html">📝 Articles (13-20)</a>
-                <a class="btn" href="article/niveau A1/quiz-article-défini-partie-1.html">❓ Quiz Partie 1</a>
-                <a class="btn" href="article/niveau A1/quiz-article-défini-partie-2.html">❓ Quiz Partie 2</a>
-                <a class="btn" href="article/niveau A1/quiz-article-défini-partie-3.html">❓ Quiz Partie 3</a>
-            </div>
-        </details>
-
-        <!-- Sous-dossier A2 -->
-        <details>
-            <summary>Niveau A2</summary>
-            <div class="grid-boutons">
-                <a class="btn" href="article/niveau A2/A2-articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
-                <a class="btn" href="article/niveau A2/A2-articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📝 Articles Définis & Indéfinis - Partie 2</a>
-            </div>
-        </details>
-
-        <!-- Sous-dossier B1 -->
-        <details>
-            <summary>Niveau B1</summary>
-            <div class="grid-boutons">
-                 <a class="btn" href="article/niveau B1/B1articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
-                 <a class="btn" href="article/niveau B1/B1articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📝 Articles Définis & Indéfinis - Partie 2</a> 
-                
-            </div>
-        </details>
-
-        <!-- Sous-dossier B2 -->
-        <details>
-            <summary>Niveau B2</summary>
-            <div class="grid-boutons">
-                <a class="btn" href="article/niveau B2/B2-articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
-                <a class="btn" href="article/niveau B2/B2-articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📝 Articles Définis & Indéfinis - Partie 2</a>
-                <a class="btn" href="article/niveau B2/B2-articles-definis-et-indefinis-singulier-et-pluriel-partie-3.html">📝 Articles Définis & Indéfinis - Partie 3</a>
-            </div>
-        </details>
-    </details>
-
-    <!-- 2. GRAND DOSSIER : CONJUGAISON -->
-    <details>
-        <summary>Conjugaison</summary>
-        
-        <!-- Sous-dossier Futur -->
-        <details>
-            <summary>Le Futur Simple</summary>
-            <div class="grid-boutons">
-                <a class="btn" href="conjugaison/futur/futur-1er-groupe.html">⏳ Futur - 1er Groupe Exercice Fiche 1</a>
-                <a class="btn" href="conjugaison/futur/futur-2eme-groupe.html">⏳ Futur - 2ème Groupe</a>
-                <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-ir.html">⏳ Futur - 3ème Groupe (IR) Exercice Fiche 1</a>
-                <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-re.html">⏳ Futur - 3ème Groupe (RE) Exercice Fiche 2</a>
-                <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche-4-en-oir.html">⏳ Futur - 3ème Groupe (OIR) Exercice Fiche 4</a>
-                <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3.html">⏳ Futur - Verbes Irréguliers Exercice 1 Fiche 3</a>
-                <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3-exercice-2.html">⏳ Futur - Verbes Irrégiliers Exercice 2 Fiche 3</a>
-            </div>
-        </details>
-
-        <!-- Sous-dossier Présent -->
-       <details>
-            <summary>Être, Avoir, Faire, Aller</summary>
+            <summary>Les Articles</summary>
             
-            <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">📘 La Leçon</p>
-            <div class="grid-boutons">
-                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/etre-avoir.html">📑 Être et Avoir</a>
-            </div>
+            <!-- Sous-dossier Fiche 12-05 -->
+            <details>
+                <summary>Fiche Spéciale 12-05</summary>
+                <div class="grid-boutons">
+                    <a class="btn" href="article/Articles-12-05-fiche-1-et-2/quiz -articles-12-05-fiche-1-et-2.html">🎯 Quiz Fiche 1 et 2</a>
+                </div>
+            </details>
 
-            <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">✍️ Entraînement</p>
-            <div class="grid-boutons">
-                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-1.html">📝 Quiz Partie 1</a>
-                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-2.html">📝 Quiz Partie 2</a>
-            </div>
+            <!-- Sous-dossier A1 -->
+            <details>
+                <summary>Niveau A1</summary>
+                <div class="grid-boutons">
+                    <a class="btn" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-1-à-12.html">📝 Articles (1-12)</a>
+                    <a class="btn" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-13-à-20.html">📝 Articles (13-20)</a>
+                    <a class="btn" href="article/niveau A1/quiz-article-défini-partie-1.html">❓ Quiz Partie 1</a>
+                    <a class="btn" href="article/niveau A1/quiz-article-défini-partie-2.html">❓ Quiz Partie 2</a>
+                    <a class="btn" href="article/niveau A1/quiz-article-défini-partie-3.html">❓ Quiz Partie 3</a>
+                </div>
+            </details>
 
-            <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">📖 L'histoire de Youssef</p>
-            <div class="grid-boutons">
-                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-1.html">🚶 Youssef Part. 1 Le Grand Départ</a>
-                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-2.html">💁‍♀️ Youssef Part. 2 Son Installation</a>
-                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-3.html">⚔️ Youssef Part. 3 Les Efforts</a>
-                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-4.html">😊 Youssef Part. 4 Le présent radieux</a>
-            </div>
+            <!-- Sous-dossier A2 -->
+            <details>
+                <summary>Niveau A2</summary>
+                <div class="grid-boutons">
+                    <a class="btn" href="article/niveau A2/A2-articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
+                    <a class="btn" href="article/niveau A2/A2-articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📝 Articles Définis & Indéfinis - Partie 2</a>
+                </div>
+            </details>
+
+            <!-- Sous-dossier B1 -->
+            <details>
+                <summary>Niveau B1</summary>
+                <div class="grid-boutons">
+                     <a class="btn" href="article/niveau B1/B1articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
+                     <a class="btn" href="article/niveau B1/B1articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📝 Articles Définis & Indéfinis - Partie 2</a> 
+                </div>
+            </details>
+
+            <!-- Sous-dossier B2 -->
+            <details>
+                <summary>Niveau B2</summary>
+                <div class="grid-boutons">
+                    <a class="btn" href="article/niveau B2/B2-articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
+                    <a class="btn" href="article/niveau B2/B2-articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📝 Articles Définis & Indéfinis - Partie 2</a>
+                    <a class="btn" href="article/niveau B2/B2-articles-definis-et-indefinis-singulier-et-pluriel-partie-3.html">📝 Articles Définis & Indéfinis - Partie 3</a>
+                </div>
+            </details>
         </details>
+
+        <!-- GRAND DOSSIER : CONJUGAISON -->
+        <details>
+            <summary>Conjugaison</summary>
+            
+            <!-- Sous-dossier Futur -->
+            <details>
+                <summary>Le Futur Simple</summary>
+                <div class="grid-boutons">
+                    <a class="btn" href="conjugaison/futur/futur-1er-groupe.html">⏳ Futur - 1er Groupe Exercice Fiche 1</a>
+                    <a class="btn" href="conjugaison/futur/futur-2eme-groupe.html">⏳ Futur - 2ème Groupe</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-ir.html">⏳ Futur - 3ème Groupe (IR) Exercice Fiche 1</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-re.html">⏳ Futur - 3ème Groupe (RE) Exercice Fiche 2</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche-4-en-oir.html">⏳ Futur - 3ème Groupe (OIR) Exercice Fiche 4</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3.html">⏳ Futur - Verbes Irréguliers Exercice 1 Fiche 3</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3-exercice-2.html">⏳ Futur - Verbes Irrégiliers Exercice 2 Fiche 3</a>
+                </div>
+            </details>
+
+            <!-- Sous-dossier Présent -->
+            <details>
+                <summary>Être, Avoir, Faire, Aller</summary>
+                
+                <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">📘 La Leçon</p>
+                <div class="grid-boutons">
+                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/etre-avoir.html">📑 Être et Avoir</a>
+                </div>
+
+                <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">✍️ Entraînement</p>
+                <div class="grid-boutons">
+                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-1.html">📝 Quiz Partie 1</a>
+                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-2.html">📝 Quiz Partie 2</a>
+                </div>
+
+                <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">📖 L'histoire de Youssef</p>
+                <div class="grid-boutons">
+                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-1.html">🚶 Youssef Part. 1 Le Grand Départ</a>
+                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-2.html">💁‍♀️ Youssef Part. 2 Son Installation</a>
+                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-3.html">⚔️ Youssef Part. 3 Les Efforts</a>
+                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-4.html">😊 Youssef Part. 4 Le présent radieux</a>
+                </div>
+            </details>
+            
+            <!-- Sous-dossier 10 Verbes -->
             <details>
                 <summary>10-verbes-les-plus-utilises</summary>
                 <div class="grid-boutons">
@@ -225,80 +261,79 @@
                     <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-sante-artiste-cuisine.html">📝 Santé, Artiste, Cuisine</a>
                     <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-devoirs-vacances.html">📝 Les devoirs  Les Vacances</a>
                     <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-la-rue-le-resto.html">📝 La Rue  Le Restaurant</a>
-
-                    
                 </div>
             </details>
 
-             <details>
+            <!-- Sous-dossier 1er Groupe -->
+            <details>
                 <summary>verbe-du-1er-groupe</summary>
                 <div class="grid-boutons">
                     <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/exercice-15-lignes-verbes-1er-groupe.html">📝 Divers</a>
                     <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-sport-loisirs.html">🏃‍♂️ ⚽ Sport - Loisirs</a>
                     <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-en-general.html">🧑‍🤝‍🧑 Vie en général</a>
                     <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-familiale.html">👪 Vie familiale</a>
-                    
                 </div>
             </details>
-   
         </details>
-    </details>
-
-    <!-- 3. GRAND DOSSIER : JEUX DU PENDU -->
-    <details>
-        <summary>Jeux du Pendu</summary>
-        <div class="grid-boutons">
-            <a class="btn" href="jeux-du-pendu/jeu-du-pendu-maison/jeu-du-pendu-maison-1-et-2.html">🏡 Le Pendu de la Maison</a>
-            <a class="btn" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Le Pendu des Fruits</a>
-            <a class="btn" href="jeux-du-pendu/jeu-du-pendu-la-meteo/jeu-du-pendu-la-meteo.html">☁️ Le Pendu de la Météo</a>
-            <a class="btn" href="jeux-du-pendu/jeu-du-pendu-la-ville/jeu-du-pendu-la-ville.html">🏘️🏙️ Le Pendu de la Ville</a>
-            <a class="btn" href="jeux-du-pendu/jeu-du-pendu-parc/parc.html">🎠 Le Pendu du Parc</a>
-            <a class="btn" href="jeux-du-pendu/jeu-du-pendu-plage/jeu-du-pendu-plage.html">🏖️ Le Pendu de la Plage</a>
-        </div>
-    </details>
-<!-- 4. DOSSIER : TROUVER LES MOTS -->
-<details>
-    <summary>🎯 Trouver les mots (Les Vêtements)</summary>
-    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; padding: 15px 0;">
-        <a href="trouver-les-mots/jeu-vetements-hiver.html" style="display: block; width: 80%; max-width: 300px; padding: 10px; background-color: #2ecc71; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center;"> 🧥 Jeu 1 : L'Hiver</a>
-        <a href="trouver-les-mots/jeu-vetements-ete.html" style="display: block; width: 80%; max-width: 300px; padding: 10px; background-color: #e67e22; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center;">☀️ Jeu 2 : L'Été</a>
-        <a href="trouver-les-mots/jeu-vetements-dessous.html" style="display: block; width: 80%; max-width: 300px; padding: 10px; background-color: #9b59b6; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center;">🩲 Jeu 3 : Les Dessous</a>
-        <a href="trouver-les-mots/jeu-vetements-accessoires.html" style="display: block; width: 80%; max-width: 300px; padding: 10px; background-color: #16a085; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center;">💼 Jeu 4 : Les Accessoires</a>
     </div>
-</details>
 
-<!-- 5. DOSSIER : TESTS DE NIVEAUX-->
-<details>
-    <summary>📈 Test de niveaux </summary>
-    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; padding: 15px 0;">
-       <a href="tests-de-niveaux/test-de-niveau-A1-vers-A2-25-questions-complet.html" style="display: block; width: 80%; max-width: 300px; padding: 10px; background-color: #2ecc71; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center;">📎 A1 -> A2 Test en 25 questions</a>
-       <a href="tests-de-niveaux/test-de-niveau-A1-vers-A2-5-questions.html" style="display: block; width: 80%; max-width: 300px; padding: 10px; background-color: #2ecc71; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center;">📎 A1 -> A2 Rapide en 5 questions</a>
-       <a href="tests-de-niveaux/test-de-niveau-a2-vers-b1-40-questions-complet.html" style="display: block; width: 80%; max-width: 300px; padding: 10px; background-color: #2ecc71; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center;">📎 A2 -> B1 Test de 40 questions</a> 
-    
+    <!-- ==================== BLOC 2 : VOCABULAIRE ==================== -->
+    <div class="bloc-thematique" style="border-color: #2ecc71;">
+        <h2>🎨 Section Vocabulaire & Jeux</h2>
+        
+        <!-- GRAND DOSSIER : JEUX DU PENDU -->
+        <details>
+            <summary>Jeux du Pendu</summary>
+            <div class="grid-boutons">
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-maison/jeu-du-pendu-maison-1-et-2.html">🏡 Le Pendu de la Maison</a>
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Le Pendu des Fruits</a>
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-la-meteo/jeu-du-pendu-la-meteo.html">☁️ Le Pendu de la Météo</a>
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-la-ville/jeu-du-pendu-la-ville.html">🏘️🏙️ Le Pendu de la Ville</a>
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-parc/parc.html">🎠 Le Pendu du Parc</a>
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-plage/jeu-du-pendu-plage.html">🏖️ Le Pendu de la Plage</a>
+            </div>
+        </details>
+
+        <!-- GRAND DOSSIER : TROUVER LES MOTS -->
+        <details>
+            <summary>🎯 Trouver les mots (Les Vêtements)</summary>
+            <div class="grid-boutons">
+                <a class="btn btn-green" href="trouver-les-mots/jeu-vetements-hiver.html">🧥 Jeu 1 : L'Hiver</a>
+                <a class="btn btn-orange" href="trouver-les-mots/jeu-vetements-ete.html">☀️ Jeu 2 : L'Été</a>
+                <a class="btn btn-purple" href="trouver-les-mots/jeu-vetements-dessous.html">🩲 Jeu 3 : Les Dessous</a>
+                <a class="btn btn-teal" href="trouver-les-mots/jeu-vetements-accessoires.html">💼 Jeu 4 : Les Accessoires</a>
+            </div>
+        </details>
     </div>
-</details>
 
-<!-- 6. DOSSIER : BON A SAVOIR-->
-<details>
-    <summary>📚 Bon à savoir </summary>
-    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; padding: 15px 0;">
-      <a href="bon-a-savoir/les-six-niveaux-du-cecrl.html"> Les 6 niveaux de A1 -> C2</a>
+    <!-- ==================== BLOC 3 : ÉVALUATIONS & INFOS ==================== -->
+    <div class="bloc-thematique" style="border-color: #9b59b6;">
+        <h2>📊 Évaluations & Informations</h2>
 
+        <!-- GRAND DOSSIER : TESTS DE NIVEAUX -->
+        <details>
+            <summary>📈 Test de niveaux</summary>
+            <div class="grid-boutons">
+               <a class="btn" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-25-questions-complet.html">📎 A1 -> A2 Test (25 questions)</a>
+               <a class="btn" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-5-questions.html">📎 A1 -> A2 Rapide (5 questions)</a>
+               <a class="btn" href="tests-de-niveaux/test-de-niveau-a2-vers-b1-40-questions-complet.html">📎 A2 -> B1 Test (40 questions)</a> 
+            </div>
+        </details>
 
-          
+        <!-- GRAND DOSSIER : BON A SAVOIR -->
+        <details>
+            <summary>📚 Bon à savoir</summary>
+            <div class="grid-boutons">
+                <!-- Lien corrigé (sans erreur 404) -->
+                <a class="btn" href="bon-a-savoir/les-six-niveaux-du-cecrl.html">📖 Les 6 niveaux de A1 -> C2</a>
+            </div>
+        </details>
     </div>
-</details>
-
-
-
-
-
-
-
-
-
 
 </div>
+
+<!-- ==================== ZONE DE SÉCURITÉ ANTI-TRICHE ==================== -->
+<script src="securite.js"></script>
 
 </body>
 </html>
