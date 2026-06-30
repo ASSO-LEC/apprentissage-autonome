@@ -159,7 +159,7 @@
 
 	
 	function buttonStart_onclick()
-		{questionButton.innerHTML = '<br/><br/><input type="button" name="buttonAnswer" id="buttonAnswer" class="btn--action" value="Answer Question" onclick="return buttonAnswer_onclick()"/>';
+		{questionButton.innerHTML = '<br/><br/><input type="button" name="buttonAnswer" id="buttonAnswer" class="btn--action" value="Réponse à la question" onclick="return buttonAnswer_onclick()"/>';
 		 displayQuestion();
 		}
 	
@@ -549,27 +549,27 @@
 		 levelArray[n] = new Array();
 		 levelArray[n]['lower'] = 0;
 		 levelArray[n]['upper'] = 8;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement élémentaire - A1';
+		 levelArray[n]['case'] = 'Votre niveau est approximativement A1';
 		 n++;
 		 levelArray[n] = new Array();
 		 levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
 		 levelArray[n]['upper'] = 18;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement élémentaire supérieur - A2';
+		 levelArray[n]['case'] = 'Votre niveau est approximativement A2';
 		 n++;
 		 levelArray[n] = new Array();
 		 levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
 		 levelArray[n]['upper'] = 28;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement intermédiaire - A2-B1';
+		 levelArray[n]['case'] = 'Votre niveau est approximativement entre A2-B1';
 		 n++;
 		 levelArray[n] = new Array();
 		 levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
 		 levelArray[n]['upper'] = 34;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement intermédiaire supérieur - B1';	
+		 levelArray[n]['case'] = 'Votre niveau est approximativement  B1';	
 		 n++;
 		 levelArray[n] = new Array();
 		 levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
 		 levelArray[n]['upper'] = 40;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement avancé - B2';	
+		 levelArray[n]['case'] = 'Votre niveau est approximativement  B2';	
 		 
 
 	}
