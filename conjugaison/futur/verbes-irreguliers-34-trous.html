@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice  Le Futur</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .phrase {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        .num {
+            font-weight: bold;
+            color: #2980b9;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            padding: 5px 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 130px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            outline: none;
+            box-shadow: 0 0 5px rgba(41, 128, 185, 0.3);
+        }
+        .indication {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+        /* Classes de feedback appliquées par JS */
+        .correct {
+            border-color: #2ecc71 !important;
+            background-color: #e8f8f5;
+        }
+        .incorrect {
+            border-color: #e74c3c !important;
+            background-color: #fce4d6;
+        }
+        #resultat {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Exercice de conjugaison : Le Futur</h1>
+    
+    <div id="exercice">
+        <!-- Phrase 1 -->
+        <div class="phrase">
+            <span class="num">1.</span> Tu <input type="text" data-ans="arriveras"> <span class="indication">(arriver)</span> chez moi vers quelle heure ce soir ? Je pense que je <input type="text" data-ans="pourrai"> <span class="indication">(pouvoir)</span> être là vers 20h. J’<input type="text" data-ans="achèterai"> <span class="indication">(acheter)</span> un dessert à la boulangerie avant d’arriver.
+        </div>
+
+        <!-- Phrase 2 -->
+        <div class="phrase">
+            <span class="num">2.</span> Vous <input type="text" data-ans="irez"> <span class="indication">(aller)</span> au mariage de Thomas et Julie le week-end prochain ? Oui, nous <input type="text" data-ans="resterons"> <span class="indication">(rester)</span> tout le week-end là-bas.
+        </div>
+
+        <!-- Phrase 3 -->
+        <div class="phrase">
+            <span class="num">3.</span> Demain matin, nous <input type="text" data-ans="enverrons"> <span class="indication">(envoyer)</span> le chèque du loyer parce que le propriétaire <input type="text" data-ans="sera"> <span class="indication">(être)</span> très mécontent s’il ne le reçoit pas avant le 5.
+        </div>
+
+        <!-- Phrase 4 -->
+        <div class="phrase">
+            <span class="num">4.</span> Tu <input type="text" data-ans="prendras"> <span class="indication">(prendre)</span> un dessert ? Non merci, mais je <input type="text" data-ans="boirai"> <span class="indication">(boire)</span> un café.
+        </div>
+
+        <!-- Phrase 5 -->
+        <div class="phrase">
+            <span class="num">5.</span> À partir de septembre, les enfants <input type="text" data-ans="devront"> <span class="indication">(devoir)</span> manger à la cantine le midi et ils <input type="text" data-ans="resteront"> <span class="indication">(rester)</span> aussi à l’étude le soir parce que je <input type="text" data-ans="sortirai"> <span class="indication">(sortir)</span> du travail trop tard pour aller les chercher à 16h.
+        </div>
+
+        <!-- Phrase 6 -->
+        <div class="phrase">
+            <span class="num">6.</span> Et toi, tu <input type="text" data-ans="feras"> <span class="indication">(faire)</span> quoi pour les prochaines vacances ?
+        </div>
+
+        <!-- Phrase 7 -->
+        <div class="phrase">
+            <span class="num">7.</span> J’<input type="text" data-ans="irai"> <span class="indication">(aller)</span> chez mon grand-père qui habite dans le sud de la France. Mon frère <input type="text" data-ans="viendra"> <span class="indication">(venir)</span> certainement avec moi et nous <input type="text" data-ans="profiterons"> <span class="indication">(profiter)</span> de la piscine et nous <input type="text" data-ans="nous baignerons"> <span class="indication">(se baigner)</span> dans la mer. Nous <input type="text" data-ans="déjeunerons"> <span class="indication">(déjeuner)</span> dans notre restaurant préféré. Je pense que, la deuxième semaine, ma mère nous <input type="text" data-ans="rejoindra"> <span class="indication">(rejoindre)</span>. Elle <input type="text" data-ans="pourra"> <span class="indication">(pouvoir)</span> prendre des vacances en même temps que nous. Mon grand-père <input type="text" data-ans="sera"> <span class="indication">(être)</span> ravi parce qu’il <input type="text" data-ans="verra"> <span class="indication">(voir)</span> toute la famille réunie.
+        </div>
+
+        <!-- Phrase 8 -->
+        <div class="phrase">
+            <span class="num">8.</span> Nous <input type="text" data-ans="passerons"> <span class="indication">(passer)</span> deux semaines chez lui puis, nous <input type="text" data-ans="partirons"> <span class="indication">(partir)</span> chez ma grand-mère. Là-bas, il y <input type="text" data-ans="aura"> <span class="indication">(avoir)</span> mes cousins. Ils nous <input type="text" data-ans="attendront"> <span class="indication">(attendre)</span> sûrement pour organiser le « pique-nique de l’été ». Mon petit cousin <input type="text" data-ans="voudra"> <span class="indication">(vouloir)</span> sortir le soir avec nous mais ma tante ne lui <input type="text" data-ans="donnera"> <span class="indication">(donner)</span> pas la permission parce qu’il <input type="text" data-ans="sera"> <span class="indication">(être)</span> encore trop jeune. Mon grand cousin m’<input type="text" data-ans="apprendra"> <span class="indication">(apprendre)</span> à conduire car je <input type="text" data-ans="passerai"> <span class="indication">(passer)</span> mon permis en septembre.
+        </div>
+
+        <!-- Phrase 9 -->
+        <div class="phrase">
+            <span class="num">9.</span> Vous <input type="text" data-ans="essayerez,essaierez"> <span class="indication">(essayer)</span> le parachutisme là-bas ? Vous <input type="text" data-ans="courrez"> <span class="indication">(courir)</span> tous les matins le long du front de mer ? Avec un peu de chance, il ne <input type="text" data-ans="pleuvra"> <span class="indication">(pleuvoir)</span> pas des vacances !
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button onclick="verifierReponses()">Vérifier mes réponses</button>
+    </div>
+    
+    <div id="resultat"></div>
+</div>
+
+<script>
+function verifierReponses() {
+    // Sélectionne tous les champs de saisie (inputs)
+    const inputs = document.querySelectorAll('#exercice input[type="text"]');
+    let score = 0;
+    const total = inputs.length;
+
+    inputs.forEach(input => {
+        // On récupère la réponse de l'utilisateur (en minuscules et sans espaces inutiles)
+        const repUtilisateur = input.value.trim().toLowerCase();
+        
+        // On récupère la ou les bonnes réponses possibles (séparées par une virgule pour le verbe essayer)
+        const bonnesReponses = input.getAttribute('data-ans').split(',');
+
+        // On vérifie si la réponse de l'utilisateur correspond à l'une des bonnes réponses
+        if (bonnesReponses.includes(repUtilisateur)) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    // Affichage du score final
+    const affichageResultat = document.getElementById('resultat');
+    affichageResultat.innerHTML = `Votre score : ${score} / ${total}`;
+    
+    if (score === total) {
+        affichageResultat.style.color = '#2ecc71';
+        affichageResultat.innerHTML += " - Sans faute ! Bravo ! 🎉";
+    } else if (score >= total / 2) {
+        affichageResultat.style.color = '#e67e22';
+        affichageResultat.innerHTML += " - Pas mal, mais vous pouvez faire mieux ! 👍";
+    } else {
+        affichageResultat.style.color = '#e74c3c';
+        affichageResultat.innerHTML += " - Révisez bien les verbes irréguliers et réessayez ! 📚";
+    }
+}
+</script>
+
+</body>
+</html>
