@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La famille par JPJ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .counter {
+            text-align: center;
+            font-weight: bold;
+            color: #16a085; /* Une couleur vert d'eau pour ce thème chic */
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        .word-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            flex-wrap: wrap;
+        }
+        .definition {
+            font-size: 1rem;
+            max-width: 65%;
+            line-height: 1.4;
+        }
+        .letter-boxes {
+            display: flex;
+            gap: 4px;
+        }
+        .letter-input {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid #7f8c8d;
+            border-radius: 4px;
+        }
+        .letter-input.space-box {
+            background-color: #e0e0e0;
+            border-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .letter-input.correct {
+            background-color: #16a085;
+            color: white;
+            border-color: #117a65;
+        }
+        .btn-retour {
+            display: block;
+            width: 150px;
+            margin: 25px auto 0 auto;
+            text-align: center;
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .btn-retour:hover {
+            background-color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Les membres de la famille par JPJ <BR> NE PAS OUBLIER LE TRAIT D'UNION  "-"</h1>
+    <div class="counter">Mots trouvés : <span id="score">0</span> / 49</div>
+
+    <div id="game-board">
+        <!-- Les lignes du jeu seront générées ici par JavaScript -->
+    </div>
+
+    <a href="../index.html" class="btn-retour">🏠 Accueil</a>
+</div>
+
+<script>
+    // Liste des mots avec espaces corrects pour les membres de la famille
+    const gameData = [
+        { info: "1. Le père et la mère qui sont responsables d'un ou plusieurs enfants.  Les ", word: "PARENTS" },
+        { info: "2. Autre nom de la maman. La", word: "MERE" },
+        { info: "3. Autre nom de mère.  La", word: "MAMAN" },
+        { info: "4. Autre nom de papa.   Le", word: "PERE" },
+        { info: "5. Autre nom de père.  Le", word: "PAPA" },
+        { info: "6. Personne de sexe masculin enfant de ses parents.   Le ", word: "FILS" },
+        { info: "7. Personne de sexe féminin enfant de ses parents  La .", word: "FILLE" },
+        { info: "8. Garçon qui a les mêmes parents qu'un autre enfant.  Le ", word: "FRERE" },
+        { info: "9. Fille qui a les mêmes parents qu'un autre enfant.  La ", word: "SOEUR" },
+        { info: "10. Être humain de sexe féminin.   La " , word: "FEMME" },
+        { info: "11. Homme uni par le mariage.   Le ", word: "MARI" },
+        { info: "12. Pour moi, c'est la soœur de mon père ou de ma mère. La ", word: "TANTE" },
+		{ info: "13. Pour moi, c'est le frère de mon père ou de ma mère. L' ", word: "ONCLE" },
+		{ info: "14. Fils de mon oncle ou de ma tante. Un ", word: "COUSIN" },
+		{ info: "15. Fille de mon oncle ou de ma tante. Une  ", word: "COUSINE" },
+		{ info: "16. Fils du frère ou de la sœur de mon père ou de ma mère. Le ", word: "NEVEU" },
+		{ info: "17. Fille du frère ou de la sœur de mon père ou de ma mère. La ", word: "NIECE" },
+		{ info: "18. Les parents des parents.. Les ", word: "GRANDS-PARENTS" },
+		{ info: "19. La mère de ma mère ou la mère de mon père. La ", word: "GRAND-MERE" },
+		{ info: "20. Autre nom de grand-mère.  ", word: "MAMIE" },
+		{ info: "21. La père de ma mère ou la père de mon père. Le ", word: "GRAND-PERE" },
+		{ info: "22. Autre nom de grand-père.  ", word: "PEPE" },
+		{ info: "23. Pour des parents, enfants d'un fils ou d'une fille.. Les  ", word: "PETITS-ENFANTS" },
+		{ info: "24. Pour des parents, fils d'un fils ou d'une fille. Le ", word: "PETIT-FILS" },
+		{ info: "25. Pour des parents, fille d'un fils ou d'une fille.. La ", word: "PETITE-FILLE" },
+		{ info: "26. Père du grand-père ou de la grand-mère . L' ", word: "ARRIERE-GRAND-PERE" },
+		{ info: "27. Mère du grand-père ou de la grand-mère . L' ", word: "ARRIERE-GRAND-MERE" },
+		{ info: "28. Femme choisie par les parents pour veiller sur leur enfant. La  ", word: "MARRAINE" },
+		{ info: "29. Homme choisie par les parents pour veiller sur leur enfant. Le ", word: "PARRAIN" },
+		{ info: "30. Personne avec lequel on a des relations d'amour. Le ", word: "PETIT AMI" },
+		{ info: "31. Personne avec laquelle on a des relations d'amour.. La ", word: "PETITE AMIE" },
+		{ info: "32. Frère de votre femme ou frère de votre mari. Le ", word: "BEAU-FRERE" },
+		{ info: "33. Soeur de votre femme ou sœur de votre mari. La ", word: "BELLE-SOEUR" },
+		{ info: "34. Maman de votre femme ou de votre mari. La ", word: "BELLE-MERE" },
+		{ info: "35. Papa de votre femme ou de votre mari. Le ", word: "BEAU-PERE" },
+		{ info: "36. Le mari de votre fille. Le ", word: "BEAU-FILS" },
+		{ info: "37. la femme de votre fils. La ", word: "BELLE-FILLE" },
+		{ info: "38. Se dit du frère, de la sœur le plus âg2s . L' ", word: "AINE" },
+		{ info: "39. Le plus jeune d'une famille. Le ", word: "BENJAMIN" },
+		{ info: "40. La plus jeune d'une famille. La ", word: "BENJAMINE" },
+		{ info: "41. Se dit de garçons nés d'un même accouchement. Les ", word: "JUMEAUX" },
+		{ info: "42. Se dit de filles nées d'un même accouchement. Les  ", word: "JUMELLES" },
+		{ info: "43. Enfant qui a perdu son père et sa mère, ou l'un des deux.. Un ", word: "ORPHELIN" },
+		{ info: "44. Un compagnon, un camarade. Un  ", word: "AMI" },
+		{ info: "45. Une compagne, une très bonne copine. Une ", word: "AMIE" },
+		{ info: "46. Un regroupement d'individus du même âge. Une ", word: "GENERATION" },
+		{ info: "47. Personne qui est à l'origine d'une famille dont on descend. Un ", word: "ANCETRE" },
+		{ info: "48. Les personnes issues d'un individu : enfants, petits-enfants,. Les ", word: "DESCENDANTS" },
+		{ info: "49. Femme unie par le mariage.. Une ", word: "EPOUSE" }
+    ];
+
+    const board = document.getElementById('game-board');
+    let foundWords = new Set();
+
+    function initGame() {
+        gameData.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'word-row';
+
+            const defDiv = document.createElement('div');
+            defDiv.className = 'definition';
+            defDiv.innerHTML = item.info;
+            row.appendChild(defDiv);
+
+            const boxesDiv = document.createElement('div');
+            boxesDiv.className = 'letter-boxes';
+
+            for (let i = 0; i < item.word.length; i++) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'letter-input';
+                input.maxLength = 1;
+                input.dataset.wordIndex = index;
+                input.dataset.letterIndex = i;
+
+                if (item.word[i] === ' ') {
+                    input.className = 'letter-input space-box';
+                    input.value = ' ';
+                    input.disabled = true;
+                } else {
+                    input.addEventListener('input', (e) => handleInput(e, input, item.word, index));
+                    input.addEventListener('keydown', (e) => handleKeyDown(e, input));
+                }
+
+                boxesDiv.appendChild(input);
+            }
+
+            row.appendChild(boxesDiv);
+            board.appendChild(row);
+        });
+    }
+
+    function handleInput(e, input, correctWord, wordIndex) {
+        const val = input.value.toUpperCase();
+        input.value = val;
+
+        if (val) {
+            let next = input.nextElementSibling;
+            if (next && next.classList.contains('space-box')) {
+                next = next.nextElementSibling;
+            }
+            if (next) next.focus();
+        }
+
+        checkWord(wordIndex, correctWord);
+    }
+
+    function handleKeyDown(e, input) {
+        if (e.key === 'Backspace' && !input.value) {
+            let prev = input.previousElementSibling;
+            if (prev && prev.classList.contains('space-box')) {
+                prev = prev.previousElementSibling;
+            }
+            if (prev) {
+                prev.focus();
+                prev.value = '';
+            }
+        }
+    }
+
+    function checkWord(wordIndex, correctWord) {
+        const rows = document.getElementsByClassName('word-row');
+        const inputs = rows[wordIndex].getElementsByClassName('letter-input');
+        let currentGuess = '';
+
+        for (let input of inputs) {
+            currentGuess += input.value;
+        }
+
+        if (currentGuess === correctWord) {
+            for (let input of inputs) {
+                input.classList.add('correct');
+                input.disabled = true;
+            }
+            foundWords.add(wordIndex);
+            document.getElementById('score').innerText = foundWords.size;
+        }
+    }
+
+    initGame();
+</script>
+<script src="../securite.js"></script>
+</body>
+</html>
