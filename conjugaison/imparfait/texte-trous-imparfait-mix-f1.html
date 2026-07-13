@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Texte à trous - L'imparfait, tous groupes mélangés (19 trous)</title>
+<style>
+  :root{
+    --bleu:#2d5f7c;
+    --bleu-clair:#e8f1f5;
+    --gris:#6b7280;
+    --vert:#1e8e5a;
+    --rouge:#c0392b;
+    --bord:#d3e3ea;
+    --violet:#6a3d8f;
+    --orange:#a3671f;
+    --rose:#a3492f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#f5f8f9;
+    margin:0;
+    padding:30px 15px 90px;
+    color:#1f2937;
+  }
+  .wrap{max-width:900px;margin:0 auto;}
+  h1{text-align:center;color:var(--bleu);font-size:1.55rem;margin-bottom:5px;}
+  .sous-titre{text-align:center;color:var(--gris);margin-bottom:10px;font-size:.95rem;}
+  .legende{
+    background:#fff;border:1px solid var(--bord);border-radius:10px;
+    padding:14px 18px;margin:0 0 16px;font-size:.88rem;color:var(--gris);
+  }
+  .legende b{color:var(--bleu);}
+  .legende-couleurs{
+    display:flex;flex-wrap:wrap;gap:14px;margin:0 0 26px;font-size:.8rem;color:var(--gris);
+    justify-content:center;
+  }
+  .puce{display:inline-flex;align-items:center;gap:5px;}
+  .puce span.rond{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .paragraphe{
+    background:#fff;border:1px solid var(--bord);border-radius:12px;
+    padding:18px 22px;margin-bottom:18px;box-shadow:0 1px 4px rgba(20,30,60,.05);
+  }
+  .paragraphe h3{
+    margin:0 0 10px;font-size:1rem;color:var(--bleu);
+    border-bottom:2px solid var(--bord);padding-bottom:6px;
+  }
+  .paragraphe p{
+    line-height:2.1;font-size:1rem;text-align:justify;margin:0;
+  }
+  .trou-wrap{display:inline-flex;align-items:baseline;gap:3px;margin:0 2px;}
+  input.trou{
+    width:120px;border:none;border-bottom:2px solid var(--bord);
+    padding:2px 4px;font-size:.95rem;text-align:center;background:#f9fbfc;
+    border-radius:4px 4px 0 0;
+  }
+  input.trou:focus{outline:none;border-bottom-color:var(--bleu);}
+  input.trou.ok{border-bottom-color:var(--vert);background:#eafaf0;}
+  input.trou.ko{border-bottom-color:var(--rouge);background:#fdecea;}
+  .indice{color:var(--gris);font-style:italic;font-size:.82rem;white-space:nowrap;}
+  .barre-actions{text-align:center;margin:28px 0;position:sticky;bottom:14px;}
+  .btn{
+    background:var(--bleu);color:#fff;border:none;padding:12px 26px;
+    border-radius:8px;font-size:1rem;cursor:pointer;box-shadow:0 3px 10px rgba(45,95,124,.35);
+  }
+  .btn:hover{background:#1f4658;}
+  .score-final{
+    text-align:center;font-size:1.3rem;font-weight:bold;color:var(--bleu);
+    margin:20px 0;display:none;
+  }
+  .sous-scores{
+    text-align:center;font-size:.9rem;color:var(--gris);margin-top:-10px;margin-bottom:10px;display:none;
+  }
+  .corrige{display:none;margin-top:10px;}
+  .corrige h2{color:var(--bleu);text-align:center;}
+  table.corrige-table{width:100%;border-collapse:collapse;background:#fff;font-size:.85rem;}
+  table.corrige-table th,table.corrige-table td{border:1px solid var(--bord);padding:6px 8px;text-align:left;}
+  table.corrige-table th{background:var(--bleu-clair);color:var(--bleu);position:sticky;top:0;}
+  table.corrige-table td.ok{color:var(--vert);font-weight:bold;white-space:nowrap;}
+  table.corrige-table td.ko{color:var(--rouge);font-weight:bold;white-space:nowrap;}
+  td.tag{font-size:.75rem;padding:2px 7px;border-radius:10px;color:#fff;display:inline-block;white-space:nowrap;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Texte à trous : l'imparfait, tous groupes mélangés</h1>
+  <p class="sous-titre">19 trous &middot; FLE niveau A1 / A2 &middot; Feuille 1 « Le village Dubois » &middot; 1er, 2e, 3e groupes + être / avoir</p>
+  <div class="legende">
+    Complétez le texte en conjuguant à l'<b>imparfait</b> le verbe indiqué entre parenthèses (à l'infinitif).
+    Le texte mélange des verbes du 1er groupe (-er), du 2e groupe (-ir type finir), du 3e groupe (irréguliers)
+    et les auxiliaires être / avoir.<br>
+    Exemple : elle <input type="text" style="width:100px;border:none;border-bottom:2px solid #d3e3ea;text-align:center;" disabled placeholder="était"> <i>(être)</i>
+  </div>
+
+  <div class="paragraphe"><h3>Le village autrefois</h3><p>Il y a longtemps, il y <span class="trou-wrap"><input type="text" class="trou" id="rep-1" data-num="1" autocomplete="off" spellcheck="false"><span class="indice">(avoir)</span></span> un petit village au bord d'une rivière. C'<span class="trou-wrap"><input type="text" class="trou" id="rep-2" data-num="2" autocomplete="off" spellcheck="false"><span class="indice">(être)</span></span> un endroit paisible où tout le monde se connaissait. Les maisons <span class="trou-wrap"><input type="text" class="trou" id="rep-3" data-num="3" autocomplete="off" spellcheck="false"><span class="indice">(être)</span></span> en pierre, avec des toits de tuiles rouges. Chaque matin, le soleil <span class="trou-wrap"><input type="text" class="trou" id="rep-4" data-num="4" autocomplete="off" spellcheck="false"><span class="indice">(éclairer)</span></span> les rues étroites. Les habitants <span class="trou-wrap"><input type="text" class="trou" id="rep-5" data-num="5" autocomplete="off" spellcheck="false"><span class="indice">(avoir)</span></span> l'habitude de se saluer en se croisant. On y <span class="trou-wrap"><input type="text" class="trou" id="rep-6" data-num="6" autocomplete="off" spellcheck="false"><span class="indice">(vivre)</span></span> simplement, sans se presser. Les enfants <span class="trou-wrap"><input type="text" class="trou" id="rep-7" data-num="7" autocomplete="off" spellcheck="false"><span class="indice">(jouer)</span></span> dans les ruelles pendant que les adultes <span class="trou-wrap"><input type="text" class="trou" id="rep-8" data-num="8" autocomplete="off" spellcheck="false"><span class="indice">(travailler)</span></span>. Le boulanger <span class="trou-wrap"><input type="text" class="trou" id="rep-9" data-num="9" autocomplete="off" spellcheck="false"><span class="indice">(avoir)</span></span> toujours du bon pain frais, et son odeur <span class="trou-wrap"><input type="text" class="trou" id="rep-10" data-num="10" autocomplete="off" spellcheck="false"><span class="indice">(envahir)</span></span> toute la rue.</p></div>
+<div class="paragraphe"><h3>La famille Dubois</h3><p>Dans une des maisons du village <span class="trou-wrap"><input type="text" class="trou" id="rep-11" data-num="11" autocomplete="off" spellcheck="false"><span class="indice">(habiter)</span></span> la famille Dubois. Ils <span class="trou-wrap"><input type="text" class="trou" id="rep-12" data-num="12" autocomplete="off" spellcheck="false"><span class="indice">(être)</span></span> cinq : les parents, deux enfants et grand-mère. Le père <span class="trou-wrap"><input type="text" class="trou" id="rep-13" data-num="13" autocomplete="off" spellcheck="false"><span class="indice">(avoir)</span></span> un petit atelier de menuiserie. Il <span class="trou-wrap"><input type="text" class="trou" id="rep-14" data-num="14" autocomplete="off" spellcheck="false"><span class="indice">(construire)</span></span> des meubles avec passion. La mère <span class="trou-wrap"><input type="text" class="trou" id="rep-15" data-num="15" autocomplete="off" spellcheck="false"><span class="indice">(être)</span></span> institutrice à l'école du village. Elle <span class="trou-wrap"><input type="text" class="trou" id="rep-16" data-num="16" autocomplete="off" spellcheck="false"><span class="indice">(enseigner)</span></span> la lecture et le calcul. Grand-mère <span class="trou-wrap"><input type="text" class="trou" id="rep-17" data-num="17" autocomplete="off" spellcheck="false"><span class="indice">(finir)</span></span> toujours par raconter une histoire avant le dîner. Les enfants l'<span class="trou-wrap"><input type="text" class="trou" id="rep-18" data-num="18" autocomplete="off" spellcheck="false"><span class="indice">(écouter)</span></span> avec attention, et chacun <span class="trou-wrap"><input type="text" class="trou" id="rep-19" data-num="19" autocomplete="off" spellcheck="false"><span class="indice">(avoir)</span></span> sa place habituelle à table.</p></div>
+
+
+  <div class="barre-actions">
+    <button class="btn" id="btnCorriger">Corriger le texte par JPJ</button>
+  </div>
+
+  <div class="score-final" id="scoreFinal"></div>
+  <div class="sous-scores" id="sousScores"></div>
+
+  <div class="corrige" id="zoneCorrige">
+    <h2>Corrigé détaillé par JPJ</h2>
+    <table class="corrige-table" id="tableCorrige"></table>
+  </div>
+
+</div>
+
+<script>
+const ITEMS = [{"numero": 1, "infinitif": "avoir", "reponse": "avait", "groupe": "auxiliaire"}, {"numero": 2, "infinitif": "être", "reponse": "était", "groupe": "auxiliaire"}, {"numero": 3, "infinitif": "être", "reponse": "étaient", "groupe": "auxiliaire"}, {"numero": 4, "infinitif": "éclairer", "reponse": "éclairait", "groupe": "1er groupe"}, {"numero": 5, "infinitif": "avoir", "reponse": "avaient", "groupe": "auxiliaire"}, {"numero": 6, "infinitif": "vivre", "reponse": "vivait", "groupe": "3e groupe"}, {"numero": 7, "infinitif": "jouer", "reponse": "jouaient", "groupe": "1er groupe"}, {"numero": 8, "infinitif": "travailler", "reponse": "travaillaient", "groupe": "1er groupe"}, {"numero": 9, "infinitif": "avoir", "reponse": "avait", "groupe": "auxiliaire"}, {"numero": 10, "infinitif": "envahir", "reponse": "envahissait", "groupe": "2e groupe"}, {"numero": 11, "infinitif": "habiter", "reponse": "habitait", "groupe": "1er groupe"}, {"numero": 12, "infinitif": "être", "reponse": "étaient", "groupe": "auxiliaire"}, {"numero": 13, "infinitif": "avoir", "reponse": "avait", "groupe": "auxiliaire"}, {"numero": 14, "infinitif": "construire", "reponse": "construisait", "groupe": "3e groupe"}, {"numero": 15, "infinitif": "être", "reponse": "était", "groupe": "auxiliaire"}, {"numero": 16, "infinitif": "enseigner", "reponse": "enseignait", "groupe": "1er groupe"}, {"numero": 17, "infinitif": "finir", "reponse": "finissait", "groupe": "2e groupe"}, {"numero": 18, "infinitif": "écouter", "reponse": "écoutaient", "groupe": "1er groupe"}, {"numero": 19, "infinitif": "avoir", "reponse": "avait", "groupe": "auxiliaire"}];
+
+const COULEURS = {
+  "auxiliaire": "#2d5f7c",
+  "1er groupe": "#a3492f",
+  "2e groupe": "#6a3d8f",
+  "3e groupe": "#a3671f",
+};
+
+function normalise(s){
+  return (s || "").trim().toLowerCase().replace(/\s+/g,' ');
+}
+
+document.getElementById('btnCorriger').addEventListener('click', () => {
+  let bonnes = 0;
+  let lignes = '';
+  const parGroupe = {};
+
+  ITEMS.forEach(it => {
+    const input = document.getElementById('rep-' + it.numero);
+    const donnee = input.value;
+    const estCorrect = normalise(donnee) === normalise(it.reponse);
+    input.classList.remove('ok','ko');
+    input.classList.add(estCorrect ? 'ok' : 'ko');
+    if(estCorrect) bonnes++;
+
+    if(!parGroupe[it.groupe]) parGroupe[it.groupe] = {total:0, bonnes:0};
+    parGroupe[it.groupe].total++;
+    if(estCorrect) parGroupe[it.groupe].bonnes++;
+
+    const couleur = COULEURS[it.groupe] || '#888';
+    lignes += `
+      <tr>
+        <td>${it.numero}</td>
+        <td>${it.infinitif}</td>
+        <td><span class="tag" style="background:${couleur};">${it.groupe}</span></td>
+        <td>${donnee ? donnee : '(vide)'}</td>
+        <td>${it.reponse}</td>
+        <td class="${estCorrect ? 'ok' : 'ko'}">${estCorrect ? '✔ Correct' : '✘ Incorrect'}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById('scoreFinal').style.display = 'block';
+  document.getElementById('scoreFinal').textContent = `Score : ${bonnes} / ${ITEMS.length}`;
+
+  const sousScoresTxt = Object.entries(parGroupe)
+    .map(([g, s]) => `${g} : ${s.bonnes}/${s.total}`)
+    .join('  ·  ');
+  document.getElementById('sousScores').style.display = 'block';
+  document.getElementById('sousScores').textContent = sousScoresTxt;
+
+  document.getElementById('tableCorrige').innerHTML = `
+    <thead>
+      <tr><th>N°</th><th>Infinitif</th><th>Groupe</th><th>Réponse donnée</th><th>Réponse attendue</th><th>Statut</th></tr>
+    </thead>
+    <tbody>${lignes}</tbody>
+  `;
+  document.getElementById('zoneCorrige').style.display = 'block';
+  document.getElementById('zoneCorrige').scrollIntoView({behavior:'smooth'});
+});
+</script>
+<script src="../../securite.js"></script>
+</body>
+</html>

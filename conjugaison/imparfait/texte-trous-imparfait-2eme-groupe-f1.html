@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Texte à trous - L'imparfait des verbes du 2e groupe (19 trous)</title>
+<style>
+  :root{
+    --bleu:#6a3d8f;
+    --bleu-clair:#f1eaf8;
+    --gris:#6b7280;
+    --vert:#1e8e5a;
+    --rouge:#c0392b;
+    --bord:#e0d5ea;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#f8f6fa;
+    margin:0;
+    padding:30px 15px 90px;
+    color:#1f2937;
+  }
+  .wrap{max-width:880px;margin:0 auto;}
+  h1{text-align:center;color:var(--bleu);font-size:1.55rem;margin-bottom:5px;}
+  .sous-titre{text-align:center;color:var(--gris);margin-bottom:10px;font-size:.95rem;}
+  .legende{
+    background:#fff;border:1px solid var(--bord);border-radius:10px;
+    padding:14px 18px;margin:0 0 26px;font-size:.88rem;color:var(--gris);
+  }
+  .legende b{color:var(--bleu);}
+  .paragraphe{
+    background:#fff;border:1px solid var(--bord);border-radius:12px;
+    padding:18px 22px;margin-bottom:18px;box-shadow:0 1px 4px rgba(20,30,60,.05);
+  }
+  .paragraphe h3{
+    margin:0 0 10px;font-size:1rem;color:var(--bleu);
+    border-bottom:2px solid var(--bord);padding-bottom:6px;
+  }
+  .paragraphe p{
+    line-height:2.1;font-size:1rem;text-align:justify;margin:0;
+  }
+  .trou-wrap{display:inline-flex;align-items:baseline;gap:3px;margin:0 2px;}
+  input.trou{
+    width:140px;border:none;border-bottom:2px solid var(--bord);
+    padding:2px 4px;font-size:.95rem;text-align:center;background:#faf8fb;
+    border-radius:4px 4px 0 0;
+  }
+  input.trou:focus{outline:none;border-bottom-color:var(--bleu);}
+  input.trou.ok{border-bottom-color:var(--vert);background:#eafaf0;}
+  input.trou.ko{border-bottom-color:var(--rouge);background:#fdecea;}
+  .indice{color:var(--gris);font-style:italic;font-size:.82rem;white-space:nowrap;}
+  .barre-actions{text-align:center;margin:28px 0;position:sticky;bottom:14px;}
+  .btn{
+    background:var(--bleu);color:#fff;border:none;padding:12px 26px;
+    border-radius:8px;font-size:1rem;cursor:pointer;box-shadow:0 3px 10px rgba(106,61,143,.35);
+  }
+  .btn:hover{background:#502d6d;}
+  .score-final{
+    text-align:center;font-size:1.3rem;font-weight:bold;color:var(--bleu);
+    margin:20px 0;display:none;
+  }
+  .corrige{display:none;margin-top:10px;}
+  .corrige h2{color:var(--bleu);text-align:center;}
+  table.corrige-table{width:100%;border-collapse:collapse;background:#fff;font-size:.85rem;}
+  table.corrige-table th,table.corrige-table td{border:1px solid var(--bord);padding:6px 8px;text-align:left;}
+  table.corrige-table th{background:var(--bleu-clair);color:var(--bleu);position:sticky;top:0;}
+  table.corrige-table td.ok{color:var(--vert);font-weight:bold;white-space:nowrap;}
+  table.corrige-table td.ko{color:var(--rouge);font-weight:bold;white-space:nowrap;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Texte à trous : l'imparfait des verbes du 2e groupe</h1>
+  <p class="sous-titre">19 trous &middot; FLE niveau A1 / A2 &middot; Feuille 1 « Le jardin d'Antoine »</p>
+  <div class="legende">
+    Complétez le texte en conjuguant à l'<b>imparfait</b> le verbe du 2ème groupe indiqué entre parenthèses (à l'infinitif).<br>
+    Exemple : elle <input type="text" style="width:110px;border:none;border-bottom:2px solid #e0d5ea;text-align:center;" disabled placeholder="choisissait"> <i>(choisir)</i>
+  </div>
+
+  <div class="paragraphe"><h3>Le jardin d'Antoine</h3><p>Chaque année, quand le printemps arrivait, les rosiers du jardin d'Antoine <span class="trou-wrap"><input type="text" class="trou" id="rep-1" data-num="1" autocomplete="off" spellcheck="false"><span class="indice">(fleurir)</span></span> magnifiquement. L'eau de la petite fontaine <span class="trou-wrap"><input type="text" class="trou" id="rep-2" data-num="2" autocomplete="off" spellcheck="false"><span class="indice">(jaillir)</span></span> entre les pierres. Les feuilles des arbres <span class="trou-wrap"><input type="text" class="trou" id="rep-3" data-num="3" autocomplete="off" spellcheck="false"><span class="indice">(épaissir)</span></span> peu à peu, offrant une ombre agréable. Après la pluie, la terre <span class="trou-wrap"><input type="text" class="trou" id="rep-4" data-num="4" autocomplete="off" spellcheck="false"><span class="indice">(noircir)</span></span>, gorgée d'eau. Au soleil, les tomates <span class="trou-wrap"><input type="text" class="trou" id="rep-5" data-num="5" autocomplete="off" spellcheck="false"><span class="indice">(rougir)</span></span> rapidement. En automne, les jours <span class="trou-wrap"><input type="text" class="trou" id="rep-6" data-num="6" autocomplete="off" spellcheck="false"><span class="indice">(raccourcir)</span></span>. La cuve <span class="trou-wrap"><input type="text" class="trou" id="rep-7" data-num="7" autocomplete="off" spellcheck="false"><span class="indice">(remplir)</span></span> d'eau de pluie. Les mauvaises herbes <span class="trou-wrap"><input type="text" class="trou" id="rep-8" data-num="8" autocomplete="off" spellcheck="false"><span class="indice">(envahir)</span></span> parfois les allées si Antoine ne s'en occupait pas, et la mousse <span class="trou-wrap"><input type="text" class="trou" id="rep-9" data-num="9" autocomplete="off" spellcheck="false"><span class="indice">(salir)</span></span> peu à peu le vieux mur du jardin.</p></div>
+<div class="paragraphe"><h3>La croissance des enfants</h3><p>Les petits-enfants d'Antoine venaient souvent au jardin. Chaque été, ils <span class="trou-wrap"><input type="text" class="trou" id="rep-10" data-num="10" autocomplete="off" spellcheck="false"><span class="indice">(grandir)</span></span> un peu plus. Le plus jeune <span class="trou-wrap"><input type="text" class="trou" id="rep-11" data-num="11" autocomplete="off" spellcheck="false"><span class="indice">(grossir)</span></span> car il mangeait beaucoup de fruits du jardin. Sa sœur, plus active, <span class="trou-wrap"><input type="text" class="trou" id="rep-12" data-num="12" autocomplete="off" spellcheck="false"><span class="indice">(maigrir)</span></span> un peu pendant les vacances tant elle courait partout. Quand on les grondait, ils <span class="trou-wrap"><input type="text" class="trou" id="rep-13" data-num="13" autocomplete="off" spellcheck="false"><span class="indice">(rougir)</span></span> de honte. Antoine les <span class="trou-wrap"><input type="text" class="trou" id="rep-14" data-num="14" autocomplete="off" spellcheck="false"><span class="indice">(nourrir)</span></span> avec les légumes qu'il cultivait. S'ils tombaient et se blessaient, une potion de grand-mère les <span class="trou-wrap"><input type="text" class="trou" id="rep-15" data-num="15" autocomplete="off" spellcheck="false"><span class="indice">(guérir)</span></span> rapidement. Les enfants <span class="trou-wrap"><input type="text" class="trou" id="rep-16" data-num="16" autocomplete="off" spellcheck="false"><span class="indice">(réussir)</span></span> toujours à trouver de nouveaux jeux. Ils <span class="trou-wrap"><input type="text" class="trou" id="rep-17" data-num="17" autocomplete="off" spellcheck="false"><span class="indice">(choisir)</span></span> souvent de construire des cabanes avec des branches. Face aux petites difficultés, ils <span class="trou-wrap"><input type="text" class="trou" id="rep-18" data-num="18" autocomplete="off" spellcheck="false"><span class="indice">(réagir)</span></span> avec courage et <span class="trou-wrap"><input type="text" class="trou" id="rep-19" data-num="19" autocomplete="off" spellcheck="false"><span class="indice">(agir)</span></span> toujours ensemble.</p></div>
+
+
+  <div class="barre-actions">
+    <button class="btn" id="btnCorriger">Corriger le texte par JPJ</button>
+  </div>
+
+  <div class="score-final" id="scoreFinal"></div>
+
+  <div class="corrige" id="zoneCorrige">
+    <h2>Corrigé détaillé par JPJ</h2>
+    <table class="corrige-table" id="tableCorrige"></table>
+  </div>
+
+</div>
+
+<script>
+const ITEMS = [{"numero": 1, "infinitif": "fleurir", "reponse": "fleurissaient"}, {"numero": 2, "infinitif": "jaillir", "reponse": "jaillissait"}, {"numero": 3, "infinitif": "épaissir", "reponse": "épaississaient"}, {"numero": 4, "infinitif": "noircir", "reponse": "noircissait"}, {"numero": 5, "infinitif": "rougir", "reponse": "rougissaient"}, {"numero": 6, "infinitif": "raccourcir", "reponse": "raccourcissaient"}, {"numero": 7, "infinitif": "remplir", "reponse": "remplissait"}, {"numero": 8, "infinitif": "envahir", "reponse": "envahissaient"}, {"numero": 9, "infinitif": "salir", "reponse": "salissait"}, {"numero": 10, "infinitif": "grandir", "reponse": "grandissaient"}, {"numero": 11, "infinitif": "grossir", "reponse": "grossissait"}, {"numero": 12, "infinitif": "maigrir", "reponse": "maigrissait"}, {"numero": 13, "infinitif": "rougir", "reponse": "rougissaient"}, {"numero": 14, "infinitif": "nourrir", "reponse": "nourrissait"}, {"numero": 15, "infinitif": "guérir", "reponse": "guérissait"}, {"numero": 16, "infinitif": "réussir", "reponse": "réussissaient"}, {"numero": 17, "infinitif": "choisir", "reponse": "choisissaient"}, {"numero": 18, "infinitif": "réagir", "reponse": "réagissaient"}, {"numero": 19, "infinitif": "agir", "reponse": "agissaient"}];
+
+function normalise(s){
+  return (s || "").trim().toLowerCase().replace(/\s+/g,' ');
+}
+
+document.getElementById('btnCorriger').addEventListener('click', () => {
+  let bonnes = 0;
+  let lignes = '';
+
+  ITEMS.forEach(it => {
+    const input = document.getElementById('rep-' + it.numero);
+    const donnee = input.value;
+    const estCorrect = normalise(donnee) === normalise(it.reponse);
+    input.classList.remove('ok','ko');
+    input.classList.add(estCorrect ? 'ok' : 'ko');
+    if(estCorrect) bonnes++;
+
+    lignes += `
+      <tr>
+        <td>${it.numero}</td>
+        <td>${it.infinitif}</td>
+        <td>${donnee ? donnee : '(vide)'}</td>
+        <td>${it.reponse}</td>
+        <td class="${estCorrect ? 'ok' : 'ko'}">${estCorrect ? '✔ Correct' : '✘ Incorrect'}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById('scoreFinal').style.display = 'block';
+  document.getElementById('scoreFinal').textContent = `Score : ${bonnes} / ${ITEMS.length}`;
+
+  document.getElementById('tableCorrige').innerHTML = `
+    <thead>
+      <tr><th>N°</th><th>Infinitif</th><th>Réponse donnée</th><th>Réponse attendue</th><th>Statut</th></tr>
+    </thead>
+    <tbody>${lignes}</tbody>
+  `;
+  document.getElementById('zoneCorrige').style.display = 'block';
+  document.getElementById('zoneCorrige').scrollIntoView({behavior:'smooth'});
+});
+</script>
+<script src="../../securite.js"></script>
+</body>
+</html>
