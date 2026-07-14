@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Que, Quel, Quels, Quelle, Quelles</title>
+    <style>
+        :root {
+            --primary: #2b5c8f;
+            --primary-light: #eef4fc;
+            --success: #2e7d32;
+            --success-bg: #e8f5e9;
+            --error: #c62828;
+            --error-bg: #ffebee;
+            --text: #2c3e50;
+            --bg: #fafbfc;
+            --border: #dcdde1;
+        }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
+        header { background: linear-gradient(135deg, var(--primary), #1a365d); color: white; padding: 40px 20px; text-align: center; border-bottom: 5px solid #0f2340; }
+        header h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
+        header p { margin: 0; font-size: 1.1rem; opacity: 0.9; }
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        .instructions { background-color: white; border-left: 5px solid var(--primary); padding: 20px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .instructions h2 { margin-top: 0; color: var(--primary); font-size: 1.3rem; }
+        .control-panel { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        button { background-color: var(--primary); color: white; border: none; padding: 12px 24px; font-size: 1rem; font-weight: 600; border-radius: 5px; cursor: pointer; transition: all 0.2s ease; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+        button.btn-secondary { background-color: #636e72; }
+        button.btn-success { background-color: var(--success); }
+        .score-box { background-color: var(--primary-light); border: 1px solid #bfdbfe; padding: 15px 20px; border-radius: 8px; margin-bottom: 30px; font-size: 1.2rem; font-weight: bold; color: var(--primary); display: none; text-align: center; }
+        .quiz-list { display: flex; flex-direction: column; gap: 20px; }
+        .question-card { background-color: white; border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); position: relative; }
+        .question-number { font-weight: bold; color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; display: inline-block; }
+        .question-text { font-size: 1.15rem; margin-bottom: 15px; font-weight: 500; }
+        .question-text .gap { border-bottom: 2px dashed var(--primary); padding: 0 15px; color: var(--primary); font-weight: bold; }
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+        .option-label { display: flex; align-items: center; background-color: #f8f9fa; border: 1px solid var(--border); padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+        .option-label input { margin-right: 10px; transform: scale(1.1); }
+        .question-card.correct { border-color: var(--success); background-color: var(--success-bg); }
+        .question-card.incorrect { border-color: var(--error); background-color: var(--error-bg); }
+        .feedback-explanation { margin-top: 15px; padding: 12px; border-radius: 6px; font-size: 0.95rem; display: none; border: 1px solid transparent; }
+        .question-card.correct .feedback-explanation { display: block; background-color: #e8f5e9; color: #1b5e20; border-color: #c8e6c9; }
+        .question-card.incorrect .feedback-explanation { display: block; background-color: #ffebee; color: #b71c1c; border-color: #ffcdd2; }
+        .answer-key-section { margin-top: 40px; background-color: white; border: 1px solid var(--border); border-radius: 8px; padding: 25px; }
+        .answer-key-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 20px; }
+        .key-item { padding: 8px; background-color: #f1f2f6; border-radius: 4px; font-size: 0.9rem; border-left: 3px solid var(--primary); }
+        .key-item span { font-weight: bold; color: var(--success); }
+        @media print { .no-print, header, .control-panel, .score-box { display: none !important; } .question-card { page-break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Les Interrogatifs feuille 1</h1>
+        <p>Entraînez-vous à utiliser : <strong>Que, Quel, Quels, Quelle, Quelles</strong></p>
+    </header>
+
+    <div class="container">
+        
+        <div class="instructions no-print">
+            <h2>Consignes pour les apprenants :</h2>
+            <p>Choisissez l'interrogatif correct pour chaque phrase.</p>
+            <ul>
+                <li><strong>Que (ou Qu') :</strong> s'utilise pour poser une question sur une chose (COD du verbe).</li>
+                <li><strong>Quel :</strong> s'accorde avec un nom masculin singulier.</li>
+                <li><strong>Quels :</strong> s'accorde avec un nom masculin pluriel.</li>
+                <li><strong>Quelle :</strong> s'accorde avec un nom féminin singulier.</li>
+                <li><strong>Quelles :</strong> s'accorde avec un nom féminin pluriel.</li>
+            </ul>
+        </div>
+
+        <div class="control-panel no-print">
+            <button onclick="checkAnswers()" class="btn-success">Corriger mes réponses <br> AVEC EXPLICATIONS DES ERREURS</button>
+            <button onclick="resetQuiz()" class="btn-secondary">Réinitialiser le test</button>
+            <button onclick="window.print()" class="btn-secondary">Imprimer / Sauvegarder PDF</button>
+        </div>
+
+        <div id="scoreBox" class="score-box"></div>
+
+        <form id="quizForm" onsubmit="event.preventDefault();">
+            <div class="quiz-list" id="quizList"></div>
+        </form>
+
+        <div class="answer-key-section no-print">
+            <h2>Feuille de Réponses (Enseignant)</h2>
+            <button onclick="toggleAnswerKey()" class="btn-secondary">Afficher / Masquer les solutions <BR> sans explication</button>
+            <div id="answerKeyContainer" class="answer-key-grid" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { id: 1, text: "___ robe vas-tu porter pour le réveillon ?", options: ["Quelle", "Quel", "Quels", "Que"], ans: "Quelle", exp: "'Robe' est un nom féminin singulier." },
+            { id: 2, text: "___ fais-tu ce week-end ?", options: ["Que", "Quel", "Quelle", "Quels"], ans: "Que", exp: "On interroge sur l'action (chose/COD)." },
+            { id: 3, text: "___ sont tes loisirs préférés pendant les vacances ?", options: ["Quels", "Quel", "Quelles", "Que"], ans: "Quels", exp: "'Loisirs' est un nom masculin pluriel." },
+            { id: 4, text: "___ heure est-il à ta montre ?", options: ["Quelle", "Quel", "Quelles", "Que"], ans: "Quelle", exp: "'Heure' est un nom féminin singulier." },
+            { id: 5, text: "___ pays as-tu visités en Europe ?", options: ["Quels", "Quel", "Quelle", "Quelles"], ans: "Quels", exp: "'Pays' est ici au masculin pluriel (indiqué par 'visités')." },
+            { id: 6, text: "___ est ton numéro de téléphone ?", options: ["Quel", "Quelle", "Que", "Quels"], ans: "Quel", exp: "'Numéro' est un nom masculin singulier." },
+            { id: 7, text: "___ langues étrangères parles-tu couramment ?", options: ["Quelles", "Quelle", "Quels", "Que"], ans: "Quelles", exp: "'Langues' est un nom féminin pluriel." },
+            { id: 8, text: "___ mangez-vous au petit-déjeuner ?", options: ["Que", "Quel", "Quelle", "Quelles"], ans: "Que", exp: "On demande l'objet consommé (COD du verbe manger)." },
+            { id: 9, text: "___ est ta couleur préférée ?", options: ["Quelle", "Quel", "Quelles", "Que"], ans: "Quelle", exp: "'Couleur' est un nom féminin singulier." },
+            { id: 10, text: "___ sports pratiques-tu le mercredi ?", options: ["Quels", "Quel", "Quelle", "Quelles"], ans: "Quels", exp: "'Sports' est un nom masculin pluriel." },
+            { id: 11, text: "___ voiture as-tu achetée le mois dernier ?", options: ["Quelle", "Quel", "Quelles", "Que"], ans: "Quelle", exp: "'Voiture' est un nom féminin singulier." },
+            { id: 12, text: "___ cherchez-vous dans ce tiroir ?", options: ["Que", "Quel", "Quelle", "Quels"], ans: "Que", exp: "On demande l'objet de la recherche (COD)." },
+            { id: 13, text: "___ sont les raisons de ton absence ?", options: ["Quelles", "Quels", "Quelle", "Quel"], ans: "Quelles", exp: "'Raisons' est un nom féminin pluriel." },
+            { id: 14, text: "___ livre es-tu en train de lire ?", options: ["Quel", "Quelle", "Quels", "Que"], ans: "Quel", exp: "'Livre' est un nom masculin singulier." },
+            { id: 15, text: "___ chansons as-tu écoutées ce matin ?", options: ["Quelles", "Quels", "Quelle", "Quel"], ans: "Quelles", exp: "'Chansons' est un nom féminin pluriel." },
+            { id: 16, text: "___ veut dire ce mot difficile ?", options: ["Que", "Quel", "Quelle", "Quels"], ans: "Que", exp: "Structure interrogative 'Que veut dire...'." },
+            { id: 17, text: "___ jour sommes-nous aujourd'hui ?", options: ["Quel", "Quelle", "Quels", "Que"], ans: "Quel", exp: "'Jour' est un nom masculin singulier." },
+            { id: 18, text: "___ ingrédients faut-il pour ce gâteau ?", options: ["Quels", "Quel", "Quelles", "Quelle"], ans: "Quels", exp: "'Ingrédients' est un nom masculin pluriel." },
+            { id: 19, text: "___ est votre avis sur ce film ?", options: ["Quel", "Quelle", "Quels", "Que"], ans: "Quel", exp: "'Avis' est un nom masculin singulier." },
+            { id: 20, text: "___ chaussures vas-tu mettre ?", options: ["Quelles", "Quels", "Quelle", "Quel"], ans: "Quelles", exp: "'Chaussures' est un nom féminin pluriel." }
+  
+
+	   ];
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function loadQuiz() {
+            const quizList = document.getElementById('quizList');
+            quizList.innerHTML = "";
+
+            questions.forEach((q) => {
+                const mixedOptions = shuffle([...q.options]);
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `card-${q.id}`;
+
+                let optionsHTML = '';
+                mixedOptions.forEach(opt => {
+                    optionsHTML += `
+                        <label class="option-label">
+                            <input type="radio" name="q-${q.id}" value="${opt}">
+                            ${opt}
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <span class="question-number">Question ${q.id}</span>
+                    <div class="question-text">${q.text.replace("___", "<span class='gap'>...</span>")}</div>
+                    <div class="options-grid">${optionsHTML}</div>
+                    <div class="feedback-explanation" id="feedback-${q.id}">
+                        <strong>Explication :</strong> ${q.exp} (Bonne réponse : <strong>${q.ans}</strong>)
+                    </div>
+                `;
+                quizList.appendChild(card);
+            });
+            generateAnswerKey();
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            const scoreBox = document.getElementById('scoreBox');
+
+            questions.forEach(q => {
+                const card = document.getElementById(`card-${q.id}`);
+                const selectedInput = document.querySelector(`input[name="q-${q.id}"]:checked`);
+                card.classList.remove('correct', 'incorrect');
+
+                if (selectedInput) {
+                    if (selectedInput.value === q.ans) {
+                        score++;
+                        card.classList.add('correct');
+                    } else { card.classList.add('incorrect'); }
+                } else { card.classList.add('incorrect'); }
+            });
+
+            scoreBox.style.display = 'block';
+            scoreBox.innerHTML = `Votre Score : ${score} / ${questions.length} (${Math.round((score / questions.length) * 100)}% de réussite)`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizForm').reset();
+            const cards = document.querySelectorAll('.question-card');
+            cards.forEach(card => card.classList.remove('correct', 'incorrect'));
+            document.getElementById('scoreBox').style.display = 'none';
+            loadQuiz();
+        }
+
+        function generateAnswerKey() {
+            const container = document.getElementById('answerKeyContainer');
+            container.innerHTML = "";
+            questions.forEach(q => {
+                const item = document.createElement('div');
+                item.className = 'key-item';
+                item.innerHTML = `Q${q.id} : <span>${q.ans}</span>`;
+                container.appendChild(item);
+            });
+        }
+
+        function toggleAnswerKey() {
+            const container = document.getElementById('answerKeyContainer');
+            container.style.display = container.style.display === 'none' ? 'grid' : 'none';
+        }
+
+        window.onload = loadQuiz;
+    </script>
+
+<script src="../securite.js"></script>
+</body>
+</html>
