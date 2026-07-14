@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Pronoms Possessifs</title>
+    <style>
+        :root {
+            --primary: #2b5c8f;
+            --primary-light: #eef4fc;
+            --success: #2e7d32;
+            --success-bg: #e8f5e9;
+            --error: #c62828;
+            --error-bg: #ffebee;
+            --text: #2c3e50;
+            --bg: #fafbfc;
+            --border: #dcdde1;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #1a365d);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid #0f2340;
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .instructions {
+            background-color: white;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .instructions h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .control-panel {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        button.btn-secondary {
+            background-color: #636e72;
+        }
+
+        button.btn-success {
+            background-color: var(--success);
+        }
+
+        .score-box {
+            background-color: var(--primary-light);
+            border: 1px solid #bfdbfe;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: none;
+            text-align: center;
+        }
+
+        .quiz-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .question-card {
+            background-color: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .question-text .gap {
+            border-bottom: 2px dashed var(--primary);
+            padding: 0 15px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            border: 1px solid var(--border);
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.15s, border-color 0.15s;
+            font-size: 1rem;
+        }
+
+        .option-label:hover {
+            background-color: #f1f2f6;
+            border-color: #b2bec3;
+        }
+
+        .option-label input {
+            margin-right: 10px;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        /* Feedback Styles */
+        .question-card.correct {
+            border-color: var(--success);
+            background-color: var(--success-bg);
+        }
+
+        .question-card.incorrect {
+            border-color: var(--error);
+            background-color: var(--error-bg);
+        }
+
+        .feedback-explanation {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            display: none;
+            border: 1px solid transparent;
+        }
+
+        .question-card.correct .feedback-explanation {
+            display: block;
+            background-color: #e8f5e9;
+            color: #1b5e20;
+            border-color: #c8e6c9;
+        }
+
+        .question-card.incorrect .feedback-explanation {
+            display: block;
+            background-color: #ffebee;
+            color: #b71c1c;
+            border-color: #ffcdd2;
+        }
+
+        /* Impression */
+        @media print {
+            body {
+                background-color: white;
+                color: black;
+            }
+            .no-print, header, .control-panel, .score-box {
+                display: none !important;
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .question-card {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+                box-shadow: none;
+                margin-bottom: 15px;
+                background-color: white !important;
+            }
+            .options-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .option-label {
+                background-color: white !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+
+        /* Panneau Enseignant */
+        .answer-key-section {
+            margin-top: 40px;
+            background-color: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .answer-key-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .key-item {
+            padding: 8px;
+            background-color: #f1f2f6;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .key-item span {
+            font-weight: bold;
+            color: var(--success);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Les Pronoms Possessifs</h1>
+        <p>Entraînez-vous à utiliser : <strong> les pronoms possessifs feuille 1</strong></p>
+    </header>
+
+    <div class="container">
+        
+        <div class="instructions no-print">
+            <h2>Consignes pour les apprenants :</h2>
+            <p>Complétez chaque phrase en choisissant le bon pronom possessif. Une seule réponse est correcte.</p>
+            <ul>
+                <li><strong> Le mien, le tien, le sien La mienne, la tienne, la sienne.
+							<br>Les miens, les tiens, les siens.
+							Les miennes, les tiennes, les siennes.<br>
+							Le nôtre*, le vôtre*, le leur.
+							La nôtre*, la vôtre*, la leur.
+							<br>Les vôtres*, les nôtres*, les leurs.     </strong> </li>
+							<br> *Bien penser à mettre l'accent circonflexe pour que l'on reconnaisse le pronom possessif.<br>
+							<br><li><strong> Les objets du quotidien & Les clés perdues </strong> </li>
+             
+            </ul>
+        </div>
+
+        <div class="control-panel no-print">
+            <button onclick="checkAnswers()" class="btn-success">Corriger mes réponses par JPJ <br> AVEC EXPLICATIONS</button>
+            <button onclick="resetQuiz()" class="btn-secondary">Réinitialiser le test</button>
+            <button onclick="window.print()" class="btn-secondary">Imprimer / Sauvegarder PDF</button>
+        </div>
+
+        <div id="scoreBox" class="score-box"></div>
+
+        <form id="quizForm" onsubmit="event.preventDefault();">
+            <div class="quiz-list" id="quizList">
+                <!-- Les questions s'affichent ici dynamiquement -->
+            </div>
+        </form>
+
+        <!-- Solutions Enseignant -->
+        <div class="answer-key-section no-print">
+            <h2>Feuille de Réponses (Enseignant)</h2>
+            <p>Visualisez ou masquez le corrigé complet en un clic.</p>
+            <button onclick="toggleAnswerKey()" class="btn-secondary">Afficher / Masquer les solutions <BR> sans explication</button>
+            <div id="answerKeyContainer" class="answer-key-grid" style="display: none;">
+                <!-- Les solutions s'affichent ici -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Tableau de données de vos questions
+        const questions = [
+           
+            { id: 1, text: "J'ai pris mes clés de voiture, as-tu pensé à prendre ___ ?", options: ["les tiennes", "les miennes", "les siennes", "les nôtres"], ans: "les tiennes", exp: "'Clés' est féminin pluriel. On demande à l'interlocuteur (tu) s'il a pris ses propres clés." },
+            { id: 2, text: "Notre appartement est au premier étage, tandis que celui de Pierre et Marie, ___, est au troisième.", options: ["le leur", "le nôtre", "le vôtre", "le sien"], ans: "le leur", exp: "L'appartement appartient à Pierre et Marie (ils), il est masculin singulier." },
+            { id: 3, text: "Ma montre avance de cinq minutes, et toi, ___ est-elle à l'heure ?", options: ["la tienne", "la mienne", "la sienne", "la vôtre"], ans: "la tienne", exp: "'Montre' est féminin singulier. On interroge directement l'interlocuteur (tu)." },
+            { id: 4, text: "Chaque élève doit apporter ses crayons. Moi, j'ai déjà préparé ___.", options: ["les miens", "les tiens", "les siens", "les nôtres"], ans: "les miens", exp: "'Crayons' est masculin pluriel. L'orateur (moi) parle de ses propres affaires." },
+            { id: 5, text: "Sophie a oublié sa règle, est-ce que tu peux lui prêter ___ ?", options: ["la tienne", "la mienne", "la sienne", "la vôtre"], ans: "la tienne", exp: "'Règle' est féminin singulier. On demande à l'interlocuteur (tu) de prêter son matériel." },
+            { id: 6, text: "Leurs enfants adorent le football. Chez nous, ___ préfèrent le basket.", options: ["les nôtres", "les vôtres", "les leurs", "les miens"], ans: "les nôtres", exp: "'Enfants' est masculin pluriel. L'expression 'Chez nous' indique qu'il s'agit de nos enfants." },
+            { id: 7, text: "Nous avons exposé nos dessins. À votre tour, montrez-nous ___ !", options: ["les vôtres", "les nôtres", "les leurs", "les miens"], ans: "les vôtres", exp: "'Dessins' est masculin pluriel. On s'adresse à un groupe (votre tour/vous)." },
+            { id: 8, text: "Paul a perdu son stylo plume, alors je lui ai prêté ___ pour l'examen.", options: ["le mien", "le tien", "le sien", "le vôtre"], ans: "le mien", exp: "'Stylo' est masculin singulier. L'orateur (je) lui a prêté son propre stylo." },
+            { id: 9, text: "Votre voiture est très spacieuse, mais pour ce long voyage, nous préférons conduire ___.", options: ["la nôtre", "la vôtre", "la sienne", "la leur"], ans: "la nôtre", exp: "'Voiture' est féminin singulier. Le sujet 'nous' indique que l'on va conduire notre véhicule." },
+            { id: 10, text: "Mes dossiers sont prêts pour la réunion. Sophie, as-tu fini de classer ___ ?", options: ["les tiens", "les miens", "les siens", "les vôtres"], ans: "les tiens", exp: "'Dossiers' est masculin pluriel. On s'adresse directement à Sophie (tu)." },
+            { id: 11, text: "Leur maison est en briques rouges. Vous nous avez dit que ___ est en pierre blanche.", options: ["la vôtre", "la nôtre", "la sienne", "la leur"], ans: "la vôtre", exp: "'Maison' est féminin singulier. On s'adresse aux interlocuteurs vouvoyés (Vous)." },
+            { id: 12, text: "J'ai garé mon vélo dans la cour. Et toi, où as-tu laissé ___ ?", options: ["le tien", "le mien", "le sien", "le vôtre"], ans: "le tien", exp: "'Vélo' est masculin singulier. On interroge l'ami que l'on tutoie (toi)." },
+            { id: 13, text: "Nos valises ont déjà été enregistrées, mais les passagers à côté cherchent encore ___.", options: ["les leurs", "les nôtres", "les siennes", "les miennes"], ans: "les leurs", exp: "'Valises' est féminin pluriel. Les valises appartiennent aux passagers (ils)." },
+            { id: 14, text: "Tu as choisi ton parfum de glace, laisse-moi maintenant choisir ___.", options: ["le mien", "le tien", "le sien", "le vôtre"], ans: "le mien", exp: "'Parfum' est masculin singulier. L'orateur (moi) veut faire son propre choix." },
+            { id: 15, text: "Leur chien aboie toute la nuit. Heureusement, dans notre maison, ___ dort très calmement.", options: ["le nôtre", "le leur", "le sien", "le mien"], ans: "le nôtre", exp: "'Chien' est masculin singulier. On parle de l'animal de notre foyer." }
+ 
+			
+		];
+
+        // Algorithme Fisher-Yates pour mélanger un tableau
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        // Chargement dynamique des questions
+        function loadQuiz() {
+            const quizList = document.getElementById('quizList');
+            quizList.innerHTML = "";
+
+            questions.forEach((q) => {
+                // Mélange dynamique des choix de réponse pour cette question
+                const mixedOptions = shuffle([...q.options]);
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `card-${q.id}`;
+
+                let optionsHTML = '';
+                mixedOptions.forEach(opt => {
+                    optionsHTML += `
+                        <label class="option-label">
+                            <input type="radio" name="q-${q.id}" value="${opt}">
+                            ${opt}
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <span class="question-number">Question ${q.id}</span>
+                    <div class="question-text">${q.text.replace("___", "<span class='gap'>...</span>")}</div>
+                    <div class="options-grid">
+                        ${optionsHTML}
+                    </div>
+                    <div class="feedback-explanation" id="feedback-${q.id}">
+                        <strong>Explication :</strong> ${q.exp} (Bonne réponse : <strong>${q.ans}</strong>)
+                    </div>
+                `;
+                quizList.appendChild(card);
+            });
+
+            generateAnswerKey();
+        }
+
+        // Vérification des réponses de l'étudiant
+        function checkAnswers() {
+            let score = 0;
+            const scoreBox = document.getElementById('scoreBox');
+
+            questions.forEach(q => {
+                const card = document.getElementById(`card-${q.id}`);
+                const selectedInput = document.querySelector(`input[name="q-${q.id}"]:checked`);
+                
+                card.classList.remove('correct', 'incorrect');
+
+                if (selectedInput) {
+                    if (selectedInput.value === q.ans) {
+                        score++;
+                        card.classList.add('correct');
+                    } else {
+                        card.classList.add('incorrect');
+                    }
+                } else {
+                    card.classList.add('incorrect');
+                }
+            });
+
+            scoreBox.style.display = 'block';
+            scoreBox.innerHTML = `Votre Score : ${score} / ${questions.length} (${Math.round((score / questions.length) * 100)}% de réussite)`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Remise à zéro
+        function resetQuiz() {
+            document.getElementById('quizForm').reset();
+            const cards = document.querySelectorAll('.question-card');
+            cards.forEach(card => card.classList.remove('correct', 'incorrect'));
+            document.getElementById('scoreBox').style.display = 'none';
+            loadQuiz(); // Mélange à nouveau les options pour une nouvelle session
+        }
+
+        // Génère le panneau des solutions (Enseignant)
+        function generateAnswerKey() {
+            const container = document.getElementById('answerKeyContainer');
+            container.innerHTML = "";
+            questions.forEach(q => {
+                const item = document.createElement('div');
+                item.className = 'key-item';
+                item.innerHTML = `Q${q.id} : <span>${q.ans}</span>`;
+                container.appendChild(item);
+            });
+        }
+
+        function toggleAnswerKey() {
+            const container = document.getElementById('answerKeyContainer');
+            if (container.style.display === 'none') {
+                container.style.display = 'grid';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        // Lancement au chargement de la page
+        window.onload = loadQuiz;
+    </script>
+</body>
+</html>
