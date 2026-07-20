@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Écoute et Choisis</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 700px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background-color: #f3fcf4;
+        }
+        .game-box { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #c3e6cb; 
+        }
+        h2 { color: #28a745; margin-top: 0; }
+        p { color: #555; }
+        
+        .btn-audio { 
+            padding: 8px 15px; 
+            font-size: 16px; 
+            margin-right: 20px; 
+            cursor: pointer; 
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .btn-audio:hover { background: #c8e6c9; }
+        
+        .row { 
+            margin: 25px 0; 
+            display: flex; 
+            align-items: center; 
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .options-group {
+            display: flex;
+            gap: 20px;
+        }
+        .options-group label {
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .options-group input {
+            transform: scale(1.2);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        button.action-btn { 
+            padding: 12px 25px; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        #btn-verifier { background: #28a745; }
+        #btn-verifier:hover { background: #218838; }
+        
+        #btn-recommencer { background: #6c757d; display: none; }
+        #btn-recommencer:hover { background: #5a6268; }
+        
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            display: none; 
+            line-height: 1.6;
+        }
+        .correct { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .incorrect { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+
+    <div class="game-box">
+        <h2>Écoutez et cochez la bonne lettre 🎧</h2>
+        <p>Cliquez sur le bouton haut-parleur de chaque ligne, écoutez attentivement le son de la lettre en français, puis cochez la bonne option parmi les 4 propositions.</p>
+        
+        <div id="questions-container">
+            <!-- Les 4 lignes de test seront générées ici -->
+        </div>
+
+        <div class="btn-group">
+            <button id="btn-verifier" class="action-btn" onclick="verifierAudio()">Vérifier mes choix par JPJ</button>
+            <button id="btn-recommencer" class="action-btn" onclick="initialiserJeuAudio()">Recommencer avec de nouvelles lettres</button>
+        </div>
+        
+        <div id="correction" class="result"></div>
+    </div>
+
+    <script>
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+        let questionsSession = [];
+
+        // Fonction pour mélanger un tableau (Fisher-Yates)
+        function mélanger(tableau) {
+            for (let i = tableau.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tableau[i], tableau[j]] = [tableau[j], tableau[i]];
+            }
+            return tableau;
+        }
+
+        // Lance une voix française claire
+        function ecouter(lettre) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Arrête une éventuelle lecture en cours
+                let uttr = new SpeechSynthesisUtterance(lettre);
+                uttr.lang = 'fr-FR';
+                uttr.rate = 0.8; // Légèrement ralenti pour le FLE
+                window.speechSynthesis.speak(uttr);
+            } else {
+                alert("La synthèse vocale n'est pas supportée par votre navigateur.");
+            }
+        }
+
+        // Prépare et affiche une nouvelle partie
+        function initialiserJeuAudio() {
+            const container = document.getElementById('questions-container');
+            const correctionDiv = document.getElementById('correction');
+            
+            container.innerHTML = "";
+            correctionDiv.style.display = "none";
+            document.getElementById('btn-verifier').style.display = "inline-block";
+            document.getElementById('btn-recommencer').style.display = "none";
+            
+            questionsSession = [];
+            
+            // Sélectionner 4 lettres cibles différentes pour les dictées
+            let lettresCibles = mélanger([...alphabet]).slice(0, 4);
+
+            lettresCibles.forEach((lettreCorrecte, indexQuestion) => {
+                // Construire un lot de 3 mauvaises réponses uniques
+                let faussesLettres = alphabet.filter(l => l !== lettreCorrecte);
+                let choixFausses = mélanger(faussesLettres).slice(0, 3);
+                
+                // Rassembler la bonne et les fausses réponses, puis mélanger les 4 options de la ligne
+                let toutesLesOptions = mélanger([lettreCorrecte, ...choixFausses]);
+                
+                questionsSession.push({
+                    correcte: lettreCorrecte,
+                    options: toutesLesOptions
+                });
+
+                // Génération de l'élément HTML
+                const row = document.createElement('div');
+                row.className = 'row';
+                
+                let optionsHtml = `<div class="options-group">`;
+                toutesLesOptions.forEach(option => {
+                    optionsHtml += `
+                        <label>
+                            <input type="radio" name="audio-q-${indexQuestion}" value="${option}"> ${option}
+                        </label>
+                    `;
+                });
+                optionsHtml += `</div>`;
+
+                row.innerHTML = `
+                    <button class="btn-audio" onclick="ecouter('${lettreCorrecte}')">🔊 Écouter ${indexQuestion + 1}</button>
+                    ${optionsHtml}
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function verifierAudio() {
+            let score = 0;
+            let correctionHtml = "<strong>Détails des réponses :</strong><br>";
+
+            questionsSession.forEach((q, indexQuestion) => {
+                const caseCochee = document.querySelector(`input[name="audio-q-${indexQuestion}"]:checked`);
+                const valeurCochee = caseCochee ? caseCochee.value : null;
+
+                if (valeurCochee === q.correcte) {
+                    score++;
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Correct ! C'était bien la lettre <strong>${q.correcte}</strong>.<br>`;
+                } else {
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Erreur. Le son était la lettre <strong>${q.correcte}</strong>.<br>`;
+                }
+            });
+
+            const div = document.getElementById('correction');
+            div.style.display = "block";
+
+            if (score === 4) {
+                div.className = "result correct";
+                div.innerHTML = `<strong>Parfait ! Score : 4/4</strong> 🌟 Votre oreille est excellente, vous distinguez parfaitement le nom des lettres !`;
+            } else {
+                div.className = "result incorrect";
+                div.innerHTML = `<strong>Exercice terminé. Score : ${score}/4</strong><br><br>` + correctionHtml;
+            }
+
+            // Gestion de l'affichage des boutons
+            document.getElementById('btn-verifier').style.display = "none";
+            document.getElementById('btn-recommencer').style.display = "inline-block";
+        }
+
+        // Lancement immédiat à l'ouverture de la page
+        window.onload = initialiserJeuAudio;
+    </script>
+</body>
+</html>
