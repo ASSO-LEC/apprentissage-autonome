@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Le Grand Tri Alphabétique</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 900px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background-color: #fcf8e3;
+        }
+        .game-box { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #f0ad4e;
+        }
+        h2 { color: #d9534f; margin-top: 0; }
+        .instructions { font-size: 16px; color: #555; margin-bottom: 25px; line-height: 1.5; }
+        
+        .grid-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 700px) {
+            .grid-options { grid-template-columns: 1fr; }
+        }
+        
+        .option-row {
+            background: #f9f9f9;
+            border: 1px solid #e1e1e1;
+            border-radius: 6px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+        }
+        .option-row:hover {
+            background: #f0f0f0;
+            border-color: #b5b5b5;
+        }
+        .option-row input {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        .list-text {
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #333;
+        }
+        
+        /* États visuels */
+        .option-row.selected {
+            background: #fff4e5;
+            border-color: #f0ad4e;
+        }
+        .option-row.correct-checked {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+            pointer-events: none;
+            cursor: default;
+        }
+        .option-row.incorrect-checked {
+            background: #f8d7da !important;
+            border-color: #dc3545 !important;
+        }
+        .badge-status {
+            margin-left: auto;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+        button { 
+            padding: 14px 35px; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        #btn-verifier { background: #d9534f; }
+        #btn-verifier:hover { background: #c9302c; }
+        
+        #btn-continuer { background: #f0ad4e; color: #333; display: none; }
+        #btn-continuer:hover { background: #ec971f; }
+        
+        .result { 
+            margin-top: 25px; 
+            padding: 20px; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            display: none; 
+            line-height: 1.6; 
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .fail { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    </style>
+</head>
+<body>
+
+<div class="game-box">
+    <h2>Le Défi de l'Ordre Alphabétique 📋</h2>
+    <p class="instructions">
+        <strong>Consigne :</strong> Cochez les <strong>7 séries qui sont dans le BON ORDRE ALPHABÉTIQUE</strong>.<br>
+        Les propositions sont mélangées différemment à chaque partie ! Vos bonnes réponses resteront figées en vert.
+    </p>
+    
+    <div class="grid-options" id="options-container">
+        <!-- Génération dynamique et mélangée des lignes -->
+    </div>
+
+    <div class="btn-group">
+        <button id="btn-verifier" onclick="verifierSeries()">Vérifier mes choix par JPJ</button>
+        <button id="btn-continuer" onclick="continuerJeu()">Continuer l'exercice</button>
+    </div>
+    
+    <div id="correction-zone" class="result"></div>
+</div>
+
+<script>
+    const seriesData = [
+        { texte: "B - C - D", correct: true },
+        { texte: "F - E - G - H", correct: false },
+        { texte: "L - M - N - O", correct: true },
+        { texte: "P - Q - S - R", correct: false },
+        { texte: "X - Y - Z", correct: true },
+        { texte: "A - C - B - D", correct: false },
+        { texte: "H - I - J - K", correct: true },
+        { texte: "M - O - N - P", correct: false },
+        { texte: "R - S - T - U - V", correct: true },
+        { texte: "V - W - Y - X", correct: false },
+        { texte: "C - D - E", correct: true },
+        { texte: "J - K - M - L", correct: false },
+        { texte: "O - P - Q - R", correct: true },
+        { texte: "G - H - J - I", correct: false },
+        { texte: "A - B - D", correct: false },
+        { texte: "Q - R - T", correct: false },
+        { texte: "E - F - H", correct: false },
+        { texte: "K - L - N", correct: false },
+        { texte: "T - U - W", correct: false },
+        { texte: "B - D - C - E", correct: false },
+        { texte: "G - I - H - J", correct: false },
+        { texte: "M - N - P", correct: false },
+        { texte: "S - T - V", correct: false },
+        { texte: "D - E - G - F", correct: false },
+        { texte: "I - J - L - K", correct: false },
+        { texte: "O - P - R - S", correct: false },
+        { texte: "U - V - X - Y", correct: false },
+        { texte: "C - E - D", correct: false },
+        { texte: "H - J - I - K", correct: false },
+        { texte: "W - Y - X - Z", correct: false }
+    ];
+
+    // Mélange de la liste (Algorithme de Fisher-Yates)
+    for (let i = seriesData.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [seriesData[i], seriesData[j]] = [seriesData[j], seriesData[i]];
+    }
+
+    let trouveesDefinitif = new Array(seriesData.length).fill(false);
+    const container = document.getElementById('options-container');
+
+    // Génération visuelle de l'interface mélangée
+    seriesData.forEach((item, index) => {
+        const row = document.createElement('label');
+        row.className = 'option-row';
+        row.id = `row-${index}`;
+        
+        row.innerHTML = `
+            <input type="checkbox" id="check-${index}" onchange="toggleRowStyle(${index})">
+            <span class="list-text">${item.texte}</span>
+            <span class="badge-status" id="badge-${index}"></span>
+        `;
+        container.appendChild(row);
+    });
+
+    function toggleRowStyle(index) {
+        if (trouveesDefinitif[index]) return;
+        const checkbox = document.getElementById(`check-${index}`);
+        const row = document.getElementById(`row-${index}`);
+        if (checkbox.checked) {
+            row.classList.add('selected');
+        } else {
+            row.classList.remove('selected');
+        }
+    }
+
+    function verifierSeries() {
+        let erreursDansCetEssai = 0;
+        let totalBonnesReponsesTrouvees = 0;
+
+        seriesData.forEach((item, index) => {
+            const checkbox = document.getElementById(`check-${index}`);
+            const row = document.getElementById(`row-${index}`);
+            const badge = document.getElementById(`badge-${index}`);
+            
+            if (trouveesDefinitif[index]) {
+                totalBonnesReponsesTrouvees++;
+                return;
+            }
+
+            if (checkbox.checked) {
+                if (item.correct) {
+                    row.className = 'option-row correct-checked';
+                    badge.innerText = "✓ Trouvé";
+                    badge.style.color = "#155724";
+                    trouveesDefinitif[index] = true;
+                    totalBonnesReponsesTrouvees++;
+                } else {
+                    row.className = 'option-row incorrect-checked';
+                    badge.innerText = "✗ Erreur";
+                    badge.style.color = "#721c24";
+                    erreursDansCetEssai++;
+                }
+            } else {
+                if (item.correct) {
+                    erreursDansCetEssai++;
+                }
+            }
+        });
+
+        const zoneCorrection = document.getElementById('correction-zone');
+        zoneCorrection.style.display = "block";
+
+        if (totalBonnesReponsesTrouvees === 7 && erreursDansCetEssai === 0) {
+            zoneCorrection.className = "result success";
+            zoneCorrection.innerHTML = `<strong>Félicitations ! Score : 7/7</strong> 🏆 Superbe travail, vous avez isolé toutes les suites correctes !`;
+            document.getElementById('btn-verifier').style.display = 'none';
+            document.getElementById('btn-continuer').style.display = 'none';
+        } else {
+            zoneCorrection.className = "result fail";
+            zoneCorrection.innerHTML = `Vous avez validé <strong>${totalBonnesReponsesTrouvees}</strong> série(s) correcte(s) sur 7.<br>` +
+            `Cliquez sur <strong>"Continuer l'exercice"</strong> pour nettoyer les erreurs et poursuivre.`;
+            
+            document.getElementById('btn-verifier').style.display = 'none';
+            document.getElementById('btn-continuer').style.display = 'inline-block';
+        }
+    }
+
+    function continuerJeu() {
+        document.getElementById('correction-zone').style.display = "none";
+
+        seriesData.forEach((item, index) => {
+            if (!trouveesDefinitif[index]) {
+                const checkbox = document.getElementById(`check-${index}`);
+                const row = document.getElementById(`row-${index}`);
+                const badge = document.getElementById(`badge-${index}`);
+                
+                checkbox.checked = false;
+                row.className = 'option-row';
+                badge.innerText = '';
+            }
+        });
+
+        document.getElementById('btn-verifier').style.display = 'inline-block';
+        document.getElementById('btn-continuer').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
