@@ -29,7 +29,7 @@
             padding-bottom: 20px;
         }
 
-        /* BARRE DE BOUTONS DE NIVEAU (FIXE EN HAUT DE PAGE) */
+        /* SELECTION DE NIVEAU FIXE */
         .niveau-selection {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -57,14 +57,13 @@
         .card-niveau:hover { transform: translateY(-2px); }
         .card-niveau.active { color: white; }
         
-        /* Couleurs d'activation au clic */
         .card-a0.active { background-color: #2ecc71; border-color: #2ecc71; }
         .card-a1.active { background-color: #3182ce; border-color: #3182ce; }
         .card-a2.active { background-color: #8e44ad; border-color: #8e44ad; }
         .card-b1b2.active { background-color: #d35400; border-color: #d35400; }
         .card-all.active { background-color: #34495e; border-color: #34495e; }
 
-        /* BLOCS ET DOSSIERS */
+        /* BLOCS THEMATIQUES */
         .bloc-thematique {
             background: #ffffff;
             border: 2px solid #e2e8f0;
@@ -107,7 +106,6 @@
         }
         details[open] > summary::before { content: "📂"; }
 
-        /* SOUS-TITRES INTERNES */
         .section-sous-titre {
             margin: 15px 0 5px 10px;
             font-weight: bold;
@@ -117,7 +115,6 @@
             gap: 6px;
         }
 
-        /* GRILLE DE BOUTONS D'EXERCICES */
         .grid-boutons {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -144,7 +141,6 @@
             border-color: #3182ce;
         }
 
-        /* CLASSE MAGIQUE POUR MASQUER LES NIVEAUX NON CONCERNÉS */
         .masque {
             display: none !important;
         }
@@ -159,7 +155,7 @@
         <img src="lec.jpg" alt="Lire Ecrire Comprendre" style="width: 140px; height: auto;">
     </p>
 
-    <!-- BARRE DE SÉLECTION DE NIVEAU -->
+    <!-- FILTRE DE NIVEAU -->
     <div class="niveau-selection">
         <button class="card-niveau card-a0" onclick="filtrerNiveau('a0')">🟢 Niveau A0</button>
         <button class="card-niveau card-a1" onclick="filtrerNiveau('a1')">🔵 Niveau A1</button>
@@ -168,11 +164,11 @@
         <button class="card-niveau card-all active" onclick="filtrerNiveau('all')">🌐 Tout Voir</button>
     </div>
 
-    <!-- ==================== CONJUGAISON ==================== -->
-    <div class="bloc-thematique" style="border-color: #3182ce;">
+    <!-- ==================== 1. CONJUGAISON ==================== -->
+    <div class="bloc-thematique element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2" style="border-color: #3182ce;">
         <h2>📂 Conjugaison</h2>
 
-        <!-- DOSSIER SPECIFIQUE IMAGE : Être, Avoir, Faire, Aller (Niveaux A0 et A1) -->
+        <!-- Être / Avoir / Faire / Aller (A0 & A1) -->
         <details id="dossier-etre-avoir" class="element-niveau niveau-a0 niveau-a1">
             <summary>Être, Avoir, Faire, Aller (Bases A0 / A1)</summary>
 
@@ -199,7 +195,7 @@
             </div>
         </details>
 
-        <!-- DOSSIER : Présent 1er/3ème groupe (Niveaux A1 et A2) -->
+        <!-- Présent 1er/3ème groupe (A1 & A2) -->
         <details class="element-niveau niveau-a1 niveau-a2">
             <summary>Le présent (1er et 3ème groupe)</summary>
             <div class="grid-boutons">
@@ -208,7 +204,7 @@
             </div>
         </details>
 
-        <!-- DOSSIER : Temps Avancés (Niveaux A2 / B1 / B2) -->
+        <!-- Temps Avancés (A2, B1, B2) -->
         <details class="element-niveau niveau-a2 niveau-b1b2">
             <summary>Temps Avancés (Futur, Imparfait, Passé Composé)</summary>
             <div class="grid-boutons">
@@ -219,11 +215,25 @@
         </details>
     </div>
 
-    <!-- ==================== ALPHABET & VOCABULAIRE ==================== -->
-    <div class="bloc-thematique" style="border-color: #2ecc71;">
-        <h2>🎨 Alphabet & Vocabulaire</h2>
+    <!-- ==================== 2. GRAMMAIRE ==================== -->
+    <div class="bloc-thematique element-niveau niveau-a1 niveau-a2 niveau-b1b2" style="border-color: #8e44ad;">
+        <h2>📐 Grammaire</h2>
+        <details class="element-niveau niveau-a1 niveau-a2 niveau-b1b2">
+            <summary>Structure & Règles de grammaire</summary>
+            <div class="grid-boutons">
+                <a class="btn" href="grammaire/articles-definis-indefinis.html">📌 Articles Définis & Indéfinis</a>
+                <a class="btn" href="grammaire/les-adjectifs-demonstratifs.html">👉 Adjectifs Démonstratifs</a>
+                <a class="btn" href="grammaire/les-adjectifs-possessifs.html">🏠 Adjectifs Possessifs</a>
+                <a class="btn" href="grammaire/la-negation.html">🚫 La Négation (Ne... pas)</a>
+            </div>
+        </details>
+    </div>
+
+    <!-- ==================== 3. JEUX & VOCABULAIRE ==================== -->
+    <div class="bloc-thematique element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2" style="border-color: #2ecc71;">
+        <h2>🎮 Jeux & Vocabulaire</h2>
         
-        <!-- Alphabet (Uniquement A0) -->
+        <!-- Alphabet (Spécifique A0) -->
         <details class="element-niveau niveau-a0">
             <summary>🔠 Alphabet & Sons (Niveau A0)</summary>
             <div class="grid-boutons">
@@ -233,49 +243,72 @@
             </div>
         </details>
 
-        <!-- Jeux / Vocabulaire (Tous niveaux) -->
+        <!-- Trouver les Mots (Tous Niveaux) -->
         <details class="element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2">
-            <summary>🎯 Jeux & Vocabulaire (Tous niveaux)</summary>
+            <summary>🔍 Jeux : Trouver les mots</summary>
             <div class="grid-boutons">
-                <a class="btn" href="trouver-les-mots/jeu-vetements-hiver.html">🧥 Les Vêtements</a>
-                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Jeu du Pendu - Fruits</a>
+                <a class="btn" href="trouver-les-mots/jeu-vetements-hiver.html">🧥 Les Vêtements d'hiver</a>
+                <a class="btn" href="trouver-les-mots/jeu-mots-nourriture.html">🍎 La Nourriture</a>
+                <a class="btn" href="trouver-les-mots/jeu-mots-maison.html">🏠 La Maison</a>
+            </div>
+        </details>
+
+        <!-- Jeux du Pendu (Tous Niveaux) -->
+        <details class="element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2">
+            <summary>🪢 Jeux du Pendu</summary>
+            <div class="grid-boutons">
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Jeux du Pendu - Fruits</a>
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-animaux/jeu-du-pendu-animaux.html">🐶 Jeux du Pendu - Animaux</a>
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-metiers/jeu-du-pendu-metiers.html">👨‍🚒 Jeux du Pendu - Métiers</a>
             </div>
         </details>
     </div>
+
+    <!-- ==================== 4. BON À SAVOIR ==================== -->
+    <div class="bloc-thematique element-niveau niveau-a1 niveau-a2 niveau-b1b2" style="border-color: #d35400;">
+        <h2>💡 Bon à savoir</h2>
+        <details class="element-niveau niveau-a1 niveau-a2 niveau-b1b2">
+            <summary>Conseils & Culture utile</summary>
+            <div class="grid-boutons">
+                <a class="btn" href="bon-a-savoir/les-formules-de-politesse.html">🤝 Les Formules de politesse</a>
+                <a class="btn" href="bon-a-savoir/remplir-un-formulaire.html">📄 Remplir un formulaire administratif</a>
+                <a class="btn" href="bon-a-savoir/lire-une-horloge.html">🕒 Lire l'heure et la date</a>
+            </div>
+        </details>
+    </div>
+
 </div>
 
-<!-- MOTEUR JAVASCRIPT DE FILTRAGE ET DE REDIRECTION -->
+<!-- SCRIPT JAVASCRIPT DE FILTRAGE ET DE CIBLAGE AUTOMATIQUE -->
 <script>
 function filtrerNiveau(niveauChoisi) {
-    // 1. Activer visuellement le bouton cliqué
+    // 1. Bouton actif
     const boutons = document.querySelectorAll('.card-niveau');
     boutons.forEach(btn => btn.classList.remove('active'));
     event.currentTarget.classList.add('active');
 
-    // 2. Parcourir tous les dossiers éligibles au filtrage
+    // 2. Filtrer tous les éléments portant la classe element-niveau
     const elements = document.querySelectorAll('.element-niveau');
 
     elements.forEach(el => {
         if (niveauChoisi === 'all') {
             el.classList.remove('masque');
-            el.open = false; // Replie les dossiers pour garder une vue d'ensemble nette
+            if (el.tagName === 'DETAILS') el.open = false;
         } else {
-            // Si le dossier contient l'étiquette du niveau demandé, on l'affiche
             if (el.classList.contains('niveau-' + niveauChoisi)) {
                 el.classList.remove('masque');
             } else {
-                // Sinon on le masque complètement
                 el.classList.add('masque');
             }
         }
     });
 
-    // 3. ACTION SPÉCIALE : Pour A0 et A1, cibler automatiquement le dossier Être / Avoir
+    // 3. Redirection automatique A0/A1 vers la conjugaison Être/Avoir
     if (niveauChoisi === 'a0' || niveauChoisi === 'a1') {
         const dossierCible = document.getElementById('dossier-etre-avoir');
         if (dossierCible) {
-            dossierCible.open = true; // Déplie le dossier automatiquement
-            dossierCible.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Fait défiler jusqu'à lui
+            dossierCible.open = true;
+            dossierCible.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 }
