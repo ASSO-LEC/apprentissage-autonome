@@ -13,7 +13,7 @@
             margin: 0;
         }
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             background: white;
             padding: 30px;
@@ -29,145 +29,125 @@
             padding-bottom: 20px;
         }
 
-        /* NOUVEAU : Style des Cartes de Sélection de Niveau */
+        /* BARRE DE BOUTONS DE NIVEAU (FIXE EN HAUT DE PAGE) */
         .niveau-selection {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
             margin-bottom: 30px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
         .card-niveau {
             background: #fff;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 5px;
             text-align: center;
-            text-decoration: none;
-            color: #2c3e50;
             font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        .card-niveau:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
-        }
-        .card-a0 { border-color: #2ecc71; background-color: #f0fff4; }
-        .card-a1 { border-color: #3182ce; background-color: #ebf8ff; }
-        .card-a2 { border-color: #8e44ad; background-color: #faf5ff; }
-        .card-communs { border-color: #e67e22; background-color: #fffaf0; }
+        .card-niveau:hover { transform: translateY(-2px); }
+        .card-niveau.active { color: white; }
+        
+        /* Couleurs d'activation au clic */
+        .card-a0.active { background-color: #2ecc71; border-color: #2ecc71; }
+        .card-a1.active { background-color: #3182ce; border-color: #3182ce; }
+        .card-a2.active { background-color: #8e44ad; border-color: #8e44ad; }
+        .card-b1b2.active { background-color: #d35400; border-color: #d35400; }
+        .card-all.active { background-color: #34495e; border-color: #34495e; }
 
-        /* Style des Blocs Thématiques Encadrés */
+        /* BLOCS ET DOSSIERS */
         .bloc-thematique {
             background: #ffffff;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         .bloc-thematique h2 {
             margin-top: 0;
             margin-bottom: 15px;
             color: #2c3e50;
             font-size: 1.3rem;
-            display: flex;
-            align-items: center;
             border-bottom: 2px solid #edf2f7;
             padding-bottom: 8px;
         }
         
-        /* Style des grands Dossiers et Sous-dossiers */
         details {
             background-color: #f8f9fa;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             margin-bottom: 12px;
             padding: 5px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
-        details[open] {
-            background-color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
+        details[open] { background-color: #ffffff; }
+        
         summary {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            padding: 12px;
+            padding: 10px;
             cursor: pointer;
             color: #2c3e50;
-            list-style: none; /* Enlève la flèche par défaut */
+            list-style: none;
             display: flex;
             align-items: center;
         }
         summary::before {
             content: "📁";
-            margin-right: 12px;
-            transition: transform 0.2s;
+            margin-right: 10px;
         }
-        details[open] > summary::before {
-            content: "📂";
-        }
-        
-        /* Style spécifique pour les Sous-Dossiers imbriqués */
-        details details {
-            margin-left: 20px;
-            margin-top: 10px;
-            background-color: #f1f5f9;
-            border-left: 4px solid #94a3b8;
-        }
-        details details summary {
-            font-size: 0.95rem;
-            padding: 8px 12px;
-        }
-        details details summary::before {
-            content: "📁";
+        details[open] > summary::before { content: "📂"; }
+
+        /* SOUS-TITRES INTERNES */
+        .section-sous-titre {
+            margin: 15px 0 5px 10px;
+            font-weight: bold;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        /* Grille d'exercices à l'intérieur d'un sous-dossier */
+        /* GRILLE DE BOUTONS D'EXERCICES */
         .grid-boutons {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 10px;
-            padding: 15px;
-            background: #ffffff;
-            border-radius: 6px;
-            margin-top: 5px;
+            padding: 10px;
         }
         
-        /* Liens des exercices */
         .btn {
             display: block;
-            padding: 10px 12px;
+            padding: 10px;
             text-align: center;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             border-radius: 6px;
-            transition: all 0.2s ease;
             background-color: #edf2f7;
             color: #4a5568;
             border: 1px solid #cbd5e1;
+            transition: all 0.2s;
         }
         .btn:hover {
             background-color: #3182ce;
             color: white;
             border-color: #3182ce;
-            transform: translateY(-1px);
         }
 
-        /* Variantes de couleurs pour les boutons spécifiques */
-        .btn-green { border-color: #2ecc71; color: #2ecc71; }
-        .btn-green:hover { background-color: #2ecc71; border-color: #2ecc71; color: white; }
-
-        .btn-orange { border-color: #e67e22; color: #e67e22; }
-        .btn-orange:hover { background-color: #e67e22; border-color: #e67e22; color: white; }
-
-        .btn-purple { border-color: #9b59b6; color: #9b59b6; }
-        .btn-purple:hover { background-color: #9b59b6; border-color: #9b59b6; color: white; }
-
-        .btn-teal { border-color: #16a085; color: #16a085; }
-        .btn-teal:hover { background-color: #16a085; border-color: #16a085; color: white; }
+        /* CLASSE MAGIQUE POUR MASQUER LES NIVEAUX NON CONCERNÉS */
+        .masque {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -176,327 +156,131 @@
     <h1>🎒 Mon Espace d'Apprentissage Autonome</h1>
 
     <p style="text-align: center; margin-bottom: 20px;">
-        <img src="lec.jpg" alt="Lire Ecrire Comprendre l'Espace d'Apprentissage" style="width: 150px; height: auto;">
+        <img src="lec.jpg" alt="Lire Ecrire Comprendre" style="width: 140px; height: auto;">
     </p>
 
-    <!-- NOUVEAU : PORTAIL D'ACCÈS DIRECT PAR NIVEAU -->
+    <!-- BARRE DE SÉLECTION DE NIVEAU -->
     <div class="niveau-selection">
-        <a href="#sec-a0" class="card-niveau card-a0">🟢 Niveau A0<br><small>Débutant / Alphabet</small></a>
-        <a href="#sec-a1" class="card-niveau card-a1">🔵 Niveau A1<br><small>Élémentaire</small></a>
-        <a href="#sec-a2" class="card-niveau card-a2">🟣 Niveau A2<br><small>Intermédiaire</small></a>
-        <a href="#sec-communs" class="card-niveau card-communs">🎯 Jeux & Communs<br><small>Tous niveaux</small></a>
+        <button class="card-niveau card-a0" onclick="filtrerNiveau('a0')">🟢 Niveau A0</button>
+        <button class="card-niveau card-a1" onclick="filtrerNiveau('a1')">🔵 Niveau A1</button>
+        <button class="card-niveau card-a2" onclick="filtrerNiveau('a2')">🟣 Niveau A2</button>
+        <button class="card-niveau card-b1b2" onclick="filtrerNiveau('b1b2')">🟠 B1 / B2</button>
+        <button class="card-niveau card-all active" onclick="filtrerNiveau('all')">🌐 Tout Voir</button>
     </div>
 
-    <!-- ==================== BLOC 1 : GRAMMAIRE ==================== -->
+    <!-- ==================== CONJUGAISON ==================== -->
     <div class="bloc-thematique" style="border-color: #3182ce;">
-        <h2>📝 Section Grammaire</h2>
-        
-        <!-- GRAND DOSSIER : ARTICLES -->
-        <details id="sec-a1">
-            <summary>Les Articles</summary>
-            
-            <!-- Sous-dossier Fiche 12-05 -->
-            <details>
-                <summary>Fiche Spéciale 12-05</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="article/Articles-12-05-fiche-1-et-2/quiz -articles-12-05-fiche-1-et-2.html">🎯 Quiz Fiche 1 et 2</a>
-                </div>
-            </details>
+        <h2>📂 Conjugaison</h2>
 
-            <!-- Sous-dossier A1 -->
-            <details open>
-                <summary>Niveau A1</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-1-à-12.html">📝 Articles (1-12)</a>
-                    <a class="btn" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-13-à-20.html">📝 Articles (13-20)</a>
-                    <a class="btn" href="article/niveau A1/quiz-article-défini-partie-1.html">❓ Quiz Partie 1</a>
-                    <a class="btn" href="article/niveau A1/quiz-article-défini-partie-2.html">❓ Quiz Partie 2</a>
-                    <a class="btn" href="article/niveau A1/quiz-article-défini-partie-3.html">❓ Quiz Partie 3</a>
-                </div>
-            </details>
+        <!-- DOSSIER SPECIFIQUE IMAGE : Être, Avoir, Faire, Aller (Niveaux A0 et A1) -->
+        <details id="dossier-etre-avoir" class="element-niveau niveau-a0 niveau-a1">
+            <summary>Être, Avoir, Faire, Aller (Bases A0 / A1)</summary>
 
-            <!-- Sous-dossier A2 -->
-            <details id="sec-a2">
-                <summary>Niveau A2</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="article/niveau A2/A2-articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
-                    <a class="btn" href="article/niveau A2/A2-articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📝 Articles Définis & Indéfinis - Partie 2</a>
-                </div>
-            </details>
-
-            <!-- Sous-dossier B1 -->
-            <details>
-                <summary>Niveau B1</summary>
-                <div class="grid-boutons">
-                     <a class="btn" href="article/niveau B1/B1-articles-definis-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
-                     <a class="btn" href="article/niveau B1/B1-articles-definis-indefinis-singulier-et-pluriel-partie-2.html">📝 Articles Définis & Indéfinis - Partie 2</a> 
-                </div>
-            </details>
-
-            <!-- Sous-dossier B2 -->
-            <details>
-                <summary>Niveau B2</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="article/niveau B2/B2-articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
-                    <a class="btn" href="article/niveau B2/B2-articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📝 Articles Définis & Indéfinis - Partie 2</a>
-                    <a class="btn" href="article/niveau B2/B2-articles-definis-et-indefinis-singulier-et-pluriel-partie-3.html">📝 Articles Définis & Indéfinis - Partie 3</a>
-                </div>
-            </details>
-        </details>
-
-        <!-- GRAND DOSSIER : DEMONSTRATIF -->
-        <details>
-            <summary>LES DEMONSTRATIFS déterminants et pronoms</summary>
-            
-             <!-- Sous-dossier Démonstratifs -->
-             <details>
-                 <summary>CE  CET  CETTE   CES</summary>
-                  <div class="grid-boutons">
-                    <a class="btn" href="demonstratifs/les-demonstratifs.html">📄 Ce - Cet - Cette - CES</a>
-                  </div>
-			 </details>
-             <details>      
-                 <summary>CELUI CELLE CEUX CELLES (-ci -là) CECI CELA  </summary>
-                  <div class="grid-boutons">
-                    <a class="btn" href="demonstratifs/les-pronoms-demonstratifs-f1.html">📄 celui/celle(s)/ceux (-ci/-là), ceci, cela <br> Feuille 1 </a>
-                    <a class="btn" href="demonstratifs/les-pronoms-demonstratifs-f2.html">📄 celui/celle(s)/ceux (-ci/-là), ceci, cela <br> Feuille 2 </a> 
-                  </div>
-             </details>
-        </details>
-
-		 <!-- GRAND DOSSIER : POSSESSIF -->
-        <details>
-            <summary>LES POSSESSIFS adjectifs et pronoms</summary>
-            
-             <!-- Sous-dossier possessifs -->
-             <details>
-                 <summary>Adjectifs possessifs</summary>
-                  <div class="grid-boutons">
-                    <a class="btn" href="possessifs/les-possessifs.f1.html">📄 Mon Ton Son / Ma Ta Sa / Notre Votre Leur / Nos Vos Leurs <br> feuille 1</a>
-                  </div>
-			 </details>
-             <details>      
-                 <summary>Pronoms possessifs </summary>
-                  <div class="grid-boutons">
-                    <a class="btn" href="possessifs/les-pronoms-possessifs.f1.html">📄 Le Mien - Le Tien - Le Sien <br> Feuille 1 </a>
-                  </div>
-             </details>
-        </details>
-
-	
-        <!-- GRAND DOSSIER : INTERROGATIF -->
-        <details>
-            <summary>Les interrogatifs</summary>
-            
-             <!-- Sous-dossier Interrogatifs -->
-             <details>
-                 <summary>Qui, Où, Quand, Pourquoi, Comment, Combien, que, quel(s), quelle(s)</summary>
-                  <div class="grid-boutons">
-                    <a class="btn" href="interrogatifs/les-interrogatifs-f1.html">📄 Qui, Où, Quand, Pourquoi, Comment, Combien Feuille 1</a>
-                    <a class="btn" href="interrogatifs/les-interrogatifs-f2.html">📄 Qui, Où, Quand, Pourquoi, Comment, Combien Feuille 2</a> 
-                    <a class="btn" href="interrogatifs/les-interrogatifs-quel-f1.html">📄 Qu', Que, Quel, Quels, Quelle, Quelles Feuille 1</a>
-                    <a class="btn" href="interrogatifs/les-interrogatifs-quel-f2.html">📄 Qu', Que, Quel, Quels, Quelle, Quelles Feuille 2</a> 
-                  </div>
-              </details>
-        </details>
-
-        
-        <!-- GRAND DOSSIER : CONJUGAISON -->
-        <details>
-            <summary>Conjugaison</summary>
-            
-            <!-- Sous-dossier Présent Essentiel (Accessible A0/A1) -->
-            <details open>
-                <summary>Être, Avoir, Faire, Aller (Bases A0 / A1)</summary>
-                
-                <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">📘 La Leçon</p>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/etre-avoir.html">📑 Être et Avoir</a>
-                </div>
-
-                <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">✍️ Entraînement</p>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-1.html">📝 Quiz Partie 1</a>
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-2.html">📝 Quiz Partie 2</a>
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-avoir.html">📝 Verbe Avoir et articles LEC Exo-facile-1-001 </a>
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-etre.html">📝 Verbe Être et articles LEC Exo-facile-1-001 </a>
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-aller.html">📝 Verbe Aller et articles LEC Exo-facile-1-001 </a>
-                </div>
-                
-                <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">📖 L'histoire de Youssef</p>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-1.html">🚶 Youssef Part. 1 Le Grand Départ</a>
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-2.html">💁‍♀️ Youssef Part. 2 Son Installation</a>
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-3.html">⚔️ Youssef Part. 3 Les Efforts</a>
-                    <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-4.html">😊 Youssef Part. 4 Le présent radieux</a>
-                </div>
-            </details>
-
-            <!-- Sous-dossier 1er Groupe -->
-            <details>
-                <summary>Le présent (1er et 3ème groupe)</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/exercice-15-lignes-verbes-1er-groupe.html">📝 Divers 1er groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-sport-loisirs.html">🏃‍♂️ ⚽ Sport - Loisirs 1er groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-en-general.html">🧑‍🤝‍🧑 Vie en général 1er groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-familiale.html">👪 Vie familiale 1er groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-3eme-groupe/exercice-24-lignes-verbes-3eme-groupe-exo1.html">📝 Entrainement avec le 3ème groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-3eme-groupe/exo-facile-1-001-lec-verbe-revenir.html">📝 Verbe Revenir et articles LEC Fiche 1-001 </a>
-                </div>
-            </details>
-
-            <!-- Sous-dossier Futur -->
-            <details>
-                <summary>Le Futur Simple</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/futur/futur-1er-groupe.html">⏳ Futur - 1er Groupe Exercice Fiche 1</a>
-                    <a class="btn" href="conjugaison/futur/futur-2eme-groupe.html">⏳ Futur - 2ème Groupe</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-ir.html">⏳ Futur - 3ème Groupe (IR) Exercice Fiche 1</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-re.html">⏳ Futur - 3ème Groupe (RE) Exercice Fiche 2</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche-4-en-oir.html">⏳ Futur - 3ème Groupe (OIR) Exercice Fiche 4</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3.html">⏳ Futur - Verbes Irréguliers Exercice 1 Fiche 3</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3-exercice-2.html">⏳ Futur - Verbes Irréguliers Exercice 2 Fiche 3</a>
-                    <a class="btn" href="conjugaison/futur/verbes-irreguliers-34-trous.html">⏳ Futur - Verbes Irréguliers 34 réponses</a>                
-                </div>
-            </details>
-
-            <!-- Sous-dossier imparfait-->
-            <details>
-                <summary>L'Imparfait</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-1er-groupe-f1.html">⏳ Imparfait - 1er Groupe Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-2eme-groupe-f1.html">⏳ Imparfait - 2ème Groupe Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-3eme-groupe-f1.html">⏳ Imparfait - 3ème Groupe Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-mix-f1.html">⏳ Imparfait - Tous les verbes Exercice Feuille 1</a>
-                </div>
-            </details>
-
-            <!-- Sous-dossier passe-compose-->
-            <details>
-                <summary>Le Passé Composé</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-1-avoir-1-20-f1.html">⏳ Passé composé - 1er Groupe auxiliaire Avoir Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-1-etre-1-20-f1.html">⏳ Passé composé - 1er Groupe auxiliaire Être Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-2-avoir-1-20-f1.html">⏳ Passé composé - 2ème Groupe auxiliaire Avoir Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-2-etre-1-20-f1.html">⏳ Passé composé - 2ème Groupe auxiliaire Être Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-3-avoir-1-20-f1.html">⏳ Passé composé - 3ème Groupe auxiliaire Avoir Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-3-etre-1-20-f1.html">⏳ Passé composé - 3ème Groupe auxiliaire Être Exercice Feuille 1</a>
-               </div>
-            </details>
-
-            <!-- Sous-dossier 10 Verbes -->
-            <details>
-                <summary>10 verbes les plus utilisés</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-bureau-matin-maison.html">📝 Au bureau, le matin</a>
-                    <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-chemin-voyage.html">📝 En chemin, le voyage</a>
-                    <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-courses-temps.html">📝 Les courses, le temps</a>
-                    <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-fete-bibliotheque.html">📝 La fête, la bibilotheque</a>
-                    <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-sante-artiste-cuisine.html">📝 Santé, Artiste, Cuisine</a>
-                    <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-devoirs-vacances.html">📝 Les devoirs  Les Vacances</a>
-                    <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-la-rue-le-resto.html">📝 La Rue  Le Restaurant</a>
-                </div>
-            </details>
-        </details>
-    </div>
-
-    <!-- ==================== BLOC 2 : VOCABULAIRE & JEUX ==================== -->
-    <div class="bloc-thematique" style="border-color: #2ecc71;" id="sec-communs">
-        <h2>🎨 Section Vocabulaire & Jeux</h2>
-        
-        <!-- GRAND DOSSIER : Alphabet (Spécial A0) -->
-        <details id="sec-a0" open>
-            <summary>Alphabet & Sons (Niveau A0 / Débutant)</summary>
+            <div class="section-sous-titre">📘 La Leçon</div>
             <div class="grid-boutons">
-                <a class="btn" href="alphabet/alphabet-lettres-voisines.html">🔠 Les lettres voisins <br>(recommencer plusieurs fois) </a>
-                <a class="btn" href="alphabet/alphabet-ordre-7-30.html">🆎 Trouver les 7 séries consécutives <br>(recommencer une fois)</a>
-                <a class="btn" href="alphabet/alphabet-sonore.html">🆎 Écouter les lettres et cocher la lettre correcte <br>(recommencer une fois)</a>
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/etre-avoir.html">📑 Être et Avoir</a>
+            </div>
+
+            <div class="section-sous-titre">✍️ Entraînement</div>
+            <div class="grid-boutons">
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-1.html">📝 Quiz Partie 1</a>
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-2.html">📝 Quiz Partie 2</a>
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-avoir.html">📝 Verbe Avoir et articles LEC Exo-facile-1-001</a>
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-etre.html">📝 Verbe Être et articles LEC Exo-facile-1-001</a>
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-aller.html">📝 Verbe Aller et articles LEC Exo-facile-1-001</a>
+            </div>
+
+            <div class="section-sous-titre">📖 L'histoire de Youssef</div>
+            <div class="grid-boutons">
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-1.html">🚶 Youssef Part. 1 Le Grand Départ</a>
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-2.html">💁‍♀️ Youssef Part. 2 Son Installation</a>
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-3.html">⚔️ Youssef Part. 3 Les Efforts</a>
+                <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-4.html">😊 Youssef Part. 4 Le présent radieux</a>
             </div>
         </details>
 
-        <!-- GRAND DOSSIER : JEUX DU PENDU -->
-        <details>
-            <summary>Jeux du Pendu (Tous Niveaux)</summary>
+        <!-- DOSSIER : Présent 1er/3ème groupe (Niveaux A1 et A2) -->
+        <details class="element-niveau niveau-a1 niveau-a2">
+            <summary>Le présent (1er et 3ème groupe)</summary>
             <div class="grid-boutons">
-                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-maison/jeu-du-pendu-maison-1-et-2.html">🏡 Le Pendu de la Maison</a>
-                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Le Pendu des Fruits</a>
-                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-la-meteo/jeu-du-pendu-la-meteo.html">☁️ Le Pendu de la Météo</a>
-                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-la-ville/jeu-du-pendu-la-ville.html">🏘️🏙️ Le Pendu de la Ville</a>
-                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-parc/parc.html">🎠 Le Pendu du Parc</a>
-                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-plage/jeu-du-pendu-plage.html">🏖️ Le Pendu de la Plage</a>
+                <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/exercice-15-lignes-verbes-1er-groupe.html">📝 Divers 1er groupe</a>
+                <a class="btn" href="conjugaison/present/verbe-du-3eme-groupe/exo-facile-1-001-lec-verbe-revenir.html">📝 Verbe Revenir et articles</a>
             </div>
         </details>
 
-        <!-- GRAND DOSSIER : TROUVER LES MOTS -->
-        <details>
-            <summary>🎯 Trouver les mots (Les Vêtements)</summary>
+        <!-- DOSSIER : Temps Avancés (Niveaux A2 / B1 / B2) -->
+        <details class="element-niveau niveau-a2 niveau-b1b2">
+            <summary>Temps Avancés (Futur, Imparfait, Passé Composé)</summary>
             <div class="grid-boutons">
-                <a class="btn btn-green" href="trouver-les-mots/jeu-vetements-hiver.html">🧥 Jeu 1 : L'Hiver</a>
-                <a class="btn btn-orange" href="trouver-les-mots/jeu-vetements-ete.html">☀️ Jeu 2 : L'Été</a>
-                <a class="btn btn-purple" href="trouver-les-mots/jeu-vetements-dessous.html">🩲 Jeu 3 : Les Dessous</a>
-                <a class="btn btn-teal" href="trouver-les-mots/jeu-vetements-accessoires.html">💼 Jeu 4 : Les Accessoires</a>
-            </div>
-        </details>
-
-        <!-- GRAND DOSSIER : vocabulaire test à trous -->
-        <details>
-            <summary>Vocabulaire Tests à trous</summary>
-            <div class="grid-boutons">
-                <a class="btn btn-green" href="vocabulaire-texte-a-trous/genealogie/genealogie-1.html"> 👨‍👨‍👧‍👦 Ma famille</a>
-                <a class="btn btn-green" href="vocabulaire-texte-a-trous/genealogie/genealogie-definitions.html"> 👨‍👨‍👧‍👦 Tous les membres d'une famille</a>
-                <a class="btn btn-green" href="vocabulaire-texte-a-trous/genealogie/corps-humain.html"> 👨‍⚕️ Le corps humain</a>
-                <a class="btn btn-green" href="vocabulaire-texte-a-trous/genealogie/le-visage.html"> 😯 Le visage Fiche 1 LEC Les présentatifs</a>
-                <a class="btn btn-green" href="vocabulaire-texte-a-trous/genealogie/descriptif-personnes.html"> 🙋 Les personnes Fiche 3 LEC Les présentatifs</a>
-                <a class="btn btn-green" href="vocabulaire-texte-a-trous/genealogie/batiments-lieux-publics.html"> 🏫 Les bâtiments et lieux publics Fiche 1 et 2 LEC</a>
+                <a class="btn" href="conjugaison/futur/futur-1er-groupe.html">⏳ Futur - 1er Groupe</a>
+                <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-1er-groupe-f1.html">⏳ Imparfait - 1er Groupe</a>
+                <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-1-avoir-1-20-f1.html">⏳ Passé Composé - Avoir</a>
             </div>
         </details>
     </div>
 
-    <!-- ==================== BLOC 3 : ÉVALUATIONS & INFOS ==================== -->
-    <div class="bloc-thematique" style="border-color: #9b59b6;">
-        <h2>📊 Évaluations & Informations</h2>
-
-        <!-- GRAND DOSSIER : TESTS DE NIVEAUX -->
-        <details>
-            <summary>📈 Test de niveaux</summary>
+    <!-- ==================== ALPHABET & VOCABULAIRE ==================== -->
+    <div class="bloc-thematique" style="border-color: #2ecc71;">
+        <h2>🎨 Alphabet & Vocabulaire</h2>
+        
+        <!-- Alphabet (Uniquement A0) -->
+        <details class="element-niveau niveau-a0">
+            <summary>🔠 Alphabet & Sons (Niveau A0)</summary>
             <div class="grid-boutons">
-               <a class="btn" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-25-questions-complet.html">📎 A1 -> A2 Test (25 questions)</a>
-               <a class="btn" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-5-questions.html">📎 A1 -> A2 Rapide (5 questions)</a>
-              
-               <a class="btn" href="tests-de-niveaux/test-de-niveau-a2-vers-b1-40-questions-complet.html">📎 A2 -> B1 Test (40 questions)</a> 
-               <a class="btn" href="tests-de-niveaux/quiz-avec-image-et-son-avec-trous-et-reponses.html">📎 Test générique avec fiche réponse</a>
+                <a class="btn" href="alphabet/alphabet-lettres-voisines.html">🔠 Lettres voisines</a>
+                <a class="btn" href="alphabet/alphabet-ordre-7-30.html">🆎 Séries consécutives</a>
+                <a class="btn" href="alphabet/alphabet-sonore.html">🆎 Alphabet sonore</a>
             </div>
         </details>
 
-        <!-- GRAND DOSSIER : BON A SAVOIR -->
-        <details>
-            <summary>📚 Bon à savoir</summary>
+        <!-- Jeux / Vocabulaire (Tous niveaux) -->
+        <details class="element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2">
+            <summary>🎯 Jeux & Vocabulaire (Tous niveaux)</summary>
             <div class="grid-boutons">
-                <a class="btn" href="bon-a-savoir/les-six-niveaux-du-cecrl.html">📖 Les 6 niveaux de A1 -> C2</a>
-                <a class="btn" href="bon-a-savoir/vocabulaire-par-niveau.pdf">📖 Que sait un A1 vs A2 vs B1 -> C2</a>
-                
-                <div style="grid-column: 1 / -1;"></div>
-
-                <a class="btn" href="bon-a-savoir/omep-1.pdf" target="_blank">📄 Cours OMEP - Partie 1</a>
-                <a class="btn" href="bon-a-savoir/omep-2.pdf" target="_blank">📄 Cours OMEP - Partie 2</a>
-                
-                <div style="grid-column: 1 / -1;"></div>
-
-                <a class="btn" href="bon-a-savoir/omep-3.pdf" target="_blank">📄 Cours OMEP - Partie 3</a>
-                
-                <div style="grid-column: 1 / -1;"></div>
-
-                <a class="btn" href="bon-a-savoir/borel-maisonny.pdf" target="_blank">📖 Méthode Borel-Maisonny</a>
-
-                <div style="grid-column: 1 / -1;"></div>
+                <a class="btn" href="trouver-les-mots/jeu-vetements-hiver.html">🧥 Les Vêtements</a>
+                <a class="btn" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Jeu du Pendu - Fruits</a>
             </div>
         </details>
     </div>
-
 </div>
 
-<!-- ==================== ZONE DE SÉCURITÉ ANTI-TRICHE ==================== -->
-<script src="securite.js"></script>
+<!-- MOTEUR JAVASCRIPT DE FILTRAGE ET DE REDIRECTION -->
+<script>
+function filtrerNiveau(niveauChoisi) {
+    // 1. Activer visuellement le bouton cliqué
+    const boutons = document.querySelectorAll('.card-niveau');
+    boutons.forEach(btn => btn.classList.remove('active'));
+    event.currentTarget.classList.add('active');
 
+    // 2. Parcourir tous les dossiers éligibles au filtrage
+    const elements = document.querySelectorAll('.element-niveau');
+
+    elements.forEach(el => {
+        if (niveauChoisi === 'all') {
+            el.classList.remove('masque');
+            el.open = false; // Replie les dossiers pour garder une vue d'ensemble nette
+        } else {
+            // Si le dossier contient l'étiquette du niveau demandé, on l'affiche
+            if (el.classList.contains('niveau-' + niveauChoisi)) {
+                el.classList.remove('masque');
+            } else {
+                // Sinon on le masque complètement
+                el.classList.add('masque');
+            }
+        }
+    });
+
+    // 3. ACTION SPÉCIALE : Pour A0 et A1, cibler automatiquement le dossier Être / Avoir
+    if (niveauChoisi === 'a0' || niveauChoisi === 'a1') {
+        const dossierCible = document.getElementById('dossier-etre-avoir');
+        if (dossierCible) {
+            dossierCible.open = true; // Déplie le dossier automatiquement
+            dossierCible.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Fait défiler jusqu'à lui
+        }
+    }
+}
+</script>
+
+<script src="securite.js"></script>
 </body>
 </html>
