@@ -24,10 +24,38 @@
         h1 {
             text-align: center;
             color: #2c3e50;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             border-bottom: 3px solid #f0f0f0;
             padding-bottom: 20px;
         }
+
+        /* NOUVEAU : Style des Cartes de Sélection de Niveau */
+        .niveau-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .card-niveau {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .card-niveau:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+        }
+        .card-a0 { border-color: #2ecc71; background-color: #f0fff4; }
+        .card-a1 { border-color: #3182ce; background-color: #ebf8ff; }
+        .card-a2 { border-color: #8e44ad; background-color: #faf5ff; }
+        .card-communs { border-color: #e67e22; background-color: #fffaf0; }
 
         /* Style des Blocs Thématiques Encadrés */
         .bloc-thematique {
@@ -147,16 +175,24 @@
 <div class="container">
     <h1>🎒 Mon Espace d'Apprentissage Autonome</h1>
 
-    <p style="text-align: center; margin-bottom: 30px;">
+    <p style="text-align: center; margin-bottom: 20px;">
         <img src="lec.jpg" alt="Lire Ecrire Comprendre l'Espace d'Apprentissage" style="width: 150px; height: auto;">
     </p>
+
+    <!-- NOUVEAU : PORTAIL D'ACCÈS DIRECT PAR NIVEAU -->
+    <div class="niveau-selection">
+        <a href="#sec-a0" class="card-niveau card-a0">🟢 Niveau A0<br><small>Débutant / Alphabet</small></a>
+        <a href="#sec-a1" class="card-niveau card-a1">🔵 Niveau A1<br><small>Élémentaire</small></a>
+        <a href="#sec-a2" class="card-niveau card-a2">🟣 Niveau A2<br><small>Intermédiaire</small></a>
+        <a href="#sec-communs" class="card-niveau card-communs">🎯 Jeux & Communs<br><small>Tous niveaux</small></a>
+    </div>
 
     <!-- ==================== BLOC 1 : GRAMMAIRE ==================== -->
     <div class="bloc-thematique" style="border-color: #3182ce;">
         <h2>📝 Section Grammaire</h2>
         
         <!-- GRAND DOSSIER : ARTICLES -->
-        <details>
+        <details id="sec-a1">
             <summary>Les Articles</summary>
             
             <!-- Sous-dossier Fiche 12-05 -->
@@ -168,7 +204,7 @@
             </details>
 
             <!-- Sous-dossier A1 -->
-            <details>
+            <details open>
                 <summary>Niveau A1</summary>
                 <div class="grid-boutons">
                     <a class="btn" href="article/niveau A1/A1-articles-definis-et-indefinis-singulier-et-pluriel-1-à-12.html">📝 Articles (1-12)</a>
@@ -180,7 +216,7 @@
             </details>
 
             <!-- Sous-dossier A2 -->
-            <details>
+            <details id="sec-a2">
                 <summary>Niveau A2</summary>
                 <div class="grid-boutons">
                     <a class="btn" href="article/niveau A2/A2-articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📝 Articles Définis & Indéfinis - Partie 1</a>
@@ -225,7 +261,6 @@
                     <a class="btn" href="demonstratifs/les-pronoms-demonstratifs-f1.html">📄 celui/celle(s)/ceux (-ci/-là), ceci, cela <br> Feuille 1 </a>
                     <a class="btn" href="demonstratifs/les-pronoms-demonstratifs-f2.html">📄 celui/celle(s)/ceux (-ci/-là), ceci, cela <br> Feuille 2 </a> 
                   </div>
-                 
              </details>
         </details>
 
@@ -245,7 +280,6 @@
                   <div class="grid-boutons">
                     <a class="btn" href="possessifs/les-pronoms-possessifs.f1.html">📄 Le Mien - Le Tien - Le Sien <br> Feuille 1 </a>
                   </div>
-                 
              </details>
         </details>
 
@@ -266,57 +300,14 @@
               </details>
         </details>
 
-
-
         
         <!-- GRAND DOSSIER : CONJUGAISON -->
         <details>
             <summary>Conjugaison</summary>
             
-            <!-- Sous-dossier Futur -->
-            <details>
-                <summary>Le Futur Simple</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/futur/futur-1er-groupe.html">⏳ Futur - 1er Groupe Exercice Fiche 1</a>
-                    <a class="btn" href="conjugaison/futur/futur-2eme-groupe.html">⏳ Futur - 2ème Groupe</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-ir.html">⏳ Futur - 3ème Groupe (IR) Exercice Fiche 1</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-re.html">⏳ Futur - 3ème Groupe (RE) Exercice Fiche 2</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche-4-en-oir.html">⏳ Futur - 3ème Groupe (OIR) Exercice Fiche 4</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3.html">⏳ Futur - Verbes Irréguliers Exercice 1 Fiche 3</a>
-                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3-exercice-2.html">⏳ Futur - Verbes Irréguliers Exercice 2 Fiche 3</a>
-                    <a class="btn" href="conjugaison/futur/verbes-irreguliers-34-trous.html">⏳ Futur - Verbes Irréguliers 34 réponses</a>               
-                </div>
-            </details>
-
-              <!-- Sous-dossier imparfait-->
-            <details>
-                <summary>L Imparfait</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-1er-groupe-f1.html">⏳ Imparfait - 1er Groupe Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-2eme-groupe-f1.html">⏳ Imparfait - 2ème Groupe Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-3eme-groupe-f1.html">⏳ Imparfait - 3ème Groupe Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-mix-f1.html">⏳ Imparfait - Tous les verbes Exercice Feuille 1</a>
-                </div>
-            </details>
-
-                 <!-- Sous-dossier passe-compose-->
-            <details>
-                <summary>Le Passé Composé</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-1-avoir-1-20-f1.html">⏳ Passé composé - 1er Groupe auxiliaire Avoir Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-1-etre-1-20-f1.html">⏳ Passé composé - 1er Groupe auxiliaire Être Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-2-avoir-1-20-f1.html">⏳ Passé composé - 2ème Groupe auxiliaire Avoir Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-2-etre-1-20-f1.html">⏳ Passé composé - 2ème Groupe auxiliaire Être Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-3-avoir-1-20-f1.html">⏳ Passé composé - 3ème Groupe auxiliaire Avoir Exercice Feuille 1</a>
-                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-3-etre-1-20-f1.html">⏳ Passé composé - 3ème Groupe auxiliaire Être Exercice Feuille 1</a>
-               </div>
-            </details>
-
-
-            
-            <!-- Sous-dossier Présent -->
-            <details>
-                <summary>Être, Avoir, Faire, Aller</summary>
+            <!-- Sous-dossier Présent Essentiel (Accessible A0/A1) -->
+            <details open>
+                <summary>Être, Avoir, Faire, Aller (Bases A0 / A1)</summary>
                 
                 <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">📘 La Leçon</p>
                 <div class="grid-boutons">
@@ -332,8 +323,6 @@
                     <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-aller.html">📝 Verbe Aller et articles LEC Exo-facile-1-001 </a>
                 </div>
                 
-
-                
                 <p style="margin: 15px 0 5px 15px; font-weight: bold; color: #7f8c8d;">📖 L'histoire de Youssef</p>
                 <div class="grid-boutons">
                     <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-1.html">🚶 Youssef Part. 1 Le Grand Départ</a>
@@ -342,10 +331,62 @@
                     <a class="btn" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-4.html">😊 Youssef Part. 4 Le présent radieux</a>
                 </div>
             </details>
-            
+
+            <!-- Sous-dossier 1er Groupe -->
+            <details>
+                <summary>Le présent (1er et 3ème groupe)</summary>
+                <div class="grid-boutons">
+                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/exercice-15-lignes-verbes-1er-groupe.html">📝 Divers 1er groupe</a>
+                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-sport-loisirs.html">🏃‍♂️ ⚽ Sport - Loisirs 1er groupe</a>
+                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-en-general.html">🧑‍🤝‍🧑 Vie en général 1er groupe</a>
+                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-familiale.html">👪 Vie familiale 1er groupe</a>
+                    <a class="btn" href="conjugaison/present/verbe-du-3eme-groupe/exercice-24-lignes-verbes-3eme-groupe-exo1.html">📝 Entrainement avec le 3ème groupe</a>
+                    <a class="btn" href="conjugaison/present/verbe-du-3eme-groupe/exo-facile-1-001-lec-verbe-revenir.html">📝 Verbe Revenir et articles LEC Fiche 1-001 </a>
+                </div>
+            </details>
+
+            <!-- Sous-dossier Futur -->
+            <details>
+                <summary>Le Futur Simple</summary>
+                <div class="grid-boutons">
+                    <a class="btn" href="conjugaison/futur/futur-1er-groupe.html">⏳ Futur - 1er Groupe Exercice Fiche 1</a>
+                    <a class="btn" href="conjugaison/futur/futur-2eme-groupe.html">⏳ Futur - 2ème Groupe</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-ir.html">⏳ Futur - 3ème Groupe (IR) Exercice Fiche 1</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-en-re.html">⏳ Futur - 3ème Groupe (RE) Exercice Fiche 2</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche-4-en-oir.html">⏳ Futur - 3ème Groupe (OIR) Exercice Fiche 4</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3.html">⏳ Futur - Verbes Irréguliers Exercice 1 Fiche 3</a>
+                    <a class="btn" href="conjugaison/futur/futur-3eme-groupe-fiche3-exercice-2.html">⏳ Futur - Verbes Irréguliers Exercice 2 Fiche 3</a>
+                    <a class="btn" href="conjugaison/futur/verbes-irreguliers-34-trous.html">⏳ Futur - Verbes Irréguliers 34 réponses</a>                
+                </div>
+            </details>
+
+            <!-- Sous-dossier imparfait-->
+            <details>
+                <summary>L'Imparfait</summary>
+                <div class="grid-boutons">
+                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-1er-groupe-f1.html">⏳ Imparfait - 1er Groupe Exercice Feuille 1</a>
+                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-2eme-groupe-f1.html">⏳ Imparfait - 2ème Groupe Exercice Feuille 1</a>
+                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-3eme-groupe-f1.html">⏳ Imparfait - 3ème Groupe Exercice Feuille 1</a>
+                    <a class="btn" href="conjugaison/imparfait/texte-trous-imparfait-mix-f1.html">⏳ Imparfait - Tous les verbes Exercice Feuille 1</a>
+                </div>
+            </details>
+
+            <!-- Sous-dossier passe-compose-->
+            <details>
+                <summary>Le Passé Composé</summary>
+                <div class="grid-boutons">
+                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-1-avoir-1-20-f1.html">⏳ Passé composé - 1er Groupe auxiliaire Avoir Exercice Feuille 1</a>
+                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-1-etre-1-20-f1.html">⏳ Passé composé - 1er Groupe auxiliaire Être Exercice Feuille 1</a>
+                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-2-avoir-1-20-f1.html">⏳ Passé composé - 2ème Groupe auxiliaire Avoir Exercice Feuille 1</a>
+                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-2-etre-1-20-f1.html">⏳ Passé composé - 2ème Groupe auxiliaire Être Exercice Feuille 1</a>
+                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-3-avoir-1-20-f1.html">⏳ Passé composé - 3ème Groupe auxiliaire Avoir Exercice Feuille 1</a>
+                    <a class="btn" href="conjugaison/passe-compose/quizz-passe-compose-groupe-3-etre-1-20-f1.html">⏳ Passé composé - 3ème Groupe auxiliaire Être Exercice Feuille 1</a>
+               </div>
+            </details>
+
             <!-- Sous-dossier 10 Verbes -->
             <details>
-                <summary>10-verbes-les-plus-utilises</summary>
+                <summary>10 verbes les plus utilisés</summary>
                 <div class="grid-boutons">
                     <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-bureau-matin-maison.html">📝 Au bureau, le matin</a>
                     <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-chemin-voyage.html">📝 En chemin, le voyage</a>
@@ -356,44 +397,26 @@
                     <a class="btn" href="conjugaison/present/10%20-verbes-les-plus-utilises/quiz-10-verbes-au-present-la-rue-le-resto.html">📝 La Rue  Le Restaurant</a>
                 </div>
             </details>
-
-            <!-- Sous-dossier 1er Groupe -->
-            <details>
-                <summary>Le présent</summary>
-                <div class="grid-boutons">
-                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/exercice-15-lignes-verbes-1er-groupe.html">📝 Divers 1er groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-sport-loisirs.html">🏃‍♂️ ⚽ Sport - Loisirs 1er groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-en-general.html">🧑‍🤝‍🧑 Vie en général 1er groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-familiale.html">👪 Vie familiale 1er groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-3eme-groupe/exercice-24-lignes-verbes-3eme-groupe-exo1.html">📝 Entrainement avec le 3ème groupe</a>
-                    <a class="btn" href="conjugaison/present/verbe-du-3eme-groupe/exo-facile-1-001-lec-verbe-revenir.html">📝 Verbe Revenir et articles LEC Fiche 1-001 </a>
-                
-                </div>
-            </details>
         </details>
     </div>
 
-    <!-- ==================== BLOC 2 : VOCABULAIRE ==================== -->
-    <div class="bloc-thematique" style="border-color: #2ecc71;">
+    <!-- ==================== BLOC 2 : VOCABULAIRE & JEUX ==================== -->
+    <div class="bloc-thematique" style="border-color: #2ecc71;" id="sec-communs">
         <h2>🎨 Section Vocabulaire & Jeux</h2>
-		 <!-- GRAND DOSSIER : Alphabet et sons des lettres -->
-        <details>
-            <summary>alphabet</summary>
+        
+        <!-- GRAND DOSSIER : Alphabet (Spécial A0) -->
+        <details id="sec-a0" open>
+            <summary>Alphabet & Sons (Niveau A0 / Débutant)</summary>
             <div class="grid-boutons">
-                <a class="btn" href="alphabet/alphabet-lettres-voisines.html">🔠 Les lettres voisines <br>(recommencer plusieurs fois) </a>
-				<a class="btn" href="alphabet/alphabet-ordre-7-30.html">🆎 Trouver les 7 series consécutives <br> recommencer une fois)</a>
-                <a class="btn" href="alphabet/alphabet-sonore.html">🆎 Ecouter les lettres et cocher la lettre correcte <br> recommencer une fois)</a>
+                <a class="btn" href="alphabet/alphabet-lettres-voisines.html">🔠 Les lettres voisins <br>(recommencer plusieurs fois) </a>
+                <a class="btn" href="alphabet/alphabet-ordre-7-30.html">🆎 Trouver les 7 séries consécutives <br>(recommencer une fois)</a>
+                <a class="btn" href="alphabet/alphabet-sonore.html">🆎 Écouter les lettres et cocher la lettre correcte <br>(recommencer une fois)</a>
             </div>
         </details>
 
- 
-
-
-		
-        
         <!-- GRAND DOSSIER : JEUX DU PENDU -->
         <details>
-            <summary>Jeux du Pendu</summary>
+            <summary>Jeux du Pendu (Tous Niveaux)</summary>
             <div class="grid-boutons">
                 <a class="btn" href="jeux-du-pendu/jeu-du-pendu-maison/jeu-du-pendu-maison-1-et-2.html">🏡 Le Pendu de la Maison</a>
                 <a class="btn" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍏 Le Pendu des Fruits</a>
@@ -415,8 +438,7 @@
             </div>
         </details>
 
-
-        <!-- GRAND DOSSIER : vocablaire test à trous -->
+        <!-- GRAND DOSSIER : vocabulaire test à trous -->
         <details>
             <summary>Vocabulaire Tests à trous</summary>
             <div class="grid-boutons">
@@ -426,10 +448,8 @@
                 <a class="btn btn-green" href="vocabulaire-texte-a-trous/genealogie/le-visage.html"> 😯 Le visage Fiche 1 LEC Les présentatifs</a>
                 <a class="btn btn-green" href="vocabulaire-texte-a-trous/genealogie/descriptif-personnes.html"> 🙋 Les personnes Fiche 3 LEC Les présentatifs</a>
                 <a class="btn btn-green" href="vocabulaire-texte-a-trous/genealogie/batiments-lieux-publics.html"> 🏫 Les bâtiments et lieux publics Fiche 1 et 2 LEC</a>
-             
             </div>
         </details>
-
     </div>
 
     <!-- ==================== BLOC 3 : ÉVALUATIONS & INFOS ==================== -->
@@ -452,33 +472,23 @@
         <details>
             <summary>📚 Bon à savoir</summary>
             <div class="grid-boutons">
-                <!-- LIGNE 1 : Les 6 niveaux -->
                 <a class="btn" href="bon-a-savoir/les-six-niveaux-du-cecrl.html">📖 Les 6 niveaux de A1 -> C2</a>
-				<a class="btn" href="bon-a-savoir/vocabulaire-par-niveau.pdf">📖 Que sait un A1 vs A2 vs B1 -> C2</a>
-				
+                <a class="btn" href="bon-a-savoir/vocabulaire-par-niveau.pdf">📖 Que sait un A1 vs A2 vs B1 -> C2</a>
                 
-                <!-- Séparateur pour forcer la ligne suivante -->
                 <div style="grid-column: 1 / -1;"></div>
 
-                <!-- LIGNE 2 : OMEP Partie 1 et Partie 2 -->
                 <a class="btn" href="bon-a-savoir/omep-1.pdf" target="_blank">📄 Cours OMEP - Partie 1</a>
                 <a class="btn" href="bon-a-savoir/omep-2.pdf" target="_blank">📄 Cours OMEP - Partie 2</a>
                 
-                <!-- Séparateur pour forcer la ligne suivante -->
                 <div style="grid-column: 1 / -1;"></div>
 
-                <!-- LIGNE 3 : OMEP Partie 3 -->
                 <a class="btn" href="bon-a-savoir/omep-3.pdf" target="_blank">📄 Cours OMEP - Partie 3</a>
                 
-                <!-- Séparateur pour forcer la ligne suivante -->
                 <div style="grid-column: 1 / -1;"></div>
 
-                <!-- LIGNE 4 : Méthode Borel -->
                 <a class="btn" href="bon-a-savoir/borel-maisonny.pdf" target="_blank">📖 Méthode Borel-Maisonny</a>
 
-                <!-- Séparateur pour forcer la ligne suivante -->
                 <div style="grid-column: 1 / -1;"></div>
-
             </div>
         </details>
     </div>
