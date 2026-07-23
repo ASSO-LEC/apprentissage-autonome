@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conjugaison futur des verbes du 2ème groupe</title>
+    <style>
+        :root {
+            --primary: #2b6cb0;
+            --primary-hover: #1a528d;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --success: #38a169;
+            --error: #e53e3e;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .instructions {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .story {
+            font-size: 1.15em;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        .hole-container {
+            display: inline-block;
+            position: relative;
+            margin: 0 4px;
+        }
+
+        .story input {
+            font-size: 1em;
+            padding: 2px 6px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            width: 125px;
+            text-align: center;
+            color: var(--primary);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .story input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #ebf8ff;
+        }
+
+        .story input.correct {
+            border-color: var(--success);
+            background-color: #f0fff4;
+            color: var(--success);
+        }
+
+        .story input.incorrect {
+            border-color: var(--error);
+            background-color: #fff5f5;
+            color: var(--error);
+        }
+
+        .infinitif {
+            font-size: 0.75em;
+            color: #718096;
+            display: block;
+            text-align: center;
+            font-style: italic;
+            margin-top: -2px;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            display: none;
+        }
+
+        .score-good {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+            border: 2px solid var(--success);
+        }
+
+        .score-bad {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--error);
+            border: 2px solid var(--error);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Les Projets de la Bande d'Amis par JPJ</h1>
+    <p class="instructions">Conjuguez les verbes du 2ème groupe au <strong>futur simple</strong>.</p>
+
+    <div class="story" id="story-content">
+        </div>
+
+    <div class="actions">
+        <button onclick="verifierReponses()">Vérifier mes réponses par JPJ</button>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    // Liste des 50 segments de l'histoire - Version Corrigée
+    const histoirePropre = [
+        { t: "1) Demain, notre groupe d'amis ", v: "agir", r: "agira" },
+        { t: " pour préparer la grande fête de l'école. <br> 2) D'abord, nous ", v: "définir", r: "définirons" },
+        { t: " la liste des invités, <br> 3) puis vous, les artistes, vous ", v: "bâtir", r: "bâtirez" },
+        { t: " une jolie scène en bois dans la cour. <br> 4) Si tout va bien, nous ", v: "accomplir", r: "accomplirons" },
+        { t: " ce projet en quelques heures. <br> 5) Chaque élève ", v: "choisir", r: "choisira" },
+        { t: " une activité amusante.<br> 7) Jean-Pierre et Luc ", v: "unir", r: "uniront" },
+        { t: " leurs forces pour gonfler les ballons. <br> 8) Je sais que tu ", v: "réussir", r: "réussiras" },
+        { t: " ton gâteau au chocolat <br> 9) parce que tu ", v: "investir", r: "investiras" },
+        { t: " beaucoup de temps dans la cuisine. <br> 10) Les délégués ", v: "avertir", r: "avertiront" },
+        { t: " le directeur de notre avance, et ils ", v: "garantir", r: "garantiront" },
+        { t: " que tout sera propre.<br><br> 11) À midi, les parents ", v: "nourrir", r: "nourriront" },
+        { t: " tous les enfants avec des sandwichs. <br> 12) Les cuisiniers ", v: "pétrir", r: "pétriront" },
+        { t: " de la pâte pour faire des gaufres chaudes. <br> 13) Cette bonne odeur ", v: "envahir", r: "envahira" },
+        { t: " rapidement toute l'école. <br> 14) Dans le jardin, les fleurs ", v: "fleurir", r: "fleuriront" },
+        { t: " pour l'occasion et les fraises ", v: "mûrir", r: "mûriront" },
+        { t: " grâce au bon soleil. <br> 15) À ce moment-là, nous ", v: "remplir", r: "remplirons" },
+        { t: " de grands bols de fruits.<br> 16) Vous ", v: "répartir", r: "répartirez" },
+        { t: " les parts entre les tables pour que tout le monde a une part. <br> 17) Personne ne ", v: "être", r: "sera" },
+        { t: " oublié. <br> 18) Cet événement ", v: "réjouir", r: "réjouira" },
+        { t: " tous les parents. <br> 19) Les clowns ", v: "divertir", r: "divertiront" },
+        { t: " le public avec des blagues. <br> 20) Notre club de théâtre s'", v: "grandir", r: "grandira" },
+        { t: " après ce succès, <br> 21) Ma petite sœur ", v: "rougir", r: "rougira" },
+        { t: " de timidité sur la scène, <br> 22) Le calme ", v: "adoucir", r: "adoucira" },
+        { t: " la fin de la journée. <br> 23) Vous ", v: "finir", r: "finirez" },
+        { t: " la journée fatigués. <br> 24) La joie ", v: "resplendir", r: "resplendira" },
+        { t: " sur tous les visages !", v: "", r: "" }
+    ];
+
+    // Génération automatique du HTML
+    const storyContainer = document.getElementById('story-content');
+    let htmlContent = "";
+
+    for (let i = 0; i < histoirePropre.length - 1; i++) {
+        htmlContent += histoirePropre[i].t;
+        htmlContent += `
+            <span class="hole-container">
+                <input type="text" id="trous-${i}" autocomplete="off" data-answer="${histoirePropre[i].r}">
+                <span class="infinitif">(${histoirePropre[i].v})</span>
+            </span>
+        `;
+    }
+    htmlContent += histoirePropre[histoirePropre.length - 1].t;
+    storyContainer.innerHTML = htmlContent;
+
+    // Fonction de vérification
+    function verifierReponses() {
+        let score = 0;
+        const totalTrous = histoirePropre.length - 1;
+
+        for (let i = 0; i < totalTrous; i++) {
+            const input = document.getElementById(`trous-${i}`);
+            const reponseUtilisateur = input.value.trim().toLowerCase();
+            const reponseCorrecte = input.getAttribute('data-answer').toLowerCase();
+
+            if (reponseUtilisateur === reponseCorrecte) {
+                input.className = 'correct';
+                score++;
+            } else {
+                input.className = 'incorrect';
+                input.title = `Réponse attendue : ${reponseCorrecte}`;
+            }
+        }
+
+        const divResultat = document.getElementById('result');
+        divResultat.style.display = 'block';
+        
+        if (score === totalTrous) {
+            divResultat.className = 'score-good';
+            divResultat.innerHTML = `Excellent ! Votre score est de ${score} / ${totalTrous}. Le futur du 2ème groupe  est parfaitement validé !`;
+        } else if (score >= totalTrous * 0.7) {
+            divResultat.className = 'score-good';
+            divResultat.innerHTML = `👍 Très bien ! Votre score est de ${score} / ${totalTrous}. Regardez les cases rouges pour vous corriger.`;
+        } else {
+            divResultat.className = 'score-bad';
+            divResultat.innerHTML = `🧐 Bon début ! Votre score est de ${score} / ${totalTrous}. Entraînez-vous encore sur les terminaisons du futur ! On peut en reparler en cours`;
+        }
+        
+        divResultat.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

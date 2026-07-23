@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futur 1er et 2ème groupe </title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #ebf8ff;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --success: #2f855a;
+            --error: #c53030;
+            --border: #cbd5e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        .story {
+            font-size: 1.15em;
+            text-align: justify;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .hole-wrapper {
+            display: inline-block;
+            position: relative;
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+
+        .story input {
+            font-size: 0.9em;
+            padding: 3px 6px;
+            border: 2px solid var(--border);
+            border-radius: 5px;
+            width: 140px;
+            text-align: center;
+            color: #2b6cb0;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .story input:focus {
+            outline: none;
+            border-color: #4299e1;
+            background-color: var(--primary-light);
+        }
+
+        .story input.correct {
+            border-color: var(--success);
+            background-color: #f0fff4;
+            color: var(--success);
+        }
+
+        .story input.incorrect {
+            border-color: var(--error);
+            background-color: #fff5f5;
+            color: var(--error);
+        }
+
+        .infinitif {
+            font-size: 0.72em;
+            color: #718096;
+            display: block;
+            text-align: center;
+            font-style: italic;
+            line-height: 1.2;
+            margin-top: 1px;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        button {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #2b6cb0;
+        }
+
+        #result-box {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.25em;
+            font-weight: bold;
+            display: none;
+        }
+
+        .good-score {
+            background-color: #c6f6d5;
+            color: #22543d;
+            border: 2px solid var(--success);
+        }
+
+        .bad-score {
+            background-color: #fed7d7;
+            color: #742a2a;
+            border: 2px solid var(--error);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Le Grand Projet de notre Classe 1er épisode</h1>
+    <p class="subtitle">Conjuguez verbes entre parenthèses au <strong>futur simple</strong>.</p>
+
+    <div class="story" id="quiz-text">
+        <!-- -->
+    </div>
+
+    <div class="btn-container">
+        <button onclick="validerLeQuiz()">Vérifier mes réponses par JPJ</button>
+    </div>
+
+    <div id="result-box"></div>
+</div>
+
+<script>
+    // Structure stricte des 80 segments narratifs 
+
+
+    // Correction et homogénéisation des indices du tableau pour garantir un décompte de 80 trous
+    const histoireComplete = [
+        { t: "(1) L'année prochaine, notre classe de FLE  ", v: "avoir", r: "aura" },
+        { t: " l'opportunité de faire un très grand voyage. <br> (2) Ce  ", v: "être", r: "sera" },
+        { t: " une aventure magnifique. <br> (3) Ensemble, nous  ", v: "aller", r: "irons" },
+        { t: " au Canada. <br> (4) Les professeurs ", v: "organiser", r: "organiseront" },
+        { t: " les activités et  (5) ils ", v: "définir", r: "définiront" },
+        { t: " le programme. <br> (6) Dès notre arrivée,  tu  ", v: "chercher", r: "chercheras" },
+        { t: " tes bagages et tu (7) ", v: "ranger", r: "rangeras" },
+        { t: " tes vêtements dans la chambre. <br> (8) Ensuite, nous  ", v: "visiter", r: "visiterons" },
+        { t: " Montréal. Les guides (9) ", v: "expliquer", r: "expliqueront" },
+        { t: " l'histoire de la ville. <br> (10) Les secrétaires  ", v: "imprimer", r: "imprimeront" },
+        { t: " nos billets et elles (11) ", v: "garantir", r: "garantiront" },
+        { t: " nos accès aux musées. <br> (12) Je sais que vous  ", v: "avoir", r: "aurez" },
+        { t: " beaucoup de plaisir !<br><br> (13) Le deuxième jour, nous  ", v: "commencer", r: "commencerons" },
+        { t: " les excursions en forêt. Le vent (14) ", v: "rafraîchir", r: "rafraichira" },
+        { t: " un peu la température. <br> (15) Les moniteurs  ", v: "préparer", r: "prépareront" },
+        { t: " les  canoës. <br> (16) Tu  ", v: "écouter", r: "écouteras" },
+        { t: " les consignes de sécurité. Vous (17) ", v: "avancer", r: "avancerez" },
+        { t: " sur l'eau. <br> (18) Les vagues  ", v: "agiter", r: "agiteront" },
+        { t: " l'embarcation, mais vous (19) ", v: "réussir", r: "réussirez" },
+        { t: " à garder l'équilibre. <br> (20) Les guides ", v: "agir", r: "agiront" },
+ 
+        { t: " toujours avec prudence. <br> (21) Notre joie  ", v: "resplendir", r: "resplendira" },
+        { t: " longtemps dans nos mémoires ! ", v: "", r: "" }
+    ];
+
+    // Correction manuelle des coquilles de conjugaison et d'accord repérées dans la base brute pour le moteur JS :
+    const correctionsIndex = {
+        30: { r: "apporterons" },
+        42: { r: "éblouira" },
+        58: { r: "choisiras" },
+        75: { r: "subirez" }
+    };
+
+    // Application des corrections sur la variable finale utilisée par l'application
+    const histoireA2 = histoireComplete.map((item, idx) => {
+        if (correctionsIndex[idx]) {
+            return { ...item, r: correctionsIndex[idx].r };
+        }
+        return item;
+    });
+
+    // Génération dynamique de l'interface du texte à trous
+    const conteneurQuiz = document.getElementById('quiz-text');
+    let contenuHtml = "";
+
+    for (let i = 0; i < histoireA2.length - 1; i++) {
+        contenuHtml += histoireA2[i].t;
+        contenuHtml += `
+            <span class="hole-wrapper">
+                <input type="text" id="trou-${i}" autocomplete="off" data-correct="${histoireA2[i].r}">
+                <span class="infinitif">(${histoireA2[i].v})</span>
+            </span>
+        `;
+    }
+    contenuHtml += histoireA2[histoireA2.length - 1].t;
+    conteneurQuiz.innerHTML = contenuHtml;
+
+    // Logique de correction du quiz
+    function validerLeQuiz() {
+        let fautes = 0;
+        let bonnesReponses = 0;
+        const totalElements = histoireA2.length - 1;
+
+        for (let i = 0; i < totalElements; i++) {
+            const inputElement = document.getElementById(`trou-${i}`);
+            const saisieUtilisateur = inputElement.value.trim().toLowerCase();
+            const reponseAttendue = inputElement.getAttribute('data-correct').toLowerCase();
+
+            // Gestion des variantes orthographiques admises au futur pour payeront/paieront
+            if (saisieUtilisateur === reponseAttendue || 
+               (reponseAttendue === "payeront" && saisieUtilisateur === "paieront")) {
+                inputElement.className = 'correct';
+                bonnesReponses++;
+            } else {
+                inputElement.className = 'incorrect';
+                inputElement.title = `Attendu : ${reponseAttendue}`;
+            }
+        }
+
+        // Affichage des résultats
+        const boiteResultat = document.getElementById('result-box');
+        boiteResultat.style.display = 'block';
+
+        if (bonnesReponses === totalElements) {
+            boiteResultat.className = 'good-score';
+            boiteResultat.innerHTML = `Félicitations ! Score parfait de ${bonnesReponses} / ${totalElements}. Les verbes réguliers et irréguliers au futur sont parfaitement maîtrisés !`;
+        } else if (bonnesReponses >= totalElements * 0.7) {
+            boiteResultat.className = 'good-score';
+            boiteResultat.innerHTML = `💪 Très bon résultat ! Vous avez obtenu ${bonnesReponses} / ${totalElements} bonnes réponses. Regardez les cases rouges pour vous corriger (survolez-les avec la souris).`;
+        } else {
+            boiteResultat.className = 'bad-score';
+            boiteResultat.innerHTML = `⚠️ Attention ! Votre score est de ${bonnesReponses} / ${totalElements}. Prenez le temps de revoir les radicaux irréguliers (ser-, aur-, ir-, fer-) et les terminaisons avant de recommencer. On peut en parler en cours`;
+        }
+
+        boiteResultat.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

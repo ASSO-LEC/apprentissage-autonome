@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Futur Simple (1er et 2ème groupe)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 2;
+            padding: 20px;
+            background-color: #f4f9f4;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-top: 5px solid #27ae60;
+        }
+        
+        /* Style de la page de garde */
+        #page-garde {
+            text-align: center;
+            padding: 30px 10px;
+        }
+        #page-garde h1 {
+            color: #27ae60;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        #page-garde h2 {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .badge {
+            background-color: #27ae60;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #e8f8f0;
+            border-left: 5px solid #27ae60;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+        .instructions ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        
+        /* Bouton Commencer */
+        .btn-commencer {
+            padding: 15px 40px;
+            font-size: 18px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+            transition: all 0.2s;
+        }
+        .btn-commencer:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+        }
+
+        /* Style de la zone de texte */
+        #zone-exercice {
+            display: none;
+        }
+        #zone-exercice h1 {
+            color: #27ae60;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        
+        p {
+            text-align: justify;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+        input {
+            width: 110px;
+            padding: 4px 5px;
+            margin: 0 3px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        input:focus {
+            outline: none;
+            border-color: #27ae60;
+            background-color: #e8f8f0;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .btn-corriger {
+            padding: 14px 35px;
+            font-size: 16px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-corriger:hover {
+            background-color: #27ae60;
+        }
+        #score {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+        .indice {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- 1. ÉCRAN DE GARDE -->
+    <div id="page-garde">
+        <span class="badge">Conjugaison A2</span>
+        <h1>Le Futur Simple</h1>
+        <h2>Verbes du 1er groupe (-er) et du 2ème groupe (-ir)</h2>
+        
+        <div class="instructions">
+            <strong>📋 Consignes de l'exercice :</strong>
+            <ul>
+                <li>Conjuguez le verbe régulier indiqué entre parenthèses au <strong>futur simple</strong>.</li>
+                <li><strong>1er groupe (-er) :</strong> On garde l'infinitif + les terminaisons (<em>-ai, -as, -a, -ons, -ez, -ont</em>).</li>
+                <li><strong>2ème groupe (-ir) :</strong> On garde l'infinitif + les terminaisons (<em>-ai, -as, -a, -ons, -ez, -ont</em>).</li>
+                <li> Bon courage !</li>
+            </ul>
+        </div>
+        
+        <button type="button" class="btn-commencer" onclick="demarrerExercice()">Commencer</button>
+    </div>
+
+    <!-- 2. ZONE DE L'EXERCICE -->
+    <div id="zone-exercice">
+        <h1>Une grande fête partie 2</h1>
+        <hr>
+        
+        <form id="quizForm">
+            <p>
+                1) Pendant la fête, mon oncle <input type="text" data-ans="filmera"> <span class="indice">(filmer)</span> les meilleurs moments 
+            </p>
+            
+			<p>
+				2) et il <input type="text" data-ans="capturera"> <span class="indice">(capturer)</span> les sourires de chacun. 
+			</p>
+			
+			
+			<p>
+				3) Ma cousine <input type="text" data-ans="imprimera"> <span class="indice">(imprimer)</span> plus tard les plus belles photos. 
+			</p>
+			
+			<p>
+				4) Ces souvenirs <input type="text" data-ans="grandiront"> <span class="indice">(grandir)</span> dans nos cœurs. 
+			</p>
+			
+			<p>
+				5) Nous <input type="text" data-ans="garderons"> <span class="indice">(garder)</span> précieusement cet album. 
+			</p>
+			
+			<p>
+				6) Quand tu <input type="text" data-ans="regarderas"> <span class="indice">(regarder)</span> ces images dans quelques années, 
+			</p>
+			
+			<p>
+				7) tu <input type="text" data-ans="obtiendras"> une grande sensation de bonheur. 
+			</p>
+			
+			<p>
+				8) Notre famille <input type="text" data-ans="unira"> <span class="indice">(unir)</span> encore plus ses liens grâce à cet événement.
+			</p>
+			
+            <p>
+                9) Le lendemain matin, le calme <input type="text" data-ans="reviendra">. 
+            </p>
+            
+			<p>
+				10) Nous <input type="text" data-ans="nettoierons"> <span class="indice">(nettoyer)</span> le jardin ensemble. 
+			</p>
+			
+			<p>
+				11) Vous <input type="text" data-ans="ramasserez"> <span class="indice">(ramasser)</span> les papiers et vous <input type="text" data-ans="trierez"> <span class="indice">(trier)</span> le verre. 
+			</p>
+			
+			<p>
+				12) Mes frères <input type="text" data-ans="rangeront"> <span class="indice">(ranger)</span> les chaises et les tables de location. 
+			</p>
+			
+			<p>
+				13) Si nous travaillons vite, nous <input type="text" data-ans="finirons"> <span class="indice">(finir)</span> avant midi. 
+			</p>
+			
+			<p>
+				14) Ensuite, nous <input type="text" data-ans="remercierons"> <span class="indice">(remercier)</span> les invités en leur envoyant un petit message de gratitude.
+			</p>
+			
+            <p>
+                15) À l'avenir, j'espère que nous <input type="text" data-ans="renouvellerons"> <span class="indice">(renouveler)</span> ce genre de rassemblements. 
+            </p>
+
+			<p>
+				16) Les années <input type="text" data-ans="passeront"> <span class="indice">(passer)</span> vite, mais si nous <input type="text" data-ans="réussirons"> à nous voir régulièrement, 
+			</p>
+			
+			
+			<p>
+				17) nous <input type="text" data-ans="vieillirons"> <span class="indice">(vieillir)</span> heureux. 
+			</p>
+			
+			<p>
+				17) Toi, mon ami, est-ce que tu <input type="text" data-ans="accepteras"> <span class="indice">(accepter)</span> de nous aider pour la prochaine fête ? 
+			</p>
+			
+			
+			<p>
+				19) Tu <input type="text" data-ans="apporteras"> <span class="indice">(apporter)</span> ta bonne humeur. 
+			</p>
+			
+			
+			<p>
+				20) Les efforts de chacun <input type="text" data-ans="garantiront"> <span class="indice">(garantir)</span> le succès de la journée. 
+
+			</p>
+			
+			
+			<p>
+				21) Maman <input type="text" data-ans="conservera"> <span class="indice">(conserver)</span> un magnifique souvenir de ses 50 ans et cela <input type="text" data-ans="illuminera"> <span class="indice">(illuminer)</span> le reste de son année.
+			</p>
+			
+
+
+            <div class="btn-container">
+                <button type="button" class="btn-corriger" onclick="verifierReponses()">Vérifier ma conjugaison par JPJ</button>
+            </div>
+        </form>
+
+        <div id="score"></div>
+    </div>
+</div>
+
+<script>
+function demarrerExercice() {
+    document.getElementById('page-garde').style.display = 'none';
+    document.getElementById('zone-exercice').style.display = 'block';
+}
+
+function verifierReponses() {
+    const inputs = document.querySelectorAll('#quizForm input');
+    let score = 0;
+    let total = inputs.length;
+
+    inputs.forEach(input => {
+        let reponseUtilisateur = input.value.trim().toLowerCase();
+        let bonneReponse = input.getAttribute('data-ans').toLowerCase();
+
+        // Remplacement des variantes de caractères (ex: accents ou cédilles si l'étudiant oublie, optionnel mais ici strict)
+        if (reponseUtilisateur === bonneReponse) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const scoreDiv = document.getElementById('score');
+    scoreDiv.innerHTML = `Votre score : ${score} / ${total} (${Math.round((score/total)*100)}% de bonnes réponses)`;
+    
+    if(score === total) {
+        scoreDiv.style.color = '#28a745';
+        scoreDiv.innerHTML += "<br>Magnifique ! Tu maîtrises parfaitement le futur des 1er et 2ème groupes !";
+    } else if (score >= total * 0.75) {
+        scoreDiv.style.color = '#27ae60';
+        scoreDiv.innerHTML += "<br>Très bon travail ! Regarde tes fautes en rouge, l'infinitif complet est ton ami au futur ou on en parle en cours.";
+    } else {
+        scoreDiv.style.color = '#dc3545';
+        scoreDiv.innerHTML += "<br>Attention aux terminaisons (-ai, -as, -a, -ons, -ez, -ont) Elles viennent du verbe avoir au présent. Entraîne-toi à nouveau ! et n'oublie pas de m'en parler";
+    }
+    
+    scoreDiv.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

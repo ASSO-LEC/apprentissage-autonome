@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice sur le futur simple</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 2;
+            padding: 20px;
+            background-color: #f0f7fc;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-top: 5px solid #2980b9;
+        }
+        
+        /* Style de la page de garde */
+        #page-garde {
+            text-align: center;
+            padding: 30px 10px;
+        }
+        #page-garde h1 {
+            color: #2980b9;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        #page-garde h2 {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .badge {
+            background-color: #2980b9;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #e1f5fe;
+            border-left: 5px solid #2980b9;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+        .instructions ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        
+        /* Bouton Commencer */
+        .btn-commencer {
+            padding: 15px 40px;
+            font-size: 18px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(41, 128, 185, 0.3);
+            transition: all 0.2s;
+        }
+        .btn-commencer:hover {
+            background-color: #2471a3;
+            transform: translateY(-2px);
+        }
+
+        /* Style de la zone de texte */
+        #zone-exercice {
+            display: none;
+        }
+        #zone-exercice h1 {
+            color: #2980b9;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        
+        p {
+            text-align: justify;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+        input {
+            width: 115px;
+            padding: 4px 5px;
+            margin: 0 3px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        input:focus {
+            outline: none;
+            border-color: #2980b9;
+            background-color: #e1f5fe;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .btn-corriger {
+            padding: 14px 35px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-corriger:hover {
+            background-color: #2980b9;
+        }
+        #score {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+        .indice {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- 1. ÉCRAN DE GARDE -->
+    <div id="page-garde">
+        <span class="badge">conjugaison futur simple</span>
+        <h1>Le Monde en 2050 partie 3</h1>
+        <h2>Futur simple : Consolidation 1er et 2ème groupes</h2>
+        
+        <div class="instructions">
+            <strong>📋 Consignes de l'exercice :</strong>
+            <ul>
+                <li>Complétez les prédictions sur l'avenir en conjuguant les verbes au <strong>futur simple</strong>.</li>
+                <li>Rappel des terminaisons : <em>-ai, -as, -a, -ons, -ez, -ont</em> ajoutées à l'infinitif.</li>
+                <li>Attention aux verbes du 2ème groupe (*finir, choisir, habiter...*) qui gardent leur structure en <em>-ir</em>.</li>
+                <li>Il y a 50 formes verbales à valider. Prêt pour le voyage dans le temps ?</li>
+            </ul>
+        </div>
+        
+        <button type="button" class="btn-commencer" onclick="demarrerExercice()">Explorer le futur</button>
+    </div>
+
+    <!-- 2. ZONE DE L'EXERCICE -->
+    <div id="zone-exercice">
+        <h1>Notre quotidien en 2050 partie 3</h1>
+        <hr>
+        
+        <form id="quizForm">
+            
+            
+            <p>
+                1) L'exploration spatiale <input type="text" data-ans="franchira"> <span class="indice">(franchir)</span> un nouveau cap. 
+            </p>
+            
+			<p>
+				2) Des astronautes <input type="text" data-ans="exploreront"> <span class="indice">(explorer)</span> la planète Mars en détail 
+            </p>
+
+			
+			<p>
+				3) et ils y <input type="text" data-ans="établiront"> <span class="indice">(établir)</span> une base permanente. 
+			</p>
+			
+			<p>
+				4) Les agences spatiales <input type="text" data-ans="organiseront"> <span class="indice">(organiser)</span> les premiers voyages touristiques autour de la Lune. 
+			</p>
+			
+			<p>
+				5) Les billets <input type="text" data-ans="coûteront"> <span class="indice">(coûter)</span> une fortune au départ, 
+			</p>
+			
+			<p>
+				6) mais les prix <input type="text" data-ans="baisseront"> <span class="indice">(baisser)</span> progressivement. 
+			</p>
+			
+			
+			<p>
+				7) Si tu as de la chance, tu <input type="text" data-ans="voyageras"> <span class="indice">(voyager)</span> peut-être un jour dans l'espace. 
+			</p>
+			
+			
+			<p>
+				8) Les vols spatiaux <input type="text" data-ans="inventeront"> <span class="indice">(inventer)</span> un nouveau chapitre de notre histoire.
+			</p>
+			
+					
+			
+            <p>
+                9) Enfin, la coopération internationale <input type="text" data-ans="garantira"> <span class="indice">(garantir)</span> la paix globale. 
+            </p>
+			
+			<p>
+				10) Les gouvernements <input type="text" data-ans="uniront"> <span class="indice">(unir)</span> leurs efforts pour protéger les océans. 
+			</p>
+			
+			
+			<p>
+				11) Ensemble, nous <input type="text" data-ans="sauverons"> <span class="indice">(sauver)</span> les espèces animales en danger. 
+			</p>
+			
+			
+			<p>
+				12) Les pays <input type="text" data-ans="partageront"> <span class="indice">(partager)</span> leurs innovations technologiques. 
+			</p>
+			
+			
+			<p>
+				13) Si nous <input type="text" data-ans="réussissons"> <span class="indice">(réussir)</span> cette transition, 
+			</p>
+			
+			
+			<p>
+				14) l'humanité <input type="text" data-ans="entamera"> <span class="indice">(entamer)</span> une ère de prospérité durable.
+			</p>
+			
+			
+			<p>
+				15)Les générations futures <input type="text" data-ans="remercieront"> <span class="indice">(remercier)</span> notre époque pour ces choix courageux 
+			</p>
+			
+			
+			<p>
+				16) et elles <input type="text" data-ans="fleuriront"> <span class="indice">(fleurir)</span> le monde d'initiatives positives.
+			</p>
+			
+			
+			
+			
+			
+			
+			
+
+            <div class="btn-container">
+                <button type="button" class="btn-corriger" onclick="verifierReponses()">Analyser mes réponses par JPJ</button>
+            </div>
+        </form>
+
+        <div id="score"></div>
+    </div>
+</div>
+
+<script>
+function demarrerExercice() {
+    document.getElementById('page-garde').style.display = 'none';
+    document.getElementById('zone-exercice').style.display = 'block';
+}
+
+function verifierReponses() {
+    const inputs = document.querySelectorAll('#quizForm input');
+    let score = 0;
+    let total = inputs.length;
+
+    inputs.forEach(input => {
+        let reponseUtilisateur = input.value.trim().toLowerCase();
+        let bonneReponse = input.getAttribute('data-ans').toLowerCase();
+
+        if (reponseUtilisateur === bonneReponse) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const scoreDiv = document.getElementById('score');
+    scoreDiv.innerHTML = `Votre score : ${score} / ${total} (${Math.round((score/total)*100)}% de bonnes réponses)`;
+    
+    if(score === total) {
+        scoreDiv.style.color = '#28a745';
+        scoreDiv.innerHTML += "<br>🚀 Incroyable ! Tu as réalisé un sans-faute sur le futur du 1er et 2ème groupe !";
+    } else if (score >= total * 0.8) {
+        scoreDiv.style.color = '#2980b9';
+        scoreDiv.innerHTML += "<br>Félicitations, excellent score ! Corrige les derniers verbes rouges pour atteindre la perfection.";
+    } else {
+        scoreDiv.style.color = '#dc3545';
+        scoreDiv.innerHTML += "<br>Attention aux verbes du 2ème groupe (ex: grandira, vieillirons) et à ne pas oublier l'infinitif complet pour le 1er groupe.";
+    }
+    
+    scoreDiv.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Histoire au Futur - Partie 2</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background-color: #f4f4f9; }
+        .container { max-width: 800px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        input { width: 100px; padding: 5px; border: 1px solid #ccc; border-radius: 4px; text-align: center; font-weight: bold; color: #34495e; }
+        button { padding: 10px 20px; background-color: #2980b9; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; }
+        button:hover { background-color: #2471a3; }
+        .result { margin-top: 20px; font-weight: bold; font-size: 1.2em; }
+        .correct { border: 2px solid #27ae60; background-color: #e8f8f5; }
+        .incorrect { border: 2px solid #e74c3c; background-color: #fce4d6; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Partie 2 : Son installation <br> (Verbes du 1er groupe)</h1>
+    <p>Complétez l'histoire au futur simple  :</p>
+    
+    <p>
+        1) Le lendemain, Youssef <input type="text" id="v1" data-ans="cherchera"> (chercher) un appartement. 
+		<BR> 2) Il <input type="text" id="v2" data-ans="regardera"> (regarder) les annonces sur internet. 
+        <BR> 3) « Je <input type="text" id="v3" data-ans="trouverai"> (trouver) un joli studio », pense-t-il. 
+		<BR> 4) Il <input type="text" id="v4" data-ans="appellera"> (appeler) un propriétaire. 
+        <BR> 5) Ils <input type="text" id="v5" data-ans="visiteront"> (visiter) le logement à midi. 
+		<BR> 6) Si le logement est bien, Youssef <input type="text" id="v6" data-ans="habitera"> (habiter) ici. 
+        <BR> 7) Tu <input type="text" id="v7" data-ans="aideras"> (aider) ton ami à porter ses cartons ? 
+		<BR> 8) Oui, nous <input type="text" id="v8" data-ans="travaillerons"> (travailler) dur. 
+        <BR> 9) Ensuite, vous <input type="text" id="v9" data-ans="mangerez"> (manger) une pizza pour fêter ça 
+		<BR> 10) et vous <input type="text" id="v10" data-ans="écouterez"> (écouter) de la musique.
+    </p>
+    <p>
+        11) Lundi, Youssef <input type="text" id="v11" data-ans="commencera"> (commencer) ses cours à l'université. 
+		<BR> 12) Il <input type="text" id="v12" data-ans="étudiera"> (étudier) le français. 
+        <BR> 13) Le professeur <input type="text" id="v13" data-ans="parlera"> (parler) doucement au début. 
+		<BR> 14) Les étudiants <input type="text" id="v14" data-ans="écouteront"> (écouter) avec attention. 
+        <BR> 15) « Vous <input type="text" id="v15" data-ans="passerez"> (passer) un examen en cours d'année », expliquera le professeur. 
+        <BR> 16) Youssef <input type="text" id="v16" data-ans="posera"> (poser) beaucoup de questions. 
+		<BR> 17) Tu <input type="text" id="v17" data-ans="partageras"> (partager) tes livres avec lui ? 
+        <BR> 18) Chaque soir, il <input type="text" id="v18" data-ans="travaillera"> (travailler) dans la bibliothèque. 
+		<BR> 19) Il <input type="text" id="v19" data-ans="aimera"> (aimer) cette ambiance. 
+        <BR> 20) Ses notes <input type="text" id="v20" data-ans="augmenteront"> (augmenter) rapidement.
+    </p>
+    <p>
+        21) Pendant le week-end, il <input type="text" id="v21" data-ans="voyagera"> (voyager) dans la région. 
+		<BR> 22) Il <input type="text" id="v22" data-ans="visitera"> (visiter) des musées. 
+        <BR> 23) Il <input type="text" id="v23" data-ans="rencontrera"> (rencontrer) des gens sympas. 
+		<BR> 24) Ils <input type="text" id="v24" data-ans="discuteront"> (discuter) au café. 
+        <BR> 25) Youssef <input type="text" id="v25" data-ans="achètera"> (acheter) des souvenirs pour sa famille.
+    </p>
+
+    <button onclick="verifier()">Vérifier mes réponses par JPJ</button>
+    <div class="result" id="resultat"></div>
+</div>
+
+<script>
+    function verifier() {
+        let score = 0;
+        let total = 25;
+        for(let i=1; i<=total; i++) {
+            let input = document.getElementById('v'+i);
+            if(input.value.trim().toLowerCase() === input.getAttribute('data-ans').toLowerCase()) {
+                input.className = 'correct';
+                score++;
+            } else {
+                input.className = 'incorrect';
+            }
+        }
+        document.getElementById('resultat').innerText = "Score : " + score + " / " + total;
+    }
+</script>
+</body>
+</html>
