@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NNiveau A1 / A2 (25 Questions)</title>
+    <title>Niveau A1 / A2 (25 Questions)</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,7 +18,7 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            max-width: 650px;
+            max-width: 700px;
             width: 100%;
         }
         .header {
@@ -27,104 +27,57 @@
             padding-bottom: 15px;
             margin-bottom: 25px;
         }
-        h1 {
-            margin: 0;
-            font-size: 1.6rem;
-            color: #2980b9;
-        }
-        .progress {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        .question {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
+        h1 { margin: 0; font-size: 1.6rem; color: #2980b9; }
+        .progress { font-size: 0.9rem; color: #7f8c8d; margin-top: 5px; }
+        .question { font-size: 1.15rem; font-weight: 600; margin-bottom: 10px; line-height: 1.4; }
         .context {
-            font-style: italic;
-            background-color: #f8f9fa;
-            padding: 12px 15px;
-            border-left: 5px solid #3498db;
-            margin-bottom: 20px;
-            border-radius: 0 4px 4px 0;
+            font-style: italic; background-color: #f8f9fa; padding: 12px 15px;
+            border-left: 5px solid #3498db; margin-bottom: 20px; border-radius: 0 4px 4px 0;
         }
-        .options {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        .options li {
-            margin-bottom: 12px;
-        }
+        .options { list-style-type: none; padding: 0; margin: 0; }
+        .options li { margin-bottom: 12px; }
         button.option-btn {
-            width: 100%;
-            text-align: left;
-            padding: 14px;
-            border: 1px solid #dcdde1;
-            border-radius: 6px;
-            background-color: #fff;
-            cursor: pointer;
-            font-size: 1rem;
+            width: 100%; text-align: left; padding: 14px; border: 1px solid #dcdde1;
+            border-radius: 6px; background-color: #fff; cursor: pointer; font-size: 1rem;
             transition: all 0.2s ease-in-out;
         }
-        button.option-btn:hover {
-            background-color: #e8f4fd;
-            border-color: #3498db;
-            transform: translateX(3px);
-        }
-        .result-container {
-            text-align: center;
-            padding: 20px 0;
-        }
-        .score {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #27ae60;
-            margin: 15px 0;
-        }
+        button.option-btn:hover { background-color: #e8f4fd; border-color: #3498db; transform: translateX(3px); }
+        .result-container { text-align: center; padding: 10px 0; }
+        .score { font-size: 3rem; font-weight: bold; color: #27ae60; margin: 15px 0; }
         .badge {
-            display: inline-block;
-            background-color: #2980b9;
-            color: white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 20px;
+            display: inline-block; background-color: #2980b9; color: white;
+            padding: 6px 16px; border-radius: 20px; font-size: 1.2rem; font-weight: bold; margin-bottom: 20px;
         }
         .advice {
-            line-height: 1.6;
-            font-size: 1.05rem;
-            margin-bottom: 30px;
-            text-align: left;
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
+            line-height: 1.6; font-size: 1rem; margin-bottom: 25px; text-align: left;
+            background-color: #f9f9f9; padding: 15px; border-radius: 8px;
         }
+        
+        /* CSS pour le rapport de réponses */
+        .report-section { text-align: left; margin-top: 25px; border-top: 2px solid #ecf0f1; padding-top: 20px; }
+        .report-item {
+            background-color: #fff; border: 1px solid #e1e8ed; padding: 15px;
+            margin-bottom: 12px; border-radius: 8px;
+        }
+        .report-item.correct { border-left: 5px solid #27ae60; }
+        .report-item.incorrect { border-left: 5px solid #e74c3c; }
+        .report-q { font-weight: bold; margin-bottom: 5px; color: #34495e; }
+        .report-ans { font-size: 0.95rem; margin: 3px 0; }
+        .user-choice.wrong { color: #c0392b; font-weight: 500; }
+        .user-choice.right { color: #27ae60; font-weight: 500; }
+        .expected-choice { color: #27ae60; font-weight: 500; }
+
         .restart-btn {
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.05rem;
-            font-weight: bold;
-            transition: background 0.2s;
+            background-color: #27ae60; color: white; border: none; padding: 12px 25px;
+            border-radius: 6px; cursor: pointer; font-size: 1.05rem; font-weight: bold;
+            transition: background 0.2s; margin-top: 15px;
         }
-        .restart-btn:hover {
-            background-color: #219653;
-        }
+        .restart-btn:hover { background-color: #219653; }
     </style>
 </head>
 <body>
 
-<div class="quiz-container" id="quiz-box">
-    <!-- Rempli par JavaScript -->
-</div>
+<div class="quiz-container" id="quiz-box"></div>
 
 <script>
 const quizData = [
@@ -197,9 +150,9 @@ const quizData = [
         options: [{ text: "A) les", isC: false }, { text: "B) leur", isC: true }, { text: "C) eux", isC: false }]
     },
     {
-        question: "14. Quelle structure exprime correctement l'obligation ?",
-        context: "« Il _________ acheter un ticket avant de monter dans le train. »",
-        options: [{ text: "A) doit", isC: false }, { text: "B) faut", isC: false }, { text: "C) faut que", isC: false }, { text: "D) faut ou doit (Il faut / Il doit)", isC: true }] // Adapté pour simplicité : option D est la seule correcte
+        question: "14. Quelle structure exprime correctement l'obligation impersonnelle ?",
+        context: "« Pour aller à Paris, il _________ prendre un billet. »",
+        options: [{ text: "A) doit", isC: false }, { text: "B) faut", isC: true }, { text: "C) a", isC: false }]
     },
     {
         question: "15. Utilisez le bon pronom de quantité :",
@@ -262,28 +215,18 @@ const quizData = [
     }
 ];
 
-// Ajustement de la question 14 pour éviter des bugs d'affichage
-quizData[13].options = [
-    { text: "A) faut (Il faut acheter...)", isC: true },
-    { text: "B) doit (Il doit acheter...)", isC: false }, // En réalité les deux fonctionnent selon la structure, mais l'énoncé cible "Il..." donc les deux marchent. On va simplifier le code pour valider la bonne formulation.
-];
-// Correction propre des options de la Q14 pour le code :
-quizData[13] = {
-    question: "14. Quelle structure exprime correctement l'obligation impersonnelle ?",
-    context: "« Pour aller à Paris, il _________ prendre un billet. »",
-    options: [{ text: "A) doit", isC: false }, { text: "B) faut", isC: true }, { text: "C) a", isC: false }]
-};
-
 let currentIdx = 0;
 let finalScore = 0;
+let userAnswers = []; // Stocke les choix de l'utilisateur
 
 function showQuestion() {
     const box = document.getElementById('quiz-box');
     const q = quizData[currentIdx];
     
     let optionsHtml = '';
-    q.options.forEach(opt => {
-        optionsHtml += `<li><button class="option-btn" onclick="handleAnswer(${opt.isC})">${opt.text}</button></li>`;
+    q.options.forEach((opt, index) => {
+        // Passe l'index de l'option choisie à handleAnswer
+        optionsHtml += `<li><button class="option-btn" onclick="handleAnswer(${index})">${opt.text}</button></li>`;
     });
 
     box.innerHTML = `
@@ -297,8 +240,20 @@ function showQuestion() {
     `;
 }
 
-function handleAnswer(isCorrect) {
-    if (isCorrect) finalScore++;
+function handleAnswer(optionIndex) {
+    const q = quizData[currentIdx];
+    const chosenOption = q.options[optionIndex];
+    
+    // Sauvegarde de la réponse
+    userAnswers.push({
+        question: q.question,
+        context: q.context,
+        userText: chosenOption.text,
+        isCorrect: chosenOption.isC,
+        correctText: q.options.find(opt => opt.isC).text
+    });
+
+    if (chosenOption.isC) finalScore++;
     currentIdx++;
     
     if (currentIdx < quizData.length) {
@@ -315,14 +270,32 @@ function evalResult() {
     
     if (finalScore <= 10) {
         title = "Niveau Débutant — A1 Débutant / En cours";
-        desc = "<strong>Ton profil :</strong> Tu possèdes les tout premiers repères de la langue française (mots simples, salutations, présent de base). C'est un excellent départ !<br><br><strong>Mes conseils :</strong> Concentre-toi sur la construction de phrases simples au présent (Sujet + Verbe + Complément), apprends les verbes essentiels (être, avoir, faire, aller) et enrichis ton vocabulaire de la maison et de la famille.";
+        desc = "<strong>Ton profil :</strong> Tu possèdes les tout premiers repères de la langue française. C'est un excellent départ !<br><br><strong>Mes conseils :</strong> Concentre-toi sur la construction de phrases simples au présent (Sujet + Verbe + Complément) et les verbes essentiels (être, avoir, faire, aller).";
     } else if (finalScore <= 18) {
         title = "Niveau Élémentaire — A1 Validé / En transition vers le A2";
-        desc = "<strong>Ton profil :</strong> Tu as dépassé le niveau grand débutant ! Tu comprends les messages simples de la vie courante et les règles basiques de la grammaire.<br><br><strong>Mes conseils :</strong> Pour t'installer confortablement dans le niveau A2, tu dois maintenant travailler la narration au passé (le Passé Composé) et commencer à lier tes phrases avec des mots comme 'parce que', 'mais' ou 'donc'.";
+        desc = "<strong>Ton profil :</strong> Tu as dépassé le niveau grand débutant ! Tu comprends les messages simples de la vie courante.<br><br><strong>Mes conseils :</strong> Travaille la narration au passé (Passé Composé) et commence à lier tes phrases avec des connecteurs ('parce que', 'mais', 'donc').";
     } else {
         title = "Niveau Intermédiaire Élémentaire — A2 Validé !";
-        desc = "<strong>Ton profil :</strong> Bravo ! Tu as une très bonne maîtrise des structures du niveau A2. Tu es capable de parler du passé, d'exprimer des choix, des obligations, et de te débrouiller seul dans la plupart des situations quotidiennes (magasins, restaurant, transports).<br><br><strong>Mes conseils :</strong> Tu as le bagage nécessaire pour commencer à explorer le niveau B1 ! Essaie de lire des textes plus longs, d'écouter des podcasts en français facile et d'étudier l'imparfait et le futur simple.";
+        desc = "<strong>Ton profil :</strong> Bravo ! Tu as une très bonne maîtrise des structures du niveau A2.<br><br><strong>Mes conseils :</strong> Explore le niveau B1 ! Lis des textes plus longs, écoute des podcasts en français facile et étudie l'imparfait et le futur simple.";
     }
+
+    // Génération du rapport question par question
+    let reportHtml = `<div class="report-section"><h3>Rapport détaillé des réponses :</h3>`;
+    userAnswers.forEach((ans, index) => {
+        const statusClass = ans.isCorrect ? 'correct' : 'incorrect';
+        const statusText = ans.isCorrect 
+            ? `<span class="user-choice right"> Exact : ${ans.userText}</span>` 
+            : `<span class="user-choice wrong"> Ta réponse : ${ans.userText}</span><br><span class="expected-choice">✓ Réponse attendue : ${ans.correctText}</span>`;
+
+        reportHtml += `
+            <div class="report-item ${statusClass}">
+                <div class="report-q">${index + 1}. ${ans.question}</div>
+                <div style="font-style: italic; color: #555; margin-bottom: 5px;">${ans.context}</div>
+                <div class="report-ans">${statusText}</div>
+            </div>
+        `;
+    });
+    reportHtml += `</div>`;
 
     box.innerHTML = `
         <div class="result-container">
@@ -331,6 +304,7 @@ function evalResult() {
             <div class="badge">${title}</div>
             <div class="advice">${desc}</div>
             <button class="restart-btn" onclick="resetQuiz()">Refaire le test</button>
+            ${reportHtml}
         </div>
     `;
 }
@@ -338,6 +312,7 @@ function evalResult() {
 function resetQuiz() {
     currentIdx = 0;
     finalScore = 0;
+    userAnswers = [];
     showQuestion();
 }
 
