@@ -1,623 +1,569 @@
-
 <!doctype html>
 <html lang="fr">
 	<head>
-   <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            color: #2c3e50;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .quiz-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            max-width: 650px;
-            width: 100%;
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-        h1 {
-            margin: 0;
-            font-size: 1.6rem;
-            color: #2980b9;
-        }
-        .progress {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        .question {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-        .context {
-            font-style: italic;
-            background-color: #f8f9fa;
-            padding: 12px 15px;
-            border-left: 5px solid #3498db;
-            margin-bottom: 20px;
-            border-radius: 0 4px 4px 0;
-        }
-        .options {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        .options li {
-            margin-bottom: 12px;
-        }
-        button.option-btn {
-            width: 100%;
-            text-align: left;
-            padding: 14px;
-            border: 1px solid #dcdde1;
-            border-radius: 6px;
-            background-color: #fff;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.2s ease-in-out;
-        }
-        button.option-btn:hover {
-            background-color: #e8f4fd;
-            border-color: #3498db;
-            transform: translateX(3px);
-        }
-        .result-container {
-            text-align: center;
-            padding: 20px 0;
-        }
-        .score {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #27ae60;
-            margin: 15px 0;
-        }
-        .badge {
-            display: inline-block;
-            background-color: #2980b9;
-            color: white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .advice {
-            line-height: 1.6;
-            font-size: 1.05rem;
-            margin-bottom: 30px;
-            text-align: left;
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        .restart-btn {
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.05rem;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-        .restart-btn:hover {
-            background-color: #219653;
-        }
-    </style>
-		
-		
-
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Test de niveau</title>
+		<style>
+			body {
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				background-color: #f0f4f8;
+				color: #2c3e50;
+				padding: 20px;
+				display: flex;
+				justify-content: center;
+			}
+			.quiz-container {
+				background-color: white;
+				padding: 30px;
+				border-radius: 12px;
+				box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+				max-width: 700px;
+				width: 100%;
+			}
+			#questionTitle {
+				font-size: 1.5rem;
+				font-weight: bold;
+				color: #2980b9;
+				margin-bottom: 15px;
+				border-bottom: 2px solid #ecf0f1;
+				padding-bottom: 10px;
+			}
+			#questionDefinition {
+				font-size: 1.1rem;
+				margin-bottom: 15px;
+			}
+			.option-item {
+				margin-bottom: 10px;
+				font-size: 1rem;
+			}
+			.btn--action, .restart-btn {
+				background-color: #27ae60;
+				color: white;
+				border: none;
+				padding: 12px 20px;
+				border-radius: 6px;
+				cursor: pointer;
+				font-size: 1rem;
+				font-weight: bold;
+				transition: background 0.2s;
+				margin-top: 15px;
+			}
+			.btn--action:hover, .restart-btn:hover {
+				background-color: #219653;
+			}
+			
+			/* Style du rapport de résultats */
+			.report-card {
+				background-color: #f9f9f9;
+				border: 1px solid #e1e8ed;
+				border-radius: 8px;
+				padding: 15px;
+				margin-bottom: 12px;
+				text-align: left;
+			}
+			.report-card.correct {
+				border-left: 5px solid #27ae60;
+			}
+			.report-card.error {
+				border-left: 5px solid #e74c3c;
+			}
+			.q-title {
+				font-weight: bold;
+				margin-bottom: 5px;
+			}
+			.user-ans.right {
+				color: #27ae60;
+				font-weight: bold;
+			}
+			.user-ans.wrong {
+				color: #c0392b;
+				font-weight: bold;
+			}
+			.expected-ans {
+				color: #27ae60;
+				font-weight: bold;
+			}
+		</style>
 	</head>
 	<body>
-		<script>
-			dataLayer = [];
-		</script>
-		<div class="content">
+		<div class="quiz-container">
 			<main role="main">
-				<div class="marger-bottom">
-					<div class="container grid-center" >
-						<div class="grid-100 marger-bottom " id="item3192191" >
-	
-	
-	<div id="questionTitle">Test your skills</div>
-	<div>
-	<script language="javascript">
-					
-	var correctAnswers = 0;
-
-	function displayQuestion()
-		{var questionOptionsText = "";
-
-		 questionTitle.innerHTML = '<legend class="form__legend ">' + 'Question ' + (questionNumber + 1) + '</legend>';
-		 questionDefinition.innerHTML = questionsArray[questionNumber][0] + '<br/><br/>';
-		 
-		 var questionOption;
-		 for (questionOption=1; questionOption<=4; questionOption++)
-			{questionOptionsText = questionOptionsText + '<input type="radio" id="radioOption" name="radioOption"';
-			 if (questionOption==1)
-			 	{questionOptionsText = questionOptionsText + ' checked="checked"';
-			 	}
-			 questionOptionsText = questionOptionsText + '/> ' + questionsArray[questionNumber][questionOption] + '<br/>';
-			}
-		 questionOptions.innerHTML = questionOptionsText;
-		 if (window.jQuery) jQuery('input[type="radio"]',questionOptions).icheck({radioClass:'iradio_minimal'});
-		}
-
-
-	
-	function buttonStart_onclick()
-		{questionButton.innerHTML = '<br/><br/><input type="button" name="buttonAnswer" id="buttonAnswer" class="btn--action" value="Réponse à la question" onclick="return buttonAnswer_onclick()"/>';
-		 displayQuestion();
-		}
-	
-
-
-	function buttonAnswer_onclick()
-		{checkAnswer();
-		 if(questionNumber < answersArray.length - 1)
-			{questionNumber++;
-			 displayQuestion();
-			}
-		 else
-			{questionTitle.innerHTML = 'Quiz Résultats et réponses attendues';
-			 for (var i=0; i < levelArray.length; i++) {
-			 	if (correctAnswers >= levelArray[i]['lower'] && correctAnswers <= levelArray[i]['upper']) {
-					var level = levelArray[i]['case'];
-				
-					break;
-				}
-			 }
-		 	 questionDefinition.innerHTML = correctAnswers + ' out of ' + answersArray.length +  '  questions answered correctly! <b>' + level + '</b>';
-		 	 
-		 	 var answersText = ""; var answerCounter;
-		 	 
-		 	 for (answerCounter=0; answerCounter < answersArray.length; answerCounter++)
-		 	 	{
-					var myclass = mistakesArray[answerCounter] ? 'error':'correct';
-					answersText = answersText + '<p><span class="'+myclass+'">Question ' + (answerCounter+1) + ': </span> ' + questionsArray[answerCounter][0] + '<br/>Answer:' + questionsArray[answerCounter][answersArray[answerCounter]] + '</p>';
-		 	 	}
-		 	 
-		 	 questionOptions.innerHTML = answersText;
-		 	 questionButton.innerHTML = '';
-		 	 
-		 	 if (document.getElementById('byLine')) document.getElementById("byLine").innerHTML = "";
-			}
-		}
-		
-		
-		
-	function checkAnswer()
-		{var questionOption;
-		 var radioOptionArray = document.getElementById('quizForm').elements['radioOption'];
-		 for (questionOption=0; questionOption<=3; questionOption++)
-		 	{if (radioOptionArray[questionOption].checked == true)
-		 		{questionOption++;
-		 		 break;
-		 		}
-		 	}
-		 if (questionOption == answersArray[questionNumber]) {
-			correctAnswers++;
-			mistakesArray[questionNumber]=false;		
-		}
-		
-	}
-		
-		// ****************************************************************************
-		
-		
-			function initialiseArray() {
-		var i = 0;
-
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Bonjour monsieur, ______________ le journaliste ?";
-		questionsArray[i][1] = "tu es";
-		questionsArray[i][2] = "ils sont";
-		questionsArray[i][3] = "on est";
-		questionsArray[i][4] = "vous êtes";
-		answersArray[i] = 4;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Marguerite est _______________ au restaurant.";
-		questionsArray[i][1] = "serveur";
-		questionsArray[i][2] = "serveuse";
-		questionsArray[i][3] = "service";
-		questionsArray[i][4] = "sert";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Est-ce que tu vois _________ voiture noire ?";
-		questionsArray[i][1] = "du";
-		questionsArray[i][2] = "de";
-		questionsArray[i][3] = "la";
-		questionsArray[i][4] = "l\’";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />___________ ton numéro de téléphone ?";
-		questionsArray[i][1] = "Il y a";
-		questionsArray[i][2] = "Quelle est";
-		questionsArray[i][3] = "Quel est";
-		questionsArray[i][4] = "Quels sont";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je te présente ________ frère et ________ amie.";
-		questionsArray[i][1] = "mon / son";
-		questionsArray[i][2] = "mon / sa";
-		questionsArray[i][3] = "ton / t\'";
-		questionsArray[i][4] = "mon / ma";
-		answersArray[i] = 1;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Est-ce que tu as fait ________ tennis hier ?";
-		questionsArray[i][1] = "au";
-		questionsArray[i][2] = "du";
-		questionsArray[i][3] = "le";
-		questionsArray[i][4] = "de le";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Il est ____(15h15)________.";
-		questionsArray[i][1] = "trois heures moins le quart";
-		questionsArray[i][2] = "trois heures plus le quart";
-		questionsArray[i][3] = "trois heures et quart";
-		questionsArray[i][4] = "trois heures et demi";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je viens ______ Allemagne.";
-		questionsArray[i][1] = "de";
-		questionsArray[i][2] = "d\'";
-		questionsArray[i][3] = "la";
-		questionsArray[i][4] = "du";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je vais _________ Portugal.";
-		questionsArray[i][1] = "au";
-		questionsArray[i][2] = "en";
-		questionsArray[i][3] = "à";
-		questionsArray[i][4] = "aux";
-		answersArray[i] = 1;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Elles ______________ à la chorale du village.";
-		questionsArray[i][1] = "chante";
-		questionsArray[i][2] = "chanté";
-		questionsArray[i][3] = "chantent";
-		questionsArray[i][4] = "chanter";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Ils _______________ cette chanson.";
-		questionsArray[i][1] = "mangent";
-		questionsArray[i][2] = "chantent";
-		questionsArray[i][3] = "parlent";
-		questionsArray[i][4] = "naviguent";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Ce film est terrifiant, j’ai __________.";
-		questionsArray[i][1] = "faim";
-		questionsArray[i][2] = "envie";
-		questionsArray[i][3] = "peur";
-		questionsArray[i][4] = "soif";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Cet après-midi, nous ___________________ le musée des Beaux-Arts.";
-		questionsArray[i][1] = "aller visiter";
-		questionsArray[i][2] = "allons visiter";
-		questionsArray[i][3] = "allons visite";
-		questionsArray[i][4] = "aller visitons";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Tu veux dormir _________ moi ?";
-		questionsArray[i][1] = "à";
-		questionsArray[i][2] = "de";
-		questionsArray[i][3] = "chez";
-		questionsArray[i][4] = "pour";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />_______________ tu as dit à Romain ?";
-		questionsArray[i][1] = "Quoi";
-		questionsArray[i][2] = "Que";
-		questionsArray[i][3] = "Qu\'est-ce que";
-		questionsArray[i][4] = "Est-ce";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Donnez-moi un kilo _________ pommes de terre.";
-		questionsArray[i][1] = "des";
-		questionsArray[i][2] = "de";
-		questionsArray[i][3] = "de les";
-		questionsArray[i][4] = "du";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Pourquoi tu ne ___________ écoutes pas ? Nous sommes tes parents !";
-		questionsArray[i][1] = "me";
-		questionsArray[i][2] = "lui";
-		questionsArray[i][3] = "leur";
-		questionsArray[i][4] = "nous";
-		answersArray[i] = 4;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Sébastien _________ parle (à Anne).";
-		questionsArray[i][1] = "la";
-		questionsArray[i][2] = "lui";
-		questionsArray[i][3] = "elle";
-		questionsArray[i][4] = "se";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Demain, nous ________________ faire du bateau.";
-		questionsArray[i][1] = "sommes allés";
-		questionsArray[i][2] = "étions allés";
-		questionsArray[i][3] = "irons";
-		questionsArray[i][4] = "ayons";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />_________ demandé à ma mère de venir.";
-		questionsArray[i][1] = "Je suis";
-		questionsArray[i][2] = "J\'ai";
-		questionsArray[i][3] = "Je";
-		questionsArray[i][4] = "Tu";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Elle ______________ de la maison.";
-		questionsArray[i][1] = "a sorti";
-		questionsArray[i][2] = "a sortie";
-		questionsArray[i][3] = "est sorti";
-		questionsArray[i][4] = "est sortie";
-		answersArray[i] = 4;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Mon voisin ______________ son chien trois fois ce matin.";
-		questionsArray[i][1] = "est sorti";
-		questionsArray[i][2] = "a sorti";
-		questionsArray[i][3] = "sont sortis";
-		questionsArray[i][4] = "ont sorti";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Tu veux du chocolat ? ";
-		questionsArray[i][1] = "Oui, j\’en veux";
-		questionsArray[i][2] = "Oui, j\’y veux";
-		questionsArray[i][3] = "Non, j\’en veux";
-		questionsArray[i][4] = "Non, j\’y veux";
-		answersArray[i] = 1;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Quelle est la bonne réponse à la question suivante?<br />Il va à Marseille ? ";
-		questionsArray[i][1] = "Oui... Felix y va";
-		questionsArray[i][2] = "Oui... Felix en va";
-		questionsArray[i][3] = "Non... Felix y va";
-		questionsArray[i][4] = "Non... Felix en va";
-		answersArray[i] = 1;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />_____________ quand je te parle !";
-		questionsArray[i][1] = "Ecoutez-moi";
-		questionsArray[i][2] = "Ecoute-me";
-		questionsArray[i][3] = "Ecoutes-moi";
-		questionsArray[i][4] = "Ecoute-moi";
-		answersArray[i] = 4;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je connais bien cet homme _________ est sur la photo.";
-		questionsArray[i][1] = "que";
-		questionsArray[i][2] = "qui";
-		questionsArray[i][3] = "où";
-		questionsArray[i][4] = "tu";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Béatrice est une amie _________ j\’adore";
-		questionsArray[i][1] = "qui";
-		questionsArray[i][2] = "qu\'";
-		questionsArray[i][3] = "où";
-		questionsArray[i][4] = "que";
-		answersArray[i] = 4;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />C\’est mon parapluie ! C\’est ___________.";
-		questionsArray[i][1] = "le miens !";
-		questionsArray[i][2] = "la mien !";
-		questionsArray[i][3] = "le mienne !";
-		questionsArray[i][4] = "le mien !";
-		answersArray[i] = 4;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Pour __________ des médicaments, il faut __________ à la pharmacie.";
-		questionsArray[i][1] = "achète   /   que je vais";
-		questionsArray[i][2] = "acheter   /   aller";
-		questionsArray[i][3] = "vendre   /   aller";
-		questionsArray[i][4] = "achète   /   aller";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />J\'habite en France _____________ 6 ans.";
-		questionsArray[i][1] = "il y a";
-		questionsArray[i][2] = "de";
-		questionsArray[i][3] = "depuis";
-		questionsArray[i][4] = "en";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />____________ quelques années, je suis allée en vacances au Mexique.";
-		questionsArray[i][1] = "Il y a";
-		questionsArray[i][2] = "De";
-		questionsArray[i][3] = "Depuis";
-		questionsArray[i][4] = "En";
-		answersArray[i] = 1;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Quand j’étais plus jeune, je __________ tous les week-ends.";
-		questionsArray[i][1] = "ai skié";
-		questionsArray[i][2] = "skiais";
-		questionsArray[i][3] = "j’aurais skié";
-		questionsArray[i][4] = "skierai";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Julien est parti en voyage hier. Il ________________ son vol sur internet.";
-		questionsArray[i][1] = "avait réservé";
-		questionsArray[i][2] = "aurait réservé";
-		questionsArray[i][3] = "réservais";
-		questionsArray[i][4] = "réserve";
-		answersArray[i] = 1;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Excusez-moi madame, je _______________ essayer une autre taille s\’il vous plaît.";
-		questionsArray[i][1] = "veut";
-		questionsArray[i][2] = "ai voulu";
-		questionsArray[i][3] = "voulais";
-		questionsArray[i][4] = "voudrais";
-		answersArray[i] = 4;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Oh tu sais, je ne pense pas qu’il ____________ à ta fête.";
-		questionsArray[i][1] = "viens";
-		questionsArray[i][2] = "était";
-		questionsArray[i][3] = "vienne";
-		questionsArray[i][4] = "est";
-		answersArray[i] = 3;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Si ! Je suis sûre que Marie _____________ ce soir.";
-		questionsArray[i][1] = "viendra";
-		questionsArray[i][2] = "vienne";
-		questionsArray[i][3] = "viennent";
-		questionsArray[i][4] = "viens";
-		answersArray[i] = 1;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Si je gagnais au loto, _____________ un grand bateau.";
-		questionsArray[i][1] = "j\’achèterai";
-		questionsArray[i][2] = "j\’achèterais";
-		questionsArray[i][3] = "j\’achetais";
-		questionsArray[i][4] = "j\’aurais acheté";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je travaille en _____________ de la musique.";
-		questionsArray[i][1] = "écouter";
-		questionsArray[i][2] = "écoutant";
-		questionsArray[i][3] = "écoute";
-		questionsArray[i][4] = "écoutons";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Il faut que tu _______________ attention à ta grammaire !";
-		questionsArray[i][1] = "fais";
-		questionsArray[i][2] = "fasses";
-		questionsArray[i][3] = "faire";
-		questionsArray[i][4] = "feras";
-		answersArray[i] = 2;
-		i++;
-		questionsArray[i] = new Array();
-		questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Si _______ un oiseau, ________ par dessus les arbres.";
-		questionsArray[i][1] = "je serais / je volerais";
-		questionsArray[i][2] = "je suis / je vole";
-		questionsArray[i][3] = "je serais / je volais";
-		questionsArray[i][4] = "j'étais / je volerais";
-		answersArray[i] = 4;
-
-		for(j=0; j<questionsArray.length; j++){
-			mistakesArray[j]=true;
-		}
-
-		 var n = 0;
-		 levelArray[n] = new Array();
-		 levelArray[n]['lower'] = 0;
-		 levelArray[n]['upper'] = 8;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement A1';
-		 n++;
-		 levelArray[n] = new Array();
-		 levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
-		 levelArray[n]['upper'] = 18;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement A2';
-		 n++;
-		 levelArray[n] = new Array();
-		 levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
-		 levelArray[n]['upper'] = 28;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement entre A2-B1';
-		 n++;
-		 levelArray[n] = new Array();
-		 levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
-		 levelArray[n]['upper'] = 34;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement  B1';	
-		 n++;
-		 levelArray[n] = new Array();
-		 levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
-		 levelArray[n]['upper'] = 40;
-		 levelArray[n]['case'] = 'Votre niveau est approximativement  B2';	
-		 
-
-	}
-
-				
-				
-				</script>
-<form id="quizForm">
-<div id="questionDefinition">&nbsp;</div>
-
-<div id="questionOptions">&nbsp;</div>
-
-<div id="questionButton">&nbsp;</div>
-</form>
-<script type="text/javascript">
-					var questionNumber = 0;
-					var questionsArray = new Array();
-					var answersArray = new Array();
-					var mistakesArray = new Array();
-					var levelArray = new Array();
-					var questionTitle = document.getElementById("questionTitle");
-					var questionDefinition = document.getElementById("questionDefinition");
-					var questionOptions = document.getElementById("questionOptions");
-		 	 		var questionButton = document.getElementById("questionButton");
-					initialiseArray();
-					buttonStart_onclick();
-				</script>
-</div>
-	
-	
-</div>
-
-					</div>
-				</div>
+				<div id="questionTitle">Test de compétences</div>
+				<form id="quizForm">
+					<div id="questionDefinition">&nbsp;</div>
+					<div id="questionOptions">&nbsp;</div>
+					<div id="questionButton">&nbsp;</div>
+				</form>
 			</main>
 		</div>
-		<button type="button" class="btn--bare btn--top" data-button-top><i class="icon-chevron-up"></i></button>
-		<script>
-			locale = "fr_FR";
-		</script>
-		<script src="/assets/js/agency.js?" async></script>
 
-<!-- Those elements are hidden by css and it is detected by js to know the device mode -->
-<!-- Important: hybrid modes, like moblet have to be set at first -->
-<div data-device="moblet"></div>
-<div data-device="mobile"></div>
-<div data-device="tablet"></div>
-<div data-device="desktop"></div>
-<script src="../securite.js"></script>
+		<script>
+			var correctAnswers = 0;
+			var questionNumber = 0;
+			var questionsArray = new Array();
+			var answersArray = new Array();
+			var mistakesArray = new Array();
+			var userChoicesArray = new Array(); // Stocke le choix de l'utilisateur
+			var levelArray = new Array();
+
+			function displayQuestion() {
+				var questionOptionsText = "";
+				var questionTitleEl = document.getElementById("questionTitle");
+				var questionDefinitionEl = document.getElementById("questionDefinition");
+				var questionOptionsEl = document.getElementById("questionOptions");
+
+				questionTitleEl.innerHTML = 'Question ' + (questionNumber + 1) + ' sur ' + questionsArray.length;
+				questionDefinitionEl.innerHTML = questionsArray[questionNumber][0] + '<br/><br/>';
+				
+				for (var questionOption = 1; questionOption <= 4; questionOption++) {
+					questionOptionsText += '<div class="option-item"><label><input type="radio" name="radioOption" value="' + questionOption + '"';
+					if (questionOption == 1) {
+						questionOptionsText += ' checked="checked"';
+					}
+					questionOptionsText += '/> ' + questionsArray[questionNumber][questionOption] + '</label></div>';
+				}
+				questionOptionsEl.innerHTML = questionOptionsText;
+			}
+
+			function buttonStart_onclick() {
+				var questionButtonEl = document.getElementById("questionButton");
+				questionButtonEl.innerHTML = '<input type="button" name="buttonAnswer" id="buttonAnswer" class="btn--action" value="Réponse à la question" onclick="buttonAnswer_onclick()"/>';
+				displayQuestion();
+			}
+
+			function buttonAnswer_onclick() {
+				checkAnswer();
+				if (questionNumber < answersArray.length - 1) {
+					questionNumber++;
+					displayQuestion();
+				} else {
+					showFinalReport();
+				}
+			}
+
+			function checkAnswer() {
+				var radioOptionArray = document.getElementById('quizForm').elements['radioOption'];
+				var selectedValue = 1;
+
+				for (var i = 0; i < radioOptionArray.length; i++) {
+					if (radioOptionArray[i].checked) {
+						selectedValue = parseInt(radioOptionArray[i].value);
+						break;
+					}
+				}
+
+				// Stocke la réponse sélectionnée par l'utilisateur
+				userChoicesArray[questionNumber] = selectedValue;
+
+				if (selectedValue == answersArray[questionNumber]) {
+					correctAnswers++;
+					mistakesArray[questionNumber] = false;		
+				} else {
+					mistakesArray[questionNumber] = true;
+				}
+			}
+
+			function showFinalReport() {
+				var questionTitleEl = document.getElementById("questionTitle");
+				var questionDefinitionEl = document.getElementById("questionDefinition");
+				var questionOptionsEl = document.getElementById("questionOptions");
+				var questionButtonEl = document.getElementById("questionButton");
+
+				questionTitleEl.innerHTML = 'Résultats et rapport détaillé';
+				
+				var level = "";
+				for (var i = 0; i < levelArray.length; i++) {
+					if (correctAnswers >= levelArray[i]['lower'] && correctAnswers <= levelArray[i]['upper']) {
+						level = levelArray[i]['case'];
+						break;
+					}
+				}
+
+				questionDefinitionEl.innerHTML = '<strong>Score : ' + correctAnswers + ' / ' + answersArray.length + '</strong><br/><h3>' + level + '</h3>';
+				
+				var answersText = "";
+				for (var answerCounter = 0; answerCounter < answersArray.length; answerCounter++) {
+					var isCorrect = !mistakesArray[answerCounter];
+					var cardClass = isCorrect ? 'correct' : 'error';
+					var userChoiceIdx = userChoicesArray[answerCounter];
+					var userChoiceText = questionsArray[answerCounter][userChoiceIdx];
+					var expectedChoiceText = questionsArray[answerCounter][answersArray[answerCounter]];
+
+					answersText += '<div class="report-card ' + cardClass + '">';
+					answersText += '<div class="q-title">Question ' + (answerCounter + 1) + ' : ' + questionsArray[answerCounter][0] + '</div>';
+					
+					if (isCorrect) {
+						answersText += '<div class="user-ans right">✓ Votre réponse : ' + userChoiceText + '</div>';
+					} else {
+						answersText += '<div class="user-ans wrong">✗ Votre réponse : ' + userChoiceText + '</div>';
+						answersText += '<div class="expected-ans">✓ Réponse attendue : ' + expectedChoiceText + '</div>';
+					}
+					answersText += '</div>';
+				}
+				
+				questionOptionsEl.innerHTML = answersText;
+				questionButtonEl.innerHTML = '<input type="button" class="restart-btn" value="Recommencer" onclick="location.reload()"/>';
+			}
+
+			function initialiseArray() {
+				var i = 0;
+
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Bonjour monsieur, ______________ le journaliste ?";
+				questionsArray[i][1] = "tu es";
+				questionsArray[i][2] = "ils sont";
+				questionsArray[i][3] = "on est";
+				questionsArray[i][4] = "vous êtes";
+				answersArray[i] = 4;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Marguerite est _______________ au restaurant.";
+				questionsArray[i][1] = "serveur";
+				questionsArray[i][2] = "serveuse";
+				questionsArray[i][3] = "service";
+				questionsArray[i][4] = "sert";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Est-ce que tu vois _________ voiture noire ?";
+				questionsArray[i][1] = "du";
+				questionsArray[i][2] = "de";
+				questionsArray[i][3] = "la";
+				questionsArray[i][4] = "l’";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />___________ ton numéro de téléphone ?";
+				questionsArray[i][1] = "Il y a";
+				questionsArray[i][2] = "Quelle est";
+				questionsArray[i][3] = "Quel est";
+				questionsArray[i][4] = "Quels sont";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je te présente ________ frère et ________ amie.";
+				questionsArray[i][1] = "mon / son";
+				questionsArray[i][2] = "mon / sa";
+				questionsArray[i][3] = "ton / t'";
+				questionsArray[i][4] = "mon / ma";
+				answersArray[i] = 1;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Est-ce que tu as fait ________ tennis hier ?";
+				questionsArray[i][1] = "au";
+				questionsArray[i][2] = "du";
+				questionsArray[i][3] = "le";
+				questionsArray[i][4] = "de le";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Il est ____(15h15)________.";
+				questionsArray[i][1] = "trois heures moins le quart";
+				questionsArray[i][2] = "trois heures plus le quart";
+				questionsArray[i][3] = "trois heures et quart";
+				questionsArray[i][4] = "trois heures et demi";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je viens ______ Allemagne.";
+				questionsArray[i][1] = "de";
+				questionsArray[i][2] = "d'";
+				questionsArray[i][3] = "la";
+				questionsArray[i][4] = "du";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je vais _________ Portugal.";
+				questionsArray[i][1] = "au";
+				questionsArray[i][2] = "en";
+				questionsArray[i][3] = "à";
+				questionsArray[i][4] = "aux";
+				answersArray[i] = 1;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Elles ______________ à la chorale du village.";
+				questionsArray[i][1] = "chante";
+				questionsArray[i][2] = "chanté";
+				questionsArray[i][3] = "chantent";
+				questionsArray[i][4] = "chanter";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Ils _______________ cette chanson.";
+				questionsArray[i][1] = "mangent";
+				questionsArray[i][2] = "chantent";
+				questionsArray[i][3] = "parlent";
+				questionsArray[i][4] = "naviguent";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Ce film est terrifiant, j’ai __________.";
+				questionsArray[i][1] = "faim";
+				questionsArray[i][2] = "envie";
+				questionsArray[i][3] = "peur";
+				questionsArray[i][4] = "soif";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Cet après-midi, nous ___________________ le musée des Beaux-Arts.";
+				questionsArray[i][1] = "aller visiter";
+				questionsArray[i][2] = "allons visiter";
+				questionsArray[i][3] = "allons visite";
+				questionsArray[i][4] = "aller visitons";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Tu veux dormir _________ moi ?";
+				questionsArray[i][1] = "à";
+				questionsArray[i][2] = "de";
+				questionsArray[i][3] = "chez";
+				questionsArray[i][4] = "pour";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />_______________ tu as dit à Romain ?";
+				questionsArray[i][1] = "Quoi";
+				questionsArray[i][2] = "Que";
+				questionsArray[i][3] = "Qu'est-ce que";
+				questionsArray[i][4] = "Est-ce";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Donnez-moi un kilo _________ pommes de terre.";
+				questionsArray[i][1] = "des";
+				questionsArray[i][2] = "de";
+				questionsArray[i][3] = "de les";
+				questionsArray[i][4] = "du";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Pourquoi tu ne ___________ écoutes pas ? Nous sommes tes parents !";
+				questionsArray[i][1] = "me";
+				questionsArray[i][2] = "lui";
+				questionsArray[i][3] = "leur";
+				questionsArray[i][4] = "nous";
+				answersArray[i] = 4;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Sébastien _________ parle (à Anne).";
+				questionsArray[i][1] = "la";
+				questionsArray[i][2] = "lui";
+				questionsArray[i][3] = "elle";
+				questionsArray[i][4] = "se";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Demain, nous ________________ faire du bateau.";
+				questionsArray[i][1] = "sommes allés";
+				questionsArray[i][2] = "étions allés";
+				questionsArray[i][3] = "irons";
+				questionsArray[i][4] = "ayons";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />_________ demandé à ma mère de venir.";
+				questionsArray[i][1] = "Je suis";
+				questionsArray[i][2] = "J'ai";
+				questionsArray[i][3] = "Je";
+				questionsArray[i][4] = "Tu";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Elle ______________ de la maison.";
+				questionsArray[i][1] = "a sorti";
+				questionsArray[i][2] = "a sortie";
+				questionsArray[i][3] = "est sorti";
+				questionsArray[i][4] = "est sortie";
+				answersArray[i] = 4;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Mon voisin ______________ son chien trois fois ce matin.";
+				questionsArray[i][1] = "est sorti";
+				questionsArray[i][2] = "a sorti";
+				questionsArray[i][3] = "sont sortis";
+				questionsArray[i][4] = "ont sorti";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Tu veux du chocolat ?";
+				questionsArray[i][1] = "Oui, j’en veux";
+				questionsArray[i][2] = "Oui, j’y veux";
+				questionsArray[i][3] = "Non, j’en veux";
+				questionsArray[i][4] = "Non, j’y veux";
+				answersArray[i] = 1;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Quelle est la bonne réponse à la question suivante?<br />Il va à Marseille ?";
+				questionsArray[i][1] = "Oui... Felix y va";
+				questionsArray[i][2] = "Oui... Felix en va";
+				questionsArray[i][3] = "Non... Felix y va";
+				questionsArray[i][4] = "Non... Felix en va";
+				answersArray[i] = 1;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />_____________ quand je te parle !";
+				questionsArray[i][1] = "Ecoutez-moi";
+				questionsArray[i][2] = "Ecoute-me";
+				questionsArray[i][3] = "Ecoutes-moi";
+				questionsArray[i][4] = "Ecoute-moi";
+				answersArray[i] = 4;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je connais bien cet homme _________ est sur la photo.";
+				questionsArray[i][1] = "que";
+				questionsArray[i][2] = "qui";
+				questionsArray[i][3] = "où";
+				questionsArray[i][4] = "tu";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Béatrice est une amie _________ j’adore";
+				questionsArray[i][1] = "qui";
+				questionsArray[i][2] = "qu'";
+				questionsArray[i][3] = "où";
+				questionsArray[i][4] = "que";
+				answersArray[i] = 4;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />C’est mon parapluie ! C’est ___________.";
+				questionsArray[i][1] = "le miens !";
+				questionsArray[i][2] = "la mien !";
+				questionsArray[i][3] = "le mienne !";
+				questionsArray[i][4] = "le mien !";
+				answersArray[i] = 4;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Pour __________ des médicaments, il faut __________ à la pharmacie.";
+				questionsArray[i][1] = "achète / que je vais";
+				questionsArray[i][2] = "acheter / aller";
+				questionsArray[i][3] = "vendre / aller";
+				questionsArray[i][4] = "achète / aller";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />J'habite en France _____________ 6 ans.";
+				questionsArray[i][1] = "il y a";
+				questionsArray[i][2] = "de";
+				questionsArray[i][3] = "depuis";
+				questionsArray[i][4] = "en";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />____________ quelques années, je suis allée en vacances au Mexique.";
+				questionsArray[i][1] = "Il y a";
+				questionsArray[i][2] = "De";
+				questionsArray[i][3] = "Depuis";
+				questionsArray[i][4] = "En";
+				answersArray[i] = 1;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Quand j’étais plus jeune, je __________ tous les week-ends.";
+				questionsArray[i][1] = "ai skié";
+				questionsArray[i][2] = "skiais";
+				questionsArray[i][3] = "j’aurais skié";
+				questionsArray[i][4] = "skierai";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Julien est parti en voyage hier. Il ________________ son vol sur internet.";
+				questionsArray[i][1] = "avait réservé";
+				questionsArray[i][2] = "aurait réservé";
+				questionsArray[i][3] = "réservais";
+				questionsArray[i][4] = "réserve";
+				answersArray[i] = 1;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Excusez-moi madame, je _______________ essayer une autre taille s’il vous plaît.";
+				questionsArray[i][1] = "veut";
+				questionsArray[i][2] = "ai voulu";
+				questionsArray[i][3] = "voulais";
+				questionsArray[i][4] = "voudrais";
+				answersArray[i] = 4;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Oh tu sais, je ne pense pas qu’il ____________ à ta fête.";
+				questionsArray[i][1] = "viens";
+				questionsArray[i][2] = "était";
+				questionsArray[i][3] = "vienne";
+				questionsArray[i][4] = "est";
+				answersArray[i] = 3;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Si ! Je suis sûre que Marie _____________ ce soir.";
+				questionsArray[i][1] = "viendra";
+				questionsArray[i][2] = "vienne";
+				questionsArray[i][3] = "viennent";
+				questionsArray[i][4] = "viens";
+				answersArray[i] = 1;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Si je gagnais au loto, _____________ un grand bateau.";
+				questionsArray[i][1] = "j’achèterai";
+				questionsArray[i][2] = "j’achèterais";
+				questionsArray[i][3] = "j’achetais";
+				questionsArray[i][4] = "j’aurais acheté";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Je travaille en _____________ de la musique.";
+				questionsArray[i][1] = "écouter";
+				questionsArray[i][2] = "écoutant";
+				questionsArray[i][3] = "écoute";
+				questionsArray[i][4] = "écoutons";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Il faut que tu _______________ attention à ta grammaire !";
+				questionsArray[i][1] = "fais";
+				questionsArray[i][2] = "fasses";
+				questionsArray[i][3] = "faire";
+				questionsArray[i][4] = "feras";
+				answersArray[i] = 2;
+				i++;
+				questionsArray[i] = new Array();
+				questionsArray[i][0] = "Sélectionnez le mot adéquat pour compléter la phrase suivante :<br />Si _______ un oiseau, ________ par dessus les arbres.";
+				questionsArray[i][1] = "je serais / je volerais";
+				questionsArray[i][2] = "je suis / je vole";
+				questionsArray[i][3] = "je serais / je volais";
+				questionsArray[i][4] = "j'étais / je volerais";
+				answersArray[i] = 4;
+
+				for(var j=0; j<questionsArray.length; j++){
+					mistakesArray[j] = true;
+				}
+
+				var n = 0;
+				levelArray[n] = new Array();
+				levelArray[n]['lower'] = 0;
+				levelArray[n]['upper'] = 8;
+				levelArray[n]['case'] = 'Votre niveau est approximativement A1';
+				n++;
+				levelArray[n] = new Array();
+				levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
+				levelArray[n]['upper'] = 18;
+				levelArray[n]['case'] = 'Votre niveau est approximativement A2';
+				n++;
+				levelArray[n] = new Array();
+				levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
+				levelArray[n]['upper'] = 28;
+				levelArray[n]['case'] = 'Votre niveau est approximativement entre A2-B1';
+				n++;
+				levelArray[n] = new Array();
+				levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
+				levelArray[n]['upper'] = 34;
+				levelArray[n]['case'] = 'Votre niveau est approximativement B1';	
+				n++;
+				levelArray[n] = new Array();
+				levelArray[n]['lower'] = levelArray[n-1]['upper'] + 1;
+				levelArray[n]['upper'] = 40;
+				levelArray[n]['case'] = 'Votre niveau est approximativement B2';	
+			}
+
+			// Démarrage
+			initialiseArray();
+			buttonStart_onclick();
+		</script>
+		<script src="../securite.js"></script>
 	</body>
 </html>
