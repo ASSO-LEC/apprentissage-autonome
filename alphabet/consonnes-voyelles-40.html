@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mission Voyelles</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 850px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background-color: #f4f7f6;
+        }
+        .game-box { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 5px solid #007bff;
+        }
+        h2 { color: #007bff; margin-top: 0; }
+        .instructions { font-size: 16px; color: #495057; margin-bottom: 25px; }
+        
+        /* Grille de 40 lettres */
+        .grid-lettres {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 600px) {
+            .grid-lettres { grid-template-columns: repeat(4, 1fr); }
+        }
+        
+        /* Style des cases cliquables */
+        .letter-card {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .letter-card:hover {
+            border-color: #007bff;
+            background: #e7f1ff;
+        }
+        .letter-card input[type="checkbox"] {
+            display: none; /* Cache la case à cocher standard */
+        }
+        .letter-text {
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+            color: #343a40;
+            margin-bottom: 5px;
+        }
+        .status-text {
+            font-size: 11px;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        /* État quand la case est cochée */
+        .letter-card.selected {
+            background: #e7f1ff;
+            border-color: #007bff;
+        }
+        .letter-card.selected .status-text {
+            color: #007bff;
+        }
+
+        /* Classes de correction appliquées à la fin */
+        .letter-card.correct-match { border-color: #28a745; background: #d4edda; }
+        .letter-card.correct-match .status-text { color: #155724; }
+        .letter-card.error-match { border-color: #dc3545; background: #f8d7da; }
+        .letter-card.error-match .status-text { color: #721c24; }
+
+        button { 
+            padding: 12px 30px; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        button:hover { background: #0056b3; }
+        
+        .result { 
+            margin-top: 25px; 
+            padding: 20px; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            display: none; 
+            line-height: 1.6; 
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .fail { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    </style>
+</head>
+<body>
+
+<div class="game-box">
+    <h2>La Chasse aux Voyelles 🎯</h2>
+    <p class="instructions">
+        <strong>Consigne :</strong> Regardez la grille de 40 lettres ci-dessous. 
+        Cliquez sur les cases pour <strong>sélectionner uniquement les VOYELLES (A, E, I, O, U, Y)</strong>. Le reste doit rester vide !
+    </p>
+    
+    <div class="grid-lettres" id="grille">
+        <!-- Génération des 40 lettres mélangées -->
+    </div>
+
+    <button onclick="verifierVoyelles()">Vérifier mes choix par JPJ</button>
+    <div id="correction-zone" class="result"></div>
+</div>
+
+<script>
+    // Liste fixe de 40 lettres mélangées (14 voyelles et 26 consonnes)
+    const listeLettres = [
+        'A', 'B', 'E', 'R', 'T', 'O', 'M', 'I',
+        'P', 'Y', 'L', 'U', 'Z', 'A', 'Q', 'E',
+        'S', 'I', 'D', 'O', 'F', 'G', 'U', 'H',
+        'Y', 'J', 'K', 'A', 'E', 'C', 'N', 'I',
+        'V', 'O', 'W', 'X', 'U', 'B', 'M', 'E'
+    ];
+
+    const voyelles = ['A', 'E', 'I', 'O', 'U', 'Y'];
+    const grille = document.getElementById('grille');
+
+    // Génération visuelle de la grille
+    listeLettres.forEach((lettre, index) => {
+        const card = document.createElement('label');
+        card.className = 'letter-card';
+        card.id = `card-${index}`;
+        
+        card.innerHTML = `
+            <input type="checkbox" id="check-${index}" value="${lettre}" onchange="toggleSelect(${index})">
+            <span class="letter-text">${lettre}</span>
+            <span class="status-text" id="status-${index}">Vide</span>
+        `;
+        grille.appendChild(card);
+    });
+
+    // Change le style visuel quand on clique sur une case
+    function toggleSelect(index) {
+        const checkbox = document.getElementById(`check-${index}`);
+        const card = document.getElementById(`card-${index}`);
+        const status = document.getElementById(`status-${index}`);
+        
+        if (checkbox.checked) {
+            card.classList.add('selected');
+            status.innerText = "Coché";
+        } else {
+            card.classList.remove('selected');
+            status.innerText = "Vide";
+        }
+    }
+
+    function verifierVoyelles() {
+        let erreurs = 0;
+        let voyellesTrouvees = 0;
+        let totalVoyelles = 0;
+
+        listeLettres.forEach((lettre, index) => {
+            const checkbox = document.getElementById(`check-${index}`);
+            const card = document.getElementById(`card-${index}`);
+            const status = document.getElementById(`status-${index}`);
+            
+            const estVoyelle = voyelles.includes(lettre);
+            if (estVoyelle) totalVoyelles++;
+
+            // Réinitialisation des classes de correction précédentes
+            card.classList.remove('correct-match', 'error-match');
+
+            if (checkbox.checked) {
+                if (estVoyelle) {
+                    // L'apprenant a coché une voyelle -> juste
+                    card.classList.add('correct-match');
+                    status.innerText = "Correct";
+                    voyellesTrouvees++;
+                } else {
+                    // L'apprenant a coché une consonne -> erreur
+                    card.classList.add('error-match');
+                    status.innerText = "Consonne !";
+                    erreurs++;
+                }
+            } else {
+                if (estVoyelle) {
+                    // L'apprenant a oublié de cocher une voyelle -> erreur discrète
+                    card.classList.add('error-match');
+                    status.innerText = "Oubliée";
+                    erreurs++;
+                } else {
+                    // L'apprenant a laissé vide une consonne -> juste
+                    status.innerText = "Correct";
+                }
+            }
+        });
+
+        const zoneCorrection = document.getElementById('correction-zone');
+        zoneCorrection.style.display = "block";
+
+        if (erreurs === 0) {
+            zoneCorrection.className = "result success";
+            zoneCorrection.innerHTML = `<strong>Parfait ! Sans faute !</strong> 🌟 Vous avez trouvé les ${voyellesTrouvees} voyelles cachées dans la grille sans faire aucune erreur.`;
+        } else {
+            zoneCorrection.className = "result fail";
+            zoneCorrection.innerHTML = `<strong>Exercice terminé.</strong> Vous avez trouvé ${voyellesTrouvees} voyelles sur les ${totalVoyelles} présentes.<br>` + 
+            `Regardez la grille : les cases en <strong>vert</strong> sont correctes, les cases en <strong>rouge</strong> indiquent une erreur (soit une consonne cochée par erreur, soit une voyelle oubliée). <br><br>` +
+            `<em>Rappel des voyelles en français : A, E, I, O, U, Y.</em>`;
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Voyelles Script et Cursives</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 850px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background-color: #f4f7f6;
+        }
+        .game-box { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 5px solid #20c997;
+        }
+        h2 { color: #20c997; margin-top: 0; }
+        .instructions { font-size: 16px; color: #495057; margin-bottom: 25px; }
+        
+        /* Grille de 40 lettres */
+        .grid-lettres {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 600px) {
+            .grid-lettres { grid-template-columns: repeat(4, 1fr); }
+        }
+        
+        /* Style des cases cliquables */
+        .letter-card {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .letter-card:hover {
+            border-color: #20c997;
+            background: #e6fcf5;
+        }
+        .letter-card input[type="checkbox"] {
+            display: none; 
+        }
+        
+        /* Styles différenciés pour les types de lettres */
+        .letter-text {
+            font-size: 28px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            height: 40px;
+            line-height: 40px;
+        }
+        /* Classe spécifique appliquée aux lettres cursives manuscrites */
+        .cursive {
+            font-family: "Comic Sans MS", "Apple Chancery", "Segoe Script", "Snell Roundhand", cursive;
+            font-weight: normal;
+            font-size: 32px;
+            color: #1c7ed6;
+        }
+        .majuscule {
+            font-family: Arial, sans-serif;
+            color: #212529;
+        }
+
+        .status-text {
+            font-size: 11px;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        /* État sélectionné */
+        .letter-card.selected {
+            background: #e6fcf5;
+            border-color: #20c997;
+        }
+        .letter-card.selected .status-text {
+            color: #20c997;
+        }
+
+        /* Classes de correction */
+        .letter-card.correct-match { border-color: #28a745; background: #d4edda; }
+        .letter-card.correct-match .status-text { color: #155724; }
+        .letter-card.correct-match .letter-text { color: #155724; }
+        
+        .letter-card.error-match { border-color: #dc3545; background: #f8d7da; }
+        .letter-card.error-match .status-text { color: #721c24; }
+        .letter-card.error-match .letter-text { color: #721c24; }
+
+        button { 
+            padding: 12px 30px; 
+            background: #20c997; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        button:hover { background: #12b886; }
+        
+        .result { 
+            margin-top: 25px; 
+            padding: 20px; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            display: none; 
+            line-height: 1.6; 
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .fail { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    </style>
+</head>
+<body>
+
+<div class="game-box">
+    <h2>Le Choc des Lettres (Majuscules & Cursives) ✒️</h2>
+    <p class="instructions">
+        <strong>Consigne :</strong> Attention, les lettres sont mélangées ! Certaines sont en <strong>MAJUSCULES d'imprimerie</strong>, d'autres sont en <strong>minuscules cursives (attachées)</strong>. <br>
+        Cliquez sur les cases pour sélectionner <strong>uniquement les VOYELLES (A, E, I, O, U, Y)</strong>.
+    </p>
+    
+    <div class="grid-lettres" id="grille">
+        <!-- Génération dynamique des 40 lettres mélangées -->
+    </div>
+
+    <button onclick="verifierVoyelles()">Vérifier mes choix par JPJ</button>
+    <div id="correction-zone" class="result"></div>
+</div>
+
+<script>
+    // Configuration des 40 lettres : structure avec la lettre brute (pour vérifier) et son style graphique
+    const listeLettres = [
+        { lettre: 'A', type: 'majuscule', affichage: 'A' },
+        { lettre: 'B', type: 'cursive', affichage: 'b' },
+        { lettre: 'E', type: 'cursive', affichage: 'e' },
+        { lettre: 'R', type: 'majuscule', affichage: 'R' },
+        { lettre: 'T', type: 'cursive', affichage: 't' },
+        { lettre: 'O', type: 'majuscule', affichage: 'O' },
+        { lettre: 'M', type: 'majuscule', affichage: 'M' },
+        { lettre: 'I', type: 'cursive', affichage: 'i' },
+        
+        { lettre: 'P', type: 'cursive', affichage: 'p' },
+        { lettre: 'Y', type: 'majuscule', affichage: 'Y' },
+        { lettre: 'L', type: 'majuscule', affichage: 'L' },
+        { lettre: 'U', type: 'cursive', affichage: 'u' },
+        { lettre: 'Z', type: 'cursive', affichage: 'z' },
+        { lettre: 'A', type: 'cursive', affichage: 'a' },
+        { lettre: 'Q', type: 'majuscule', affichage: 'Q' },
+        { lettre: 'E', type: 'majuscule', affichage: 'E' },
+        
+        { lettre: 'S', type: 'cursive', affichage: 's' },
+        { lettre: 'I', type: 'majuscule', affichage: 'I' },
+        { lettre: 'D', type: 'majuscule', affichage: 'D' },
+        { lettre: 'O', type: 'cursive', affichage: 'o' },
+        { lettre: 'F', type: 'cursive', affichage: 'f' },
+        { lettre: 'G', type: 'majuscule', affichage: 'G' },
+        { lettre: 'U', type: 'majuscule', affichage: 'U' },
+        { lettre: 'H', type: 'cursive', affichage: 'h' },
+        
+        { lettre: 'Y', type: 'cursive', affichage: 'y' },
+        { lettre: 'J', type: 'majuscule', affichage: 'J' },
+        { lettre: 'K', type: 'cursive', affichage: 'k' },
+        { lettre: 'A', type: 'majuscule', affichage: 'A' },
+        { lettre: 'E', type: 'cursive', affichage: 'e' },
+        { lettre: 'C', type: 'majuscule', affichage: 'C' },
+        { lettre: 'N', type: 'cursive', affichage: 'n' },
+        { lettre: 'I', type: 'cursive', affichage: 'i' },
+        
+        { lettre: 'V', type: 'majuscule', affichage: 'V' },
+        { lettre: 'O', type: 'majuscule', affichage: 'O' },
+        { lettre: 'W', type: 'cursive', affichage: 'w' },
+        { lettre: 'X', type: 'majuscule', affichage: 'X' },
+        { lettre: 'U', type: 'cursive', affichage: 'u' },
+        { lettre: 'B', type: 'majuscule', affichage: 'B' },
+        { lettre: 'M', type: 'cursive', affichage: 'm' },
+        { lettre: 'E', type: 'majuscule', affichage: 'E' }
+    ];
+
+    const voyelles = ['A', 'E', 'I', 'O', 'U', 'Y'];
+    const grille = document.getElementById('grille');
+
+    // Génération de la grille HTML
+    listeLettres.forEach((item, index) => {
+        const card = document.createElement('label');
+        card.className = 'letter-card';
+        card.id = `card-${index}`;
+        
+        card.innerHTML = `
+            <input type="checkbox" id="check-${index}" value="${item.lettre}" onchange="toggleSelect(${index})">
+            <span class="letter-text ${item.type}">${item.affichage}</span>
+            <span class="status-text" id="status-${index}">Vide</span>
+        `;
+        grille.appendChild(card);
+    });
+
+    function toggleSelect(index) {
+        const checkbox = document.getElementById(`check-${index}`);
+        const card = document.getElementById(`card-${index}`);
+        const status = document.getElementById(`status-${index}`);
+        
+        if (checkbox.checked) {
+            card.classList.add('selected');
+            status.innerText = "Coché";
+        } else {
+            card.classList.remove('selected');
+            status.innerText = "Vide";
+        }
+    }
+
+    function verifierVoyelles() {
+        let erreurs = 0;
+        let voyellesTrouvees = 0;
+        let totalVoyelles = 0;
+
+        listeLettres.forEach((item, index) => {
+            const checkbox = document.getElementById(`check-${index}`);
+            const card = document.getElementById(`card-${index}`);
+            const status = document.getElementById(`status-${index}`);
+            
+            const estVoyelle = voyelles.includes(item.lettre);
+            if (estVoyelle) totalVoyelles++;
+
+            card.classList.remove('correct-match', 'error-match');
+
+            if (checkbox.checked) {
+                if (estVoyelle) {
+                    card.classList.add('correct-match');
+                    status.innerText = "Correct";
+                    voyellesTrouvees++;
+                } else {
+                    card.classList.add('error-match');
+                    status.innerText = "Consonne !";
+                    erreurs++;
+                }
+            } else {
+                if (estVoyelle) {
+                    card.classList.add('error-match');
+                    status.innerText = "Oubliée";
+                    erreurs++;
+                } else {
+                    status.innerText = "Correct";
+                }
+            }
+        });
+
+        const zoneCorrection = document.getElementById('correction-zone');
+        zoneCorrection.style.display = "block";
+
+        if (erreurs === 0) {
+            zoneCorrection.className = "result success";
+            zoneCorrection.innerHTML = `<strong>Magnifique ! Zéro faute !</strong> 🌟 Vous savez parfaitement identifier les ${voyellesTrouvees} voyelles, qu'elles soient en majuscules ou écrites à la main (cursives).`;
+        } else {
+            zoneCorrection.className = "result fail";
+            zoneCorrection.innerHTML = `<strong>Exercice terminé.</strong> Vous avez validé ${voyellesTrouvees} voyelles sur les ${totalVoyelles} présentes.<br>` + 
+            `Vérifiez vos réponses dans la grille : les erreurs s'affichent en <strong>rouge</strong> (consonnes cochées à tort ou voyelles oubliées) et les bonnes réponses en <strong>vert</strong>.`;
+        }
+    }
+</script>
+
+</body>
+</html>
