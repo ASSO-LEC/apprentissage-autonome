@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Quiz - Participe passé avec AVOIR (200 verbes) - FLE A1/A2</title>
+<style>
+  :root{
+    --bleu:#a3492f;
+    --bleu-clair:#fbeee9;
+    --gris:#6b7280;
+    --vert:#1e8e5a;
+    --rouge:#c0392b;
+    --bord:#efd8d0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#f7f5f4;
+    margin:0;
+    padding:30px 15px 90px;
+    color:#1f2937;
+  }
+  .wrap{max-width:980px;margin:0 auto;}
+  h1{text-align:center;color:var(--bleu);font-size:1.6rem;margin-bottom:5px;}
+  .sous-titre{text-align:center;color:var(--gris);margin-bottom:10px;font-size:.95rem;}
+  .legende{
+    background:#fff;border:1px solid var(--bord);border-radius:10px;
+    padding:14px 18px;margin:0 0 26px;font-size:.88rem;color:var(--gris);
+  }
+  .legende b{color:var(--bleu);}
+  .bloc-groupe{
+    background:#fff;border:1px solid var(--bord);border-radius:12px;
+    padding:20px 22px;margin-bottom:24px;box-shadow:0 1px 4px rgba(20,30,60,.05);
+  }
+  .bloc-groupe h2{
+    margin-top:0;font-size:1.1rem;color:var(--bleu);
+    border-bottom:2px solid var(--bord);padding-bottom:8px;
+  }
+  .compteur-groupe{font-size:.8rem;color:var(--gris);font-weight:normal;}
+  .grille-items{
+    display:grid;grid-template-columns:1fr 1fr;gap:6px 26px;
+  }
+  @media(max-width:720px){.grille-items{grid-template-columns:1fr;}}
+  .item{
+    display:flex;align-items:baseline;flex-wrap:wrap;gap:4px;
+    padding:7px 4px;font-size:.92rem;border-bottom:1px dashed #f1e6e2;
+  }
+  .item .num{color:var(--bleu);font-weight:bold;min-width:26px;}
+  .item input[type=text]{
+    width:120px;border:none;border-bottom:2px solid var(--bord);
+    padding:3px 4px;font-size:.92rem;text-align:center;background:#fdfaf9;
+    border-radius:4px 4px 0 0;
+  }
+  .item input[type=text]:focus{outline:none;border-bottom-color:var(--bleu);}
+  .item .indice{color:var(--gris);font-style:italic;}
+  .item input.ok{border-bottom-color:var(--vert);background:#eafaf0;}
+  .item input.ko{border-bottom-color:var(--rouge);background:#fdecea;}
+  .barre-actions{
+    text-align:center;margin:28px 0;position:sticky;bottom:14px;
+  }
+  .btn{
+    background:var(--bleu);color:#fff;border:none;padding:12px 26px;
+    border-radius:8px;font-size:1rem;cursor:pointer;box-shadow:0 3px 10px rgba(163,73,47,.35);
+  }
+  .btn:hover{background:#832f1c;}
+  .score-final{
+    text-align:center;font-size:1.3rem;font-weight:bold;color:var(--bleu);
+    margin:20px 0;display:none;
+  }
+  .corrige{display:none;margin-top:10px;}
+  .corrige h2{color:var(--bleu);text-align:center;}
+  table.corrige-table{
+    width:100%;border-collapse:collapse;background:#fff;font-size:.85rem;
+  }
+  table.corrige-table th,table.corrige-table td{
+    border:1px solid #efd8d0;padding:6px 8px;text-align:left;
+  }
+  table.corrige-table th{background:var(--bleu-clair);color:var(--bleu);position:sticky;top:0;}
+  table.corrige-table td.ok{color:var(--vert);font-weight:bold;white-space:nowrap;}
+  table.corrige-table td.ko{color:var(--rouge);font-weight:bold;white-space:nowrap;}
+  .groupe-titre-corrige{
+    background:var(--bleu-clair);font-weight:bold;color:var(--bleu);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Quiz : le participe passé avec l'auxiliaire AVOIR</h1>
+  <p class="sous-titre">200 verbes &middot; FLE niveau A1 / A2</p>
+  <div class="legende">
+    Complétez chaque phrase avec le <b>participe passé</b> du verbe indiqué entre parenthèses (à l'infinitif).
+    L'auxiliaire AVOIR est déjà conjugué pour vous, et change selon le sujet (je, tu, il, elle, nous, vous, ils, elles) :
+    profitez-en pour aussi revoir sa conjugaison !<br>
+    Avec AVOIR, le participe passé reste <b>invariable</b> (pas d'accord avec le sujet à ce niveau).<br>
+    Exemple : <i>Elle a ___ (manger)</i> &rarr; <b>mangé</b>
+  </div>
+
+  <div id="zone-questions"></div>
+
+  <div class="barre-actions">
+    <button class="btn" id="btnCorriger">Corriger le quiz</button>
+  </div>
+
+  <div class="score-final" id="scoreFinal"></div>
+
+  <div class="corrige" id="zoneCorrige">
+    <h2>Corrigé détaillé</h2>
+    <table class="corrige-table" id="tableCorrige"></table>
+  </div>
+
+</div>
+
+<script>
+const ITEMS = [{"numero": 1, "groupe": "1er groupe", "phrase_debut": "J'ai", "infinitif": "parler", "reponse": "parlé"}, {"numero": 2, "groupe": "1er groupe", "phrase_debut": "Tu as", "infinitif": "manger", "reponse": "mangé"}, {"numero": 3, "groupe": "1er groupe", "phrase_debut": "Il a", "infinitif": "aimer", "reponse": "aimé"}, {"numero": 4, "groupe": "1er groupe", "phrase_debut": "Elle a", "infinitif": "travailler", "reponse": "travaillé"}, {"numero": 5, "groupe": "1er groupe", "phrase_debut": "Nous avons", "infinitif": "écouter", "reponse": "écouté"}, {"numero": 6, "groupe": "1er groupe", "phrase_debut": "Vous avez", "infinitif": "regarder", "reponse": "regardé"}, {"numero": 7, "groupe": "1er groupe", "phrase_debut": "Ils ont", "infinitif": "chanter", "reponse": "chanté"}, {"numero": 8, "groupe": "1er groupe", "phrase_debut": "Elles ont", "infinitif": "jouer", "reponse": "joué"}, {"numero": 9, "groupe": "1er groupe", "phrase_debut": "J'ai", "infinitif": "danser", "reponse": "dansé"}, {"numero": 10, "groupe": "1er groupe", "phrase_debut": "Tu as", "infinitif": "cuisiner", "reponse": "cuisiné"}, {"numero": 11, "groupe": "1er groupe", "phrase_debut": "Il a", "infinitif": "étudier", "reponse": "étudié"}, {"numero": 12, "groupe": "1er groupe", "phrase_debut": "Elle a", "infinitif": "voyager", "reponse": "voyagé"}, {"numero": 13, "groupe": "1er groupe", "phrase_debut": "Nous avons", "infinitif": "visiter", "reponse": "visité"}, {"numero": 14, "groupe": "1er groupe", "phrase_debut": "Vous avez", "infinitif": "acheter", "reponse": "acheté"}, {"numero": 15, "groupe": "1er groupe", "phrase_debut": "Ils ont", "infinitif": "donner", "reponse": "donné"}, {"numero": 16, "groupe": "1er groupe", "phrase_debut": "Elles ont", "infinitif": "prêter", "reponse": "prêté"}, {"numero": 17, "groupe": "1er groupe", "phrase_debut": "J'ai", "infinitif": "emprunter", "reponse": "emprunté"}, {"numero": 18, "groupe": "1er groupe", "phrase_debut": "Tu as", "infinitif": "chercher", "reponse": "cherché"}, {"numero": 19, "groupe": "1er groupe", "phrase_debut": "Il a", "infinitif": "trouver", "reponse": "trouvé"}, {"numero": 20, "groupe": "1er groupe", "phrase_debut": "Elle a", "infinitif": "oublier", "reponse": "oublié"}, {"numero": 21, "groupe": "1er groupe", "phrase_debut": "Nous avons", "infinitif": "penser", "reponse": "pensé"}, {"numero": 22, "groupe": "1er groupe", "phrase_debut": "Vous avez", "infinitif": "rêver", "reponse": "rêvé"}, {"numero": 23, "groupe": "1er groupe", "phrase_debut": "Ils ont", "infinitif": "marcher", "reponse": "marché"}, {"numero": 24, "groupe": "1er groupe", "phrase_debut": "Elles ont", "infinitif": "nager", "reponse": "nagé"}, {"numero": 25, "groupe": "1er groupe", "phrase_debut": "J'ai", "infinitif": "sauter", "reponse": "sauté"}, {"numero": 26, "groupe": "1er groupe", "phrase_debut": "Tu as", "infinitif": "fermer", "reponse": "fermé"}, {"numero": 27, "groupe": "1er groupe", "phrase_debut": "Il a", "infinitif": "commencer", "reponse": "commencé"}, {"numero": 28, "groupe": "1er groupe", "phrase_debut": "Elle a", "infinitif": "continuer", "reponse": "continué"}, {"numero": 29, "groupe": "1er groupe", "phrase_debut": "Nous avons", "infinitif": "garder", "reponse": "gardé"}, {"numero": 30, "groupe": "1er groupe", "phrase_debut": "Vous avez", "infinitif": "laver", "reponse": "lavé"}, {"numero": 31, "groupe": "1er groupe", "phrase_debut": "Ils ont", "infinitif": "préparer", "reponse": "préparé"}, {"numero": 32, "groupe": "1er groupe", "phrase_debut": "Elles ont", "infinitif": "ranger", "reponse": "rangé"}, {"numero": 33, "groupe": "1er groupe", "phrase_debut": "J'ai", "infinitif": "nettoyer", "reponse": "nettoyé"}, {"numero": 34, "groupe": "1er groupe", "phrase_debut": "Tu as", "infinitif": "dessiner", "reponse": "dessiné"}, {"numero": 35, "groupe": "1er groupe", "phrase_debut": "Il a", "infinitif": "photographier", "reponse": "photographié"}, {"numero": 36, "groupe": "1er groupe", "phrase_debut": "Elle a", "infinitif": "enregistrer", "reponse": "enregistré"}, {"numero": 37, "groupe": "1er groupe", "phrase_debut": "Nous avons", "infinitif": "essayer", "reponse": "essayé"}, {"numero": 38, "groupe": "1er groupe", "phrase_debut": "Vous avez", "infinitif": "payer", "reponse": "payé"}, {"numero": 39, "groupe": "1er groupe", "phrase_debut": "Ils ont", "infinitif": "utiliser", "reponse": "utilisé"}, {"numero": 40, "groupe": "1er groupe", "phrase_debut": "Elles ont", "infinitif": "apporter", "reponse": "apporté"}, {"numero": 41, "groupe": "2e groupe", "phrase_debut": "J'ai", "infinitif": "finir", "reponse": "fini"}, {"numero": 42, "groupe": "2e groupe", "phrase_debut": "Tu as", "infinitif": "choisir", "reponse": "choisi"}, {"numero": 43, "groupe": "2e groupe", "phrase_debut": "Il a", "infinitif": "réussir", "reponse": "réussi"}, {"numero": 44, "groupe": "2e groupe", "phrase_debut": "Elle a", "infinitif": "réfléchir", "reponse": "réfléchi"}, {"numero": 45, "groupe": "2e groupe", "phrase_debut": "Nous avons", "infinitif": "grandir", "reponse": "grandi"}, {"numero": 46, "groupe": "2e groupe", "phrase_debut": "Vous avez", "infinitif": "grossir", "reponse": "grossi"}, {"numero": 47, "groupe": "2e groupe", "phrase_debut": "Ils ont", "infinitif": "maigrir", "reponse": "maigri"}, {"numero": 48, "groupe": "2e groupe", "phrase_debut": "Elles ont", "infinitif": "rougir", "reponse": "rougi"}, {"numero": 49, "groupe": "2e groupe", "phrase_debut": "J'ai", "infinitif": "blanchir", "reponse": "blanchi"}, {"numero": 50, "groupe": "2e groupe", "phrase_debut": "Tu as", "infinitif": "vieillir", "reponse": "vieilli"}, {"numero": 51, "groupe": "2e groupe", "phrase_debut": "Il a", "infinitif": "agir", "reponse": "agi"}, {"numero": 52, "groupe": "2e groupe", "phrase_debut": "Elle a", "infinitif": "réagir", "reponse": "réagi"}, {"numero": 53, "groupe": "2e groupe", "phrase_debut": "Nous avons", "infinitif": "punir", "reponse": "puni"}, {"numero": 54, "groupe": "2e groupe", "phrase_debut": "Vous avez", "infinitif": "obéir", "reponse": "obéi"}, {"numero": 55, "groupe": "2e groupe", "phrase_debut": "Ils ont", "infinitif": "désobéir", "reponse": "désobéi"}, {"numero": 56, "groupe": "2e groupe", "phrase_debut": "Elles ont", "infinitif": "guérir", "reponse": "guéri"}, {"numero": 57, "groupe": "2e groupe", "phrase_debut": "J'ai", "infinitif": "nourrir", "reponse": "nourri"}, {"numero": 58, "groupe": "2e groupe", "phrase_debut": "Tu as", "infinitif": "remplir", "reponse": "rempli"}, {"numero": 59, "groupe": "2e groupe", "phrase_debut": "Il a", "infinitif": "saisir", "reponse": "saisi"}, {"numero": 60, "groupe": "2e groupe", "phrase_debut": "Elle a", "infinitif": "avertir", "reponse": "averti"}, {"numero": 61, "groupe": "2e groupe", "phrase_debut": "Nous avons", "infinitif": "bâtir", "reponse": "bâti"}, {"numero": 62, "groupe": "2e groupe", "phrase_debut": "Vous avez", "infinitif": "établir", "reponse": "établi"}, {"numero": 63, "groupe": "2e groupe", "phrase_debut": "Ils ont", "infinitif": "fournir", "reponse": "fourni"}, {"numero": 64, "groupe": "2e groupe", "phrase_debut": "Elles ont", "infinitif": "définir", "reponse": "défini"}, {"numero": 65, "groupe": "2e groupe", "phrase_debut": "J'ai", "infinitif": "unir", "reponse": "uni"}, {"numero": 66, "groupe": "2e groupe", "phrase_debut": "Tu as", "infinitif": "réunir", "reponse": "réuni"}, {"numero": 67, "groupe": "2e groupe", "phrase_debut": "Il a", "infinitif": "investir", "reponse": "investi"}, {"numero": 68, "groupe": "2e groupe", "phrase_debut": "Elle a", "infinitif": "ralentir", "reponse": "ralenti"}, {"numero": 69, "groupe": "2e groupe", "phrase_debut": "Nous avons", "infinitif": "accomplir", "reponse": "accompli"}, {"numero": 70, "groupe": "2e groupe", "phrase_debut": "Vous avez", "infinitif": "applaudir", "reponse": "applaudi"}, {"numero": 71, "groupe": "2e groupe", "phrase_debut": "Ils ont", "infinitif": "envahir", "reponse": "envahi"}, {"numero": 72, "groupe": "2e groupe", "phrase_debut": "Elles ont", "infinitif": "fleurir", "reponse": "fleuri"}, {"numero": 73, "groupe": "2e groupe", "phrase_debut": "J'ai", "infinitif": "jaillir", "reponse": "jailli"}, {"numero": 74, "groupe": "2e groupe", "phrase_debut": "Tu as", "infinitif": "pâlir", "reponse": "pâli"}, {"numero": 75, "groupe": "2e groupe", "phrase_debut": "Il a", "infinitif": "brunir", "reponse": "bruni"}, {"numero": 76, "groupe": "2e groupe", "phrase_debut": "Elle a", "infinitif": "salir", "reponse": "sali"}, {"numero": 77, "groupe": "2e groupe", "phrase_debut": "Nous avons", "infinitif": "noircir", "reponse": "noirci"}, {"numero": 78, "groupe": "2e groupe", "phrase_debut": "Vous avez", "infinitif": "épaissir", "reponse": "épaissi"}, {"numero": 79, "groupe": "2e groupe", "phrase_debut": "Ils ont", "infinitif": "éclaircir", "reponse": "éclairci"}, {"numero": 80, "groupe": "2e groupe", "phrase_debut": "Elles ont", "infinitif": "raccourcir", "reponse": "raccourci"}, {"numero": 81, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "faire", "reponse": "fait"}, {"numero": 82, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "dire", "reponse": "dit"}, {"numero": 83, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "mettre", "reponse": "mis"}, {"numero": 84, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "prendre", "reponse": "pris"}, {"numero": 85, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "comprendre", "reponse": "compris"}, {"numero": 86, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "apprendre", "reponse": "appris"}, {"numero": 87, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "entendre", "reponse": "entendu"}, {"numero": 88, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "vendre", "reponse": "vendu"}, {"numero": 89, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "rendre", "reponse": "rendu"}, {"numero": 90, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "attendre", "reponse": "attendu"}, {"numero": 91, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "voir", "reponse": "vu"}, {"numero": 92, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "croire", "reponse": "cru"}, {"numero": 93, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "savoir", "reponse": "su"}, {"numero": 94, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "pouvoir", "reponse": "pu"}, {"numero": 95, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "vouloir", "reponse": "voulu"}, {"numero": 96, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "devoir", "reponse": "dû"}, {"numero": 97, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "lire", "reponse": "lu"}, {"numero": 98, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "écrire", "reponse": "écrit"}, {"numero": 99, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "boire", "reponse": "bu"}, {"numero": 100, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "connaître", "reponse": "connu"}, {"numero": 101, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "reconnaître", "reponse": "reconnu"}, {"numero": 102, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "conduire", "reponse": "conduit"}, {"numero": 103, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "construire", "reponse": "construit"}, {"numero": 104, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "détruire", "reponse": "détruit"}, {"numero": 105, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "produire", "reponse": "produit"}, {"numero": 106, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "traduire", "reponse": "traduit"}, {"numero": 107, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "suivre", "reponse": "suivi"}, {"numero": 108, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "vivre", "reponse": "vécu"}, {"numero": 109, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "rire", "reponse": "ri"}, {"numero": 110, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "sourire", "reponse": "souri"}, {"numero": 111, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "plaire", "reponse": "plu"}, {"numero": 112, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "craindre", "reponse": "craint"}, {"numero": 113, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "peindre", "reponse": "peint"}, {"numero": 114, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "éteindre", "reponse": "éteint"}, {"numero": 115, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "atteindre", "reponse": "atteint"}, {"numero": 116, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "joindre", "reponse": "joint"}, {"numero": 117, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "rejoindre", "reponse": "rejoint"}, {"numero": 118, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "résoudre", "reponse": "résolu"}, {"numero": 119, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "coudre", "reponse": "cousu"}, {"numero": 120, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "moudre", "reponse": "moulu"}, {"numero": 121, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "vaincre", "reponse": "vaincu"}, {"numero": 122, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "convaincre", "reponse": "convaincu"}, {"numero": 123, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "battre", "reponse": "battu"}, {"numero": 124, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "promettre", "reponse": "promis"}, {"numero": 125, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "permettre", "reponse": "permis"}, {"numero": 126, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "admettre", "reponse": "admis"}, {"numero": 127, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "soumettre", "reponse": "soumis"}, {"numero": 128, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "transmettre", "reponse": "transmis"}, {"numero": 129, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "omettre", "reponse": "omis"}, {"numero": 130, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "remettre", "reponse": "remis"}, {"numero": 131, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "courir", "reponse": "couru"}, {"numero": 132, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "parcourir", "reponse": "parcouru"}, {"numero": 133, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "secourir", "reponse": "secouru"}, {"numero": 134, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "acquérir", "reponse": "acquis"}, {"numero": 135, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "conquérir", "reponse": "conquis"}, {"numero": 136, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "requérir", "reponse": "requis"}, {"numero": 137, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "ouvrir", "reponse": "ouvert"}, {"numero": 138, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "couvrir", "reponse": "couvert"}, {"numero": 139, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "découvrir", "reponse": "découvert"}, {"numero": 140, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "offrir", "reponse": "offert"}, {"numero": 141, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "souffrir", "reponse": "souffert"}, {"numero": 142, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "cueillir", "reponse": "cueilli"}, {"numero": 143, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "accueillir", "reponse": "accueilli"}, {"numero": 144, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "recueillir", "reponse": "recueilli"}, {"numero": 145, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "tenir", "reponse": "tenu"}, {"numero": 146, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "obtenir", "reponse": "obtenu"}, {"numero": 147, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "retenir", "reponse": "retenu"}, {"numero": 148, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "contenir", "reponse": "contenu"}, {"numero": 149, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "maintenir", "reponse": "maintenu"}, {"numero": 150, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "appartenir", "reponse": "appartenu"}, {"numero": 151, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "revoir", "reponse": "revu"}, {"numero": 152, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "entrevoir", "reponse": "entrevu"}, {"numero": 153, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "prévoir", "reponse": "prévu"}, {"numero": 154, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "apercevoir", "reponse": "aperçu"}, {"numero": 155, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "recevoir", "reponse": "reçu"}, {"numero": 156, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "décevoir", "reponse": "déçu"}, {"numero": 157, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "concevoir", "reponse": "conçu"}, {"numero": 158, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "percevoir", "reponse": "perçu"}, {"numero": 159, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "valoir", "reponse": "valu"}, {"numero": 160, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "croître", "reponse": "crû"}, {"numero": 161, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "accroître", "reponse": "accru"}, {"numero": 162, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "décroître", "reponse": "décru"}, {"numero": 163, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "paraître", "reponse": "paru"}, {"numero": 164, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "apparaître", "reponse": "apparu"}, {"numero": 165, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "disparaître", "reponse": "disparu"}, {"numero": 166, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "comparaître", "reponse": "comparu"}, {"numero": 167, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "déplaire", "reponse": "déplu"}, {"numero": 168, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "extraire", "reponse": "extrait"}, {"numero": 169, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "soustraire", "reponse": "soustrait"}, {"numero": 170, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "distraire", "reponse": "distrait"}, {"numero": 171, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "conclure", "reponse": "conclu"}, {"numero": 172, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "exclure", "reponse": "exclu"}, {"numero": 173, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "inclure", "reponse": "inclus"}, {"numero": 174, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "découdre", "reponse": "décousu"}, {"numero": 175, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "poursuivre", "reponse": "poursuivi"}, {"numero": 176, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "revivre", "reponse": "revécu"}, {"numero": 177, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "survivre", "reponse": "survécu"}, {"numero": 178, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "décrire", "reponse": "décrit"}, {"numero": 179, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "inscrire", "reponse": "inscrit"}, {"numero": 180, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "prescrire", "reponse": "prescrit"}, {"numero": 181, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "souscrire", "reponse": "souscrit"}, {"numero": 182, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "transcrire", "reponse": "transcrit"}, {"numero": 183, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "relire", "reponse": "relu"}, {"numero": 184, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "élire", "reponse": "élu"}, {"numero": 185, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "réélire", "reponse": "réélu"}, {"numero": 186, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "redire", "reponse": "redit"}, {"numero": 187, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "contredire", "reponse": "contredit"}, {"numero": 188, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "prédire", "reponse": "prédit"}, {"numero": 189, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "interdire", "reponse": "interdit"}, {"numero": 190, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "médire", "reponse": "médit"}, {"numero": 191, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "maudire", "reponse": "maudit"}, {"numero": 192, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "contraindre", "reponse": "contraint"}, {"numero": 193, "groupe": "3e groupe", "phrase_debut": "J'ai", "infinitif": "feindre", "reponse": "feint"}, {"numero": 194, "groupe": "3e groupe", "phrase_debut": "Tu as", "infinitif": "teindre", "reponse": "teint"}, {"numero": 195, "groupe": "3e groupe", "phrase_debut": "Il a", "infinitif": "empreindre", "reponse": "empreint"}, {"numero": 196, "groupe": "3e groupe", "phrase_debut": "Elle a", "infinitif": "ceindre", "reponse": "ceint"}, {"numero": 197, "groupe": "3e groupe", "phrase_debut": "Nous avons", "infinitif": "astreindre", "reponse": "astreint"}, {"numero": 198, "groupe": "3e groupe", "phrase_debut": "Vous avez", "infinitif": "restreindre", "reponse": "restreint"}, {"numero": 199, "groupe": "3e groupe", "phrase_debut": "Ils ont", "infinitif": "repeindre", "reponse": "repeint"}, {"numero": 200, "groupe": "3e groupe", "phrase_debut": "Elles ont", "infinitif": "réécrire", "reponse": "réécrit"}];
+
+function normalise(s){
+  return (s || "").trim().toLowerCase().replace(/\s+/g,' ');
+}
+
+const groupes = ["1er groupe", "2e groupe", "3e groupe"];
+const zoneQuestions = document.getElementById('zone-questions');
+
+groupes.forEach(g => {
+  const itemsGroupe = ITEMS.filter(it => it.groupe === g);
+  const bloc = document.createElement('div');
+  bloc.className = 'bloc-groupe';
+  const label = g === "1er groupe" ? "Verbes du 1er groupe (-ER)"
+              : g === "2e groupe" ? "Verbes du 2e groupe (-IR, type finir)"
+              : "Verbes du 3e groupe (irréguliers)";
+  bloc.innerHTML = `<h2>${label} <span class="compteur-groupe">(${itemsGroupe.length} verbes)</span></h2>
+    <div class="grille-items" id="grille-${g.replace(/[^a-z0-9]/gi,'')}"></div>`;
+  zoneQuestions.appendChild(bloc);
+
+  const grille = bloc.querySelector('.grille-items');
+  itemsGroupe.forEach(it => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `
+      <span class="num">${it.numero}.</span>
+      <span>${it.phrase_debut}</span>
+      <input type="text" id="rep-${it.numero}" autocomplete="off" spellcheck="false">
+      <span class="indice">(${it.infinitif})</span>
+    `;
+    grille.appendChild(div);
+  });
+});
+
+document.getElementById('btnCorriger').addEventListener('click', () => {
+  let bonnes = 0;
+  let lignes = '';
+  let groupeActuel = null;
+
+  ITEMS.forEach(it => {
+    const input = document.getElementById('rep-' + it.numero);
+    const donnee = input.value;
+    const estCorrect = normalise(donnee) === normalise(it.reponse);
+    input.classList.remove('ok','ko');
+    input.classList.add(estCorrect ? 'ok' : 'ko');
+    if(estCorrect) bonnes++;
+
+    if(it.groupe !== groupeActuel){
+      groupeActuel = it.groupe;
+      lignes += `<tr class="groupe-titre-corrige"><td colspan="5">${groupeActuel}</td></tr>`;
+    }
+
+    lignes += `
+      <tr>
+        <td>${it.numero}</td>
+        <td>${it.phrase_debut} ___ (${it.infinitif})</td>
+        <td>${donnee ? donnee : '(vide)'}</td>
+        <td>${it.reponse}</td>
+        <td class="${estCorrect ? 'ok' : 'ko'}">${estCorrect ? '✔ Correct' : '✘ Incorrect'}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById('scoreFinal').style.display = 'block';
+  document.getElementById('scoreFinal').textContent = `Score : ${bonnes} / ${ITEMS.length}`;
+
+  document.getElementById('tableCorrige').innerHTML = `
+    <thead>
+      <tr><th>N°</th><th>Phrase</th><th>Réponse donnée</th><th>Réponse attendue</th><th>Statut</th></tr>
+    </thead>
+    <tbody>${lignes}</tbody>
+  `;
+  document.getElementById('zoneCorrige').style.display = 'block';
+  document.getElementById('zoneCorrige').scrollIntoView({behavior:'smooth'});
+});
+</script>
+</body>
+</html>
