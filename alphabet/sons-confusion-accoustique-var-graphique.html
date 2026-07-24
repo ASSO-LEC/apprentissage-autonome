@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Jeu : Confusions Acoustiques et Variations Graphiques</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 750px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background-color: #f7fafc;
+        }
+        .game-box { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #cbd5e0; 
+        }
+        h2 { color: #4a5568; margin-top: 0; }
+        p { color: #4a5568; }
+        
+        .btn-audio { 
+            padding: 10px 18px; 
+            font-size: 16px; 
+            margin-right: 20px; 
+            cursor: pointer; 
+            background: #edf2f7;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .btn-audio:hover { background: #e2e8f0; }
+        
+        .row { 
+            margin: 25px 0; 
+            display: flex; 
+            align-items: center; 
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .options-group {
+            display: flex;
+            gap: 25px;
+        }
+        .options-group label {
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #2d3748;
+        }
+        .options-group input {
+            transform: scale(1.3);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        button.action-btn { 
+            padding: 12px 25px; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        #btn-verifier { background: #4a5568; }
+        #btn-verifier:hover { background: #2d3748; }
+        
+        #btn-recommencer { background: #718096; display: none; }
+        #btn-recommencer:hover { background: #4a5568; }
+        
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            display: none; 
+            line-height: 1.6;
+        }
+        .correct { background: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; }
+        .incorrect { background: #fed7d7; color: #742a2a; border: 1px solid #feb2b2; }
+    </style>
+</head>
+<body>
+
+    <div class="game-box">
+        <h2>Jeu de discrimination : Confusions et Variations Graphiques 🎧</h2>
+        <p>Écoutez attentivement le mot d'exemple pour repérer la bonne consonne ou la variante orthographique du son entendu.</p>
+        
+        <div id="questions-container">
+            <!-- Les questions générées par JavaScript s'afficheront ici -->
+        </div>
+
+        <div class="btn-group">
+            <button id="btn-verifier" class="action-btn" onclick="verifierSons()">Vérifier mes choix</button>
+            <button id="btn-recommencer" class="action-btn" onclick="initialiserJeuConfusionsVariations()">Mélanger et Recommencer</button>
+        </div>
+        
+        <div id="correction" class="result"></div>
+    </div>
+
+    <script>
+        // Mots-repères pour calibrer précisément l'accent de la synthèse vocale
+        const aideMotsFrançais = {
+            // 5. Confusions de sons proches (Sourdes vs Sonores)
+            "p": "pont, p", "b": "bon, b",
+            "t": "train, t", "d": "drain, d",
+            "f": "foire, f", "v": "voire, v",
+            "ch": "chou, ch", "j": "joue, j",
+            "k": "cadeau, k", "g": "gâteau, g",
+            
+            // 6. Variations graphiques d'un même son
+            "o": "moto, o", "au": "chaud, au", "eau": "bateau, eau",
+            "c": "café, c", "qu": "quatre, qu",
+            "ff": "coiffer, f f", "ph": "phrase, ph"
+        };
+
+        // Configuration de 10 groupes combinant confusions acoustiques et variations
+        const groupesDeSons = [
+            // Blocs de confusions phonétiques proches
+            ["p", "b", "t"],
+            ["t", "d", "p"],
+            ["f", "v", "ch"],
+            ["ch", "j", "f"],
+            ["k", "g", "t"],
+            // Blocs de variations orthographiques (Même son, graphies différentes)
+            ["o", "au", "eau"],
+            ["au", "eau", "o"],
+            ["c", "qu", "k"],
+            ["qu", "c", "ch"],
+            ["f", "ff", "ph"]
+        ];
+
+        let questionsSession = [];
+
+        function mélanger(tableau) {
+            return tableau.sort(() => Math.random() - 0.5);
+        }
+
+        function trouverVoixFrancaise() {
+            if (typeof speechSynthesis === 'undefined') return null;
+            const voixDisponibles = window.speechSynthesis.getVoices();
+            return voixDisponibles.find(v => v.lang.startsWith('fr-')) || null;
+        }
+
+        function ecouterPhoneme(son) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const texteAPrononcer = aideMotsFrançais[son] || son;
+                let uttr = new SpeechSynthesisUtterance(texteAPrononcer);
+                
+                uttr.lang = 'fr-FR';
+                uttr.rate = 0.65;
+                
+                const voixFr = trouverVoixFrancaise();
+                if (voixFr) {
+                    uttr.voice = voixFr;
+                }
+
+                window.speechSynthesis.speak(uttr);
+            }
+        }
+
+        function initialiserJeuConfusionsVariations() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = "";
+            document.getElementById('correction').style.display = "none";
+            document.getElementById('btn-verifier').style.display = "inline-block";
+            document.getElementById('btn-recommencer').style.display = "none";
+            
+            questionsSession = [];
+            
+            // Extraction aléatoire de 5 lignes d'exercice parmi les 10 disponibles
+            let groupesChoisis = mélanger([...groupesDeSons]).slice(0, 5);
+
+            groupesChoisis.forEach((groupe, indexQuestion) => {
+                let toutesLesOptions = mélanger([...groupe]);
+                let sonCorrect = toutesLesOptions[Math.floor(Math.random() * toutesLesOptions.length)];
+                
+                questionsSession.push({ correcte: sonCorrect });
+
+                const row = document.createElement('div');
+                row.className = 'row';
+                
+                let optionsHtml = `<div class="options-group">`;
+                toutesLesOptions.forEach(option => {
+                    optionsHtml += `
+                        <label>
+                            <input type="radio" name="confusion-q-${indexQuestion}" value="${option}"> ${option}
+                        </label>
+                    `;
+                });
+                optionsHtml += `</div>`;
+
+                row.innerHTML = `
+                    <button class="btn-audio" onclick="ecouterPhoneme('${sonCorrect}')">🔊 Écouter l'exemple ${indexQuestion + 1}</button>
+                    ${optionsHtml}
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function verifierSons() {
+            let score = 0;
+            let correctionHtml = "<strong>Détails de vos choix :</strong><br>";
+
+            questionsSession.forEach((q, indexQuestion) => {
+                const caseCochee = document.querySelector(`input[name="confusion-q-${indexQuestion}"]:checked`);
+                const valeurCochee = caseCochee ? caseCochee.value : null;
+
+                if (valeurCochee === q.correcte) {
+                    score++;
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Correct ! La bonne graphie était bien <strong>"${q.correcte}"</strong>.<br>`;
+                } else {
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Non. Le mot faisait entendre le son correspondant à la graphie <strong>"${q.correcte}"</strong>.<br>`;
+                }
+            });
+
+            const div = document.getElementById('correction');
+            div.style.display = "block";
+
+            if (score === 5) {
+                div.className = "result correct";
+                div.innerHTML = `<strong>Félicitations ! Score : 5/5</strong> 🏆 Vous maîtrisez parfaitement les pièges auditifs et orthographiques !`;
+            } else {
+                div.className = "result incorrect";
+                div.innerHTML = `<strong>Exercice terminé. Score : ${score}/5</strong><br><br>` + correctionHtml;
+            }
+
+            document.getElementById('btn-verifier').style.display = "none";
+            document.getElementById('btn-recommencer').style.display = "inline-block";
+        }
+
+        window.onload = initialiserJeuConfusionsVariations;
+    </script>
+</body>
+</html>

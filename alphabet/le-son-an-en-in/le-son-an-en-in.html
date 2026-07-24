@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu des Sons : [an]/[en] et [in]</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f6fa;
+            color: #2f3640;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 26px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+        .instructions {
+            background-color: #e8f8f5;
+            border-left: 4px solid #1abc9c;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px dashed #bdc3c7;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 200px;
+            box-sizing: border-box;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            border-color: #1abc9c;
+            transform: translateY(-2px);
+        }
+        .image-container {
+            width: 100%;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 110px;
+            object-fit: contain;
+        }
+        .word-container {
+            display: flex;
+            align-items: center;
+            font-size: 17px;
+            font-weight: bold;
+            color: #2c3e50;
+            white-space: nowrap;
+        }
+        .article {
+            margin-right: 6px;
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+        .word-builder {
+            display: inline-flex;
+            align-items: center;
+        }
+        .char-fixed {
+            display: inline-block;
+        }
+        .char-input {
+            width: 18px;
+            border: none;
+            border-bottom: 2px solid #2c3e50;
+            text-align: center;
+            font-size: 17px;
+            font-weight: bold;
+            color: #16a085;
+            background: transparent;
+            outline: none;
+            padding: 0;
+            margin: 0 1px;
+            text-transform: lowercase;
+        }
+        .char-input:focus {
+            border-bottom-color: #1abc9c;
+        }
+        .char-input.correct {
+            border-bottom-color: #2ecc71;
+            color: #2ecc71;
+            background-color: #e8f8f0;
+        }
+        .char-input.incorrect {
+            border-bottom-color: #e74c3c;
+            color: #e74c3c;
+            background-color: #fde8e7;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .check-btn {
+            background-color: #1abc9c;
+            color: white;
+        }
+        .check-btn:hover {
+            background-color: #16a085;
+        }
+        .reset-btn {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .reset-btn:hover {
+            background-color: #7f8c8d;
+        }
+        .score-box {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .score-good {
+            background-color: #e8f8f0;
+            color: #27ae60;
+            border: 1px solid #2ecc71;
+        }
+        .score-try {
+            background-color: #fef5e7;
+            color: #d35400;
+            border: 1px solid #f39c12;
+        }
+        .correction-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 5px solid #2ecc71;
+            border-radius: 6px;
+        }
+        .correction-title {
+            margin-top: 0;
+            color: #27ae60;
+            font-size: 16px;
+        }
+        .correction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            font-size: 14px;
+            color: #34495e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Exercice sur les sons [an]/[en] et [in]</h1>
+    <div class="subtitle">Complète chaque mot en écrivant les deux lettres qui forment le bon son nasal.</div>
+
+    <div class="instructions">
+        <strong>Comment faire l'exercice ?</strong><br>
+        1. Écoute bien le mot dans ta tête : entend-on le son de la "maman" (<strong>an</strong> / <strong>en</strong>) ou du "sapin" (<strong>in</strong>) ?<br>
+        2. Écris les deux lettres manquantes pour chaque mot, puis vérifie tes réponses !
+    </div>
+
+    <div class="grid">
+        <!-- 1. Lapin -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/lapin.jpg" alt="Lapin">
+            </div>
+            <div class="word-container">
+                <span class="article">un</span>
+                <span class="word-builder">
+                    <span class="char-fixed">l</span>
+                    <span class="char-fixed">a</span>
+                    <span class="char-fixed">p</span>
+                    <input type="text" class="char-input" maxlength="1" data-answer="i">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                </span>
+            </div>
+        </div>
+
+        <!-- 2. Banc -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/banc.jpg" alt="Banc">
+            </div>
+            <div class="word-container">
+                <span class="article">un</span>
+                <span class="word-builder">
+                    <span class="char-fixed">b</span>
+                    <input type="text" class="char-input" maxlength="1" data-answer="a">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                    <span class="char-fixed">c</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- 3. Sapin -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/sapin.jpg" alt="Sapin">
+            </div>
+            <div class="word-container">
+                <span class="article">un</span>
+                <span class="word-builder">
+                    <span class="char-fixed">s</span>
+                    <span class="char-fixed">a</span>
+                    <span class="char-fixed">p</span>
+                    <input type="text" class="char-input" maxlength="1" data-answer="i">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                </span>
+            </div>
+        </div>
+
+        <!-- 4. Dent -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/dent.jpg" alt="Dent">
+            </div>
+            <div class="word-container">
+                <span class="article">une</span>
+                <span class="word-builder">
+                    <span class="char-fixed">d</span>
+                    <input type="text" class="char-input" maxlength="1" data-answer="e">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                    <span class="char-fixed">t</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- 5. Singe -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/singe.jpg" alt="Singe">
+            </div>
+            <div class="word-container">
+                <span class="article">un</span>
+                <span class="word-builder">
+                    <span class="char-fixed">s</span>
+                    <input type="text" class="char-input" maxlength="1" data-answer="i">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                    <span class="char-fixed">g</span>
+                    <span class="char-fixed">e</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- 6. Enveloppe -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/enveloppe.jpg" alt="Enveloppe">
+            </div>
+            <div class="word-container">
+                <span class="article">une</span>
+                <span class="word-builder">
+                    <input type="text" class="char-input" maxlength="1" data-answer="e">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                    <span class="char-fixed">v</span>
+                    <span class="char-fixed">e</span>
+                    <span class="char-fixed">l</span>
+                    <span class="char-fixed">o</span>
+                    <span class="char-fixed">p</span>
+                    <span class="char-fixed">p</span>
+                    <span class="char-fixed">e</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- 7. Moulin -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/moulin.jpg" alt="Moulin">
+            </div>
+            <div class="word-container">
+                <span class="article">un</span>
+                <span class="word-builder">
+                    <span class="char-fixed">m</span>
+                    <span class="char-fixed">o</span>
+                    <span class="char-fixed">u</span>
+                    <span class="char-fixed">l</span>
+                    <input type="text" class="char-input" maxlength="1" data-answer="i">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                </span>
+            </div>
+        </div>
+
+        <!-- 8. Panda -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/panda.jpg" alt="Panda">
+            </div>
+            <div class="word-container">
+                <span class="article">un</span>
+                <span class="word-builder">
+                    <span class="char-fixed">p</span>
+                    <input type="text" class="char-input" maxlength="1" data-answer="a">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                    <span class="char-fixed">d</span>
+                    <span class="char-fixed">a</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- 9. Poussin -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/poussin.jpg" alt="Poussin">
+            </div>
+            <div class="word-container">
+                <span class="article">un</span>
+                <span class="word-builder">
+                    <span class="char-fixed">p</span>
+                    <span class="char-fixed">o</span>
+                    <span class="char-fixed">u</span>
+                    <span class="char-fixed">s</span>
+                    <span class="char-fixed">s</span>
+                    <input type="text" class="char-input" maxlength="1" data-answer="i">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                </span>
+            </div>
+        </div>
+
+        <!-- 10. Volant -->
+        <div class="card">
+            <div class="image-container">
+                <img src="photos-an-en-in/volant.jpg" alt="Volant">
+            </div>
+            <div class="word-container">
+                <span class="article">un</span>
+                <span class="word-builder">
+                    <span class="char-fixed">v</span>
+                    <span class="char-fixed">o</span>
+                    <span class="char-fixed">l</span>
+                    <input type="text" class="char-input" maxlength="1" data-answer="a">
+                    <input type="text" class="char-input" maxlength="1" data-answer="n">
+                    <span class="char-fixed">t</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div id="scoreBox" class="score-box"></div>
+
+    <div id="correctionBox" class="correction-box">
+        <h3 class="correction-title">🔑 Solution de l'exercice :</h3>
+        <div class="correction-grid">
+            <div><strong>1. Lapin :</strong> un lap<b>in</b></div>
+            <div><strong>2. Banc :</strong> un b<b>an</b>c</div>
+            <div><strong>3. Sapin :</strong> un sap<b>in</b></div>
+            <div><strong>4. Dent :</strong> une d<b>en</b>t</div>
+            <div><strong>5. Singe :</strong> un s<b>in</b>ge</div>
+            <div><strong>6. Enveloppe :</strong> une <b>en</b>veloppe</div>
+            <div><strong>7. Moulin :</strong> un moul<b>in</b></div>
+            <div><strong>8. Panda :</strong> un p<b>an</b>da</div>
+            <div><strong>9. Poussin :</strong> un pouss<b>in</b></div>
+            <div><strong>10. Volant :</strong> un vol<b>an</b>t</div>
+        </div>
+    </div>
+
+    <div class="buttons-container">
+        <button class="btn check-btn" onclick="checkAnswers()">Vérifier mes réponses par JPJ</button>
+        <button class="btn reset-btn" onclick="resetForm()">Recommencer</button>
+    </div>
+</div>
+
+<script>
+    function checkAnswers() {
+        const inputs = document.querySelectorAll('.char-input');
+        let correctCount = 0;
+        let totalCount = inputs.length;
+
+        inputs.forEach(input => {
+            const userAnswer = input.value.trim().toLowerCase();
+            const correctAnswer = input.getAttribute('data-answer').toLowerCase();
+            input.classList.remove('correct', 'incorrect');
+
+            if (userAnswer === correctAnswer) {
+                input.classList.add('correct');
+                correctCount++;
+            } else {
+                input.classList.add('incorrect');
+            }
+        });
+
+        const scoreBox = document.getElementById('scoreBox');
+        scoreBox.style.display = 'block';
+        scoreBox.className = 'score-box'; 
+
+        if (correctCount === totalCount) {
+            scoreBox.classList.add('score-good');
+            scoreBox.innerHTML = `Magnifique ! 🎉 Les sons nasaux n'ont plus de secret pour toi !`;
+        } else {
+            scoreBox.classList.add('score-try');
+            scoreBox.innerHTML = `Tu as trouvé ${correctCount} lettre(s) correcte(s) sur ${totalCount}. Complète ou corrige à l'aide des solutions.`;
+        }
+
+        document.getElementById('correctionBox').style.display = 'block';
+    }
+
+    function resetForm() {
+        const inputs = document.querySelectorAll('.char-input');
+        inputs.forEach(input => {
+            input.value = '';
+            input.classList.remove('correct', 'incorrect');
+        });
+        document.getElementById('scoreBox').style.display = 'none';
+        document.getElementById('correctionBox').style.display = 'none';
+    }
+</script>
+</body>
+</html>

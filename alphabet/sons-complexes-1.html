@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Écoute des Sons Complexes 2</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 700px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background-color: #f0f7ff;
+        }
+        .game-box { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #b4dbff; 
+        }
+        h2 { color: #007bff; margin-top: 0; }
+        p { color: #555; }
+        
+        .btn-audio { 
+            padding: 10px 18px; 
+            font-size: 16px; 
+            margin-right: 20px; 
+            cursor: pointer; 
+            background: #e6f2ff;
+            border: 1px solid #b4dbff;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #0056b3;
+        }
+        .btn-audio:hover { background: #ccdffb; }
+        
+        .row { 
+            margin: 25px 0; 
+            display: flex; 
+            align-items: center; 
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .options-group {
+            display: flex;
+            gap: 25px;
+        }
+        .options-group label {
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #333;
+        }
+        .options-group input {
+            transform: scale(1.3);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        button.action-btn { 
+            padding: 12px 25px; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        #btn-verifier { background: #007bff; }
+        #btn-verifier:hover { background: #0056b3; }
+        
+        #btn-recommencer { background: #6c757d; display: none; }
+        #btn-recommencer:hover { background: #5a6268; }
+        
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            display: none; 
+            line-height: 1.6;
+        }
+        .correct { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .incorrect { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+
+    <div class="game-box">
+        <h2>Les sons complexes français 2 🎧</h2>
+        <p>Cliquez sur le haut-parleur. La voix va vous donner un mot exemple en français pour vous aider à bien identifier le son, puis cochez la bonne option.</p>
+        
+        <div id="questions-container">
+            <!-- Les questions s'affichent ici -->
+        </div>
+
+        <div class="btn-group">
+            <button id="btn-verifier" class="action-btn" onclick="verifierSons()">Vérifier mes choix par JPJ</button>
+            <button id="btn-recommencer" class="action-btn" onclick="initialiserJeuSons()">Mélanger et Recommencer</button>
+        </div>
+        
+        <div id="correction" class="result"></div>
+    </div>
+
+    <script>
+        // Dictionnaire de correspondances enrichi pour guider l'accent de synthèse
+        const aideMotsFrançais = {
+            // Sons d'origine
+            "an": "maman, an", "en": "vent, en", "in": "lapin, in", "on": "pont, on",
+            "un": "lundi, un", "ou": "loup, ou", "oi": "roi, oi", "au": "auto, au",
+            "ai": "maison, ai", "é": "café, é", "è": "très, è", "eu": "feu, eu",
+            "oin": "foin, oin", "ion": "lion, ion", "ian": "viande, ian", "ien": "chien, ien",
+            
+            // Nouveaux sons ajoutés
+            "gn": "champignon, gn", "ch": "chat, ch", "ph": "téléphone, ph",
+            "aille": "paille, aille", "eille": "bouteille, eille", "ouille": "grenouille, ouille", "euil": "fauteuil, euil",
+            "qu": "quatre, qu", "gu": "guitare, gu", "g": "girafe, g", "c": "citron, c",
+            "ez": "nez, ez", "er": "parler, er", "et": "jouet, et"
+        };
+
+        // Banque de groupes élargie (12 groupes de pièges au total)
+        const groupesDeSons = [
+            ["an", "in", "on", "un"],
+            ["en", "an", "on", "in"],
+            ["ou", "oi", "au", "eu"],
+            ["ai", "é", "è", "eu"],
+            ["oin", "ion", "ian", "ien"],
+            ["au", "ou", "on", "oi"],
+            // Nouveaux groupes :
+            ["gn", "ch", "ph", "gu"],
+            ["aille", "eille", "ouille", "euil"],
+            ["qu", "gu", "ch", "gn"],
+            ["é", "ez", "er", "et"],
+            ["oi", "oin", "ou", "ouille"],
+            ["c", "g", "ch", "qu"]
+        ];
+
+        let questionsSession = [];
+
+        function mélanger(tableau) {
+            return tableau.sort(() => Math.random() - 0.5);
+        }
+
+        function trouverVoixFrancaise() {
+            if (typeof speechSynthesis === 'undefined') return null;
+            const voixDisponibles = window.speechSynthesis.getVoices();
+            return voixDisponibles.find(v => v.lang.startsWith('fr-')) || null;
+        }
+
+        function ecouterPhoneme(son) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const texteAPrononcer = aideMotsFrançais[son] || son;
+                let uttr = new SpeechSynthesisUtterance(texteAPrononcer);
+                
+                uttr.lang = 'fr-FR';
+                uttr.rate = 0.6;
+                
+                const voixFr = trouverVoixFrancaise();
+                if (voixFr) {
+                    uttr.voice = voixFr;
+                }
+
+                window.speechSynthesis.speak(uttr);
+            }
+        }
+
+        function initialiserJeuSons() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = "";
+            document.getElementById('correction').style.display = "none";
+            document.getElementById('btn-verifier').style.display = "inline-block";
+            document.getElementById('btn-recommencer').style.display = "none";
+            
+            questionsSession = [];
+            // On pioche 4 groupes aléatoires parmi les 12 disponibles
+            let groupesChoisis = mélanger([...groupesDeSons]).slice(0, 4);
+
+            groupesChoisis.forEach((groupe, indexQuestion) => {
+                let toutesLesOptions = mélanger([...groupe]);
+                let sonCorrect = toutesLesOptions[Math.floor(Math.random() * toutesLesOptions.length)];
+                
+                questionsSession.push({ correcte: sonCorrect });
+
+                const row = document.createElement('div');
+                row.className = 'row';
+                
+                let optionsHtml = `<div class="options-group">`;
+                toutesLesOptions.forEach(option => {
+                    optionsHtml += `
+                        <label>
+                            <input type="radio" name="son-q-${indexQuestion}" value="${option}"> ${option}
+                        </label>
+                    `;
+                });
+                optionsHtml += `</div>`;
+
+                row.innerHTML = `
+                    <button class="btn-audio" onclick="ecouterPhoneme('${sonCorrect}')">🔊 Écouter le son ${indexQuestion + 1}</button>
+                    ${optionsHtml}
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function verifierSons() {
+            let score = 0;
+            let correctionHtml = "<strong>Détails des résultats :</strong><br>";
+
+            questionsSession.forEach((q, indexQuestion) => {
+                const caseCochee = document.querySelector(`input[name="son-q-${indexQuestion}"]:checked`);
+                const valeurCochee = caseCochee ? caseCochee.value : null;
+
+                if (valeurCochee === q.correcte) {
+                    score++;
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Correct ! C'était le son <strong>"${q.correcte}"</strong>.<br>`;
+                } else {
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Erreur. Le son était <strong>"${q.correcte}"</strong>.<br>`;
+                }
+            });
+
+            const div = document.getElementById('correction');
+            div.style.display = "block";
+
+            if (score === 4) {
+                div.className = "result correct";
+                div.innerHTML = `<strong>Félicitations ! Score : 4/4</strong> 🏆`;
+            } else {
+                div.className = "result incorrect";
+                div.innerHTML = `<strong>Exercice terminé. Score : ${score}/4</strong><br><br>` + correctionHtml;
+            }
+
+            document.getElementById('btn-verifier').style.display = "none";
+            document.getElementById('btn-recommencer').style.display = "inline-block";
+        }
+
+        window.onload = initialiserJeuSons;
+    </script>
+</body>
+</html>

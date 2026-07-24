@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Les Pièges des Consonnes (S, C, G, H)</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 750px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background-color: #f3fcf6;
+        }
+        .game-box { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #a3e2bc; 
+        }
+        h2 { color: #198754; margin-top: 0; }
+        p { color: #555; }
+        
+        .btn-audio { 
+            padding: 10px 18px; 
+            font-size: 16px; 
+            margin-right: 20px; 
+            cursor: pointer; 
+            background: #e8f5e9;
+            border: 1px solid #a3e2bc;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #1b5e20;
+        }
+        .btn-audio:hover { background: #c8e6c9; }
+        
+        .row { 
+            margin: 25px 0; 
+            display: flex; 
+            align-items: center; 
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #198754;
+        }
+        
+        .options-group {
+            display: flex;
+            gap: 25px;
+        }
+        .options-group label {
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #333;
+        }
+        .options-group input {
+            transform: scale(1.3);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        button.action-btn { 
+            padding: 12px 25px; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        #btn-verifier { background: #198754; }
+        #btn-verifier:hover { background: #146c43; }
+        
+        #btn-recommencer { background: #6c757d; display: none; }
+        #btn-recommencer:hover { background: #5a6268; }
+        
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            display: none; 
+            line-height: 1.6;
+        }
+        .correct { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .incorrect { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+
+    <div class="game-box">
+        <h2>Jeu de discrimination : S, C, G, H et Consonnes Dures/Douces 🎧</h2>
+        <p>Écoutez attentivement le mot ou la syllabe pour repérer la bonne consonne ou la bonne combinaison graphique.</p>
+        
+        <div id="questions-container">
+            <!-- Les questions générées par JavaScript s'afficheront ici -->
+        </div>
+
+        <div class="btn-group">
+            <button id="btn-verifier" class="action-btn" onclick="verifierSons()">Vérifier mes choix par JPJ</button>
+            <button id="btn-recommencer" class="action-btn" onclick="initialiserJeuConsonnes()">Mélanger et Recommencer</button>
+        </div>
+        
+        <div id="correction" class="result"></div>
+    </div>
+
+    <script>
+        // Base de données de mots-repères pour forcer l'articulation exacte des sons cibles
+        const aideMotsFrançais = {
+            // S & SS (Sourd vs Sonore)
+            "ss": "poisson, s s", "s": "poison, s", "z": "zèbre, z",
+            // Valeurs du C (Dur vs Doux)
+            "ca": "café, ca", "ça": "façade, ça", "co": "copain, co", "ço": "garçon, ço", "ce": "cerise, ce",
+            // Valeurs du G (Dur vs Doux)
+            "ga": "gare, ga", "go": "gorille, go", "ge": "girafe, ge", "gue": "bague, gue", "gui": "guitare, gui", "gi": "gilet, gi",
+            // Les H
+            "ch": "chapeau, ch", "ph": "photo, ph", "th": "thé, th",
+            // Consonnes Dures / Douces (Paires minimales)
+            "p": "pont, p", "b": "bon, b",
+            "t": "train, t", "d": "drain, d",
+            "f": "foire, f", "v": "voire, v",
+            "k": "carte, k", "g": "gare, g"
+        };
+
+        // Banque de 10 groupes thématiques bien distincts
+        const groupesDeSons = [
+            ["ss", "s", "z"],          // Le piège du S entre deux voyelles
+            ["ca", "ça", "co"],         // Le C dur devant A, O vs la cédille
+            ["ce", "ca", "co"],         // Le C naturellement doux devant E
+            ["ga", "ge", "gue"],        // Le G dur vs G doux devant A/E
+            ["gi", "gui", "go"],        // Le G doux vs G dur devant I
+            ["ch", "ph", "th"],         // Les digrammes avec H
+            ["p", "b", "t"],            // Opposition sourde/sonore P et B
+            ["t", "d", "p"],            // Opposition sourde/sonore T et D
+            ["f", "v", "ch"],           // Opposition sourde/sonore F et V
+            ["k", "g", "ca"]            // Le son [k] vs le son [g]
+        ];
+
+        let questionsSession = [];
+
+        function mélanger(tableau) {
+            return tableau.sort(() => Math.random() - 0.5);
+        }
+
+        function trouverVoixFrancaise() {
+            if (typeof speechSynthesis === 'undefined') return null;
+            const voixDisponibles = window.speechSynthesis.getVoices();
+            return voixDisponibles.find(v => v.lang.startsWith('fr-')) || null;
+        }
+
+        function ecouterPhoneme(son) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const texteAPrononcer = aideMotsFrançais[son] || son;
+                let uttr = new SpeechSynthesisUtterance(texteAPrononcer);
+                
+                uttr.lang = 'fr-FR';
+                uttr.rate = 0.65; // Légèrement ralenti pour bien décomposer l'écoute
+                
+                const voixFr = trouverVoixFrancaise();
+                if (voixFr) {
+                    uttr.voice = voixFr;
+                }
+
+                window.speechSynthesis.speak(uttr);
+            }
+        }
+
+        function initialiserJeuConsonnes() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = "";
+            document.getElementById('correction').style.display = "none";
+            document.getElementById('btn-verifier').style.display = "inline-block";
+            document.getElementById('btn-recommencer').style.display = "none";
+            
+            questionsSession = [];
+            
+            // On extrait 5 groupes au hasard parmi les 10 pour renouveler l'exercice
+            let groupesChoisis = mélanger([...groupesDeSons]).slice(0, 5);
+
+            groupesChoisis.forEach((groupe, indexQuestion) => {
+                let toutesLesOptions = mélanger([...groupe]);
+                let sonCorrect = toutesLesOptions[Math.floor(Math.random() * toutesLesOptions.length)];
+                
+                questionsSession.push({ correcte: sonCorrect });
+
+                const row = document.createElement('div');
+                row.className = 'row';
+                
+                let optionsHtml = `<div class="options-group">`;
+                toutesLesOptions.forEach(option => {
+                    optionsHtml += `
+                        <label>
+                            <input type="radio" name="consonne-q-${indexQuestion}" value="${option}"> ${option}
+                        </label>
+                    `;
+                });
+                optionsHtml += `</div>`;
+
+                row.innerHTML = `
+                    <button class="btn-audio" onclick="ecouterPhoneme('${sonCorrect}')">🔊 Écouter l'exemple ${indexQuestion + 1}</button>
+                    ${optionsHtml}
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function verifierSons() {
+            let score = 0;
+            let correctionHtml = "<strong>Détails de vos réponses :</strong><br>";
+
+            questionsSession.forEach((q, indexQuestion) => {
+                const caseCochee = document.querySelector(`input[name="consonne-q-${indexQuestion}"]:checked`);
+                const valeurCochee = caseCochee ? caseCochee.value : null;
+
+                if (valeurCochee === q.correcte) {
+                    score++;
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Correct ! Vous avez bien repéré la graphie <strong>"${q.correcte}"</strong>.<br>`;
+                } else {
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Non. Le mot contenait le son lié à la graphie <strong>"${q.correcte}"</strong>.<br>`;
+                }
+            });
+
+            const div = document.getElementById('correction');
+            div.style.display = "block";
+
+            if (score === 5) {
+                div.className = "result correct";
+                div.innerHTML = `<strong>Parfait ! Score : 5/5</strong> 🏆 Vous distinguez sans erreur les pièges des consonnes !`;
+            } else {
+                div.className = "result incorrect";
+                div.innerHTML = `<strong>Exercice terminé. Score : ${score}/5</strong><br><br>` + correctionHtml;
+            }
+
+            document.getElementById('btn-verifier').style.display = "none";
+            document.getElementById('btn-recommencer').style.display = "inline-block";
+        }
+
+        window.onload = initialiserJeuConsonnes;
+    </script>
+</body>
+</html>

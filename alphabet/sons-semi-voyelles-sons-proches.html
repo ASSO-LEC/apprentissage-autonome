@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Semi-voyelles et Sons Proches</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 750px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background-color: #fffaf0;
+        }
+        .game-box { 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #f3d9b1; 
+        }
+        h2 { color: #dd6b20; margin-top: 0; }
+        p { color: #555; }
+        
+        .btn-audio { 
+            padding: 10px 18px; 
+            font-size: 16px; 
+            margin-right: 20px; 
+            cursor: pointer; 
+            background: #fffaf0;
+            border: 1px solid #f3d9b1;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #b7791f;
+        }
+        .btn-audio:hover { background: #feebc8; }
+        
+        .row { 
+            margin: 25px 0; 
+            display: flex; 
+            align-items: center; 
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #dd6b20;
+        }
+        
+        .options-group {
+            display: flex;
+            gap: 25px;
+        }
+        .options-group label {
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #333;
+        }
+        .options-group input {
+            transform: scale(1.3);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        button.action-btn { 
+            padding: 12px 25px; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+        #btn-verifier { background: #dd6b20; }
+        #btn-verifier:hover { background: #c05621; }
+        
+        #btn-recommencer { background: #6c757d; display: none; }
+        #btn-recommencer:hover { background: #5a6268; }
+        
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            display: none; 
+            line-height: 1.6;
+        }
+        .correct { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .incorrect { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+
+    <div class="game-box">
+        <h2>Semi-voyelles et Sons Proches 🎧</h2>
+        <p>Écoutez attentivement le mot d'exemple français pour identifier la semi-voyelle ou discriminer la consonne proche.</p>
+        
+        <div id="questions-container">
+            <!-- Les questions générées par JavaScript s'afficheront ici -->
+        </div>
+
+        <div class="btn-group">
+            <button id="btn-verifier" class="action-btn" onclick="verifierSons()">Vérifier mes choix par JPJ</button>
+            <button id="btn-recommencer" class="action-btn" onclick="initialiserJeuSemiVoyelles()">Mélanger et Recommencer</button>
+        </div>
+        
+        <div id="correction" class="result"></div>
+    </div>
+
+    <script>
+        // Mots-repères ciblés pour calibrer l'accent de synthèse
+        const aideMotsFrançais = {
+            // Semi-voyelles / Sons liquides
+            "ill": "bille, i double l", "y": "yaourt, y", "i": "piano, i",
+            "ail": "travail, ail", "aille": "paille, aille",
+            "eil": "soleil, eil", "eille": "bouteille, eille",
+            "ouil": "fenouil, ouil", "ouille": "grenouille, ouille",
+            "euil": "écureuil, euil", "euill": "feuille, euill",
+            
+            // Sons proches / Paires minimales
+            "ch": "chou, ch", "j": "joue, j",
+            "f": "foire, f", "v": "voire, v",
+            "p": "pomme, p", "b": "bonne, b",
+            "t": "tasse, t", "d": "danse, d",
+            "k": "cadeau, k", "g": "gâteau, g"
+        };
+
+        // Configuration de 10 groupes thématiques distincts
+        const groupesDeSons = [
+            ["ill", "y", "i"],            // Semi-voyelle [j]
+            ["ail", "aille", "eil"],       // Son [aj] masculin vs féminin
+            ["eil", "eille", "ail"],       // Son [ɛj] masculin vs féminin
+            ["ouil", "ouille", "euil"],    // Son [uj] liquide
+            ["euil", "euill", "ouille"],   // Son [œj] liquide
+            ["ch", "j", "f"],              // Confusion fréquente Chuintante / Chuchotée
+            ["f", "v", "ch"],              // Confusion Fricative sourde / sonore
+            ["p", "b", "t"],               // Confusion Occlusive labiale
+            ["t", "d", "p"],               // Confusion Occlusive dentale
+            ["k", "g", "t"]                // Confusion Occlusive palatale (Ké/Gé)
+        ];
+
+        let questionsSession = [];
+
+        function mélanger(tableau) {
+            return tableau.sort(() => Math.random() - 0.5);
+        }
+
+        function trouverVoixFrancaise() {
+            if (typeof speechSynthesis === 'undefined') return null;
+            const voixDisponibles = window.speechSynthesis.getVoices();
+            return voixDisponibles.find(v => v.lang.startsWith('fr-')) || null;
+        }
+
+        function ecouterPhoneme(son) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const texteAPrononcer = aideMotsFrançais[son] || son;
+                let uttr = new SpeechSynthesisUtterance(texteAPrononcer);
+                
+                uttr.lang = 'fr-FR';
+                uttr.rate = 0.65;
+                
+                const voixFr = trouverVoixFrancaise();
+                if (voixFr) {
+                    uttr.voice = voixFr;
+                }
+
+                window.speechSynthesis.speak(uttr);
+            }
+        }
+
+        function initialiserJeuSemiVoyelles() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = "";
+            document.getElementById('correction').style.display = "none";
+            document.getElementById('btn-verifier').style.display = "inline-block";
+            document.getElementById('btn-recommencer').style.display = "none";
+            
+            questionsSession = [];
+            
+            // Extraction de 5 groupes au hasard pour diversifier chaque essai
+            let groupesChoisis = mélanger([...groupesDeSons]).slice(0, 5);
+
+            groupesChoisis.forEach((groupe, indexQuestion) => {
+                let toutesLesOptions = mélanger([...groupe]);
+                let sonCorrect = toutesLesOptions[Math.floor(Math.random() * toutesLesOptions.length)];
+                
+                questionsSession.push({ correcte: sonCorrect });
+
+                const row = document.createElement('div');
+                row.className = 'row';
+                
+                let optionsHtml = `<div class="options-group">`;
+                toutesLesOptions.forEach(option => {
+                    optionsHtml += `
+                        <label>
+                            <input type="radio" name="semivoyelle-q-${indexQuestion}" value="${option}"> ${option}
+                        </label>
+                    `;
+                });
+                optionsHtml += `</div>`;
+
+                row.innerHTML = `
+                    <button class="btn-audio" onclick="ecouterPhoneme('${sonCorrect}')">🔊 Écouter l'exemple ${indexQuestion + 1}</button>
+                    ${optionsHtml}
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function verifierSons() {
+            let score = 0;
+            let correctionHtml = "<strong>Détails de vos réponses :</strong><br>";
+
+            questionsSession.forEach((q, indexQuestion) => {
+                const caseCochee = document.querySelector(`input[name="semivoyelle-q-${indexQuestion}"]:checked`);
+                const valeurCochee = caseCochee ? caseCochee.value : null;
+
+                if (valeurCochee === q.correcte) {
+                    score++;
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Correct ! Il s'agissait bien du son lié à la graphie <strong>"${q.correcte}"</strong>.<br>`;
+                } else {
+                    correctionHtml += `• Ligne ${indexQuestion + 1} : Non. Le mot contenait le son lié à la graphie <strong>"${q.correcte}"</strong>.<br>`;
+                }
+            });
+
+            const div = document.getElementById('correction');
+            div.style.display = "block";
+
+            if (score === 5) {
+                div.className = "result correct";
+                div.innerHTML = `<strong>Excellent ! Score : 5/5</strong> 🏆 Vos compétences d'écoute fine sur les semi-voyelles sont parfaites.`;
+            } else {
+                div.className = "result incorrect";
+                div.innerHTML = `<strong>Exercice terminé. Score : ${score}/5</strong><br><br>` + correctionHtml;
+            }
+
+            document.getElementById('btn-verifier').style.display = "none";
+            document.getElementById('btn-recommencer').style.display = "inline-block";
+        }
+
+        window.onload = initialiserJeuSemiVoyelles;
+    </script>
+</body>
+</html>
