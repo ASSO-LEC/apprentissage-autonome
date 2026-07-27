@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Pronoms Toniques </title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #2c3e50;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3182ce;
+            padding-bottom: 10px;
+        }
+        .memento {
+            background-color: #ebf8ff;
+            border-left: 5px solid #3182ce;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+        .memento table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        .memento th, .memento td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 10px;
+            text-align: center;
+        }
+        .memento th { background-color: #bee3f8; }
+
+        .exercice-card {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .exercice-card h2 {
+            margin-top: 0;
+            color: #2b6cb0;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+        
+        .question {
+            margin-bottom: 12px;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        input[type="text"], select {
+            padding: 6px 10px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        input[type="text"]:focus, select:focus {
+            border-color: #3182ce;
+        }
+
+        .correct {
+            border-color: #38a169 !important;
+            background-color: #c6f6d5 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .incorrect {
+            border-color: #e53e3e !important;
+            background-color: #fed7d7 !important;
+            color: #742a2a;
+        }
+
+        .btn-zone {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-check { background-color: #3182ce; color: white; }
+        .btn-check:hover { background-color: #2b6cb0; }
+        .btn-reset { background-color: #e2e8f0; color: #4a5568; }
+        .btn-reset:hover { background-color: #cbd5e1; }
+
+        .score-display {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎯 Pronoms Toniques Feuille 2</h1>
+
+    <!-- RAPPEL MEMENTO -->
+    <div class="memento">
+        <h3>📌 Petit Mémento</h3>
+        <p>Les pronoms toniques s'utilisent pour <strong>insister</strong> ou après une <strong>préposition</strong> (avec, pour, chez, sans...).</p>
+        <table>
+            <tr>
+                <th>Pronom Sujet</th>
+                <td>Je</td><td>Tu</td><td>Il</td><td>Elle</td><td>Nous / On</td><td>Vous</td><td>Ils</td><td>Elles</td>
+            </tr>
+            <tr>
+                <th>Pronom Tonique</th>
+                <td><strong>Moi</strong></td><td><strong>Toi</strong></td><td><strong>Lui</strong></td><td><strong>Elle</strong></td><td><strong>Nous</strong></td><td><strong>Vous</strong></td><td><strong>Eux</strong></td><td><strong>Elles</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    
+
+    <!-- EXERCICE 2 : MENU DÉROULANT (PRÉPOSITIONS) -->
+    <div class="exercice-card" id="exo2">
+        <h2>👇 Exercice 2 : Choisissez le bon pronom tonique après la préposition</h2>
+        
+        <div class="question">1. Je vais au cinéma avec 
+            <select data-ans="lui">
+                <option value="">-- Choisir --</option><option value="lui">Marc (lui)</option><option value="elle">Marc (elle)</option><option value="eux">Marc (eux)</option>
+            </select>.
+        </div>
+
+        <div class="question">2. Ce cadeau de fête est pour 
+            <select data-ans="toi">
+                <option value="">-- Choisir --</option><option value="toi">tu (toi)</option><option value="moi">tu (moi)</option><option value="vous">tu (vous)</option>
+            </select> !
+        </div>
+
+        <div class="question">3. Tu viens dîner chez 
+            <select data-ans="moi">
+                <option value="">-- Choisir --</option><option value="toi">je (toi)</option><option value="moi">je (moi)</option><option value="lui">je (lui)</option>
+            </select> ce soir ?
+        </div>
+
+        <div class="question">4. Le professeur parle souvent avec 
+            <select data-ans="eux">
+                <option value="">-- Choisir --</option><option value="elles">les étudiants (elles)</option><option value="eux">les étudiants (eux)</option><option value="lui">les étudiants (lui)</option>
+            </select>.
+        </div>
+
+        <div class="question">5. Elle part en vacances sans 
+            <select data-ans="lui">
+                <option value="">-- Choisir --</option><option value="lui">son mari (lui)</option><option value="elle">son mari (elle)</option><option value="toi">son mari (toi)</option>
+            </select>.
+        </div>
+
+        <div class="question">6. Nous aimons beaucoup jouer au tennis avec 
+            <select data-ans="elles">
+                <option value="">-- Choisir --</option><option value="eux">Julie et Sarah (eux)</option><option value="elles">Julie et Sarah (elles)</option><option value="nous">Julie et Sarah (nous)</option>
+            </select>.
+        </div>
+
+        <div class="btn-zone">
+            <button class="btn-check" onclick="verifierSelect('exo2')">Vérifier mes réponses</button>
+            <button class="btn-reset" onclick="effacer('exo2')">Recommencer</button>
+        </div>
+        <div class="score-display"></div>
+    </div>
+
+    
+    
+
+</div>
+
+<!-- LOGIQUE JAVASCRIPT -->
+<script>
+function verifierInput(cardId) {
+    const card = document.getElementById(cardId);
+    const inputs = card.querySelectorAll('input[type="text"]');
+    let score = 0;
+
+    inputs.forEach(input => {
+        const reponsesAcceptees = input.getAttribute('data-ans').split(',');
+        const valSaisie = input.value.trim();
+
+        if (reponsesAcceptees.includes(valSaisie)) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const display = card.querySelector('.score-display');
+    display.textContent = `Résultat : ${score} / ${inputs.length}`;
+    display.style.color = score === inputs.length ? '#27ae60' : '#e74c3c';
+}
+
+function verifierSelect(cardId) {
+    const card = document.getElementById(cardId);
+    const selects = card.querySelectorAll('select');
+    let score = 0;
+
+    selects.forEach(select => {
+        const reponseAttendue = select.getAttribute('data-ans');
+        const valSaisie = select.value;
+
+        if (valSaisie === reponseAttendue) {
+            select.className = 'correct';
+            score++;
+        } else {
+            select.className = 'incorrect';
+        }
+    });
+
+    const display = card.querySelector('.score-display');
+    display.textContent = `Résultat : ${score} / ${selects.length}`;
+    display.style.color = score === selects.length ? '#27ae60' : '#e74c3c';
+}
+
+function effacer(cardId) {
+    const card = document.getElementById(cardId);
+    const inputs = card.querySelectorAll('input[type="text"]');
+    const selects = card.querySelectorAll('select');
+
+    inputs.forEach(i => { i.value = ''; i.className = ''; });
+    selects.forEach(s => { s.value = ''; s.className = ''; });
+
+    const display = card.querySelector('.score-display');
+    display.textContent = '';
+}
+</script>
+
+</body>
+</html>
