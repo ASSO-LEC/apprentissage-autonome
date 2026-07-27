@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONJUGAISON - Futur des verbes en « ir » et « re » du 3ème groupe</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #2c3e50;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        /* ENTÊTE DE LA FICHE ORIGINALE */
+        .header-fiche {
+            border: 2px solid #2c3e50;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e2e8f0;
+            padding: 10px 15px;
+            border-bottom: 2px solid #2c3e50;
+            font-weight: bold;
+        }
+        .header-title {
+            font-size: 1.1rem;
+            color: #1a202c;
+        }
+        .header-sub {
+            padding: 8px 15px;
+            background-color: #f8fafc;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        .header-indic {
+            padding: 8px 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2b6cb0;
+        }
+
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ligne {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            padding: 10px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            gap: 12px;
+            font-size: 1rem;
+        }
+        .verbe-tag {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #bee3f8;
+            min-width: 100px;
+            text-align: center;
+        }
+        .enonce {
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        input[type="text"] {
+            padding: 6px 10px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+            text-align: center;
+            font-weight: bold;
+        }
+        input[type="text"]:focus {
+            border-color: #3182ce;
+        }
+
+        .correct {
+            border-color: #38a169 !important;
+            background-color: #c6f6d5 !important;
+            color: #22543d;
+        }
+        .incorrect {
+            border-color: #e53e3e !important;
+            background-color: #fed7d7 !important;
+            color: #742a2a;
+        }
+
+        .btn-zone {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-check { background-color: #3182ce; color: white; }
+        .btn-check:hover { background-color: #2b6cb0; }
+        .btn-reset { background-color: #e2e8f0; color: #4a5568; }
+        .btn-reset:hover { background-color: #cbd5e1; }
+
+        .score-display {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- EN-TÊTE CONFORME À LA FICHE 2 -->
+    <div class="header-fiche">
+        <div class="header-top">
+            <span class="header-title">CONJUGAISON : Futur des verbes réguliers en « ir » et « re » du 3ème groupe</span>
+            <span>Fiche N° 2</span>
+        </div>
+        <div class="header-sub">Connaître et conjuguer les verbes les plus courants</div>
+        <div class="header-indic">Plus tard... Demain...</div>
+    </div>
+
+    <!-- ZONE DE QUESTIONS -->
+    <div id="exercice">
+        <div class="questions-container" id="container-questions">
+            
+            <!-- VERBES EN « IR » -->
+            <div class="ligne">
+                <span class="verbe-tag">revenir</span>
+                <span class="enonce">Elle <input type="text" data-ans="reviendra" size="12"> d'Afrique.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">repartir</span>
+                <span class="enonce">Je <input type="text" data-ans="repartirai" size="12"> au Canada.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">courir</span>
+                <span class="enonce">Nous <input type="text" data-ans="courrons" size="12"> dans le parc.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">sortir</span>
+                <span class="enonce">Elles <input type="text" data-ans="sortiront" size="12"> de chez elles.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">ouvrir</span>
+                <span class="enonce">Nous <input type="text" data-ans="ouvrirons" size="12"> les portes à 9h00.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">devenir</span>
+                <span class="enonce">Je <input type="text" data-ans="deviendrai" size="12"> vieux.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">obtenir</span>
+                <span class="enonce">Vous <input type="text" data-ans="obtiendrez" size="12"> vos papiers.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">offrir</span>
+                <span class="enonce">Tu <input type="text" data-ans="offriras" size="12"> des fleurs à ta mère.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">partir</span>
+                <span class="enonce">Il <input type="text" data-ans="partira" size="12"> en vacances.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">prévenir</span>
+                <span class="enonce">Ils <input type="text" data-ans="préviendront,previendront" size="12"> leur professeur.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">souffrir</span>
+                <span class="enonce">Elles <input type="text" data-ans="souffriront" size="12"> beaucoup.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">servir</span>
+                <span class="enonce">Vous <input type="text" data-ans="servirez" size="12"> des boissons.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">revenir</span>
+                <span class="enonce">Nous <input type="text" data-ans="reviendrons" size="12"> en France.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">dormir</span>
+                <span class="enonce">Ils <input type="text" data-ans="dormiront" size="12"> à l'hôtel.</span>
+            </div>
+
+            <!-- VERBES EN « RE » -->
+            <div class="ligne">
+                <span class="verbe-tag">éteindre</span>
+                <span class="enonce">Il <input type="text" data-ans="éteindra,eteindra" size="12"> la lumière.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">répondre</span>
+                <span class="enonce">Je <input type="text" data-ans="répondrai,repondrai" size="12"> aux questions.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">connaître</span>
+                <span class="enonce">Tu <input type="text" data-ans="connaîtras,connaitras" size="12"> la vérité.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">prendre</span>
+                <span class="enonce">Tu <input type="text" data-ans="prendras" size="12"> le métro.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">peindre</span>
+                <span class="enonce">Nous <input type="text" data-ans="peindrons" size="12"> les murs.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">rendre</span>
+                <span class="enonce">Vous <input type="text" data-ans="rendrez" size="12"> le livre.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">produire</span>
+                <span class="enonce">Ils <input type="text" data-ans="produiront" size="12"> du pétrole.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">comprendre</span>
+                <span class="enonce">Nous <input type="text" data-ans="comprendrons" size="12"> le français.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">cuire</span>
+                <span class="enonce">Nous <input type="text" data-ans="cuirons" size="12"> la viande.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">entendre</span>
+                <span class="enonce">Elles <input type="text" data-ans="entendront" size="12"> mieux.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">disparaître</span>
+                <span class="enonce">Vous <input type="text" data-ans="disparaîtrez,disparaitrez" size="12"> de ma vue.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">apprendre</span>
+                <span class="enonce">Ils <input type="text" data-ans="apprendront" size="12"> l'anglais.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">conduire</span>
+                <span class="enonce">Il <input type="text" data-ans="conduira" size="12"> sa nouvelle voiture.</span>
+            </div>
+            <div class="ligne">
+                <span class="verbe-tag">attendre</span>
+                <span class="enonce">Nous <input type="text" data-ans="attendrons" size="12"> l'autobus.</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOUTONS D'ACTION -->
+    <div class="btn-zone">
+        <button class="btn-check" onclick="verifier()">Vérifier mes réponses</button>
+        <button class="btn-reset" onclick="effacerEtMelanger()">Recommencer & Mélanger</button>
+    </div>
+    <div class="score-display" id="score"></div>
+
+</div>
+
+<script>
+// Algorithme de mélange (Fisher-Yates)
+function melangerQuestions() {
+    const container = document.getElementById('container-questions');
+    const elements = Array.from(container.children);
+    
+    for (let i = elements.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [elements[i], elements[j]] = [elements[j], elements[i]];
+    }
+    
+    elements.forEach(elem => container.appendChild(elem));
+}
+
+// Mélanger au chargement
+window.addEventListener('DOMContentLoaded', () => {
+    melangerQuestions();
+});
+
+// Vérification des réponses
+function verifier() {
+    const inputs = document.querySelectorAll('#container-questions input[type="text"]');
+    let score = 0;
+
+    inputs.forEach(input => {
+        const reponsesAcceptees = input.getAttribute('data-ans').split(',');
+        const valSaisie = input.value.trim().toLowerCase();
+
+        if (reponsesAcceptees.includes(valSaisie)) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const display = document.getElementById('score');
+    display.textContent = `Score : ${score} / ${inputs.length}`;
+    display.style.color = score === inputs.length ? '#27ae60' : '#e74c3c';
+}
+
+// Recommencer et mélanger
+function effacerEtMelanger() {
+    const inputs = document.querySelectorAll('#container-questions input[type="text"]');
+    inputs.forEach(i => { i.value = ''; i.className = ''; });
+
+    const display = document.getElementById('score');
+    display.textContent = '';
+
+    melangerQuestions();
+}
+</script>
+
+</body>
+</html>
