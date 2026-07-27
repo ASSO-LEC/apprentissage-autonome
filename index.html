@@ -164,7 +164,7 @@
         <button class="card-niveau card-all active" onclick="filtrerNiveau('all')">🌐 Tout Voir</button>
     </div>
 
-    <!-- ==================== 1. NIVEAU A0 : ALPHABET, PHONIE & SONS ==================== -->
+    <!-- ==================== 1. NIVEAU A0 ==================== -->
     <div class="bloc-thematique element-niveau niveau-a0" style="border-color: #2ecc71;">
         <h2>🟢 Module d'Apprentissage Niveau A0</h2>
 
@@ -204,7 +204,7 @@
         </details>
     </div>
 
-    <!-- ==================== 2. GRAMMAIRE & ARTICLES ==================== -->
+    <!-- ==================== 2. GRAMMAIRE ==================== -->
     <div class="bloc-thematique element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2" style="border-color: #00b4d8;">
         <h2>📐 Grammaire, Articles & Pronoms</h2>
 
@@ -406,11 +406,10 @@
         </details>
     </div>
 
-    <!-- ==================== 4. JEUX & VOCABULAIRE (DOSSIER JEUA1) ==================== -->
+    <!-- ==================== 4. JEUX & VOCABULAIRE ==================== -->
     <div class="bloc-thematique element-niveau niveau-a1 niveau-a2" style="border-color: #2ecc71;">
         <h2>🎮 Jeux & Vocabulaire</h2>
 
-        <!-- Dossier JEUA1 : Uniquement visible en Niveau A1 et Tout Voir -->
         <details class="element-niveau niveau-a1">
             <summary>🕹️ Jeux du dossier JEU A1 (Niveau A1)</summary>
             <div class="grid-boutons">
@@ -428,7 +427,6 @@
             </div>
         </details>
 
-        <!-- Autres jeux -->
         <details class="element-niveau niveau-a1 niveau-a2">
             <summary>🔤 Jeux du Pendu</summary>
             <div class="grid-boutons">
@@ -446,14 +444,12 @@
 <!-- SCRIPT JS DE FILTRAGE -->
 <script>
 function filtrerNiveau(codeNiveau) {
-    // 1. Gestion des classes 'active' sur les boutons de sélection
     const tousLesBoutons = document.querySelectorAll('.card-niveau');
     tousLesBoutons.forEach(btn => btn.classList.remove('active'));
 
     const boutonClique = document.querySelector('.card-' + codeNiveau);
     if(boutonClique) boutonClique.classList.add('active');
 
-    // 2. Gestion de l'affichage / masquage des éléments selon leur classe
     const tousLesElements = document.querySelectorAll('.element-niveau');
 
     tousLesElements.forEach(elem => {
