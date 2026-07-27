@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Objets de la Cuisine</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --bg-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .instructions {
+            background-color: #fdf3e7;
+            border-left: 5px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .word-bank {
+            background: #fdfefe;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .word-bank h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        .word-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .word-item {
+            background: #edf2f7;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: transform 0.2s;
+        }
+
+        .exercise-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .exercise-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .definition {
+            flex: 1;
+            font-size: 1.05em;
+            padding-right: 20px;
+        }
+
+        .emoji-icon {
+            font-size: 1.3em;
+            margin-right: 8px;
+        }
+
+        .input-group {
+            flex-shrink: 0;
+            width: 220px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            text-transform: uppercase;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-color);
+            background-color: #fffaf5;
+        }
+
+        .status-message {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .status-success {
+            display: block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        .status-error {
+            display: block;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+
+        .status-warning {
+            display: block;
+            background-color: #fff3e0;
+            color: #ef6c00;
+            border: 1px solid #ffe0b2;
+        }
+
+        .btn-container {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .check-btn {
+            background-color: #2ecc71;
+        }
+
+        .check-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .reset-btn {
+            background-color: #3498db;
+        }
+
+        .reset-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .solution-btn {
+            background-color: #e67e22;
+        }
+
+        .solution-btn:hover {
+            background-color: #d35400;
+        }
+
+        @media (max-width: 600px) {
+            .exercise-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .input-group {
+                width: 100%;
+            }
+            .btn-container {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🍽️ La cuisine</h1>
+    <div class="subtitle">Thème : <strong>Les objets de la cuisine</strong></div>
+
+    <div class="instructions">
+        <strong>Consigne :</strong> Lisez l'utilité de chaque objet et écrivez le mot exact (avec son article : <em>Le, La, L'</em>) dans la case. Aidez-vous de la banque de mots ci-dessous !
+    </div>
+
+    <!-- Banque de mots dynamiquement mélangée -->
+    <div class="word-bank">
+        <h3>Mots à placer (mélangés)</h3>
+        <div class="word-list" id="wordList">
+            <span class="word-item">🧊 LE FRIGO</span>
+            <span class="word-item">🔥 LE FOUR</span>
+            <span class="word-item">🍳 LA CUISINIÈRE</span>
+            <span class="word-item">🍽️ L'ASSIETTE</span>
+            <span class="word-item">🥛 LE VERRE</span>
+            <span class="word-item">🍴 LA FOURCHETTE</span>
+            <span class="word-item">🔪 LE COUTEAU</span>
+            <span class="word-item">🥄 LA CUILLÈRE</span>
+            <span class="word-item">🫕 LA CASSEROLE</span>
+            <span class="word-item">🍳 LA POÊLE</span>
+        </div>
+    </div>
+
+    <!-- Exercices dans l'ordre exact du document -->
+    <div class="exercise-list">
+        <!-- 1 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🧊</span><strong>1.</strong> Pour garder les aliments au froid.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="LE FRIGO" data-display="LE FRIGO" placeholder="Votre réponse...">
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🔥</span><strong>2.</strong> Pour cuire les aliments.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="LE FOUR" data-display="LE FOUR" placeholder="Votre réponse...">
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🍳</span><strong>3.</strong> Pour faire chauffer.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="LA CUISINIERE" data-display="LA CUISINIÈRE" placeholder="Votre réponse...">
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🍽️</span><strong>4.</strong> Pour manger.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="L'ASSIETTE" data-display="L'ASSIETTE" placeholder="Votre réponse...">
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🥛</span><strong>5.</strong> Pour boire.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="LE VERRE" data-display="LE VERRE" placeholder="Votre réponse...">
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🍴</span><strong>6.</strong> Pour manger.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="LA FOURCHETTE" data-display="LA FOURCHETTE" placeholder="Votre réponse...">
+            </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🔪</span><strong>7.</strong> Pour couper.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="LE COUTEAU" data-display="LE COUTEAU" placeholder="Votre réponse...">
+            </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🥄</span><strong>8.</strong> Pour manger / mélanger.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="LA CUILLÈRE" data-display="LA CUILLÈRE" placeholder="Votre réponse...">
+            </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🫕</span><strong>9.</strong> Pour cuire.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="LA CASSEROLE" data-display="LA CASSEROLE" placeholder="Votre réponse...">
+            </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="exercise-item">
+            <div class="definition">
+                <span class="emoji-icon">🍳</span><strong>10.</strong> Pour faire frire.
+            </div>
+            <div class="input-group">
+                <input type="text" data-answer="LA POELE" data-display="LA POÊLE" placeholder="Votre réponse...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Zone de statut -->
+    <div id="statusMessage" class="status-message"></div>
+
+    <div class="btn-container">
+        <button class="btn check-btn" onclick="verifierReponses()">Vérifier mes réponses par JPJ</button>
+        <button class="btn reset-btn" onclick="recommencer()">🔄 Recommencer</button>
+        <button class="btn solution-btn" onclick="afficherSolution()">Afficher le corrigé</button>
+    </div>
+</div>
+
+<script>
+    const inputs = document.querySelectorAll('.input-group input');
+    const statusEl = document.getElementById('statusMessage');
+    const wordListEl = document.getElementById('wordList');
+
+    // Fonction pour mélanger aléatoirement la liste des mots
+    function melangerBanqueDeMots() {
+        const items = Array.from(wordListEl.children);
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
+        }
+        items.forEach(item => wordListEl.appendChild(item));
+    }
+
+    // Normalisation du texte (gestion des accents, majuscules et apostrophes)
+    function normaliserTexte(str) {
+        return str.normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "")
+                  .replace(/’/g, "'")
+                  .trim()
+                  .toUpperCase();
+    }
+
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            this.style.backgroundColor = 'white';
+            this.style.borderColor = '#cbd5e1';
+            statusEl.style.display = 'none';
+        });
+    });
+
+    function verifierReponses() {
+        let toutesCorrectes = true;
+        let casesVides = false;
+
+        inputs.forEach(input => {
+            const motAttendu = normaliserTexte(input.dataset.answer);
+            const motSaisi = normaliserTexte(input.value);
+
+            if (motSaisi === '') {
+                casesVides = true;
+                input.style.backgroundColor = 'white';
+                input.style.borderColor = '#cbd5e1';
+            } else if (motSaisi === motAttendu) {
+                input.style.backgroundColor = '#c8e6c9'; 
+                input.style.borderColor = '#4caf50';
+            } else {
+                input.style.backgroundColor = '#ffcdd2'; 
+                input.style.borderColor = '#f44336';
+                toutesCorrectes = false;
+            }
+        });
+
+        if (casesVides) {
+            statusEl.innerText = "Il reste des champs vides !";
+            statusEl.className = "status-message status-warning";
+        } else if (toutesCorrectes) {
+            statusEl.innerText = "Félicitations ! Vous avez trouvé tous les objets de la cuisine ! 🎉";
+            statusEl.className = "status-message status-success";
+        } else {
+            statusEl.innerText = "Il y a des erreurs dans vos réponses (cases en rouge).";
+            statusEl.className = "status-message status-error";
+        }
+    }
+
+    function recommencer() {
+        inputs.forEach(input => {
+            input.value = '';
+            input.style.backgroundColor = 'white';
+            input.style.borderColor = '#cbd5e1';
+        });
+        statusEl.style.display = 'none';
+        melangerBanqueDeMots();
+    }
+
+    function afficherSolution() {
+        inputs.forEach(input => {
+            input.value = input.dataset.display;
+            input.style.backgroundColor = '#e3f2fd'; 
+            input.style.borderColor = '#2196f3';
+        });
+        statusEl.innerText = "Le corrigé a été appliqué.";
+        statusEl.className = "status-message status-success";
+    }
+
+    // Mélange automatique à l'ouverture de la page
+    window.addEventListener('DOMContentLoaded', () => {
+        melangerBanqueDeMots();
+    });
+</script>
+
+</body>
+</html>
