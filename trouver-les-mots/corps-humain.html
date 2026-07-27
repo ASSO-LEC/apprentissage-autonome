@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le corps humain</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .phrase {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        .num {
+            font-weight: bold;
+            color: #2980b9;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            padding: 5px 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 130px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            outline: none;
+            box-shadow: 0 0 5px rgba(41, 128, 185, 0.3);
+        }
+        .indication {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+        /* Classes de feedback appliquées par JS */
+        .correct {
+            border-color: #2ecc71 !important;
+            background-color: #e8f8f5;
+        }
+        .incorrect {
+            border-color: #e74c3c !important;
+            background-color: #fce4d6;
+        }
+        #resultat {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Le corps humain par JPJ</h1>
+    
+	
+    <p style="text-align: center; margin-bottom: 10px;">
+        <img src="imagech.jpg" alt="" style="width: 450px; height: auto;">
+    </p>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    <div id="exercice">
+        <!-- Phrase 1 -->
+        <div class="phrase">
+            <span class="num">1.</span> Les <input type="text" data-ans="cheveux"> <span class="indication"></span> . 
+       
+            <span class="num">2.</span> Le <input type="text" data-ans="front"> <span class="indication"></span> .
+        
+            <span class="num">3.</span> Les <input type="text" data-ans="sourcils"> <span class="indication"></span>. <br>
+       
+            <span class="num">4.</span> Les <input type="text" data-ans="cils"> <span class="indication"></span>. 
+        
+            <span class="num">5.</span> L'  <input type="text" data-ans="oeil"> <span class="indication"></span> . 
+       
+            <span class="num">6.</span> L' <input type="text" data-ans="oreille">. <br> 
+       
+            <span class="num">7.</span> Le  <input type="text" data-ans="nez"> <span class="indication"></span>. 
+        
+            <span class="num">8.</span> La  <input type="text" data-ans="joue"> <span class="indication"></span>. 
+        
+            <span class="num">9.</span> La  <input type="text" data-ans="bouche"> <span class="indication"></span>. <br>
+        
+            <span class="num">10.</span> Le  <input type="text" data-ans="cou"> <span class="indication"></span>. 
+        
+            <span class="num">11.</span> Les  <input type="text" data-ans="épaules"> <span class="indication"></span>. 
+       
+            <span class="num">12.</span> Le  <input type="text" data-ans="bras"> <span class="indication"></span>. <br>
+        
+            <span class="num">13.</span> Articulation au bras = le  <input type="text" data-ans="coude"> <span class="indication"></span>.
+        
+			<span class="num">14.</span> La  <input type="text" data-ans="main"> <span class="indication"></span>. <br>
+		
+			<span class="num">15.</span> Articulation entre le bras et la main = le  <input type="text" data-ans="poignet"> <span class="indication"></span>. 
+		
+			<span class="num">16.</span> La  <input type="text" data-ans="jambe"> <span class="indication"></span>. <br>
+			
+			<span class="num">17.</span> Articulation sur la jambe = le  <input type="text" data-ans="genou"> <span class="indication"></span>. <br>
+			
+			<span class="num">18.</span> Articulation entre la jambre et le pied = la  <input type="text" data-ans="cheville"> <span class="indication"></span>. <br>
+			
+			<span class="num">19.</span> Le  <input type="text" data-ans="pied"> <span class="indication"></span>. 
+			
+			<span class="num">20.</span> Le  <input type="text" data-ans="ventre"> <span class="indication"></span>. 
+			
+			<span class="num">21.</span> Les  <input type="text" data-ans="doigts"> <span class="indication"></span>. <br>
+		
+		
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+    </div>
+
+    <div class="btn-container">
+        <button onclick="verifierReponses()">Vérifier mes réponses par JPJ</button>
+    </div>
+    
+    <div id="resultat"></div>
+</div>
+
+<script>
+function verifierReponses() {
+    // Sélectionne tous les champs de saisie (inputs)
+    const inputs = document.querySelectorAll('#exercice input[type="text"]');
+    let score = 0;
+    const total = inputs.length;
+
+    inputs.forEach(input => {
+        // On récupère la réponse de l'utilisateur (en minuscules et sans espaces inutiles)
+        const repUtilisateur = input.value.trim().toLowerCase();
+        
+        // On récupère la ou les bonnes réponses possibles (séparées par une virgule pour le verbe essayer)
+        const bonnesReponses = input.getAttribute('data-ans').split(',');
+
+        // On vérifie si la réponse de l'utilisateur correspond à l'une des bonnes réponses
+        if (bonnesReponses.includes(repUtilisateur)) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    // Affichage du score final
+    const affichageResultat = document.getElementById('resultat');
+    affichageResultat.innerHTML = `Votre score : ${score} / ${total}`;
+    
+    if (score === total) {
+        affichageResultat.style.color = '#2ecc71';
+        affichageResultat.innerHTML += " - Sans faute ! Bravo ! 🎉";
+    } else if (score >= total / 2) {
+        affichageResultat.style.color = '#e67e22';
+        affichageResultat.innerHTML += " - Pas mal, mais vous pouvez faire mieux ! 👍";
+    } else {
+        affichageResultat.style.color = '#e74c3c';
+        affichageResultat.innerHTML += " - Révisez bien la leçon et réessayez ! 📚";
+    }
+}
+</script>
+<script src="../../securite.js"></script>
+</body>
+</html>
