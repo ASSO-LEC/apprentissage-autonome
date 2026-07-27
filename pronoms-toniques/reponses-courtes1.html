@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réponses courtes Moi aussi, Moi non plus, Pas moi, Moi si</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #2c3e50;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3182ce;
+            padding-bottom: 10px;
+        }
+        
+        /* REGLE DU JEU */
+        .memento {
+            background-color: #fefcbf;
+            border-left: 5px solid #d69e2e;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+        }
+        .rule-box {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .jeu-card {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .jeu-card h2 {
+            margin-top: 0;
+            color: #2b6cb0;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ligne {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            gap: 10px;
+        }
+        .enonce {
+            font-weight: 500;
+            flex: 1;
+        }
+
+        select {
+            padding: 6px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+            background-color: #fff;
+            transition: all 0.2s;
+        }
+
+        .correct {
+            border-color: #38a169 !important;
+            background-color: #c6f6d5 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .incorrect {
+            border-color: #e53e3e !important;
+            background-color: #fed7d7 !important;
+            color: #742a2a;
+        }
+
+        .btn-zone {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-check { background-color: #3182ce; color: white; }
+        .btn-check:hover { background-color: #2b6cb0; }
+        .btn-reset { background-color: #e2e8f0; color: #4a5568; }
+        .btn-reset:hover { background-color: #cbd5e1; }
+
+        .score-display {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎮 Réagir en Français : Moi aussi, Moi non plus</h1>
+
+    <!-- RAPPEL DES REGLES -->
+    <div class="memento">
+        <h3 style="margin-top:0;">💡 Rappel des Règles :</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+            <div class="rule-box"><strong>D'accord (+) :</strong><br>« J'aime le chocolat. »<br>➜ <b>Moi aussi !</b></div>
+            <div class="rule-box"><strong>D'accord (-) :</strong><br>« Je n'aime pas le café. »<br>➜ <b>Moi non plus !</b></div>
+        </div>
+    </div>
+
+    <!-- JEU 1 : L'ACCORD (Moi aussi / Moi non plus) -->
+    <div class="jeu-card" id="jeu1">
+        <h2>🤝 Être D'ACCORD (Choisissez entre "Moi aussi" et "Moi non plus")</h2>
+        
+        <div class="questions-container">
+            <div class="ligne"><span class="enonce">« J'adore voyager en été. »</span> <select data-ans="Moi aussi"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+            <div class="ligne"><span class="enonce">« Je ne regarde jamais la télévision. »</span> <select data-ans="Moi non plus"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+            <div class="ligne"><span class="enonce">« J'ai un chien à la maison. »</span> <select data-ans="Moi aussi"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+            <div class="ligne"><span class="enonce">« Je n'aime pas le bruit. »</span> <select data-ans="Moi non plus"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+            <div class="ligne"><span class="enonce">« Je parle français et anglais. »</span> <select data-ans="Moi aussi"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+            <div class="ligne"><span class="enonce">« Je ne prends pas de sucre dans le café. »</span> <select data-ans="Moi non plus"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+            <div class="ligne"><span class="enonce">« Je suis très fatigué ce soir. »</span> <select data-ans="Moi aussi"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+            <div class="ligne"><span class="enonce">« Je n'habite pas loin d'ici. »</span> <select data-ans="Moi non plus"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+            <div class="ligne"><span class="enonce">« J'aime cuisiner le dimanche. »</span> <select data-ans="Moi aussi"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+            <div class="ligne"><span class="enonce">« Je ne veux pas sortir ce soir. »</span> <select data-ans="Moi non plus"><option value="">-- Répondre --</option><option value="Moi aussi">Moi aussi</option><option value="Moi non plus">Moi non plus</option></select></div>
+        </div>
+
+        <div class="btn-zone">
+            <button class="btn-check" onclick="verifier('jeu1')">Vérifier par JPJ</button>
+            <button class="btn-reset" onclick="effacerEtMelanger('jeu1')">Recommencer & Mélanger</button>
+        </div>
+        <div class="score-display"></div>
+    </div>
+
+   
+</div>
+
+<!-- SCRIPT DE JAVASCRIPT ET MELANGE ALEATOIRE -->
+<script>
+// Algorithme de mélange des questions (Fisher-Yates)
+function melangerQuestions(cardId) {
+    const container = document.querySelector(`#${cardId} .questions-container`);
+    if (!container) return;
+    
+    const elements = Array.from(container.children);
+    for (let i = elements.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [elements[i], elements[j]] = [elements[j], elements[i]];
+    }
+    
+    // Réinsérer dans le DOM dans le nouvel ordre
+    elements.forEach(elem => container.appendChild(elem));
+}
+
+// Mélanger tous les jeux dès le chargement de la page
+window.addEventListener('DOMContentLoaded', () => {
+    ['jeu1', 'jeu2', 'jeu3', 'jeu4'].forEach(id => melangerQuestions(id));
+});
+
+function verifier(cardId) {
+    const card = document.getElementById(cardId);
+    const selects = card.querySelectorAll('select');
+    let score = 0;
+
+    selects.forEach(select => {
+        const reponseAttendue = select.getAttribute('data-ans');
+        const valSaisie = select.value;
+
+        if (valSaisie === reponseAttendue) {
+            select.className = 'correct';
+            score++;
+        } else {
+            select.className = 'incorrect';
+        }
+    });
+
+    const display = card.querySelector('.score-display');
+    display.textContent = `Score : ${score} / ${selects.length}`;
+    display.style.color = score === selects.length ? '#27ae60' : '#e74c3c';
+}
+
+function effacerEtMelanger(cardId) {
+    const card = document.getElementById(cardId);
+    const selects = card.querySelectorAll('select');
+
+    selects.forEach(s => { s.value = ''; s.className = ''; });
+
+    const display = card.querySelector('.score-display');
+    display.textContent = '';
+
+    // Mélanger à nouveau les questions
+    melangerQuestions(cardId);
+}
+</script>
+
+</body>
+</html>
