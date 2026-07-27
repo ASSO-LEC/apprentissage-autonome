@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONJUGAISON - Futur des verbes réguliers du 1er et 2ème groupe</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #2c3e50;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        /* ENTÊTE DE LA FICHE ORIGINALE */
+        .header-fiche {
+            border: 2px solid #2c3e50;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e2e8f0;
+            padding: 10px 15px;
+            border-bottom: 2px solid #2c3e50;
+            font-weight: bold;
+        }
+        .header-title {
+            font-size: 1.2rem;
+            color: #1a202c;
+        }
+        .header-sub {
+            padding: 8px 15px;
+            background-color: #f8fafc;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        .header-indic {
+            padding: 8px 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2b6cb0;
+        }
+
+        /* TABS POUR SÉPARER OU TOUT AFFICHER */
+        .grp-title {
+            background-color: #3182ce;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ligne {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            padding: 10px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            gap: 12px;
+            font-size: 1rem;
+        }
+        .verbe-tag {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #bee3f8;
+            min-width: 100px;
+            text-align: center;
+        }
+        .enonce {
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        input[type="text"] {
+            padding: 6px 10px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+            text-align: center;
+            font-weight: bold;
+        }
+        input[type="text"]:focus {
+            border-color: #3182ce;
+        }
+
+        .correct {
+            border-color: #38a169 !important;
+            background-color: #c6f6d5 !important;
+            color: #22543d;
+        }
+        .incorrect {
+            border-color: #e53e3e !important;
+            background-color: #fed7d7 !important;
+            color: #742a2a;
+        }
+
+        .btn-zone {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-check { background-color: #3182ce; color: white; }
+        .btn-check:hover { background-color: #2b6cb0; }
+        .btn-reset { background-color: #e2e8f0; color: #4a5568; }
+        .btn-reset:hover { background-color: #cbd5e1; }
+
+        .score-display {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- EN-TÊTE CONFORME À LA FICHE -->
+    <div class="header-fiche">
+        <div class="header-top">
+            <span class="header-title">CONJUGAISON : Futur des verbes réguliers du 1er et du 2ème groupe</span>
+            <span>Fiche N° 1</span>
+        </div>
+        <div class="header-sub">Connaître et conjuguer les verbes les plus courants</div>
+        <div class="header-indic">Plus tard... Demain...</div>
+    </div>
+
+    <!-- ZONE DE QUESTIONS (TOUTES LES PHRASES DE LA FICHE) -->
+    <div id="exercice">
+        <div class="questions-container" id="container-questions">
+            
+            <!-- 1ER GROUPE -->
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">regarder</span>
+                <span class="enonce">Il <input type="text" data-ans="regardera" size="12"> le match à la télé.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">chercher</span>
+                <span class="enonce">Je <input type="text" data-ans="chercherai" size="12"> une idée de cadeau.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">arriver</span>
+                <span class="enonce">Vous <input type="text" data-ans="arriverez" size="12"> à 17h00.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">passer</span>
+                <span class="enonce">Elles <input type="text" data-ans="passeront" size="12"> une visite médicale.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">porter</span>
+                <span class="enonce">Victor <input type="text" data-ans="portera" size="12"> un pantalon.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">rester</span>
+                <span class="enonce">Tu <input type="text" data-ans="resteras" size="12"> chez toi.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">demander</span>
+                <span class="enonce">Je <input type="text" data-ans="demanderai" size="12"> un congé au patron.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">donner</span>
+                <span class="enonce">Vous <input type="text" data-ans="donnerez" size="12"> à manger au chat.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">rencontrer</span>
+                <span class="enonce">Nous <input type="text" data-ans="rencontrerons" size="12"> sa femme.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">travailler</span>
+                <span class="enonce">Les enfants <input type="text" data-ans="travailleront" size="12"> mieux.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">rentrer</span>
+                <span class="enonce">Nous <input type="text" data-ans="rentrerons" size="12"> chez nous.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">penser</span>
+                <span class="enonce">On <input type="text" data-ans="pensera" size="12"> à lui.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">présenter</span>
+                <span class="enonce">Tu <input type="text" data-ans="présenteras,presenteras" size="12"> ton devoir.</span>
+            </div>
+            <div class="ligne" data-grp="1">
+                <span class="verbe-tag">montrer</span>
+                <span class="enonce">Chaque enfant <input type="text" data-ans="montrera" size="12"> son dessin.</span>
+            </div>
+
+            <!-- 2EME GROUPE -->
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">réussir</span>
+                <span class="enonce">Tu <input type="text" data-ans="réussiras,reussiras" size="12"> ton examen.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">applaudir</span>
+                <span class="enonce">Vous <input type="text" data-ans="applaudirez" size="12"> le chanteur.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">garnir</span>
+                <span class="enonce">Nous <input type="text" data-ans="garnirons" size="12"> cette tarte.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">blanchir</span>
+                <span class="enonce">Tu <input type="text" data-ans="blanchiras" size="12"> ce linge.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">choisir</span>
+                <span class="enonce">Ils <input type="text" data-ans="choisiront" size="12"> un avocat.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">réunir</span>
+                <span class="enonce">Je <input type="text" data-ans="réunirai,reunirai" size="12"> mes amis.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">finir</span>
+                <span class="enonce">Les chats <input type="text" data-ans="finiront" size="12"> leurs croquettes.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">vieillir</span>
+                <span class="enonce">Elle <input type="text" data-ans="vieillira" size="12"> comme tout le monde.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">établir</span>
+                <span class="enonce">On <input type="text" data-ans="établira,etablira" size="12"> un devis.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">remplir</span>
+                <span class="enonce">Nous <input type="text" data-ans="remplirons" size="12"> la citerne.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">punir</span>
+                <span class="enonce">Marie <input type="text" data-ans="punira" size="12"> son fils.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">maigrir</span>
+                <span class="enonce">Je <input type="text" data-ans="maigrirai" size="12">.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">grossir</span>
+                <span class="enonce">Vous <input type="text" data-ans="grossirez" size="12">.</span>
+            </div>
+            <div class="ligne" data-grp="2">
+                <span class="verbe-tag">obéir</span>
+                <span class="enonce">On <input type="text" data-ans="obéira,obeira" size="12"> au maître.</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOUTONS D'ACTION -->
+    <div class="btn-zone">
+        <button class="btn-check" onclick="verifier()">Vérifier mes réponses</button>
+        <button class="btn-reset" onclick="effacerEtMelanger()">Recommencer & Mélanger</button>
+    </div>
+    <div class="score-display" id="score"></div>
+
+</div>
+
+<script>
+// Algorithme de mélange (Fisher-Yates)
+function melangerQuestions() {
+    const container = document.getElementById('container-questions');
+    const elements = Array.from(container.children);
+    
+    for (let i = elements.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [elements[i], elements[j]] = [elements[j], elements[i]];
+    }
+    
+    elements.forEach(elem => container.appendChild(elem));
+}
+
+// Mélanger au chargement de la page
+window.addEventListener('DOMContentLoaded', () => {
+    melangerQuestions();
+});
+
+// Vérification des réponses
+function verifier() {
+    const inputs = document.querySelectorAll('#container-questions input[type="text"]');
+    let score = 0;
+
+    inputs.forEach(input => {
+        const reponsesAcceptees = input.getAttribute('data-ans').split(',');
+        const valSaisie = input.value.trim().toLowerCase();
+
+        if (reponsesAcceptees.includes(valSaisie)) {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const display = document.getElementById('score');
+    display.textContent = `Score : ${score} / ${inputs.length}`;
+    display.style.color = score === inputs.length ? '#27ae60' : '#e74c3c';
+}
+
+// Recommencer et Mélanger à nouveau
+function effacerEtMelanger() {
+    const inputs = document.querySelectorAll('#container-questions input[type="text"]');
+    inputs.forEach(i => { i.value = ''; i.className = ''; });
+
+    const display = document.getElementById('score');
+    display.textContent = '';
+
+    melangerQuestions();
+}
+</script>
+
+</body>
+</html>
