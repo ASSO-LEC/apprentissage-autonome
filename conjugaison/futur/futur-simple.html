@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interactif - Le Futur Simple</title>
+    <style>
+        :root {
+            --primary: #3182ce;
+            --success: #2ecc71;
+            --error: #e74c3c;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: #2c3e50;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .quiz-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+
+        .instructions {
+            text-align: center;
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .question-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 15px;
+            line-height: 2.2;
+            font-size: 1.05rem;
+        }
+
+        input[type="text"] {
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2d3748;
+            outline: none;
+            transition: all 0.2s ease;
+            width: 140px;
+            text-align: center;
+            margin: 0 4px;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+        }
+
+        input.correct {
+            border-color: var(--success) !important;
+            background-color: #e8f8f0 !important;
+            color: #27ae60 !important;
+        }
+
+        input.incorrect {
+            border-color: var(--error) !important;
+            background-color: #fdeaea !important;
+            color: #c0392b !important;
+        }
+
+        .verb-hint {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.1s, background-color 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-check {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-check:hover {
+            background-color: #2b6cb0;
+        }
+
+        .btn-reset {
+            background-color: #718096;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background-color: #4a5568;
+        }
+
+        #score-board {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .score-good {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .score-bad {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>📝 Le Futur Simple</h1>
+    <div class="instructions">
+        Conjuguez les verbes entre parenthèses au <strong>futur simple</strong>.
+    </div>
+
+    <div id="quiz-list"></div>
+
+    <div class="controls">
+        <button class="btn btn-check" onclick="validerQuiz()">Vérifier mes réponses</button>
+        <button class="btn btn-reset" onclick="reinitialiserQuiz()">Recommencer (Mélanger)</button>
+    </div>
+
+    <div id="score-board"></div>
+</div>
+
+<script>
+// Données de l'exercice avec la liste des verbes et leurs réponses acceptées
+const exercices = [
+    {
+        html: "Tu {0} <span class='verb-hint'>[arriver]</span> chez moi vers quelle heure ce soir ? Je pense que je {1} <span class='verb-hint'>[pouvoir]</span> être là vers 20h. J' {2} <span class='verb-hint'>[acheter]</span> un dessert à la boulangerie avant d'arriver.",
+        reponses: [["arriveras"], ["pourrai"], ["achèterai", "achèterai"]]
+    },
+    {
+        html: "Vous {0} <span class='verb-hint'>[aller]</span> au mariage de Thomas et Julie le week-end prochain ? Oui, nous {1} <span class='verb-hint'>[rester]</span> tout le week-end là-bas.",
+        reponses: [["irez"], ["resterons"]]
+    },
+    {
+        html: "Demain matin, nous {0} <span class='verb-hint'>[envoyer]</span> le chèque du loyer parce que le propriétaire {1} <span class='verb-hint'>[être]</span> très mécontent s'il ne le reçoit pas avant le 5.",
+        reponses: [["enverrons"], ["sera"]]
+    },
+    {
+        html: "Tu {0} <span class='verb-hint'>[prendre]</span> un dessert ? Non merci, mais je {1} <span class='verb-hint'>[boire]</span> un café.",
+        reponses: [["prendras"], ["boirai"]]
+    },
+    {
+        html: "À partir de septembre, les enfants {0} <span class='verb-hint'>[devoir]</span> manger à la cantine le midi et ils {1} <span class='verb-hint'>[rester]</span> aussi à l'étude le soir parce que je {2} <span class='verb-hint'>[sortir]</span> du travail trop tard pour aller les chercher à 16h.",
+        reponses: [["devront"], ["resteront"], ["sortirai"]]
+    },
+    {
+        html: "Et toi, tu {0} <span class='verb-hint'>[faire]</span> quoi pour les prochaines vacances ?",
+        reponses: [["feras"]]
+    },
+    {
+        html: "J' {0} <span class='verb-hint'>[aller]</span> chez mon grand-père qui habite dans le sud de la France. Mon frère {1} <span class='verb-hint'>[venir]</span> certainement avec moi et nous {2} <span class='verb-hint'>[profiter]</span> de la piscine et nous {3} <span class='verb-hint'>[se baigner]</span> dans la mer. Nous {4} <span class='verb-hint'>[déjeuner]</span> dans notre restaurant préféré. Je pense que, la deuxième semaine, ma mère nous {5} <span class='verb-hint'>[rejoindre]</span>. Elle {6} <span class='verb-hint'>[pouvoir]</span> prendre des vacances en même temps que nous. Mon grand-père {7} <span class='verb-hint'>[être]</span> ravi parce qu'il {8} <span class='verb-hint'>[voir]</span> toute la famille réunie.",
+        reponses: [
+            ["irai"], 
+            ["viendra"], 
+            ["profiterons"], 
+            ["nous baignerons", "se baignera"], 
+            ["déjeunerons"], 
+            ["rejoindra"], 
+            ["pourra"], 
+            ["sera"], 
+            ["verra"]
+        ]
+    },
+    {
+        html: "Nous {0} <span class='verb-hint'>[passer]</span> deux semaines chez lui puis, nous {1} <span class='verb-hint'>[partir]</span> chez ma grand-mère. Là-bas, il y {2} <span class='verb-hint'>[avoir]</span> mes cousins. Ils nous {3} <span class='verb-hint'>[attendre]</span> sûrement pour organiser le « pique-nique de l'été ».",
+        reponses: [["passerons"], ["partirons"], ["aura"], ["attendront"]]
+    },
+    {
+        html: "Vous {0} <span class='verb-hint'>[essayer]</span> le parachutisme là-bas ? Vous {1} <span class='verb-hint'>[courir]</span> tous les matins le long du front de mer ? Avec un peu de chance, il ne {2} <span class='verb-hint'>[pleuvoir]</span> pas des vacances !",
+        reponses: [["essayerez", "essaiererez"], ["courrez"], ["pleuvra"]]
+    }
+];
+
+let exercicesCourants = [];
+
+// Fonction pour mélanger les phrases
+function melangerTableau(array) {
+    let copy = [...array];
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+}
+
+// Générer le HTML dynamique
+function afficherQuiz() {
+    const container = document.getElementById('quiz-list');
+    container.innerHTML = '';
+    
+    // Mélange des phrases
+    exercicesCourants = melangerTableau(exercices);
+
+    exercicesCourants.forEach((ex, exIndex) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+
+        let contenu = ex.html;
+        ex.reponses.forEach((_, repIndex) => {
+            const inputHtml = `<input type="text" data-ex="${exIndex}" data-rep="${repIndex}" autocomplete="off" spellcheck="false">`;
+            contenu = contenu.replace(`{${repIndex}}`, inputHtml);
+        });
+
+        card.innerHTML = contenu;
+        container.appendChild(card);
+    });
+}
+
+// Fonction de vérification
+function validerQuiz() {
+    let totalQuestions = 0;
+    let bonnesReponses = 0;
+
+    const inputs = document.querySelectorAll('input[type="text"]');
+    
+    inputs.forEach(input => {
+        totalQuestions++;
+        const exIndex = parseInt(input.getAttribute('data-ex'));
+        const repIndex = parseInt(input.getAttribute('data-rep'));
+        
+        const reponseSaisie = input.value.trim().toLowerCase();
+        const reponsesAttendues = exercicesCourants[exIndex].reponses[repIndex].map(r => r.toLowerCase());
+
+        if (reponsesAttendues.includes(reponseSaisie)) {
+            input.className = 'correct';
+            bonnesReponses++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    // Affichage du score
+    const scoreBoard = document.getElementById('score-board');
+    scoreBoard.style.display = 'block';
+    
+    const pourcentage = Math.round((bonnesReponses / totalQuestions) * 100);
+    scoreBoard.innerHTML = `Résultat : ${bonnesReponses} / ${totalQuestions} bonnes réponses (${pourcentage}%)`;
+    
+    if (pourcentage >= 75) {
+        scoreBoard.className = 'score-good';
+    } else {
+        scoreBoard.className = 'score-bad';
+    }
+}
+
+// Réinitialisation
+function reinitialiserQuiz() {
+    document.getElementById('score-board').style.display = 'none';
+    afficherQuiz();
+}
+
+// Lancement au chargement de la page
+window.onload = afficherQuiz;
+</script>
+
+</body>
+</html>
