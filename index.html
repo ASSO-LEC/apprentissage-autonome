@@ -439,38 +439,38 @@
         </details>
     </div>
 
-<!-- ==================== BON À SAVOIR & TESTS ==================== -->
-    <div class="bloc-thematique element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2" style="border-color: #f39c12;">
+    <!-- ==================== 5. BON À SAVOIR & TESTS (RESERVÉ À "TOUT VOIR") ==================== -->
+    <div class="bloc-thematique element-niveau niveau-all-only" style="border-color: #f39c12; background-color: #fffcf8;">
         <h2>💡 Bon à savoir & Tests de niveau</h2>
 
         <!-- Dossier Bon à savoir -->
-        <details class="element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2">
+        <details class="element-niveau niveau-all-only">
             <summary>📌 Bon à savoir (Documents & Ressources)</summary>
             <div class="grid-boutons">
-                <a class="btn element-niveau niveau-a0 niveau-a1" href="bon-a-savoir/borel-maisonny.pdf" target="_blank">📄 Borel-Maisonny (PDF)</a>
-                <a class="btn element-niveau niveau-a0 niveau-a1 niveau-a2" href="bon-a-savoir/les-six-niveaux-du-cecrl.html">🌐 Les 6 niveaux du CECRL</a>
-                <a class="btn element-niveau niveau-a0" href="bon-a-savoir/omep-1.pdf" target="_blank">📄 OMEP 1 (PDF)</a>
-                <a class="btn element-niveau niveau-a0" href="bon-a-savoir/omep-2.pdf" target="_blank">📄 OMEP 2 (PDF)</a>
-                <a class="btn element-niveau niveau-a0" href="bon-a-savoir/omep-3.pdf" target="_blank">📄 OMEP 3 (PDF)</a>
-                <a class="btn element-niveau niveau-a0 niveau-a1" href="bon-a-savoir/vocabulaire-par-niveau.pdf" target="_blank">📄 Vocabulaire par niveau (PDF)</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/borel-maisonny.pdf" target="_blank">📄 Borel-Maisonny (PDF)</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/les-six-niveaux-du-cecrl.html">🌐 Les 6 niveaux du CECRL</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/omep-1.pdf" target="_blank">📄 OMEP 1 (PDF)</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/omep-2.pdf" target="_blank">📄 OMEP 2 (PDF)</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/omep-3.pdf" target="_blank">📄 OMEP 3 (PDF)</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/vocabulaire-par-niveau.pdf" target="_blank">📄 Vocabulaire par niveau (PDF)</a>
             </div>
         </details>
 
         <!-- Dossier Tests de niveau -->
-        <details class="element-niveau niveau-a1 niveau-a2 niveau-b1b2">
+        <details class="element-niveau niveau-all-only">
             <summary>📝 Tests de niveaux</summary>
             <div class="grid-boutons">
-                <a class="btn element-niveau niveau-a1" href="tests-de-niveaux/quiz-avec-image-et-son-avec-trous-et-reponses.html">🎧 Quiz Image & Son</a>
-                <a class="btn element-niveau niveau-a1 niveau-a2" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-25-questions-complet.html">📝 Test A1 vers A2 (25 Qs)</a>
-                <a class="btn element-niveau niveau-a1 niveau-a2" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-5-questions.html">📝 Test A1 vers A2 (5 Qs)</a>
-                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="tests-de-niveaux/test-de-niveau-a2-vers-b1-40-questions-complet.html">📝 Test A2 vers B1 (40 Qs)</a>
+                <a class="btn element-niveau niveau-all-only" href="tests-de-niveaux/quiz-avec-image-et-son-avec-trous-et-reponses.html">🎧 Quiz Image & Son</a>
+                <a class="btn element-niveau niveau-all-only" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-25-questions-complet.html">📝 Test A1 vers A2 (25 Qs)</a>
+                <a class="btn element-niveau niveau-all-only" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-5-questions.html">📝 Test A1 vers A2 (5 Qs)</a>
+                <a class="btn element-niveau niveau-all-only" href="tests-de-niveaux/test-de-niveau-a2-vers-b1-40-questions-complet.html">📝 Test A2 vers B1 (40 Qs)</a>
             </div>
         </details>
     </div>
     
 </div>
 
-<!-- SCRIPT JS DE FILTRAGE -->
+<!-- SCRIPT JS DE FILTRAGE PAR NIVEAU -->
 <script>
 function filtrerNiveau(codeNiveau) {
     const tousLesBoutons = document.querySelectorAll('.card-niveau');
@@ -483,9 +483,15 @@ function filtrerNiveau(codeNiveau) {
 
     tousLesElements.forEach(elem => {
         if (codeNiveau === 'all') {
+            // "Tout Voir" affiche TOUT (y compris niveau-all-only)
             elem.classList.remove('masque');
         } else {
-            if (elem.classList.contains('niveau-' + codeNiveau)) {
+            // Si l'élément est réservé à "Tout Voir", on le masque
+            if (elem.classList.contains('niveau-all-only')) {
+                elem.classList.add('masque');
+            } 
+            // Sinon, on vérifie s'il possède la classe du niveau sélectionné (a0, a1, a2, b1b2)
+            else if (elem.classList.contains('niveau-' + codeNiveau)) {
                 elem.classList.remove('masque');
             } else {
                 elem.classList.add('masque');
