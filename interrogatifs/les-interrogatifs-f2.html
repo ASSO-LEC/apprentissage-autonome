@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Interrogatifs</title>
+    <style>
+        :root {
+            --primary: #2b5c8f;
+            --primary-light: #eef4fc;
+            --success: #2e7d32;
+            --success-bg: #e8f5e9;
+            --error: #c62828;
+            --error-bg: #ffebee;
+            --text: #2c3e50;
+            --bg: #fafbfc;
+            --border: #dcdde1;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #1a365d);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid #0f2340;
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .instructions {
+            background-color: white;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .instructions h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .control-panel {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        button.btn-secondary {
+            background-color: #636e72;
+        }
+
+        button.btn-success {
+            background-color: var(--success);
+        }
+
+        .score-box {
+            background-color: var(--primary-light);
+            border: 1px solid #bfdbfe;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: none;
+            text-align: center;
+        }
+
+        .quiz-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .question-card {
+            background-color: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .question-text .gap {
+            border-bottom: 2px dashed var(--primary);
+            padding: 0 15px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            border: 1px solid var(--border);
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.15s, border-color 0.15s;
+            font-size: 1rem;
+        }
+
+        .option-label:hover {
+            background-color: #f1f2f6;
+            border-color: #b2bec3;
+        }
+
+        .option-label input {
+            margin-right: 10px;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        /* Feedback Styles */
+        .question-card.correct {
+            border-color: var(--success);
+            background-color: var(--success-bg);
+        }
+
+        .question-card.incorrect {
+            border-color: var(--error);
+            background-color: var(--error-bg);
+        }
+
+        .feedback-explanation {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            display: none;
+            border: 1px solid transparent;
+        }
+
+        .question-card.correct .feedback-explanation {
+            display: block;
+            background-color: #e8f5e9;
+            color: #1b5e20;
+            border-color: #c8e6c9;
+        }
+
+        .question-card.incorrect .feedback-explanation {
+            display: block;
+            background-color: #ffebee;
+            color: #b71c1c;
+            border-color: #ffcdd2;
+        }
+
+        /* Impression */
+        @media print {
+            body {
+                background-color: white;
+                color: black;
+            }
+            .no-print, header, .control-panel, .score-box {
+                display: none !important;
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .question-card {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+                box-shadow: none;
+                margin-bottom: 15px;
+                background-color: white !important;
+            }
+            .options-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .option-label {
+                background-color: white !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+
+        /* Panneau Enseignant */
+        .answer-key-section {
+            margin-top: 40px;
+            background-color: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .answer-key-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .key-item {
+            padding: 8px;
+            background-color: #f1f2f6;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .key-item span {
+            font-weight: bold;
+            color: var(--success);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Les Interrogatifs feuille 2</h1>
+        <p>Entraînez-vous à utiliser : <strong>Qui, Où, Quand, Pourquoi, Comment, Combien</strong></p>
+    </header>
+
+    <div class="container">
+        
+        <div class="instructions no-print">
+            <h2>Consignes pour les apprenants :</h2>
+            <p>Complétez chaque phrase en choisissant le bon pronom ou adjectif interrogatif. Une seule réponse est correcte.</p>
+            <ul>
+                <li><strong>Qui :</strong> pose une question sur l'identité d'une personne.</li>
+                <li><strong>Où :</strong> demande le lieu ou la destination.</li>
+                <li><strong>Quand :</strong> demande le moment, la date ou l'heure.</li>
+                <li><strong>Pourquoi :</strong> cherche la cause, la raison (réponse souvent par "parce que").</li>
+                <li><strong>Comment :</strong> demande la manière, le moyen ou l'état.</li>
+                <li><strong>Combien :</strong> demande une quantité ou un prix.</li>
+            </ul>
+        </div>
+
+        <div class="control-panel no-print">
+            <button onclick="checkAnswers()" class="btn-success">Corriger mes réponses par JPJ <BR> AVEC EXPLICATIONS DES ERREURS<BR></button>
+            <button onclick="resetQuiz()" class="btn-secondary">Réinitialiser le test</button>
+            <button onclick="window.print()" class="btn-secondary">Imprimer / Sauvegarder PDF</button>
+        </div>
+
+        <div id="scoreBox" class="score-box"></div>
+
+        <form id="quizForm" onsubmit="event.preventDefault();">
+            <div class="quiz-list" id="quizList">
+                <!-- Les questions s'affichent ici dynamiquement -->
+            </div>
+        </form>
+
+        <!-- Solutions Enseignant -->
+        <div class="answer-key-section no-print">
+            <h2>Feuille de Réponses (Enseignant)</h2>
+            <p>Visualisez ou masquez le corrigé complet en un clic.</p>
+            <button onclick="toggleAnswerKey()" class="btn-secondary">Afficher / Masquer les solutions <BR> sans explication <br></button>
+            <div id="answerKeyContainer" class="answer-key-grid" style="display: none;">
+                <!-- Les solutions s'affichent ici -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Tableau de données de vos questions
+        const questions = [
+			{ id: 1, text: "___ as-tu allumé la lumière en plein jour ?", options: ["Pourquoi", "Combien", "Quand", "Qui"], ans: "Pourquoi", exp: "On s'interroge sur la raison de cette action." },
+            { id: 2, text: "___ se fait-il que tu ne sois pas encore prêt ?", options: ["Comment", "O\u00f9", "Quand", "Qui"], ans: "Comment", exp: "Locution figée 'Comment se fait-il'." },
+            { id: 3, text: "___ poussent ces magnifiques fleurs bleues ?", options: ["O\u00f9", "Combien", "Quand", "Pourquoi"], ans: "Où", exp: "On demande le lieu de croissance." },
+            { id: 4, text: "___ ne manges-tu pas ton assiette ? Tu es malade ?", options: ["Pourquoi", "Quand", "Combien", "Qui"], ans: "Pourquoi", exp: "On demande la raison du manque d'appétit." },
+            { id: 5, text: "___ la boulangerie est-elle fermée un mardi ?", options: ["Pourquoi", "Comment", "O\u00f9", "Quand"], ans: "Pourquoi", exp: "On cherche l'explication." },
+            { id: 6, text: "___ de litres de lait reste-t-il dans le frigo ?", options: ["Combien", "O\u00f9", "Pourquoi", "Comment"], ans: "Combien", exp: "On demande la quantité restante." },
+            { id: 7, text: "___ est la fête nationale en France ?", options: ["Quand", "O\u00f9", "Comment", "Pourquoi"], ans: "Quand", exp: "On demande la date historique (14 juillet)." },
+            { id: 8, text: "___ de minutes as-tu attendu le bus numéro douze ?", options: ["Combien", "Pourquoi", "Comment", "Qui"], ans: "Combien", exp: "On demande la durée précise." },
+            { id: 9, text: "___ de temps faut-il pour aller à Lyon en train ?", options: ["Combien", "Comment", "O\u00f9", "Qui"], ans: "Combien", exp: "On demande une durée temporelle." },
+            { id: 10, text: "___ pourras-tu me rendre mon dictionnaire ?", options: ["Quand", "Comment", "O\u00f9", "Qui"], ans: "Quand", exp: "On demande le moment de la restitution." },
+            { id: 11, text: "___ prépare-t-on une vraie mousse au chocolat ?", options: ["Comment", "Qui", "O\u00f9", "Combien"], ans: "Comment", exp: "On demande la méthode / recette." },
+            { id: 12, text: "___ se trouve l'arrêt de bus le plus proche ?", options: ["O\u00f9", "Comment", "Pourquoi", "Qui"], ans: "Où", exp: "On cherche la localisation de l'arrêt." },
+            { id: 13, text: "___ as-tu garé ton vélo ce matin ?", options: ["O\u00f9", "Qui", "Pourquoi", "Comment"], ans: "Où", exp: "On demande l'endroit du stationnement." },
+            { id: 14, text: "___ de courriels reçois-tu quotidiennement au travail ?", options: ["Combien", "Pourquoi", "Quand", "O\u00f9"], ans: "Combien", exp: "On demande une quantité de courriels." },
+            { id: 15, text: "___ t'a offert ce magnifique livre de recettes ?", options: ["Qui", "O\u00f9", "Pourquoi", "Combien"], ans: "Qui", exp: "On s'informe sur l'identité du donateur." },
+            { id: 16, text: "___ d'espèces de fleurs as-tu plantées au jardin ?", options: ["Combien", "O\u00f9", "Quand", "Pourquoi"], ans: "Combien", exp: "On demande le nombre de variétés." },
+            { id: 17, text: "___ reverrons-nous nos vieux amis d'enfance ?", options: ["Quand", "Combien", "O\u00f9", "Pourquoi"], ans: "Quand", exp: "On s'interroge sur le moment des retrouvailles." },
+            { id: 18, text: "___ t'a prêté ce vélo rouge ?", options: ["Qui", "Pourquoi", "Comment", "O\u00f9"], ans: "Qui", exp: "On demande l'identité du prêteur." },
+            { id: 19, text: "___ de frères et sœurs as-tu dans ta famille ?", options: ["Combien", "Qui", "Quand", "Pourquoi"], ans: "Combien", exp: "On demande le nombre de frères/sœurs." },
+            { id: 20, text: "___ est programmée la prochaine éclipse de soleil ?", options: ["Quand", "O\u00f9", "Comment", "Pourquoi"], ans: "Quand", exp: "On s'informe sur la date." }
+
+		];
+
+        // Algorithme Fisher-Yates pour mélanger un tableau
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        // Chargement dynamique des questions
+        function loadQuiz() {
+            const quizList = document.getElementById('quizList');
+            quizList.innerHTML = "";
+
+            questions.forEach((q) => {
+                // Mélange dynamique des choix de réponse pour cette question
+                const mixedOptions = shuffle([...q.options]);
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `card-${q.id}`;
+
+                let optionsHTML = '';
+                mixedOptions.forEach(opt => {
+                    optionsHTML += `
+                        <label class="option-label">
+                            <input type="radio" name="q-${q.id}" value="${opt}">
+                            ${opt}
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <span class="question-number">Question ${q.id}</span>
+                    <div class="question-text">${q.text.replace("___", "<span class='gap'>...</span>")}</div>
+                    <div class="options-grid">
+                        ${optionsHTML}
+                    </div>
+                    <div class="feedback-explanation" id="feedback-${q.id}">
+                        <strong>Explication :</strong> ${q.exp} (Bonne réponse : <strong>${q.ans}</strong>)
+                    </div>
+                `;
+                quizList.appendChild(card);
+            });
+
+            generateAnswerKey();
+        }
+
+        // Vérification des réponses de l'étudiant
+        function checkAnswers() {
+            let score = 0;
+            const scoreBox = document.getElementById('scoreBox');
+
+            questions.forEach(q => {
+                const card = document.getElementById(`card-${q.id}`);
+                const selectedInput = document.querySelector(`input[name="q-${q.id}"]:checked`);
+                
+                card.classList.remove('correct', 'incorrect');
+
+                if (selectedInput) {
+                    if (selectedInput.value === q.ans) {
+                        score++;
+                        card.classList.add('correct');
+                    } else {
+                        card.classList.add('incorrect');
+                    }
+                } else {
+                    card.classList.add('incorrect');
+                }
+            });
+
+            scoreBox.style.display = 'block';
+            scoreBox.innerHTML = `Votre Score : ${score} / ${questions.length} (${Math.round((score / questions.length) * 100)}% de réussite)`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Remise à zéro
+        function resetQuiz() {
+            document.getElementById('quizForm').reset();
+            const cards = document.querySelectorAll('.question-card');
+            cards.forEach(card => card.classList.remove('correct', 'incorrect'));
+            document.getElementById('scoreBox').style.display = 'none';
+            loadQuiz(); // Mélange à nouveau les options pour une nouvelle session
+        }
+
+        // Génère le panneau des solutions (Enseignant)
+        function generateAnswerKey() {
+            const container = document.getElementById('answerKeyContainer');
+            container.innerHTML = "";
+            questions.forEach(q => {
+                const item = document.createElement('div');
+                item.className = 'key-item';
+                item.innerHTML = `Q${q.id} : <span>${q.ans}</span>`;
+                container.appendChild(item);
+            });
+        }
+
+        function toggleAnswerKey() {
+            const container = document.getElementById('answerKeyContainer');
+            if (container.style.display === 'none') {
+                container.style.display = 'grid';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        // Lancement au chargement de la page
+        window.onload = loadQuiz;
+    </script>
+
+<script src="../securite.js"></script>
+</body>
+</html>
