@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Texte à trous - L'imparfait des verbes du 1er groupe (21 trous)</title>
+<style>
+  :root{
+    --bleu:#3d6b52;
+    --bleu-clair:#eaf3ee;
+    --gris:#6b7280;
+    --vert:#1e8e5a;
+    --rouge:#c0392b;
+    --bord:#d5e6dc;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#f6f8f6;
+    margin:0;
+    padding:30px 15px 90px;
+    color:#1f2937;
+  }
+  .wrap{max-width:880px;margin:0 auto;}
+  h1{text-align:center;color:var(--bleu);font-size:1.55rem;margin-bottom:5px;}
+  .sous-titre{text-align:center;color:var(--gris);margin-bottom:10px;font-size:.95rem;}
+  .legende{
+    background:#fff;border:1px solid var(--bord);border-radius:10px;
+    padding:14px 18px;margin:0 0 26px;font-size:.88rem;color:var(--gris);
+  }
+  .legende b{color:var(--bleu);}
+  .paragraphe{
+    background:#fff;border:1px solid var(--bord);border-radius:12px;
+    padding:18px 22px;margin-bottom:18px;box-shadow:0 1px 4px rgba(20,30,60,.05);
+  }
+  .paragraphe h3{
+    margin:0 0 10px;font-size:1rem;color:var(--bleu);
+    border-bottom:2px solid var(--bord);padding-bottom:6px;
+  }
+  .paragraphe p{
+    line-height:2.1;font-size:1rem;text-align:justify;margin:0;
+  }
+  .trou-wrap{display:inline-flex;align-items:baseline;gap:3px;margin:0 2px;}
+  input.trou{
+    width:110px;border:none;border-bottom:2px solid var(--bord);
+    padding:2px 4px;font-size:.95rem;text-align:center;background:#f7faf8;
+    border-radius:4px 4px 0 0;
+  }
+  input.trou:focus{outline:none;border-bottom-color:var(--bleu);}
+  input.trou.ok{border-bottom-color:var(--vert);background:#eafaf0;}
+  input.trou.ko{border-bottom-color:var(--rouge);background:#fdecea;}
+  .indice{color:var(--gris);font-style:italic;font-size:.82rem;white-space:nowrap;}
+  .barre-actions{text-align:center;margin:28px 0;position:sticky;bottom:14px;}
+  .btn{
+    background:var(--bleu);color:#fff;border:none;padding:12px 26px;
+    border-radius:8px;font-size:1rem;cursor:pointer;box-shadow:0 3px 10px rgba(61,107,82,.35);
+  }
+  .btn:hover{background:#2c4f3c;}
+  .score-final{
+    text-align:center;font-size:1.3rem;font-weight:bold;color:var(--bleu);
+    margin:20px 0;display:none;
+  }
+  .corrige{display:none;margin-top:10px;}
+  .corrige h2{color:var(--bleu);text-align:center;}
+  table.corrige-table{width:100%;border-collapse:collapse;background:#fff;font-size:.85rem;}
+  table.corrige-table th,table.corrige-table td{border:1px solid var(--bord);padding:6px 8px;text-align:left;}
+  table.corrige-table th{background:var(--bleu-clair);color:var(--bleu);position:sticky;top:0;}
+  table.corrige-table td.ok{color:var(--vert);font-weight:bold;white-space:nowrap;}
+  table.corrige-table td.ko{color:var(--rouge);font-weight:bold;white-space:nowrap;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Texte à trous : l'imparfait des verbes du 1er groupe</h1>
+  <p class="sous-titre">21 trous &middot; FLE niveau A1 / A2 &middot; Feuille 5 « Quand ma grand-mère était enfant... »</p>
+  <div class="legende">
+    Complétez le texte en conjuguant à l'<b>imparfait</b> le verbe du 1er groupe indiqué entre parenthèses (à l'infinitif).<br>
+    Exemple : elle <input type="text" style="width:80px;border:none;border-bottom:2px solid #d5e6dc;text-align:center;" disabled placeholder="habitait"> <i>(habiter)</i>
+  </div>
+
+<div class="paragraphe"><h3>Les saisons</h3><p>En été, le soleil <span class="trou-wrap"><input type="text" class="trou" id="rep-1" data-num="1" autocomplete="off" spellcheck="false"><span class="indice">(briller)</span></span> du matin au soir et les enfants <span class="trou-wrap"><input type="text" class="trou" id="rep-2" data-num="2" autocomplete="off" spellcheck="false"><span class="indice">(nager)</span></span> dans la rivière. En automne, les feuilles <span class="trou-wrap"><input type="text" class="trou" id="rep-3" data-num="3" autocomplete="off" spellcheck="false"><span class="indice">(tomber)</span></span> des arbres et les paysans <span class="trou-wrap"><input type="text" class="trou" id="rep-4" data-num="4" autocomplete="off" spellcheck="false"><span class="indice">(récolter)</span></span> le raisin. En hiver, le froid <span class="trou-wrap"><input type="text" class="trou" id="rep-5" data-num="5" autocomplete="off" spellcheck="false"><span class="indice">(glacer)</span></span> la rivière. Au printemps, les fleurs <span class="trou-wrap"><input type="text" class="trou" id="rep-6" data-num="6" autocomplete="off" spellcheck="false"><span class="indice">(égayer)</span></span> les jardins. Chaque saison <span class="trou-wrap"><input type="text" class="trou" id="rep-7" data-num="7" autocomplete="off" spellcheck="false"><span class="indice">(apporter)</span></span> ses propres joies. Les paysans <span class="trou-wrap"><input type="text" class="trou" id="rep-8" data-num="8" autocomplete="off" spellcheck="false"><span class="indice">(observer)</span></span> le ciel pour prévoir le temps. On <span class="trou-wrap"><input type="text" class="trou" id="rep-9" data-num="9" autocomplete="off" spellcheck="false"><span class="indice">(adorer)</span></span> particulièrement les longues soirées d'été et on <span class="trou-wrap"><input type="text" class="trou" id="rep-10" data-num="10" autocomplete="off" spellcheck="false"><span class="indice">(profiter)</span></span> du beau temps.</p></div>
+<div class="paragraphe"><h3>Les fêtes du village</h3><p>Chaque année, le village <span class="trou-wrap"><input type="text" class="trou" id="rep-11" data-num="11" autocomplete="off" spellcheck="false"><span class="indice">(organiser)</span></span> une grande fête au mois d'août. Les habitants <span class="trou-wrap"><input type="text" class="trou" id="rep-12" data-num="12" autocomplete="off" spellcheck="false"><span class="indice">(décorer)</span></span> les rues avec des guirlandes. Un orchestre <span class="trou-wrap"><input type="text" class="trou" id="rep-13" data-num="13" autocomplete="off" spellcheck="false"><span class="indice">(jouer)</span></span> de la musique sur la place, et tout le monde <span class="trou-wrap"><input type="text" class="trou" id="rep-14" data-num="14" autocomplete="off" spellcheck="false"><span class="indice">(danser)</span></span> jusqu'à tard dans la nuit. Les commerçants <span class="trou-wrap"><input type="text" class="trou" id="rep-15" data-num="15" autocomplete="off" spellcheck="false"><span class="indice">(installer)</span></span> des stands avec des gâteaux et des jeux. Les enfants <span class="trou-wrap"><input type="text" class="trou" id="rep-16" data-num="16" autocomplete="off" spellcheck="false"><span class="indice">(participer)</span></span> à des concours et <span class="trou-wrap"><input type="text" class="trou" id="rep-17" data-num="17" autocomplete="off" spellcheck="false"><span class="indice">(gagner)</span></span> des petits prix. Ma grand-mère <span class="trou-wrap"><input type="text" class="trou" id="rep-18" data-num="18" autocomplete="off" spellcheck="false"><span class="indice">(préparer)</span></span> toujours une tarte pour l'occasion. À la fin de la soirée, un feu d'artifice <span class="trou-wrap"><input type="text" class="trou" id="rep-19" data-num="19" autocomplete="off" spellcheck="false"><span class="indice">(illuminer)</span></span> le ciel. Tout le village <span class="trou-wrap"><input type="text" class="trou" id="rep-20" data-num="20" autocomplete="off" spellcheck="false"><span class="indice">(célébrer)</span></span> ensemble ces moments de joie, et la fête <span class="trou-wrap"><input type="text" class="trou" id="rep-21" data-num="21" autocomplete="off" spellcheck="false"><span class="indice">(continuer)</span></span> jusqu'au bout de la nuit.</p></div>
+
+
+
+  <div class="barre-actions">
+    <button class="btn" id="btnCorriger">Corriger le texte par JPJ</button>
+  </div>
+
+  <div class="score-final" id="scoreFinal"></div>
+
+  <div class="corrige" id="zoneCorrige">
+    <h2>Corrigé détaillé par JPJ</h2>
+    <table class="corrige-table" id="tableCorrige"></table>
+  </div>
+
+</div>
+
+<script>
+const ITEMS = [ {"numero": 1, "infinitif": "briller", "reponse": "brillait"}, {"numero": 2, "infinitif": "nager", "reponse": "nageaient"}, {"numero": 3, "infinitif": "tomber", "reponse": "tombaient"}, {"numero": 4, "infinitif": "récolter", "reponse": "récoltaient"}, {"numero": 5, "infinitif": "glacer", "reponse": "glaçait"}, {"numero": 6, "infinitif": "égayer", "reponse": "égayaient"}, {"numero": 7, "infinitif": "apporter", "reponse": "apportait"}, {"numero": 8, "infinitif": "observer", "reponse": "observaient"}, {"numero": 9, "infinitif": "adorer", "reponse": "adorait"}, {"numero": 10, "infinitif": "profiter", "reponse": "profitait"}, {"numero": 11, "infinitif": "organiser", "reponse": "organisait"}, {"numero": 12, "infinitif": "décorer", "reponse": "décoraient"}, {"numero": 13, "infinitif": "jouer", "reponse": "jouait"}, {"numero": 14, "infinitif": "danser", "reponse": "dansait"}, {"numero": 15, "infinitif": "installer", "reponse": "installaient"}, {"numero": 16, "infinitif": "participer", "reponse": "participaient"}, {"numero": 17, "infinitif": "gagner", "reponse": "gagnaient"}, {"numero": 18, "infinitif": "préparer", "reponse": "préparait"}, {"numero": 19, "infinitif": "illuminer", "reponse": "illuminait"}, {"numero": 20, "infinitif": "célébrer", "reponse": "célébrait"}, {"numero": 21, "infinitif": "continuer", "reponse": "continuait"}];
+
+function normalise(s){
+  return (s || "").trim().toLowerCase().replace(/\s+/g,' ');
+}
+
+document.getElementById('btnCorriger').addEventListener('click', () => {
+  let bonnes = 0;
+  let lignes = '';
+
+  ITEMS.forEach(it => {
+    const input = document.getElementById('rep-' + it.numero);
+    const donnee = input.value;
+    const estCorrect = normalise(donnee) === normalise(it.reponse);
+    input.classList.remove('ok','ko');
+    input.classList.add(estCorrect ? 'ok' : 'ko');
+    if(estCorrect) bonnes++;
+
+    lignes += `
+      <tr>
+        <td>${it.numero}</td>
+        <td>${it.infinitif}</td>
+        <td>${donnee ? donnee : '(vide)'}</td>
+        <td>${it.reponse}</td>
+        <td class="${estCorrect ? 'ok' : 'ko'}">${estCorrect ? '✔ Correct' : '✘ Incorrect'}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById('scoreFinal').style.display = 'block';
+  document.getElementById('scoreFinal').textContent = `Score : ${bonnes} / ${ITEMS.length}`;
+
+  document.getElementById('tableCorrige').innerHTML = `
+    <thead>
+      <tr><th>N°</th><th>Infinitif</th><th>Réponse donnée</th><th>Réponse attendue</th><th>Statut</th></tr>
+    </thead>
+    <tbody>${lignes}</tbody>
+  `;
+  document.getElementById('zoneCorrige').style.display = 'block';
+  document.getElementById('zoneCorrige').scrollIntoView({behavior:'smooth'});
+});
+</script>
+<script src="../../securite.js"></script>
+</body>
+</html>
