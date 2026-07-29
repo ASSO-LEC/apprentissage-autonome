@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Quiz - Participe passé avec AVOIR (20 verbes) - FLE A1/A2</title>
+<style>
+  :root{
+    --bleu:#a3492f;
+    --bleu-clair:#fbeee9;
+    --gris:#6b7280;
+    --vert:#1e8e5a;
+    --rouge:#c0392b;
+    --bord:#efd8d0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#f7f5f4;
+    margin:0;
+    padding:30px 15px 90px;
+    color:#1f2937;
+  }
+  .wrap{max-width:980px;margin:0 auto;}
+  h1{text-align:center;color:var(--bleu);font-size:1.6rem;margin-bottom:5px;}
+  .sous-titre{text-align:center;color:var(--gris);margin-bottom:10px;font-size:.95rem;}
+  .legende{
+    background:#fff;border:1px solid var(--bord);border-radius:10px;
+    padding:14px 18px;margin:0 0 26px;font-size:.88rem;color:var(--gris);
+  }
+  .legende b{color:var(--bleu);}
+  .bloc-groupe{
+    background:#fff;border:1px solid var(--bord);border-radius:12px;
+    padding:20px 22px;margin-bottom:24px;box-shadow:0 1px 4px rgba(20,30,60,.05);
+  }
+  .bloc-groupe h2{
+    margin-top:0;font-size:1.1rem;color:var(--bleu);
+    border-bottom:2px solid var(--bord);padding-bottom:8px;
+  }
+  .compteur-groupe{font-size:.8rem;color:var(--gris);font-weight:normal;}
+  .grille-items{
+    display:grid;grid-template-columns:1fr 1fr;gap:6px 26px;
+  }
+  @media(max-width:720px){.grille-items{grid-template-columns:1fr;}}
+  .item{
+    display:flex;align-items:baseline;flex-wrap:wrap;gap:4px;
+    padding:7px 4px;font-size:.92rem;border-bottom:1px dashed #f1e6e2;
+  }
+  .item .num{color:var(--bleu);font-weight:bold;min-width:26px;}
+  .item input[type=text]{
+    width:120px;border:none;border-bottom:2px solid var(--bord);
+    padding:3px 4px;font-size:.92rem;text-align:center;background:#fdfaf9;
+    border-radius:4px 4px 0 0;
+  }
+  .item input[type=text]:focus{outline:none;border-bottom-color:var(--bleu);}
+  .item .indice{color:var(--gris);font-style:italic;}
+  .item input.ok{border-bottom-color:var(--vert);background:#eafaf0;}
+  .item input.ko{border-bottom-color:var(--rouge);background:#fdecea;}
+  .barre-actions{
+    text-align:center;margin:28px 0;position:sticky;bottom:14px;
+  }
+  .btn{
+    background:var(--bleu);color:#fff;border:none;padding:12px 26px;
+    border-radius:8px;font-size:1rem;cursor:pointer;box-shadow:0 3px 10px rgba(163,73,47,.35);
+  }
+  .btn:hover{background:#832f1c;}
+  .score-final{
+    text-align:center;font-size:1.3rem;font-weight:bold;color:var(--bleu);
+    margin:20px 0;display:none;
+  }
+  .corrige{display:none;margin-top:10px;}
+  .corrige h2{color:var(--bleu);text-align:center;}
+  table.corrige-table{
+    width:100%;border-collapse:collapse;background:#fff;font-size:.85rem;
+  }
+  table.corrige-table th,table.corrige-table td{
+    border:1px solid #efd8d0;padding:6px 8px;text-align:left;
+  }
+  table.corrige-table th{background:var(--bleu-clair);color:var(--bleu);position:sticky;top:0;}
+  table.corrige-table td.ok{color:var(--vert);font-weight:bold;white-space:nowrap;}
+  table.corrige-table td.ko{color:var(--rouge);font-weight:bold;white-space:nowrap;}
+  .groupe-titre-corrige{
+    background:var(--bleu-clair);font-weight:bold;color:var(--bleu);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Quiz : le participe passé avec l'auxiliaire AVOIR</h1>
+  <p class="sous-titre">20 verbes &middot; FLE niveau A1 / A2</p>
+  <div class="legende">
+    Feuille 2 Complétez chaque phrase avec le <b>participe passé</b> du verbe du 1er groupe indiqué entre parenthèses (à l'infinitif).
+    L'auxiliaire AVOIR est déjà conjugué pour vous, et change selon le sujet (je, tu, il, elle, nous, vous, ils, elles) :
+    profitez-en pour aussi revoir sa conjugaison <br>
+    Avec AVOIR, le participe passé reste <b>invariable</b> (pas d'accord avec le sujet à ce niveau).<br>
+    Exemple : <i>Elle a ___ (manger)</i> &rarr; <b>mangé</b>
+  </div>
+
+  <div id="zone-questions"></div>
+
+  <div class="barre-actions">
+    <button class="btn" id="btnCorriger">Corriger le quiz</button>
+  </div>
+
+  <div class="score-final" id="scoreFinal"></div>
+
+  <div class="corrige" id="zoneCorrige">
+    <h2>Corrigé détaillé</h2>
+    <table class="corrige-table" id="tableCorrige"></table>
+  </div>
+
+</div>
+
+<script>
+const ITEMS = [{"numero": 1, "groupe": "1er groupe", "phrase_debut": "Nous avons", "infinitif": "penser", "reponse": "pensé"}, {"numero": 2, "groupe": "1er groupe", "phrase_debut": "Vous avez", "infinitif": "rêver", "reponse": "rêvé"}, {"numero": 3, "groupe": "1er groupe", "phrase_debut": "Ils ont", "infinitif": "marcher", "reponse": "marché"}, {"numero": 4, "groupe": "1er groupe", "phrase_debut": "Elles ont", "infinitif": "nager", "reponse": "nagé"}, {"numero": 5, "groupe": "1er groupe", "phrase_debut": "J'ai", "infinitif": "sauter", "reponse": "sauté"}, {"numero": 6, "groupe": "1er groupe", "phrase_debut": "Tu as", "infinitif": "fermer", "reponse": "fermé"}, {"numero": 7, "groupe": "1er groupe", "phrase_debut": "Il a", "infinitif": "commencer", "reponse": "commencé"}, {"numero": 8, "groupe": "1er groupe", "phrase_debut": "Elle a", "infinitif": "continuer", "reponse": "continué"}, {"numero": 9, "groupe": "1er groupe", "phrase_debut": "Nous avons", "infinitif": "garder", "reponse": "gardé"}, {"numero": 10, "groupe": "1er groupe", "phrase_debut": "Vous avez", "infinitif": "laver", "reponse": "lavé"}, {"numero": 11, "groupe": "1er groupe", "phrase_debut": "Ils ont", "infinitif": "préparer", "reponse": "préparé"}, {"numero": 12, "groupe": "1er groupe", "phrase_debut": "Elles ont", "infinitif": "ranger", "reponse": "rangé"}, {"numero": 13, "groupe": "1er groupe", "phrase_debut": "J'ai", "infinitif": "nettoyer", "reponse": "nettoyé"}, {"numero": 14, "groupe": "1er groupe", "phrase_debut": "Tu as", "infinitif": "dessiner", "reponse": "dessiné"}, {"numero": 15, "groupe": "1er groupe", "phrase_debut": "Il a", "infinitif": "photographier", "reponse": "photographié"}, {"numero": 16, "groupe": "1er groupe", "phrase_debut": "Elle a", "infinitif": "enregistrer", "reponse": "enregistré"}, {"numero": 17, "groupe": "1er groupe", "phrase_debut": "Nous avons", "infinitif": "essayer", "reponse": "essayé"}, {"numero": 18, "groupe": "1er groupe", "phrase_debut": "Vous avez", "infinitif": "payer", "reponse": "payé"}, {"numero": 19, "groupe": "1er groupe", "phrase_debut": "Ils ont", "infinitif": "utiliser", "reponse": "utilisé"}, {"numero": 20, "groupe": "1er groupe", "phrase_debut": "Elles ont", "infinitif": "apporter", "reponse": "apporté"} ];
+
+function normalise(s){
+  return (s || "").trim().toLowerCase().replace(/\s+/g,' ');
+}
+
+const groupes = ["1er groupe", "2e groupe", "3e groupe"];
+const zoneQuestions = document.getElementById('zone-questions');
+
+groupes.forEach(g => {
+  const itemsGroupe = ITEMS.filter(it => it.groupe === g);
+  const bloc = document.createElement('div');
+  bloc.className = 'bloc-groupe';
+  const label = g === "1er groupe" ? "Verbes du 1er groupe (-ER)"
+              : g === "2e groupe" ? "Verbes du 2e groupe (-IR, type finir)"
+              : "Verbes du 3e groupe (irréguliers)";
+  bloc.innerHTML = `<h2>${label} <span class="compteur-groupe">(${itemsGroupe.length} verbes)</span></h2>
+    <div class="grille-items" id="grille-${g.replace(/[^a-z0-9]/gi,'')}"></div>`;
+  zoneQuestions.appendChild(bloc);
+
+  const grille = bloc.querySelector('.grille-items');
+  itemsGroupe.forEach(it => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `
+      <span class="num">${it.numero}.</span>
+      <span>${it.phrase_debut}</span>
+      <input type="text" id="rep-${it.numero}" autocomplete="off" spellcheck="false">
+      <span class="indice">(${it.infinitif})</span>
+    `;
+    grille.appendChild(div);
+  });
+});
+
+document.getElementById('btnCorriger').addEventListener('click', () => {
+  let bonnes = 0;
+  let lignes = '';
+  let groupeActuel = null;
+
+  ITEMS.forEach(it => {
+    const input = document.getElementById('rep-' + it.numero);
+    const donnee = input.value;
+    const estCorrect = normalise(donnee) === normalise(it.reponse);
+    input.classList.remove('ok','ko');
+    input.classList.add(estCorrect ? 'ok' : 'ko');
+    if(estCorrect) bonnes++;
+
+    if(it.groupe !== groupeActuel){
+      groupeActuel = it.groupe;
+      lignes += `<tr class="groupe-titre-corrige"><td colspan="5">${groupeActuel}</td></tr>`;
+    }
+
+    lignes += `
+      <tr>
+        <td>${it.numero}</td>
+        <td>${it.phrase_debut} ___ (${it.infinitif})</td>
+        <td>${donnee ? donnee : '(vide)'}</td>
+        <td>${it.reponse}</td>
+        <td class="${estCorrect ? 'ok' : 'ko'}">${estCorrect ? '✔ Correct' : '✘ Incorrect'}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById('scoreFinal').style.display = 'block';
+  document.getElementById('scoreFinal').textContent = `Score : ${bonnes} / ${ITEMS.length}`;
+
+  document.getElementById('tableCorrige').innerHTML = `
+    <thead>
+      <tr><th>N°</th><th>Phrase</th><th>Réponse donnée</th><th>Réponse attendue</th><th>Statut</th></tr>
+    </thead>
+    <tbody>${lignes}</tbody>
+  `;
+  document.getElementById('zoneCorrige').style.display = 'block';
+  document.getElementById('zoneCorrige').scrollIntoView({behavior:'smooth'});
+});
+</script>
+</body>
+</html>
