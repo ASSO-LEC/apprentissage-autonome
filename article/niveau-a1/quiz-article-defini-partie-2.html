@@ -2,328 +2,506 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Article défini part 2 niveau A1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Apprentissage Autonome</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 650px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-        .options { margin: 10px 0; }
-        button { margin-top: 15px; padding: 10px; cursor: pointer; width: 100%; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; }
-        button:hover { background-color: #0056b3; }
-
-        /* Style pour aligner le texte et l'image côte à côte */
-        .zone-entete {
-            display: flex;         
-            align-items: center;   
-            justify-content: space-between; 
-            gap: 20px;             
-            margin-bottom: 20px;
-        }
-        #quiz-image {
-            max-width: 140px;      
-            max-height: 140px;
-            object-fit: contain;   
-            border-radius: 6px;    
-        }
-        #question {
-            flex: 1;                
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 40px 20px;
             margin: 0;
-            font-size: 20px;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         
-        /* Style ajouté pour le lecteur Audio */
-        #quiz-audio {
-            width: 100%;
-            margin: 10px 0 15px 0;
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #f0f0f0;
+            padding-bottom: 20px;
         }
 
-        /* Styles pour le rapport de fin */
-        .bloc-bilan {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 6px;
-            border-left: 5px solid #ccc;
-            background-color: #fcfcfc;
-            text-align: left;
+        /* BARRE DE SELECTION DE NIVEAU */
+        .niveau-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
-        .bilan-juste { border-left-color: #28a745; background-color: #ebf7ee; }
-        .bilan-faux { border-left-color: #dc3545; background-color: #fdf2f2; }
-        .texte-juste { color: #28a745; font-weight: bold; }
-        .texte-faux { color: #dc3545; font-weight: bold; }
+        .card-niveau {
+            background: #fff;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .card-niveau:hover { transform: translateY(-2px); }
+        .card-niveau.active { color: white; }
+        
+        .card-a0.active { background-color: #2ecc71; border-color: #2ecc71; }
+        .card-a1.active { background-color: #3182ce; border-color: #3182ce; }
+        .card-a2.active { background-color: #8e44ad; border-color: #8e44ad; }
+        .card-b1b2.active { background-color: #d35400; border-color: #d35400; }
+        .card-all.active { background-color: #34495e; border-color: #34495e; }
+
+        /* BLOCS THEMATIQUES */
+        .bloc-thematique {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .bloc-thematique h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+        
+        details {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            padding: 5px;
+            transition: all 0.3s;
+        }
+        details[open] { background-color: #ffffff; }
+        
+        summary {
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding: 10px;
+            cursor: pointer;
+            color: #2c3e50;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        summary::before {
+            content: "📁";
+            margin-right: 10px;
+        }
+        details[open] > summary::before { content: "📂"; }
+
+        .section-sous-titre {
+            margin: 15px 0 5px 10px;
+            font-weight: bold;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .grid-boutons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+            padding: 10px;
+        }
+        
+        .btn {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            border-radius: 6px;
+            background-color: #edf2f7;
+            color: #4a5568;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background-color: #3182ce;
+            color: white;
+            border-color: #3182ce;
+        }
+
+        .masque {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
 
-<div id="quiz-container">
-    <div class="zone-entete">
-        <h2 id="question">Question s'affichera ici</h2>
-        <img id="quiz-image" src="" alt="Illustration" style="display: none;">
+<div class="container">
+    <h1>🎒 Mon Espace d'Apprentissage Autonome</h1>
+
+    <p style="text-align: center; margin-bottom: 20px;">
+        <img src="article/Articles-12-05-fiche-1-et-2/lec.jpg" alt="Lire Ecrire Comprendre" style="width: 140px; height: auto;">
+    </p>
+
+    <!-- FILTRE DE NIVEAU -->
+    <div class="niveau-selection">
+        <button class="card-niveau card-a0" onclick="filtrerNiveau('a0')">🟢 Niveau A0</button>
+        <button class="card-niveau card-a1" onclick="filtrerNiveau('a1')">🔵 Niveau A1</button>
+        <button class="card-niveau card-a2" onclick="filtrerNiveau('a2')">🟣 Niveau A2</button>
+        <button class="card-niveau card-b1b2" onclick="filtrerNiveau('b1b2')">🟠 B1 / B2</button>
+        <button class="card-niveau card-all active" onclick="filtrerNiveau('all')">🌐 Tout Voir</button>
+    </div>
+
+    <!-- ==================== 1. NIVEAU A0 ==================== -->
+    <div class="bloc-thematique element-niveau niveau-a0" style="border-color: #2ecc71;">
+        <h2>🟢 Module d'Apprentissage Niveau A0</h2>
+
+        <details class="element-niveau niveau-a0" open>
+            <summary>🔠 Alphabet & Reconnaissance des Lettres</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a0" href="alphabet/alphabet-lettres-voisines.html">🔠 Lettres voisines</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/alphabet-maj-minuscules.html">🔤 Majuscules & Minuscules</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/alphabet-ordre-7-30.html">🆎 Séries consécutives</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/alphabet-sonore.html">🔊 Alphabet sonore</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/consonnes-voyelles-40.html">🔤 Consonnes & Voyelles (40)</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/consonnes-voyelles-maj-cursives-40.html">✍️ Consonnes & Voyelles Cursives (40)</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-a0">
+            <summary>🔊 Phonie, Graphie & Sons de base</summary>
+            
+            <div class="section-sous-titre">🔹 Étude des sons et pièges</div>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a0" href="alphabet/sons-simples.html">🔊 Sons simples</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/sons-complexes.html">🔊 Sons complexes</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/sons-complexes-1.html">🔊 Sons complexes 1</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/sons-compliques.html">🔊 Sons compliqués</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/sons-confusion-accoustique-var-graphique.html">👂 Confusion acoustique & graphique</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/sons-semi-voyelles-sons-proches.html">🗣️ Semi-voyelles & sons proches</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/sons-consonnes-pieges-s-c-g-h.html">⚠️ Consonnes pièges (S, C, G, H)</a>
+            </div>
+
+            <div class="section-sous-titre">📂 Sous-dossiers de sons spécifiques</div>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a0" href="alphabet/le-son-an-en-in/le-son-an-en-in.html">🎧 Le son [an] / [en] / [in]</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/le-son-ch-j/le-son-ch-j.html">🎧 Le son [ch] / [j]</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/le-son-oi-oin/le-son-oi-oin.html">🎧 Le son [oi] / [oin]</a>
+                <a class="btn element-niveau niveau-a0" href="alphabet/le-son-ou-on/son-ou-on.html">🎧 Le son [ou] / [on]</a>
+            </div>
+        </details>
+    </div>
+
+    <!-- ==================== 2. GRAMMAIRE ==================== -->
+    <div class="bloc-thematique element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2" style="border-color: #00b4d8;">
+        <h2>📐 Grammaire, Articles & Pronoms</h2>
+
+        <details class="element-niveau niveau-a0 niveau-a1">
+            <summary>📌 Articles </summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="article/niveau-a1/quiz-article-defini-partie-1.html">📝 Articles définis et indéfinis au singulier(Partie 1)</a>
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="article/niveau-a1/quiz-article-defini-partie-2.html">📝 Articles définis et indéfinis au sigulier (Partie 2)</a>
+                
+			</div>
+        </details>
+
+        <details class="element-niveau niveau-a1">
+            <summary>📌 Articles - Niveau A1</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="article/niveau-a1/quiz-article-defini-partie-1.html">📝 Articles définis et indéfinis (Partie 1)</a>
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="article/niveau-a1/quiz-article-defini-partie-2.html">📝 Articles définis et indéfinis(Partie 2)</a>
+                <a class="btn element-niveau niveau-a1" href="article/niveau-a1/quiz-article-defini-partie-3.html">📝 Quiz Articles (Partie 3)</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-a2">
+            <summary>📌 Articles - Niveau A2</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a2" href="article/niveau-a2/a2-articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📄 Articles A2 (Partie 1)</a>
+                <a class="btn element-niveau niveau-a2" href="article/niveau-a2/a2-articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📄 Articles A2 (Partie 2)</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-b1b2">
+            <summary>📌 Articles - Niveau B1</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-b1b2" href="article/niveau-b1/b1-articles-definis-indefinis-singulier-et-pluriel-partie-1.html">📄 Articles B1 (Partie 1)</a>
+                <a class="btn element-niveau niveau-b1b2" href="article/niveau-b1/b1-articles-definis-indefinis-singulier-et-pluriel-partie-2.html">📄 Articles B1 (Partie 2)</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-b1b2">
+            <summary>📌 Articles - Niveau B2</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-b1b2" href="article/niveau-b2/b2-articles-definis-et-indefinis-singulier-et-pluriel-partie-1.html">📄 Articles B2 (Partie 1)</a>
+                <a class="btn element-niveau niveau-b1b2" href="article/niveau-b2/b2-articles-definis-et-indefinis-singulier-et-pluriel-partie-2.html">📄 Articles B2 (Partie 2)</a>
+                <a class="btn element-niveau niveau-b1b2" href="article/niveau-b2/b2-articles-definis-et-indefinis-singulier-et-pluriel-partie-3.html">📄 Articles B2 (Partie 3)</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-a1 niveau-a2">
+            <summary>📌 Démonstratifs</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="demonstratifs/les-demonstratifs.html">👉 Les Démonstratifs</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="demonstratifs/les-pronoms-demonstratifs-f1.html">👉 Pronoms Démonstratifs (Fiche 1)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="demonstratifs/les-pronoms-demonstratifs-f2.html">👉 Pronoms Démonstratifs (Fiche 2)</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-a1 niveau-a2">
+            <summary>📌 Interrogatifs</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="interrogatifs/les-interrogatifs-f1.html">❓ Les Interrogatifs (Fiche 1)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="interrogatifs/les-interrogatifs-f2.html">❓ Les Interrogatifs (Fiche 2)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="interrogatifs/les-interrogatifs-quel-f1.html">❓ Quel / Quelle (Fiche 1)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="interrogatifs/les-interrogatifs-quel-f2.html">❓ Quel / Quelle (Fiche 2)</a>
+            </div> 
+        </details>
+            
+        <details class="element-niveau niveau-a1 niveau-a2">
+            <summary>📌 Pronoms Toniques</summary>
+            <div class="grid-boutons">    
+                <a class="btn element-niveau niveau-a1" href="pronoms-toniques/pronoms-toniques1.html">👉 Exercices : Les Pronoms Toniques 1</a>
+                <a class="btn element-niveau niveau-a1" href="pronoms-toniques/pronoms-toniques2.html">👉 Exercices : Les Pronoms Toniques 2</a>
+                <a class="btn element-niveau niveau-a1" href="pronoms-toniques/pronoms-toniques3.html">👉 Exercices : Les Pronoms Toniques 3</a>
+                <a class="btn element-niveau niveau-a1" href="pronoms-toniques/pronoms-toniques4.html">👉 Exercices : Les Pronoms Toniques 4</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="pronoms-toniques/reponses-courtes1.html">👉 Les réponses courtes <br> moi aussi - moi non plus</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="pronoms-toniques/reponses-courtes2.html">👉 Les réponses courtes <br> pas moi  -  moi si</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="pronoms-toniques/reponses-courtes3.html">👉 Les réponses courtes mix <br> des 4 moi Feuille 1</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="pronoms-toniques/reponses-courtes4.html">👉 Les réponses courtes mix <br> des 4 moi Feuille 2</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-a1 niveau-a2">
+            <summary>📌 Possessifs</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="possessifs/les-possessifs.f1.html">🏠 Les Possessifs (Fiche 1)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="possessifs/les-pronoms-possessifs.f1.html">🏠 Pronoms Possessifs (Fiche 1)</a>
+            </div>
+        </details>
+    </div>
+
+    <!-- ==================== 3. CONJUGAISON ==================== -->
+    <div class="bloc-thematique element-niveau niveau-a0 niveau-a1 niveau-a2 niveau-b1b2" style="border-color: #3182ce;">
+        <h2>📂 Conjugaison</h2>
+
+        <details id="dossier-etre-avoir" class="element-niveau niveau-a0 niveau-a1 niveau-a2">
+            <summary>📌 Le Présent</summary>
+
+            <div class="section-sous-titre">🔹 Être, Avoir, Faire, Aller (Bases)</div>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="conjugaison/present/avoir-etre-faire-aller/etre-avoir.html">📑 Leçon : Être et Avoir</a>
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-1.html">📝 Quiz Partie 1</a>
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="conjugaison/present/avoir-etre-faire-aller/quiz-avoir-etre-aller-faire-2.html">📝 Quiz Partie 2</a>
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-avoir.html">📝 Verbe Avoir et articles</a>
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-etre.html">📝 Verbe Être et articles</a>
+                <a class="btn element-niveau niveau-a0 niveau-a1" href="conjugaison/present/avoir-etre-faire-aller/exo-facile-1-001-lec-verbe-aller.html">📝 Verbe Aller et articles</a>
+            </div>
+
+            <div class="section-sous-titre">🔹 L'histoire de Youssef</div>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-1.html">🚶 Youssef Part. 1 Le Grand Départ</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-2.html">💁‍♀️ Youssef Part. 2 Son Installation</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-3.html">⚔️ Youssef Part. 3 Les Efforts</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/avoir-etre-faire-aller/present-de-youssef-partie-4.html">😊 Youssef Part. 4 Le présent radieux</a>
+            </div>
+
+            <div class="section-sous-titre">🔹 Les 10 verbes les plus utilisés</div>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/10-verbes-les-plus-utilises/quiz-10-verbes-au-present-bureau-matin-maison.html">🏢 Bureau - Matin - Maison</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/10-verbes-les-plus-utilises/quiz-10-verbes-au-present-chemin-voyage.html">🧳 Chemin - Voyage</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/10-verbes-les-plus-utilises/quiz-10-verbes-au-present-courses-temps.html">🛒 Courses - Temps</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/10-verbes-les-plus-utilises/quiz-10-verbes-au-present-devoirs-vacances.html">📚 Devoirs - Vacances</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/10-verbes-les-plus-utilises/quiz-10-verbes-au-present-fete-bibliotheque.html">🎉 Fête - Bibliothèque</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/10-verbes-les-plus-utilises/quiz-10-verbes-au-present-la-rue-le-resto.html">🍽️ La rue - Le resto</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/10-verbes-les-plus-utilises/quiz-10-verbes-au-present-sante-artiste-cuisine.html">🎨 Santé - Artiste - Cuisine</a>
+            </div>
+
+            <div class="section-sous-titre">🔹 Verbes du 1er et 3ème Groupe</div>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/verbe-du-1er-groupe/exercice-15-lignes-verbes-1er-groupe.html">📝 Exercice 15 lignes (1er groupe)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-sport-loisirs.html">⚽ Sport & Loisirs</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-en-general.html">🌍 Vie en général</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/verbe-du-1er-groupe/verbes-1er-groupe-present-vie-familiale.html">👨‍👩‍👧 Vie familiale</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/present/verbe-du-3eme-groupe/exercice-24-lignes-verbes-3eme-groupe-exo1.html">📝 Exercice 24 lignes (3ème groupe)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/present/verbe-du-3eme-groupe/exo-facile-1-001-lec-verbe-revenir.html">📝 Verbe Revenir</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-a1 niveau-a2">
+            <summary>📌 Le Futur</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/futur/conjugason-verbes-1-et-2-groupe-fiche1.html">LEC conjugaison Futur Fiche 1 </a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/futur/conjugason-verbes-regulier-3eme-groupe-fiche2.html">LEC conjugaison Futur Fiche 2 </a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/futur/futur-de-youssef-partie-1.html">🚶 Youssef Part. 1 Le Grand Départ</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/futur/verbe-etre-avoir-faire-et-aller-au-futur-l-an-prochain-1.html">🔮 Être, Avoir, Faire, Aller Part. 1</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="conjugaison/futur/verbe-etre-avoir-faire-et-aller-au-futur-l-an-prochain-2.html">🔮 Être, Avoir, Faire, Aller Part. 2</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/futur-des-verbes-1er-et-2eme-groupe-2050-partie-1.html">🚀 Année 2050 Part. 1</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/futur-des-verbes-1er-et-2eme-groupe-2050-partie-2.html">🚀 Année 2050 Part. 2</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/futur-des-verbes-1er-et-2eme-groupe-2050-partie-3.html">🚀 Année 2050 Part. 3</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/futur-des-verbes-du-1er-et-du-2eme-groupe-grande-fete-1.html">🎉 La Grande Fête Part. 1</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/futur-des-verbes-du-1er-et-du-2eme-groupe-grande-fete-2.html">🎉 La Grande Fête Part. 2</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/futur-de-youssef-partie-2.html">💁‍♀️ Youssef Part. 2 Son Installation</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/futur-de-youssef-partie-3.html">⚔️ Youssef Part. 3 Les Efforts</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/futur-de-youssef-partie-4.html">😊 Youssef Part. 4 Le futur radieux</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-1er-et-2eme-groupe-futur-notre-projet-1.html">📋 Notre Projet Part. 1</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-1er-et-2eme-groupe-futur-notre-projet-2.html">📋 Notre Projet Part. 2</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-1er-et-2eme-groupe-futur-notre-projet-3.html">📋 Notre Projet Part. 3</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-1er-et-2eme-groupe-futur-test1.html">📝 Test 1 (Futur)</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-1er-et-2eme-groupe-futur-test2.html">📝 Test 2 (Futur)</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-1er-et-2eme-groupe-futur-test3.html">📝 Test 3 (Futur)</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-1er-groupe-au-futur-ile-secret-1.html">🏝️ L'Île Secrète Part. 1</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-1er-groupe-au-futur-ile-secret-2.html">🏝️ L'Île Secrète Part. 2</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-2eme-groupe-au-futur-bande-amis.html">👥 Bande d'Amis</a>
+                <a class="btn element-niveau niveau-a2" href="conjugaison/futur/verbes-irreguliers-34-trous.html">🔮 Futur - Verbes irréguliers</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-a2 niveau-b1b2">
+            <summary>📌 L'Imparfait</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-1er-groupe-f1.html">📜 Imparfait - 1er groupe F1</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-1er-groupe-f2.html">📜 Imparfait - 1er groupe F2</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-1er-groupe-f3.html">📜 Imparfait - 1er groupe F3</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-1er-groupe-f4.html">📜 Imparfait - 1er groupe F4</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-1er-groupe-f5.html">📜 Imparfait - 1er groupe F5</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-2eme-groupe-f1.html">📜 Imparfait - 2ème groupe F1</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-2eme-groupe-f2.html">📜 Imparfait - 2ème groupe F2</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-2eme-groupe-f3.html">📜 Imparfait - 2ème groupe F3</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-2eme-groupe-f4.html">📜 Imparfait - 2ème groupe F4</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-2eme-groupe-f5.html">📜 Imparfait - 2ème groupe F5</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-3eme-groupe-f1.html">📜 Imparfait - 3ème groupe F1</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-3eme-groupe-f2.html">📜 Imparfait - 3ème groupe F2</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-3eme-groupe-f3.html">📜 Imparfait - 3ème groupe F3</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-3eme-groupe-f4.html">📜 Imparfait - 3ème groupe F4</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-3eme-groupe-f5.html">📜 Imparfait - 3ème groupe F5</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-mix-f1.html">📜 Imparfait - Texte Mixte F1</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-mix-f2.html">📜 Imparfait - Texte Mixte F2</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-mix-f3.html">📜 Imparfait - Texte Mixte F3</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-mix-f4.html">📜 Imparfait - Texte Mixte F4</a>
+                <a class="btn element-niveau niveau-a2 niveau-b1b2" href="conjugaison/imparfait/texte-trous-imparfait-mix-f5.html">📜 Imparfait - Texte Mixte F5</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-a1 niveau-a2 niveau-b1b2">
+            <summary>📌 Le Passé Composé</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1 niveau-a2 niveau-b1b2" href="conjugaison/passe-compose/quizz-passe-compose-groupe-1-avoir-1-20-f1.html">⏳ Groupe 1 - Avoir (1-20)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2 niveau-b1b2" href="conjugaison/passe-compose/quizz-passe-compose-groupe-1-etre-1-20-f1.html">⏳ Groupe 1 - Être (1-20)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2 niveau-b1b2" href="conjugaison/passe-compose/quizz-passe-compose-groupe-2-avoir-1-20-f1.html">⏳ Groupe 2 - Avoir (1-20)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2 niveau-b1b2" href="conjugaison/passe-compose/quizz-passe-compose-groupe-2-etre-1-20-f1.html">⏳ Groupe 2 - Être (1-20)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2 niveau-b1b2" href="conjugaison/passe-compose/quizz-passe-compose-groupe-3-avoir-1-20-f1.html">⏳ Groupe 3 - Avoir (1-20)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2 niveau-b1b2" href="conjugaison/passe-compose/quizz-passe-compose-groupe-3-etre-1-20-f1.html">⏳ Groupe 3 - Être (1-20)</a>
+            </div>
+        </details>
+    </div>
+
+    <!-- ==================== 4. JEUX & VOCABULAIRE ==================== -->
+    <div class="bloc-thematique element-niveau niveau-a1 niveau-a2" style="border-color: #2ecc71;">
+        <h2>🎮 Jeux & Vocabulaire</h2>
+
+        <details class="element-niveau niveau-a1">
+            <summary>🕹️ Jeux du dossier JEU A1 (Niveau A1)</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1" href="jeua1/descriptif-des-personnes/descriptif-personnes.html">👤 Descriptif des personnes</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/le-temps/le-temps.html">⏰ Le Temps</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/les-etapes-de-la-vie/les-etapes-de-la-vie.html">🌱 Les Étapes de la vie</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/les-vacances/les-vacances.html">🏖️ Les Vacances</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/ma-famille/genealogie-1.html">👨‍👩‍👧‍👦 Ma Famille (Généalogie)</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/moyens-de-transports/moyens-de-transports.html">🚌 Moyens de transport</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/objets-de-la-cuisine/objets-de-la-cuisine.html">🍳 Objets de la cuisine</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/objets-de-la-salle-de-bain/objets-de-la-salle-de-bain.html">🧼 Objets de la salle de bain</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/objets-du-quotidien/objet-du-quotidien.html">🔑 Objets du quotidien</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/pieces-de-la-maison/pieces-de-la-maison.html">🏠 Pièces de la maison</a>
+                <a class="btn element-niveau niveau-a1" href="jeua1/professions/professions.html">💼 Les Professions</a>
+            </div>
+        </details>
+
+        <details class="element-niveau niveau-a1 niveau-a2">
+            <summary>🔤 Jeux du Pendu</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="jeux-du-pendu/jeu-du-pendu-fruits/jeu-du-pendu-fruits.html">🍎 Les Fruits</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="jeux-du-pendu/jeu-du-pendu-la-meteo/jeu-du-pendu-la-meteo.html">☀️ La Météo</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="jeux-du-pendu/jeu-du-pendu-la-ville/jeu-du-pendu-la-ville.html">🏙️ La Ville</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="jeux-du-pendu/jeu-du-pendu-maison/jeu-du-pendu-maison-1-et-2.html">🏠 La Maison (Fiches 1 & 2)</a>
+                <a class="btn element-niveau niveau-a1 niveau-a2" href="jeux-du-pendu/jeu-du-pendu-maison/jeu-du-pendu-maison-fiche-1.html">🏠 La Maison (Fiche 1)</a>
+            </div>
+        </details>
+    </div>
+
+    <!-- ==================== 5. BON À SAVOIR & TESTS (RESERVÉ À "TOUT VOIR") ==================== -->
+    <div class="bloc-thematique element-niveau niveau-all-only" style="border-color: #f39c12; background-color: #fffcf8;">
+        <h2>💡 Bon à savoir & Tests de niveau</h2>
+
+        <!-- Dossier Bon à savoir -->
+        <details class="element-niveau niveau-all-only">
+            <summary>📌 Bon à savoir (Documents & Ressources)</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/borel-maisonny.pdf" target="_blank">📄 Borel-Maisonny (PDF)</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/les-six-niveaux-du-cecrl.html">🌐 Les 6 niveaux du CECRL</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/omep-1.pdf" target="_blank">📄 OMEP 1 (PDF)</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/omep-2.pdf" target="_blank">📄 OMEP 2 (PDF)</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/omep-3.pdf" target="_blank">📄 OMEP 3 (PDF)</a>
+                <a class="btn element-niveau niveau-all-only" href="bon-a-savoir/vocabulaire-par-niveau.pdf" target="_blank">📄 Vocabulaire par niveau (PDF)</a>
+            </div>
+        </details>
+
+        <!-- Dossier Tests de niveau -->
+        <details class="element-niveau niveau-all-only">
+            <summary>📝 Tests de niveaux</summary>
+            <div class="grid-boutons">
+                <a class="btn element-niveau niveau-all-only" href="tests-de-niveaux/quiz-avec-image-et-son-avec-trous-et-reponses.html">🎧 Quiz Image & Son</a>
+                <a class="btn element-niveau niveau-all-only" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-25-questions-complet.html">📝 Test A1 vers A2 (25 Qs)</a>
+                <a class="btn element-niveau niveau-all-only" href="tests-de-niveaux/test-de-niveau-A1-vers-A2-5-questions.html">📝 Test A1 vers A2 (5 Qs)</a>
+                <a class="btn element-niveau niveau-all-only" href="tests-de-niveaux/test-de-niveau-a2-vers-b1-40-questions-complet.html">📝 Test A2 vers B1 (40 Qs)</a>
+            </div>
+        </details>
     </div>
     
-    <audio id="quiz-audio" controls style="display: none;"></audio>
-    
-    <div id="options-container"></div>
-    <button id="submit-btn">Valider la réponse</button>
 </div>
 
+<!-- SCRIPT JS DE FILTRAGE PAR NIVEAU -->
 <script>
-// --- ZONE MODIFIABLE : Ajoutez ou modifiez vos questions ici ---
-const mesQuestions = [
-    
-	
-	
-	
-	
-	{
-        type: "qcm",
-        question: "Articles « définis et indéfinis au singulier » (un - une - le - la - l') Voulez-vous commencer ? ",
-        reponses: ["oui"],
-        correcte: 0, 
-        image: "",
-        audio: "" 
-    },  
-    {
-        type: "multi-trous",
-        question: "Complétez avec l'article défini ou indéfini qui convient (un - une - le - la - l') :",
-        noms: [
-            "1. *** marchande de fleurs installe sa terrasse.",
-            "2. Elle choisit *** rose rouge pour décorer le centre.",
-            "3. *** parfum délicat se dégage immédiatement de *** fleur.",
-            "4. *** enfant passe en courant, *** cartable sur le dos.",
-            "5. Il a peur de rater *** début de son premier cours.",
-            "6. *** directrice de *** école attend les élèves à l'entrée.",
-            "7. Elle salue *** parent qui accompagne un tout petit garçon.",
-            "8. Soudain, *** coup de vent fait voler *** vieux journal.",
-            "9. *** feuille de papier traverse la route déserte.",
-            "10. *** voiture s'arrête pour laisser passer *** piéton.",
-            "11. *** conducteur sourit et fait *** signe amical de la main.",
-            "12. Dans *** parc voisin, *** jardinier taille un buisson.",
-            "13. Il utilise *** outil ancien mais très efficace.",
-            "14. *** goutte de pluie tombe sur *** feuille verte.",
-            "15. Puis *** deuxième goutte arrive, puis une troisième.",
-            "16. *** pluie commence à tomber de manière régulière.",
-            "17. *** passant pressé ouvre *** parapluie noir.",
-            "18. *** femme s'abrite sous *** grand porche en pierre.",
-            "19. Elle attend la fin de *** averse avec patience.",
-           
-        ],
-        correcte: [
-            "la", "une",
-            "Un", "la", "Un", "le", "le", "La", "l'", "un", "un", "un",
-            "La", "Une", "un", "Le", "un", "le", "un", "un", "Une", "une",
-            "une", "La", "Un", "un", "Une", "un", "l'"
-        ],
-        image: "",
-        audio: ""
-    }
-];
-// --------------------------------------------------------------
+function filtrerNiveau(codeNiveau) {
+    const tousLesBoutons = document.querySelectorAll('.card-niveau');
+    tousLesBoutons.forEach(btn => btn.classList.remove('active'));
 
-let indexQuestionActuelle = 0;
-let score = 0;
-const historiqueReponses = [];
+    const boutonClique = document.querySelector('.card-' + codeNiveau);
+    if(boutonClique) boutonClique.classList.add('active');
 
-function chargerQuestion() {
-    const q = mesQuestions[indexQuestionActuelle];
-    document.getElementById("question").textContent = q.question;
-    
-    const imageElement = document.getElementById("quiz-image");
-    if (imageElement) {
-        if (q.image && q.image !== "") {
-            imageElement.src = q.image;
-            imageElement.style.display = "block";
+    const tousLesElements = document.querySelectorAll('.element-niveau');
+
+    tousLesElements.forEach(elem => {
+        if (codeNiveau === 'all') {
+            // "Tout Voir" affiche TOUT (y compris niveau-all-only)
+            elem.classList.remove('masque');
         } else {
-            imageElement.style.display = "none";
-        }
-    }
-
-    const audioElement = document.getElementById("quiz-audio");
-    if (audioElement) {
-        if (q.audio && q.audio !== "") {
-            audioElement.src = q.audio;
-            audioElement.style.display = "block"; 
-            audioElement.load();                  
-        } else {
-            audioElement.style.display = "none";  
-            audioElement.src = "";
-        }
-    }
-
-    const optionsDiv = document.getElementById("options-container");
-    optionsDiv.innerHTML = ""; 
-    
-    if (q.type === "texte") {
-        optionsDiv.innerHTML = `
-            <input type="text" id="reponse-texte" placeholder="Tapez votre réponse ici..." 
-                   style="padding: 10px; width: 96%; font-size: 16px; margin-top: 10px; border-radius: 4px; border: 1px solid #ccc;">
-        `;
-    } 
-    else if (q.type === "multi-trous") {
-        let htmlFormulaire = '<div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px; max-height: 420px; overflow-y: auto; padding-right: 10px;">';
-        
-        let compteurTrou = 0; 
-
-        q.noms.forEach((nom) => {
-            let ligneHtml = `<div style="display: flex; align-items: center; flex-wrap: wrap; background: #f9f9f9; padding: 8px 12px; border-radius: 4px; border: 1px solid #eee; font-size: 16px; line-height: 1.6;">`;
-            
-            const segments = nom.split("***");
-            
-            segments.forEach((segment, idxSegment) => {
-                ligneHtml += `<span>${segment}</span>`;
-                if (idxSegment < segments.length - 1) {
-                    ligneHtml += `
-                        <input type="text" class="reponse-multi" data-index="${compteurTrou}" placeholder="..." 
-                               style="padding: 4px; width: 65px; font-size: 15px; border: 1px solid #ccc; border-radius: 4px; text-align: center; margin: 0 5px; font-weight: bold;">
-                    `;
-                    compteurTrou++;
-                }
-            });
-            
-            ligneHtml += `</div>`;
-            htmlFormulaire += ligneHtml;
-        });
-        
-        htmlFormulaire += '</div>';
-        optionsDiv.innerHTML = htmlFormulaire;
-    } 
-    else {
-        q.reponses.forEach((reponse, index) => {
-            optionsDiv.innerHTML += `
-                <div class="options">
-                    <input type="radio" name="quiz" id="opt${index}" value="${index}">
-                    <label for="opt${index}" style="font-size: 16px; margin-left: 8px; cursor:pointer;">${reponse}</label>
-                </div>`;
-        });
-    }
-}
-
-document.getElementById("submit-btn").addEventListener("click", () => {
-    const q = mesQuestions[indexQuestionActuelle];
-    
-    const audioElement = document.getElementById("quiz-audio");
-    if (audioElement) { audioElement.pause(); }
-
-    let estCorrect = false;
-    let detailBilan = ""; 
-
-    if (q.type === "texte") {
-        const inputTexte = document.getElementById("reponse-texte");
-        if (!inputTexte || inputTexte.value.trim() === "") return alert("Veuillez écrire une réponse !");
-        
-        const valeurSaisie = inputTexte.value.trim();
-        estCorrect = (valeurSaisie.toLowerCase() === q.correcte.toLowerCase());
-        detailBilan = `Votre réponse : "<strong>${valeurSaisie}</strong>" | Attendu : "<strong>${q.correcte}</strong>"`;
-        
-        if (estCorrect) score++;
-    } 
-    else if (q.type === "multi-trous") {
-        const toutesLesCases = document.querySelectorAll('.reponse-multi');
-        let toutesJustes = true;
-        let uneCaseVide = false;
-        let dictionnaireSaisies = {};
-
-        toutesLesCases.forEach((input) => {
-            const indexAttendu = parseInt(input.getAttribute('data-index'));
-            const valeurSaisie = input.value.trim();
-            dictionnaireSaisies[indexAttendu] = valeurSaisie;
-
-            if (valeurSaisie === "") uneCaseVide = true;
-            if (valeurSaisie.toLowerCase() !== q.correcte[indexAttendu].toLowerCase()) {
-                toutesJustes = false;
+            // Si l'élément est réservé à "Tout Voir", on le masque
+            if (elem.classList.contains('niveau-all-only')) {
+                elem.classList.add('masque');
+            } 
+            // Sinon, on vérifie s'il possède la classe du niveau sélectionné (a0, a1, a2, b1b2)
+            else if (elem.classList.contains('niveau-' + codeNiveau)) {
+                elem.classList.remove('masque');
+            } else {
+                elem.classList.add('masque');
             }
-        });
-
-        if (uneCaseVide) return alert("Veuillez remplir toutes les zones de texte !");
-        
-        estCorrect = toutesJustes;
-        detailBilan = "<ul style='margin:5px 0; padding-left:20px; max-height: 250px; overflow-y: auto;'>";
-        
-        let localTrouIdx = 0;
-        q.noms.forEach((nom) => {
-            let segmentsBilan = nom.split("***");
-            let reconsctructionLigne = "";
-            let ligneEstErreur = false;
-            
-            segmentsBilan.forEach((seg, sIdx) => {
-                reconsctructionLigne += seg;
-                if (sIdx < segmentsBilan.length - 1) {
-                    let saisieUser = dictionnaireSaisies[localTrouIdx];
-                    let attenduDuTrou = q.correcte[localTrouIdx];
-                    if (saisieUser.toLowerCase() === attenduDuTrou.toLowerCase()) {
-                        reconsctructionLigne += ` [ <strong style="color:green;">${saisieUser}</strong> ] `;
-                    } else {
-                        reconsctructionLigne += ` [ <strong style="color:red; text-decoration:line-through;">${saisieUser}</strong> -> <strong style="color:green;">${attenduDuTrou}</strong> ] `;
-                        ligneEstErreur = true;
-                    }
-                    localTrouIdx++;
-                }
-            });
-            
-            let iconeStatut = ligneEstErreur ? "❌ " : "✅ ";
-            detailBilan += `<li style="margin-bottom: 4px; list-style:none;">${iconeStatut}${reconsctructionLigne}</li>`;
-        });
-        detailBilan += "</ul>";
-        
-        if (estCorrect) score++;
-    } 
-    else {
-        const selection = document.querySelector('input[name="quiz"]:checked');
-        if (!selection) return alert("Veuillez sélectionner une réponse !");
-        
-        const indexChoisi = parseInt(selection.value);
-        const reponsesPossibles = q.correcte;
-        
-        if (Array.isArray(reponsesPossibles)) {
-            estCorrect = reponsesPossibles.includes(indexChoisi);
-            detailBilan = `Vous avez cliqué sur : "<strong>${q.reponses[indexChoisi]}</strong>" (Toutes les options étaient valides)`;
-        } else {
-            estCorrect = (indexChoisi === reponsesPossibles);
-            detailBilan = `Votre choix : "<strong>${q.reponses[indexChoisi]}</strong>" | Attendu : "<strong>${q.reponses[reponsesPossibles]}</strong>"`;
         }
-        
-        if (estCorrect) score++;
-    }
-    
-    historiqueReponses.push({
-        question: q.question,
-        estCorrect: estCorrect,
-        detail: detailBilan
     });
-    
-    indexQuestionActuelle++;
-    if (indexQuestionActuelle < mesQuestions.length) {
-        chargerQuestion();
-    } else {
-        afficherRapportFinal();
-    }
-});
-
-function afficherRapportFinal() {
-    let htmlBilan = `
-        <div style="text-align:center; padding: 10px;">
-            <h2>Fin du quiz !</h2>
-            <p style="font-size: 22px; margin-bottom: 30px;">Votre score : <strong>${score} / ${mesQuestions.length}</strong></p>
-            <h3>Rapport détaillé de vos réponses :</h3>
-        </div>
-    `;
-
-    historiqueReponses.forEach((item, index) => {
-        const classeStyle = item.estCorrect ? "bloc-bilan bilan-juste" : "bloc-bilan bilan-faux";
-        const pastilleStatut = item.estCorrect ? "<span class='texte-juste'>[✓ Sans faute]</span>" : "<span class='texte-faux'>[✗ Des erreurs ont été commises]</span>";
-
-        htmlBilan += `
-            <div class="${classeStyle}">
-                <strong>Question ${index + 1}:</strong> ${item.question} <br>
-                <div style="margin-top: 8px; font-size: 14px; color: #444;">
-                    ${pastilleStatut} <br><br> ${item.detail}
-                </div>
-            </div>
-        `;
-    });
-
-    document.getElementById("quiz-container").innerHTML = htmlBilan;
 }
-
-chargerQuestion();
 </script>
-<script src="../../securite.js"></script>
+
 </body>
 </html>
