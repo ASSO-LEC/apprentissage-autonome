@@ -500,7 +500,11 @@ function filtrerNiveau(codeNiveau) {
             if (elem.classList.contains('niveau-all-only')) {
                 elem.classList.add('masque');
             } 
-            // Sinon, on vérifie s'il possède la classe du niveau sélectionné (a0, a1, a2, b1b2)
+            // Cas particulier pour B1 / B2 : accepte niveau-b1b2, niveau-b1 OU niveau-b2
+            else if (codeNiveau === 'b1b2' && (elem.classList.contains('niveau-b1b2') || elem.classList.contains('niveau-b1') || elem.classList.contains('niveau-b2'))) {
+                elem.classList.remove('masque');
+            }
+            // Sinon, vérification classique
             else if (elem.classList.contains('niveau-' + codeNiveau)) {
                 elem.classList.remove('masque');
             } else {
