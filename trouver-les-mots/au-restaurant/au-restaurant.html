@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Vocabulaire du Restaurant</title>
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --primary-dark: #1A252F;
+            --accent: #E67E22;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --bg: #FDFEFE;
+            --card-bg: #FFFFFF;
+            --text: #2C3E50;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #F5EEE8;
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 750px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            color: #7F8C8D;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background: #FDEBD0;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border: 1px solid #F5CBA7;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: #FEF9E7;
+            color: #D35400;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .question-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            min-height: 120px;
+        }
+
+        .restaurant-img {
+            max-height: 180px;
+            max-width: 220px;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 3px solid #E5E8E8;
+            background-color: #FAFAFA;
+            padding: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .question-box {
+            font-size: 1.25em;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .question-box strong {
+            margin: 0 6px;
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 550px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn-option {
+            background: #F0F3F4;
+            border: 2px solid #E5E8E8;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-option:hover {
+            background: #E5E8E8;
+            transform: translateY(-2px);
+        }
+
+        .btn-option.correct {
+            background: var(--success) !important;
+            color: white !important;
+            border-color: var(--success) !important;
+        }
+
+        .btn-option.wrong {
+            background: var(--error) !important;
+            color: white !important;
+            border-color: var(--error) !important;
+        }
+
+        .feedback-box {
+            min-height: 30px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .btn-action {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+        }
+
+        .btn-action:hover {
+            background: #A04000;
+        }
+
+        .score-screen {
+            display: none;
+        }
+
+        .score-screen h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .score-details {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+        }
+
+        .emoji-big {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-card">
+    <!-- Écran de jeu -->
+    <div id="gameScreen">
+        <h1>🍽️ 🍷 Le Vocabulaire du Restaurant 🍰 🍹 </h1>
+        <p class="subtitle">Devinez le mot ou sa définition !  36 mots</p>
+
+        <div class="stats-bar">
+            <span>Question : <span id="currentQuestionNum">1</span> / <span id="totalQuestionsNum">8</span></span>
+            <span>Score : <span id="score">0</span> / <span id="maxScore">8</span></span>
+        </div>
+
+        <div id="categoryBadge" class="category-badge">Restaurant</div>
+
+        <div class="question-container">
+            <img id="restaurantImage" class="restaurant-img" src="" alt="Photo d'illustration" style="display: none;">
+            <div id="questionBox" class="question-box">Chargement...</div>
+        </div>
+
+        <div id="optionsGrid" class="options-grid"></div>
+
+        <div id="feedbackBox" class="feedback-box"></div>
+
+        <div>
+            <button id="nextBtn" class="btn-action" style="display: none;" onclick="nextQuestion()">Question suivante ➔</button>
+        </div>
+    </div>
+
+    <!-- Écran de fin -->
+    <div id="scoreScreen" class="score-screen">
+        <div id="endEmoji" class="emoji-big">🎓</div>
+        <h2 id="endTitle">Bravo !</h2>
+        <div class="score-details">
+            Votre score : <strong id="finalScore">0</strong> sur <span id="finalTotal">8</span>
+        </div>
+        <p id="endMessage" style="margin-bottom: 25px; color: #7F8C8D; font-size: 1.1em;"></p>
+        <button class="btn-action" onclick="restartGame()">🔄 Recommencer une nouvelle partie. Conseillé par JPJ</button>
+    </div>
+</div>
+
+<script>
+    // Liste du vocabulaire du restaurant
+    // Dossier d'images : photos-restaurant/
+    // Fichiers au format JPG (minuscules, sans accent, tirets à la place des espaces/apostrophes)
+    const restaurantData = [
+        { nom: "serveur / serveuse", imageFile: "serveur-serveuse", definition: "Personne qui prend les commandes et apporte les plats aux clients" },
+        { nom: "entrée", imageFile: "entree", definition: "Premier plat léger servi au début du repas" },
+        { nom: "plat principal", imageFile: "plat-principal", definition: "Plat central et le plus important du repas" },
+        { nom: "plat", imageFile: "plat", definition: "Préparation culinaire servie dans une assiette" },
+        { nom: "dessert", imageFile: "dessert", definition: "Mets sucré servi à la fin du repas" },
+        { nom: "assiette", imageFile: "assiette", definition: "Récipient plat dans lequel on sert la nourriture" },
+        { nom: "couteau", imageFile: "couteau", definition: "Ustensile avec une lame pour couper les aliments" },
+        { nom: "cuillère", imageFile: "cuillere", definition: "Ustensile creux utilisé pour manger de la soupe ou des desserts" },
+        { nom: "fourchette", imageFile: "fourchette", definition: "Ustensile muni de dents pour piquer et attraper la nourriture" },
+        { nom: "nappe", imageFile: "nappe", definition: "Grand tissu ou toile qui recouvre et protège la table" },
+        { nom: "verre", imageFile: "verre", definition: "Récipient transparent dans lequel on verse à boire" },
+        { nom: "menu", imageFile: "menu", definition: "Formule regroupant une sélection de plats à prix fixe" },
+        { nom: "carte", imageFile: "carte", definition: "Document listant l'ensemble des plats et boissons proposés" },
+        { nom: "réservation", imageFile: "reservation", definition: "Action de retenir une table à l'avance" },
+        { nom: "cuisine", imageFile: "cuisine", definition: "Pièce du restaurant où l'on prépare les repas" },
+        { nom: "chef", imageFile: "chef", definition: "Cuisinier professionnel qui dirige la préparation des plats" },
+        { nom: "pourboire", imageFile: "pourboire", definition: "Petite somme d'argent laissée au serveur pour le remercier du service" },
+        { nom: "délicieux", imageFile: "delicieux", definition: "Adjectif pour décrire un plat savoureux qui a très bon goût" },
+        { nom: "addition", imageFile: "addition", definition: "Feuille de papier qui indique le montant total à payer" },
+        { nom: "monnaie", imageFile: "monnaie", definition: "Pièces d'argent ou billets rendus quand on paye en liquide" },
+        { nom: "comptoir", imageFile: "comptoir", definition: "Table haute et allongée où l'on peut consommer ou régler l'addition" },
+        { nom: "table", imageFile: "table", definition: "Meuble sur lequel on pose les assiettes et les couverts" },
+        { nom: "chaise", imageFile: "chaise", definition: "Siège avec un dossier sur lequel le client s'assoit" },
+        { nom: "sel", imageFile: "sel", definition: "Condiment blanc qui sert à saler et assaisonner les plats" },
+        { nom: "poivre", imageFile: "poivre", definition: "Épice piquante sous forme de poudre ou de grains" },
+        { nom: "moutarde", imageFile: "moutarde", definition: "Condiment jaune et piquant souvent servi avec de la viande" },
+        { nom: "sauce", imageFile: "sauce", definition: "Préparation liquide ou onctueuse pour accompagner un plat" },
+        { nom: "plat du jour", imageFile: "plat-du-jour", definition: "Plat spécial proposé par le chef spécifiquement aujourd'hui" },
+        { nom: "cuisson", imageFile: "cuisson", definition: "Manière dont la viande est cuite (saignant, à point, bien cuit)" },
+        { nom: "toilettes", imageFile: "toilettes", definition: "Espace sanitaire mis à la disposition des clients" },
+        { nom: "eau", imageFile: "eau", definition: "Boisson essentielle servie en carafe ou en bouteille" },
+        { nom: "ardoise", imageFile: "ardoise", definition: "Panneau mural ou portatif où sont écrits les plats du jour au feutre ou à la craie" },
+        { nom: "hors-d’œuvre", imageFile: "hors-d-oeuvre", definition: "Petit plat ou amuse-bouche servi avant le repas" },
+        { nom: "brunch", imageFile: "brunch", definition: "Repas complet combinant le petit-déjeuner et le déjeuner" },
+        { nom: "café gourmand", imageFile: "cafe-gourmand", definition: "Café accompagné d'un assortiment de petits desserts" },
+        { nom: "apéritif", imageFile: "aperitif", definition: "Boisson servie avant le repas pour ouvrir l'appétit" }
+    ];
+
+    const FOLDER_PATH = "photos-restaurant/";
+    const TOTAL_QUESTIONS = 8;
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let canAnswer = true;
+
+    function generateRandomQuestions() {
+        let pool = [];
+
+        // Type 1 : Retrouver le mot à partir de la définition
+        restaurantData.forEach(item => {
+            const distractors = restaurantData
+                .filter(x => x.nom !== item.nom)
+                .map(x => capitalizeFirstLetter(x.nom));
+
+            pool.push({
+                category: "🔍 Quel est ce mot ?",
+                text: `Quel mot correspond à : <strong>${item.definition}</strong> ?`,
+                correct: capitalizeFirstLetter(item.nom),
+                distractors: getRandomItems(distractors, [], 3),
+                image: `${FOLDER_PATH}${item.imageFile}.jpg`
+            });
+        });
+
+        // Type 2 : Retrouver la définition à partir du mot
+        restaurantData.forEach(item => {
+            const distractors = restaurantData
+                .filter(x => x.definition !== item.definition)
+                .map(x => x.definition);
+
+            pool.push({
+                category: "💡 Quelle est la définition ?",
+                text: `Que signifie : <strong>${item.nom}</strong> ?`,
+                correct: item.definition,
+                distractors: getRandomItems(distractors, [], 3),
+                image: `${FOLDER_PATH}${item.imageFile}.jpg`
+            });
+        });
+
+        shuffleArray(pool);
+        return pool.slice(0, TOTAL_QUESTIONS);
+    }
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    function getRandomItems(array, excludeArray, count) {
+        let filtered = array.filter(item => !excludeArray.includes(item));
+        shuffleArray(filtered);
+        return filtered.slice(0, count);
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function startGame() {
+        questions = generateRandomQuestions();
+        currentQuestionIndex = 0;
+        score = 0;
+        canAnswer = true;
+
+        document.getElementById('gameScreen').style.display = 'block';
+        document.getElementById('scoreScreen').style.display = 'none';
+        document.getElementById('totalQuestionsNum').innerText = TOTAL_QUESTIONS;
+        document.getElementById('maxScore').innerText = TOTAL_QUESTIONS;
+
+        showQuestion();
+    }
+
+    function showQuestion() {
+        canAnswer = true;
+        const q = questions[currentQuestionIndex];
+
+        document.getElementById('currentQuestionNum').innerText = currentQuestionIndex + 1;
+        document.getElementById('score').innerText = score;
+        document.getElementById('categoryBadge').innerText = q.category;
+        
+        document.getElementById('questionBox').innerHTML = q.text;
+
+        // Gestion de l'affichage de l'image
+        const imgEl = document.getElementById('restaurantImage');
+        if (q.image) {
+            imgEl.src = q.image;
+            imgEl.style.display = 'block';
+            imgEl.onerror = () => { imgEl.style.display = 'none'; };
+        } else {
+            imgEl.style.display = 'none';
+        }
+
+        document.getElementById('feedbackBox').innerText = '';
+        document.getElementById('nextBtn').style.display = 'none';
+
+        let options = [q.correct, ...q.distractors];
+        shuffleArray(options);
+
+        const grid = document.getElementById('optionsGrid');
+        grid.innerHTML = '';
+
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-option';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(btn, opt, q.correct);
+            grid.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(selectedBtn, selectedValue, correctValue) {
+        if (!canAnswer) return;
+        canAnswer = false;
+
+        const allButtons = document.querySelectorAll('.btn-option');
+        const feedback = document.getElementById('feedbackBox');
+
+        if (selectedValue === correctValue) {
+            selectedBtn.classList.add('correct');
+            score++;
+            document.getElementById('score').innerText = score;
+            feedback.innerText = "✨ Bravo ! C'est exactement ça !";
+            feedback.style.color = "var(--success)";
+        } else {
+            selectedBtn.classList.add('wrong');
+            feedback.innerText = `❌ Dommage ! La bonne réponse était : ${correctValue}`;
+            feedback.style.color = "var(--error)";
+
+            allButtons.forEach(btn => {
+                if (btn.innerText === correctValue) {
+                    btn.classList.add('correct');
+                }
+            });
+        }
+
+        if (currentQuestionIndex < TOTAL_QUESTIONS - 1) {
+            document.getElementById('nextBtn').innerText = 'Question suivante ➔';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        } else {
+            document.getElementById('nextBtn').innerText = 'Voir mon score final 🏆';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        }
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < TOTAL_QUESTIONS) {
+            showQuestion();
+        } else {
+            showEndScreen();
+        }
+    }
+
+    function showEndScreen() {
+        document.getElementById('gameScreen').style.display = 'none';
+        document.getElementById('scoreScreen').style.display = 'block';
+
+        document.getElementById('finalScore').innerText = score;
+        document.getElementById('finalTotal').innerText = TOTAL_QUESTIONS;
+
+        const emojiEl = document.getElementById('endEmoji');
+        const titleEl = document.getElementById('endTitle');
+        const msgEl = document.getElementById('endMessage');
+
+        let percentage = (score / TOTAL_QUESTIONS) * 100;
+
+        if (percentage === 100) {
+            emojiEl.innerText = "👨‍🍳";
+            titleEl.innerText = "Grand Chef du Vocabulaire !";
+            msgEl.innerText = "Félicitations, vous connaissez parfaitement le vocabulaire du restaurant !";
+        } else if (percentage >= 70) {
+            emojiEl.innerText = "🌟";
+            titleEl.innerText = "Bravo !";
+            msgEl.innerText = "Très bon score ! Vous maîtrisez une grande partie du champ lexical du restaurant.";
+        } else if (percentage >= 50) {
+            emojiEl.innerText = "👍";
+            titleEl.innerText = "Pas mal !";
+            msgEl.innerText = "C'est un bon début, continuez à réviser le vocabulaire.";
+        } else {
+            emojiEl.innerText = "📚";
+            titleEl.innerText = "À travailler !";
+            msgEl.innerText = "Relisez la liste de vocabulaire et réessayez une nouvelle partie !";
+        }
+    }
+
+    function restartGame() {
+        startGame();
+    }
+
+    window.onload = startGame;
+</script>
+
+</body>
+</html>
