@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice : Les Professions</title>
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --accent: #2980B9;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --bg: #F4F6F7;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+
+        .exo-title {
+            font-size: 1.1em;
+            color: var(--primary);
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .q-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FAFAFA;
+            padding: 12px 18px;
+            border-radius: 8px;
+            border: 1px solid #E2E8F0;
+            font-size: 1.05em;
+        }
+
+        @media (max-width: 500px) {
+            .q-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .q-item input {
+                width: 100%;
+            }
+        }
+
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            width: 180px;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .correct {
+            border-color: var(--success) !important;
+            background-color: #E8F8F5 !important;
+            color: #196F3D;
+        }
+
+        .incorrect {
+            border-color: var(--error) !important;
+            background-color: #FCE4D6 !important;
+            color: #922B21;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            font-size: 0.95em;
+            transition: background 0.2s;
+        }
+
+        .btn-check { background-color: var(--success); }
+        .btn-check:hover { background-color: #27AE60; }
+
+        .btn-reload { background-color: var(--accent); }
+        .btn-reload:hover { background-color: #1F618D; }
+
+        .score-display {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>👨‍🍳 Vocabulaire : Les Professions masculin ou féminin</h1>
+    <p class="subtitle">Entraînement rapide (10 questions)</p>
+
+    <!-- ZONE D'EXERCICES -->
+    <div id="exoContent"></div>
+
+    <div class="controls">
+        <button class="btn-action btn-check" onclick="verifier()">Vérifier mes réponses par JPJ</button>
+        <button class="btn-action btn-reload" onclick="chargerExerciceActuel()">🔄 10 nouvelles questions</button>
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+</div>
+
+<script>
+    const professionsNoms = [
+        { m: "étudiant", f: "étudiante" },
+        { m: "enseignant", f: "enseignante" },
+        { m: "avocat", f: "avocate" },
+        { m: "commerçant", f: "commerçante" },
+        { m: "assistant", f: "assistante" },
+        { m: "vendeur", f: "vendeuse" },
+        { m: "coiffeur", f: "coiffeuse" },
+        { m: "chanteur", f: "chanteuse" },
+        { m: "patient", f: "patiente" },
+        { m: "client", f: "cliente" },
+        { m: "employé", f: "employée" },
+        { m: "acteur", f: "actrice" },
+        { m: "directeur", f: "directrice" },
+        { m: "ami", f: "amie" },
+        { m: "journaliste", f: "journaliste" },
+		{ m: "diététicien", f: "diététicienne" },
+        { m: "collègue", f: "collègue" },
+        { m: "facteur", f: "factrice" },
+        { m: "notaire", f: "notaire" },
+        { m: "militaire", f: "militaire" },
+        { m: "vigile", f: "vigile" },
+        { m: "sportif", f: "sportive" },
+        { m: "photographe", f: "photographe" },
+        { m: "boulanger", f: "boulangère" },
+        { m: "boucher", f: "bouchère" },
+        { m: "danseur", f: "danseuse" },
+        { m: "agriculteur", f: "agricultrice" },
+		{ m: "traducteur", f: "traductrice" },
+		{ m: "gardien", f: "gardienne" },
+		{ m: "informaticien", f: "informaticienne" },
+		{ m: "pharmacien", f: "pharmacienne" },
+		{ m: "comédien", f: "comédienne" },
+		{ m: "animateur", f: "animatrice" },
+		{ m: "infirmier", f: "infirmière" },
+		{ m: "médecin", f: "médecin" },
+		{ m: "docteur", f: "docteure" },
+		{ m: "dentiste", f: "dentiste" },
+		{ m: "serveur", f: "serveuse" },
+		{ m: "mécanicien", f: "mécanicienne" },
+		{ m: "caissier", f: "caissière" },
+        { m: "guide", f: "guide" }
+    ];
+
+    function shuffle(array) {
+        return [...array].sort(() => Math.random() - 0.5);
+    }
+
+    function chargerExerciceActuel() {
+        const container = document.getElementById('exoContent');
+        document.getElementById('scoreDisplay').innerText = '';
+        container.innerHTML = '';
+
+        let html = `<div class="exo-title">Trouvez le masculin ou le féminin correspondant :</div><div class="questions-grid">`;
+        
+        let pool = shuffle(professionsNoms);
+        let questions = [];
+        
+        // Génère 10 questions aléatoires
+        for(let i = 0; i < 5; i++) {
+            let item = pool[i];
+            questions.push({ p: `Un ${item.m} ➔ Une `, ans: item.f });
+            questions.push({ p: `Une ${item.f} ➔ Un `, ans: item.m });
+        }
+
+        shuffle(questions).forEach((q, i) => {
+            html += `<div class="q-item"><span><strong>${i+1}.</strong> ${q.p}</span><input type="text" data-ans="${q.ans}" placeholder="écrire ici"></div>`;
+        });
+        
+        html += `</div>`;
+        container.innerHTML = html;
+    }
+
+    // Nettoie le texte (retire accents, ç, majuscules et espaces superflus)
+    function normaliser(str) {
+        return str
+            .trim()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "") // Supprime les accents (é -> e, è -> e)
+            .replace(/ç/g, "c");             // Remplace ç par c
+    }
+
+    function verifier() {
+        const inputs = document.querySelectorAll('#exoContent input');
+        let score = 0;
+        let total = inputs.length;
+
+        inputs.forEach(input => {
+            const attendu = normaliser(input.getAttribute('data-ans'));
+            const saisie = normaliser(input.value);
+
+            if (saisie === attendu && saisie !== "") {
+                input.className = "correct";
+                score++;
+            } else {
+                input.className = "incorrect";
+            }
+        });
+
+        const scoreDiv = document.getElementById('scoreDisplay');
+        scoreDiv.innerText = `Score : ${score} / ${total}`;
+        if(score === total) {
+            scoreDiv.style.color = "var(--success)";
+            scoreDiv.innerText += " 🎉 Excellent ! Sans faute !";
+        } else {
+            scoreDiv.style.color = "var(--error)";
+        }
+    }
+
+    window.onload = chargerExerciceActuel;
+</script>
+
+</body>
+</html>
