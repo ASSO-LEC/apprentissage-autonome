@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice : Accord des Adjectifs</title>
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --accent: #2980B9;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --bg: #F4F6F7;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+
+        .exo-title {
+            font-size: 1.1em;
+            color: var(--primary);
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .q-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FAFAFA;
+            padding: 12px 18px;
+            border-radius: 8px;
+            border: 1px solid #E2E8F0;
+            font-size: 1.05em;
+        }
+
+        @media (max-width: 500px) {
+            .q-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .q-item input {
+                width: 100%;
+            }
+        }
+
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            width: 180px;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .correct {
+            border-color: var(--success) !important;
+            background-color: #E8F8F5 !important;
+            color: #196F3D;
+        }
+
+        .incorrect {
+            border-color: var(--error) !important;
+            background-color: #FCE4D6 !important;
+            color: #922B21;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            font-size: 0.95em;
+            transition: background 0.2s;
+        }
+
+        .btn-check { background-color: var(--success); }
+        .btn-check:hover { background-color: #27AE60; }
+
+        .btn-reload { background-color: var(--accent); }
+        .btn-reload:hover { background-color: #1F618D; }
+
+        .score-display {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎨 Grammaire : L'Accord des Adjectifs</h1>
+    <p class="subtitle">Entraînement rapide (10 questions)</p>
+
+    <!-- ZONE D'EXERCICES -->
+    <div id="exoContent"></div>
+
+    <div class="controls">
+        <button class="btn-action btn-check" onclick="verifier()">Vérifier mes réponses par JPJ</button>
+        <button class="btn-action btn-reload" onclick="chargerExerciceActuel()">🔄 10 nouvelles questions</button>
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+</div>
+
+<script>
+    const adjectifsList = [
+        // RÈGLES CLASSIQUES ET TERMINAISONS (-eux, -if, -er, -on)
+        { m: "sérieux", f: "sérieuse" },
+        { m: "ennuyeux", f: "ennuyeuse" },
+        { m: "charmeur", f: "charmeuse" },
+        { m: "danseur", f: "danseuse" },
+        { m: "sportif", f: "sportive" },
+        { m: "boulanger", f: "boulangère" },
+        { m: "cher", f: "chère" },
+        { m: "bon", f: "bonne" },
+        { m: "réel", f: "réelle" },
+        { m: "bas", f: "basse" },
+        { m: "sec", f: "sèche" },
+
+        // FORMES PARTICULIÈRES ET EXCEPTIONS
+        { m: "beau", f: "belle", cM: "un garçon", cF: "une fille" },
+        { m: "nouveau", f: "nouvelle", cM: "un manteau", cF: "une veste" },
+        { m: "vieux", f: "vieille", cM: "un meuble", cF: "une maison" },
+        { m: "roux", f: "rousse", cM: "un chat", cF: "une perruque" },
+        { m: "faux", f: "fausse", cM: "un document", cF: "une réponse" },
+        { m: "jaloux", f: "jalouse", cM: "un mari", cF: "une femme" },
+        { m: "frais", f: "fraîche", cM: "un jus", cF: "une eau" },
+        { m: "doux", f: "douce", cM: "un bruit", cF: "une musique" },
+        { m: "long", f: "longue", cM: "un voyage", cF: "une attente" },
+        { m: "fou", f: "folle", cM: "un projet", cF: "une idée" },
+        { m: "mou", f: "molle", cM: "un oreiller", cF: "une pâte" },
+        { m: "grec", f: "grecque", cM: "un plat", cF: "une salade" },
+        { m: "turc", f: "turque", cM: "un café", cF: "une pâtisserie" },
+
+        // ADJECTIFS ESSENTIELS NIVEAU A1 / A2
+        { m: "grand", f: "grande" },
+        { m: "petit", f: "petite" },
+        { m: "intelligent", f: "intelligente" },
+        { m: "fort", f: "forte" },
+        { m: "court", f: "courte" },
+        { m: "lent", f: "lente" },
+        { m: "chaud", f: "chaude" },
+        { m: "froid", f: "froide" },
+        { m: "content", f: "contente" },
+        { m: "méchant", f: "méchante" },
+        { m: "léger", f: "légère" }
+    ];
+
+    function shuffle(array) {
+        return [...array].sort(() => Math.random() - 0.5);
+    }
+
+    function chargerExerciceActuel() {
+        const container = document.getElementById('exoContent');
+        document.getElementById('scoreDisplay').innerText = '';
+        container.innerHTML = '';
+
+        let html = `<div class="exo-title">Transformez l'adjectif au masculin ou au féminin :</div><div class="questions-grid">`;
+        
+        let pool = shuffle(adjectifsList).slice(0, 10);
+        let questions = [];
+
+        pool.forEach(item => {
+            let sens = Math.random() > 0.5;
+            
+            // Si l'adjectif a des contextes définis (ex: un beau garçon -> une belle fille)
+            if (item.cM && item.cF) {
+                if (sens) {
+                    questions.push({ texte: `<i>« ${item.cM} ${item.m} »</i> ➔ <i>« ${item.cF} </i>`, ans: item.f, fin: `<i> »</i>` });
+                } else {
+                    questions.push({ texte: `<i>« ${item.cF} ${item.f} »</i> ➔ <i>« ${item.cM} </i>`, ans: item.m, fin: `<i> »</i>` });
+                }
+            } else {
+                // Forme standard de consigne
+                if (sens) {
+                    questions.push({ texte: `Féminin de <strong>${item.m}</strong> ➔ `, ans: item.f, fin: `` });
+                } else {
+                    questions.push({ texte: `Masculin de <strong>${item.f}</strong> ➔ `, ans: item.m, fin: `` });
+                }
+            }
+        });
+
+        questions.forEach((q, i) => {
+            html += `<div class="q-item"><span><strong>${i+1}.</strong> ${q.texte}</span><div><input type="text" data-ans="${q.ans}" placeholder="écrire ici"> ${q.fin}</div></div>`;
+        });
+        
+        html += `</div>`;
+        container.innerHTML = html;
+    }
+
+    // Normalisation flexible : tolère majuscules, minuscules, cédilles et accents
+    function normaliser(str) {
+        return str
+            .trim()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "") // Supprime les accents
+            .replace(/ç/g, "c");             // Remplace ç par c
+    }
+
+    function verifier() {
+        const inputs = document.querySelectorAll('#exoContent input');
+        let score = 0;
+        let total = inputs.length;
+
+        inputs.forEach(input => {
+            const attendu = normaliser(input.getAttribute('data-ans'));
+            const saisie = normaliser(input.value);
+
+            if (saisie === attendu && saisie !== "") {
+                input.className = "correct";
+                score++;
+            } else {
+                input.className = "incorrect";
+            }
+        });
+
+        const scoreDiv = document.getElementById('scoreDisplay');
+        scoreDiv.innerText = `Score : ${score} / ${total}`;
+        if(score === total) {
+            scoreDiv.style.color = "var(--success)";
+            scoreDiv.innerText += " 🎉 Bravo ! Sans faute !";
+        } else {
+            scoreDiv.style.color = "var(--error)";
+        }
+    }
+
+    window.onload = chargerExerciceActuel;
+</script>
+
+</body>
+</html>

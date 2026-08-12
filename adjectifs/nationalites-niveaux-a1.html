@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Nationalités</title>
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --accent: #2980B9;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --bg: #F4F6F7;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+
+        .exo-title {
+            font-size: 1.1em;
+            color: var(--primary);
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .q-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FAFAFA;
+            padding: 12px 18px;
+            border-radius: 8px;
+            border: 1px solid #E2E8F0;
+            font-size: 1.05em;
+        }
+
+        @media (max-width: 500px) {
+            .q-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .q-item input {
+                width: 100%;
+            }
+        }
+
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            width: 180px;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .correct {
+            border-color: var(--success) !important;
+            background-color: #E8F8F5 !important;
+            color: #196F3D;
+        }
+
+        .incorrect {
+            border-color: var(--error) !important;
+            background-color: #FCE4D6 !important;
+            color: #922B21;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            font-size: 0.95em;
+            transition: background 0.2s;
+        }
+
+        .btn-check { background-color: var(--success); }
+        .btn-check:hover { background-color: #27AE60; }
+
+        .btn-reload { background-color: var(--accent); }
+        .btn-reload:hover { background-color: #1F618D; }
+
+        .score-display {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌍 Les Nationalités</h1>
+    <p class="subtitle">Entraînement rapide (10 questions)</p>
+
+    <!-- ZONE D'EXERCICES -->
+    <div id="exoContent"></div>
+
+    <div class="controls">
+        <button class="btn-action btn-check" onclick="verifier()">Vérifier mes réponses par JPJ</button>
+        <button class="btn-action btn-reload" onclick="chargerExerciceActuel()">🔄 10 nouvelles questions</button>
+        <div class="score-display" id="scoreDisplay"></div>
+    </div>
+</div>
+
+<script>
+    const nationalitesList = [
+        // Européennes
+        { pays: "la France", m: "français", f: "française" },
+        { pays: "l'Angleterre", m: "anglais", f: "anglaise" },
+        { pays: "l'Espagne", m: "espagnol", f: "espagnole" },
+        { pays: "l'Allemagne", m: "allemand", f: "allemande" },
+        { pays: "l'Italie", m: "italien", f: "italienne" },
+        { pays: "la Belgique", m: "belge", f: "belge" },
+        { pays: "la Suisse", m: "suisse", f: "suisse" },
+        { pays: "le Portugal", m: "portugais", f: "portugaise" },
+        { pays: "la Pologne", m: "polonais", f: "polonaise" },
+        { pays: "la Roumanie", m: "roumain", f: "roumaine" },
+        { pays: "les Pays-Bas", m: "néerlandais", f: "néerlandaise" },
+        { pays: "la Grèce", m: "grec", f: "grecque" },
+        
+        // Amériques
+        { pays: "le Canada", m: "canadien", f: "canadienne" },
+        { pays: "les Etats-Unis", m: "américain", f: "américaine" },
+        { pays: "le Mexique", m: "mexicain", f: "mexicaine" },
+        { pays: "le Brésil", m: "brésilien", f: "brésilienne" },
+        
+        // Afrique & Moyen-Orient
+        { pays: "le Maroc", m: "marocain", f: "marocaine" },
+        { pays: "l'Algérie", m: "algérien", f: "algérienne" },
+        { pays: "la Tunisie", m: "tunisien", f: "tunisienne" },
+        { pays: "le Sénégal", m: "sénégalais", f: "sénégalaise" },
+        { pays: "le Congo", m: "congolais", f: "congolaise" },
+        { pays: "l'Egypte", m: "égyptien", f: "égyptienne" },
+        { pays: "la Turquie", m: "turc", f: "turque" },
+		{ pays: "l'Arabie Saoudite", m: "saoudien", f: "saoudienne" },
+
+        // Asie
+        { pays: "la Chine", m: "chinois", f: "chinoise" },
+        { pays: "le Japon", m: "japonais", f: "japonaise" }
+    ];
+
+    // Traitement automatique des prépositions
+    function getDePays(pays) {
+        if (pays.startsWith("le ")) return "du " + pays.substring(3);
+        if (pays.startsWith("les ")) return "des " + pays.substring(4);
+        if (pays.startsWith("l'")) return "d'" + pays.substring(2);
+        if (pays.startsWith("la ")) return "de " + pays;
+        return "de " + pays;
+    }
+
+    function shuffle(array) {
+        return [...array].sort(() => Math.random() - 0.5);
+    }
+
+    function chargerExerciceActuel() {
+        const container = document.getElementById('exoContent');
+        document.getElementById('scoreDisplay').innerText = '';
+        container.innerHTML = '';
+
+        let html = `<div class="exo-title">Complétez avec la nationalité qui convient :</div><div class="questions-grid">`;
+        
+        let pool = shuffle(nationalitesList);
+        let questions = [];
+        
+        // Génère 10 questions mixtes (5 masculines, 5 féminines)
+        for(let i = 0; i < 5; i++) {
+            let item = pool[i];
+            let origine = getDePays(item.pays);
+            questions.push({ sujet: `Il vient ${origine}, il est `, ans: item.m });
+            questions.push({ sujet: `Elle vient ${origine}, elle est `, ans: item.f });
+        }
+
+        shuffle(questions).forEach((q, i) => {
+            html += `<div class="q-item"><span><strong>${i+1}.</strong> ${q.sujet}</span><input type="text" data-ans="${q.ans}" placeholder="écrire ici"></div>`;
+        });
+        
+        html += `</div>`;
+        container.innerHTML = html;
+    }
+
+    // Fonction de tolérance : supprime accents, cédilles, majuscules
+    function normaliser(str) {
+        return str
+            .trim()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "") 
+            .replace(/ç/g, "c");             
+    }
+
+    function verifier() {
+        const inputs = document.querySelectorAll('#exoContent input');
+        let score = 0;
+        let total = inputs.length;
+
+        inputs.forEach(input => {
+            const attendu = normaliser(input.getAttribute('data-ans'));
+            const saisie = normaliser(input.value);
+
+            if (saisie === attendu && saisie !== "") {
+                input.className = "correct";
+                score++;
+            } else {
+                input.className = "incorrect";
+            }
+        });
+
+        const scoreDiv = document.getElementById('scoreDisplay');
+        scoreDiv.innerText = `Score : ${score} / ${total}`;
+        if(score === total) {
+            scoreDiv.style.color = "var(--success)";
+            scoreDiv.innerText += " 🎉 Bravo ! Sans faute !";
+        } else {
+            scoreDiv.style.color = "var(--error)";
+        }
+    }
+
+    window.onload = chargerExerciceActuel;
+</script>
+
+</body>
+</html>
