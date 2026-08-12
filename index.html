@@ -534,6 +534,11 @@ function filtrerNiveau(codeNiveau) {
     });
 }
 </script>
-
+<script>
+  // Force la fermeture de tous les menus déroulants au chargement de la page
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('details').forEach(det => det.removeAttribute('open'));
+  });
+</script>
 </body>
 </html>
