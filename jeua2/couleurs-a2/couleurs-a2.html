@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu des Couleurs - Niveau A2</title>
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --accent: #8E44AD;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --border: #E2E8F0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .rule-box {
+            background: #F8F4FC;
+            border-left: 4px solid var(--accent);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #6C3483;
+            line-height: 1.4;
+        }
+
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .q-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FAFAFA;
+            border: 1px solid var(--border);
+            padding: 12px 14px;
+            border-radius: 10px;
+            gap: 10px;
+        }
+
+        .q-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .icon {
+            font-size: 1.8em;
+            flex-shrink: 0;
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 0.98em;
+        }
+
+        .q-text .color-tag {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .q-text em {
+            display: block;
+            font-size: 0.82em;
+            color: #64748B;
+            font-weight: normal;
+        }
+
+        input[type="text"] {
+            padding: 8px 10px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95em;
+            font-weight: bold;
+            width: 130px;
+            text-align: center;
+            outline: none;
+            color: var(--primary);
+            background: white;
+            flex-shrink: 0;
+        }
+
+        /* Optimisation pour écran mobile très étroit */
+        @media (max-width: 480px) {
+            .q-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            input[type="text"] {
+                width: 100%;
+            }
+        }
+
+        input.correct {
+            border-color: var(--success) !important;
+            background-color: #ECFDF5 !important;
+            color: #065F46 !important;
+        }
+
+        input.incorrect {
+            border-color: var(--error) !important;
+            background-color: #FEF2F2 !important;
+            color: #991B1B !important;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 2px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+            font-size: 0.9em;
+        }
+
+        .btn-check { background-color: var(--success); }
+        .btn-check:hover { background-color: #27AE60; }
+        .btn-reload { background-color: var(--accent); }
+        .btn-reload:hover { background-color: #703688; }
+
+        .score { 
+            font-weight: bold; 
+            font-size: 1.1em;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🛍️ Jeu A2 : Accords des Couleurs</h2>
+
+    <div class="rule-box">
+        💡 <strong>Consigne :</strong> Accordez l'adjectif entre parenthèses avec le nom proposé.<br>
+        <em>Exemple : une tasse (bleu) ➔ <strong>bleue</strong></em>
+    </div>
+
+    <div class="questions-list" id="exoContent"></div>
+
+    <div class="controls">
+        <button class="btn btn-check" onclick="verifier()">✅ Vérifier par JPJ</button>
+        <button class="btn btn-reload" onclick="generer()">🔄 Rejouer (5 questions)</button>
+        <div class="score" id="scoreDisplay"></div>
+    </div>
+</div>
+
+<script>
+    const objets = [
+        { icone: "☕", phrase: "une tasse", colorName: "bleu", ans: "bleue", hint: "(féminin singulier)" },
+        { icone: "☕", phrase: "un café", colorName: "noir", ans: "noir", hint: "(masculin singulier)" },
+        { icone: "💇‍♂️", phrase: "des cheveux", colorName: "blond", ans: "blonds", hint: "(masculin pluriel)" },
+        { icone: "🚗", phrase: "une voiture", colorName: "rouge", ans: "rouge", hint: "(féminin singulier)" },
+        { icone: "🚗", phrase: "des voitures", colorName: "vert", ans: "vertes", hint: "(féminin pluriel)" },
+        { icone: "👟", phrase: "des chaussures", colorName: "blanc", ans: "blanches", hint: "(féminin pluriel)" },
+        { icone: "👕", phrase: "un tee-shirt", colorName: "gris", ans: "gris", hint: "(masculin singulier)" },
+        { icone: "👗", phrase: "une robe", colorName: "violet", ans: "violette", hint: "(féminin singulier)" },
+        { icone: "📱", phrase: "une tablette", colorName: "noir", ans: "noire", hint: "(féminin singulier)" },
+        { icone: "✏️", phrase: "des crayons", colorName: "jaune", ans: "jaunes", hint: "(masculin pluriel)" },
+        { icone: "🎒", phrase: "un sac", colorName: "marron", ans: "marron", hint: "(invariable !)" },
+        { icone: "🍊", phrase: "une veste", colorName: "orange", ans: "orange", hint: "(invariable !)" },
+        { icone: "🌹", phrase: "des fleurs", colorName: "rouge", ans: "rouges", hint: "(féminin pluriel)" },
+        { icone: "🍎", phrase: "une pomme", colorName: "vert", ans: "verte", hint: "(féminin singulier)" }
+    ];
+
+    function normaliser(str) {
+        return str.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ç/g, "c");
+    }
+
+    function generer() {
+        const container = document.getElementById('exoContent');
+        document.getElementById('scoreDisplay').innerText = '';
+        container.innerHTML = '';
+
+        let tirage = [...objets].sort(() => Math.random() - 0.5).slice(0, 5);
+
+        tirage.forEach((item, i) => {
+            container.innerHTML += `
+            <div class="q-card">
+                <div class="q-left">
+                    <span><strong>${i + 1}.</strong></span>
+                    <span class="icon">${item.icone}</span>
+                    <span class="q-text">
+                        ${item.phrase} <span class="color-tag">(${item.colorName})</span>
+                        <em>${item.hint}</em>
+                    </span>
+                </div>
+                <input type="text" data-ans="${item.ans}" placeholder="votre réponse...">
+            </div>`;
+        });
+    }
+
+    function verifier() {
+        const inputs = document.querySelectorAll('#exoContent input');
+        let score = 0;
+
+        inputs.forEach(input => {
+            if (normaliser(input.value) === normaliser(input.getAttribute('data-ans')) && input.value !== "") {
+                input.className = "correct";
+                score++;
+            } else {
+                input.className = "incorrect";
+            }
+        });
+
+        document.getElementById('scoreDisplay').innerText = `Score : ${score} / 5`;
+    }
+
+    window.onload = generer;
+</script>
+
+</body>
+</html>
