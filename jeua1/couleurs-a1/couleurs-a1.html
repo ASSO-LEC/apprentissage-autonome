@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu des Couleurs</title>
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --accent: #2980B9;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --border: #E2E8F0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .rule-box {
+            background: #F0F9FF;
+            border-left: 4px solid var(--accent);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #0369A1;
+        }
+
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .q-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FAFAFA;
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 10px;
+        }
+
+        .q-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .color-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95em;
+            font-weight: bold;
+            width: 140px;
+            text-align: center;
+            outline: none;
+            color: var(--primary);
+        }
+
+        input.correct {
+            border-color: var(--success) !important;
+            background-color: #ECFDF5 !important;
+            color: #065F46 !important;
+        }
+
+        input.incorrect {
+            border-color: var(--error) !important;
+            background-color: #FEF2F2 !important;
+            color: #991B1B !important;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 2px solid var(--border);
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+        }
+
+        .btn-check { background-color: var(--success); }
+        .btn-check:hover { background-color: #27AE60; }
+        .btn-reload { background-color: var(--accent); }
+        .btn-reload:hover { background-color: #1F618D; }
+
+        .score { font-weight: bold; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🎨 Les Couleurs de Base</h2>
+
+    <div class="rule-box">
+        💡 <strong>Consigne :</strong> Observez la couleur et écrivez son nom (ex: <em>rouge, bleu, vert...</em>).
+    </div>
+
+    <div class="questions-list" id="exoContent"></div>
+
+    <div class="controls">
+        <button class="btn btn-check" onclick="verifier()">✅ Vérifier par JPJ</button>
+        <button class="btn btn-reload" onclick="generer()">🔄 Rejouer (5 questions)</button>
+        <div class="score" id="scoreDisplay"></div>
+    </div>
+</div>
+
+<script>
+    const couleurs = [
+        { nom: "rouge", hex: "#E74C3C" },
+        { nom: "bleu", hex: "#3498DB" },
+        { nom: "jaune", hex: "#F1C40F" },
+        { nom: "vert", hex: "#2ECC71" },
+        { nom: "noir", hex: "#2C3E50" },
+        { nom: "blanc", hex: "#FFFFFF", border: "#CBD5E1" },
+        { nom: "gris", hex: "#95A5A6" },
+        { nom: "orange", hex: "#E67E22" },
+        { nom: "rose", hex: "#FD79A8" },
+        { nom: "violet", hex: "#9B59B6" },
+        { nom: "marron", hex: "#8D6E63" }
+    ];
+
+    function normaliser(str) {
+        return str.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ç/g, "c");
+    }
+
+    function generer() {
+        const container = document.getElementById('exoContent');
+        document.getElementById('scoreDisplay').innerText = '';
+        container.innerHTML = '';
+
+        let tirage = [...couleurs].sort(() => Math.random() - 0.5).slice(0, 5);
+
+        tirage.forEach((item, i) => {
+            let borderStyle = item.border ? `border: 2px solid ${item.border};` : '';
+            container.innerHTML += `
+            <div class="q-card">
+                <div class="q-left">
+                    <span><strong>${i + 1}.</strong></span>
+                    <div class="color-badge" style="background-color: ${item.hex}; ${borderStyle}"></div>
+                    <span>Quelle couleur ?</span>
+                </div>
+                <input type="text" data-ans="${item.nom}" placeholder="réponse...">
+            </div>`;
+        });
+    }
+
+    function verifier() {
+        const inputs = document.querySelectorAll('#exoContent input');
+        let score = 0;
+
+        inputs.forEach(input => {
+            if (normaliser(input.value) === normaliser(input.getAttribute('data-ans')) && input.value !== "") {
+                input.className = "correct";
+                score++;
+            } else {
+                input.className = "incorrect";
+            }
+        });
+
+        document.getElementById('scoreDisplay').innerText = `Score : ${score} / 5`;
+    }
+
+    window.onload = generer;
+</script>
+
+</body>
+</html>
