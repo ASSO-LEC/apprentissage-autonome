@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Interactif - Conjugaison de tous les jours</title>
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --accent: #2980B9;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --border: #E2E8F0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .rule-box {
+            background: #F0F9FF;
+            border-left: 4px solid var(--accent);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #0369A1;
+        }
+
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .q-card {
+            background: #FAFAFA;
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 10px;
+        }
+
+        .q-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #FFFFFF;
+            padding: 10px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.95em;
+        }
+
+        .option-label:hover {
+            border-color: var(--accent);
+            background: #F1F5F9;
+        }
+
+        .option-label input[type="radio"] {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Styles de validation */
+        .q-card.correct-card {
+            border-color: var(--success);
+            background-color: #F0FDF4;
+        }
+
+        .q-card.incorrect-card {
+            border-color: var(--error);
+            background-color: #FEF2F2;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 2px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+            font-size: 0.9em;
+        }
+
+        .btn-check { background-color: var(--success); }
+        .btn-check:hover { background-color: #27AE60; }
+        .btn-reload { background-color: var(--accent); }
+        .btn-reload:hover { background-color: #1F618D; }
+
+        .score { 
+            font-weight: bold; 
+            font-size: 1.1em;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>✍️ Conjugaison - Verbes et phrases de tous les jours</h2>
+
+    <div class="rule-box">
+        💡 <strong>Consigne :</strong> Choisissez la forme correcte du verbe pour chaque phrase.
+    </div>
+
+    <div class="questions-list" id="exoContent"></div>
+
+    <div class="controls">
+        <button class="btn btn-check" onclick="verifier()">✅ Vérifier par JPJ</button>
+        <button class="btn btn-reload" onclick="generer()">🔄 Rejouer (5 questions)</button>
+        <div class="score" id="scoreDisplay"></div>
+    </div>
+</div>
+
+<script>
+    // Banque complète des 50 questions
+    const banqueQuestions = [
+        // --- Questions 1 à 25 ---
+        { q: "Elle ne (_______) rien malgré ses problèmes.", opts: ["dis", "disent", "dit"], ans: 2 },
+        { q: "Mes amis (_______) cette chanson.", opts: ["aiment", "aimez", "aimes"], ans: 0 },
+        { q: "Je (_______) le train ce matin.", opts: ["prend", "prenez", "prends"], ans: 2 },
+        { q: "Qu’est-ce qu’ils (_______) ici ?", opts: ["font", "fait", "faites"], ans: 0 },
+        { q: "(_______) ce beau sac !", opts: ["Regarde", "Regardes", "Regardent"], ans: 0 },
+        { q: "Vous (_______) à Tokyo.", opts: ["sommes", "êtes", "sont"], ans: 1 },
+        { q: "Vous (_______) à Paris.", opts: ["habitons", "habites", "habitez"], ans: 2 },
+        { q: "Je (_______) à midi.", opts: ["sort", "sors", "sortez"], ans: 1 },
+        { q: "Ils (_______) en métro.", opts: ["viennent", "vient", "viens"], ans: 0 },
+        { q: "Tu (_______) venir ici.", opts: ["peux", "peut", "peuvent"], ans: 0 },
+        { q: "Ils (_______) français.", opts: ["sommes", "êtes", "sont"], ans: 2 },
+        { q: "Vous (_______) demain.", opts: ["partez", "partons", "partent"], ans: 0 },
+        { q: "Nous (_______) à Paris pour les vacances.", opts: ["sommes", "êtes", "sont"], ans: 0 },
+        { q: "Je (_______) ce livre.", opts: ["veut", "veux", "voulez"], ans: 1 },
+        { q: "Il (_______) en train.", opts: ["viennent", "viens", "vient"], ans: 2 },
+        { q: "Nous (_______) la cuisine le week-end.", opts: ["faisons", "faites", "font"], ans: 0 },
+        { q: "Tu (_______) bien ?", opts: ["va", "vais", "vas"], ans: 2 },
+        { q: "J’ (_______) un chat très mignon.", opts: ["as", "ai", "a"], ans: 1 },
+        { q: "Tes parents (_______) demain pour ton anniversaire.", opts: ["viennent", "viens", "vient"], ans: 0 },
+        { q: "Tu (_______) quelqu’un.", opts: ["attends", "attend", "attendons"], ans: 0 },
+        { q: "Nous (_______) du pain au déjeuner.", opts: ["mangez", "manges", "mangeons"], ans: 2 },
+        { q: "Vous (_______) ici pour quoi ?", opts: ["sommes", "êtes", "sont"], ans: 1 },
+        { q: "Ta soeur (_______) quoi ici ?", opts: ["fais", "fait", "font"], ans: 1 },
+        { q: "Vous (_______) comment ?", opts: ["paient", "payez", "payons"], ans: 1 },
+        { q: "Je (_______) beaucoup de lettres.", opts: ["reçois", "reçoit", "recevons"], ans: 0 },
+        { q: "Elle (_______) un verre d'eau.", opts: ["boit", "bois", "boivent"], ans: 0 },
+        { q: "Nous (_______) le cours à 9 heures.", opts: ["commençons", "commencez", "commencent"], ans: 0 },
+        { q: "Les enfants (_______) dans le parc.", opts: ["joue", "jouent", "joues"], ans: 1 },
+        { q: "Tu (_______) votre passeport ?", opts: ["as", "avez", "a"], ans: 0 },
+        { q: "Ils (_______) au cinéma ce soir.", opts: ["vont", "va", "allons"], ans: 0 },
+        { q: "Je (_______) la télévision.", opts: ["regardes", "regarde", "regardent"], ans: 1 },
+        { q: "Vous (_______) parler espagnol ?", opts: ["pouvez", "peux", "peut"], ans: 0 },
+        { q: "Elle (_______) toujours à l'heure.", opts: ["arrive", "arrives", "arrivent"], ans: 0 },
+        { q: "Nous (_______) notre travail.", opts: ["finissons", "finissez", "finissent"], ans: 0 },
+        { q: "Tu (_______) un café s'il te plaît ?", opts: ["veux", "veut", "voulons"], ans: 0 },
+        { q: "Ils (_______) des vêtements chauds.", opts: ["mettes", "mettent", "met"], ans: 1 },
+        { q: "J' (_______) la réponse.", opts: ["sais", "sait", "savez"], ans: 0 },
+        { q: "Mon frère (_______) à la banque.", opts: ["travaillent", "travailles", "travaille"], ans: 2 },
+        { q: "Vous (_______) votre décision ?", opts: ["prenez", "prends", "prennent"], ans: 0 },
+        { q: "Elles (_______) deux langues.", opts: ["parle", "parlent", "parles"], ans: 1 },
+        { q: "Tu (_______) ton manteau ?", opts: ["mets", "met", "mettent"], ans: 0 },
+        { q: "Nous (_______) écouter de la musique.", opts: ["aimons", "aimez", "aiment"], ans: 0 },
+        { q: "Le professeur (_______) la leçon.", opts: ["explique", "expliques", "expliquent"], ans: 0 },
+        { q: "Je (_______) la porte.", opts: ["ouvre", "ouvres", "ouvrent"], ans: 0 },
+        { q: "Vous (_______) froid ?", opts: ["avez", "as", "avons"], ans: 0 },
+        { q: "Paul (_______) un jus d'orange.", opts: ["prends", "prend", "prennent"], ans: 1 },
+        { q: "Tu (_______) où ?", opts: ["habites", "habite", "habitons"], ans: 0 },
+        { q: "Ils (_______) leurs devoirs.", opts: ["fait", "font", "faisons"], ans: 1 },
+        { q: "Nous (_______) au restaurant.", opts: ["allons", "vont", "allez"], ans: 0 },
+        { q: "Je (_______) mon professeur.", opts: ["comprends", "comprend", "comprenons"], ans: 0 }
+    ];
+
+    let selectionActuelle = [];
+
+    function generer() {
+        const container = document.getElementById('exoContent');
+        document.getElementById('scoreDisplay').innerText = '';
+        container.innerHTML = '';
+
+        // Tirage aléatoire de 5 questions parmi la banque de 50
+        selectionActuelle = [...banqueQuestions].sort(() => Math.random() - 0.5).slice(0, 5);
+
+        selectionActuelle.forEach((item, qIndex) => {
+            let htmlOptions = item.opts.map((opt, oIndex) => `
+                <label class="option-label">
+                    <input type="radio" name="q_${qIndex}" value="${oIndex}">
+                    ${opt}
+                </label>
+            `).join('');
+
+            container.innerHTML += `
+            <div class="q-card" id="card_${qIndex}">
+                <div class="q-title">${qIndex + 1}. ${item.q}</div>
+                <div class="options-group">
+                    ${htmlOptions}
+                </div>
+            </div>`;
+        });
+    }
+
+    function verifier() {
+        let score = 0;
+
+        selectionActuelle.forEach((item, qIndex) => {
+            const card = document.getElementById(`card_${qIndex}`);
+            const selectedOpt = document.querySelector(`input[name="q_${qIndex}"]:checked`);
+
+            if (selectedOpt && parseInt(selectedOpt.value) === item.ans) {
+                card.className = "q-card correct-card";
+                score++;
+            } else {
+                card.className = "q-card incorrect-card";
+            }
+        });
+
+        document.getElementById('scoreDisplay').innerText = `Score : ${score} / 5`;
+    }
+
+    window.onload = generer;
+</script>
+
+</body>
+</html>
