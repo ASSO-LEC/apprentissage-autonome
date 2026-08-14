@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Négation A2</title>
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --accent: #8E44AD;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --border: #E2E8F0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        h2 { text-align: center; color: var(--primary); margin-bottom: 15px; font-size: 1.3em; }
+
+        .rule-box {
+            background: #F8F4FC;
+            border-left: 4px solid var(--accent);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #6C3483;
+        }
+
+        .questions-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+
+        .q-card {
+            background: #FAFAFA;
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 10px;
+        }
+
+        .q-title { font-weight: 700; margin-bottom: 10px; font-size: 1em; }
+
+        .options-group { display: flex; flex-direction: column; gap: 8px; }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #FFFFFF;
+            padding: 8px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        .option-label:hover { border-color: var(--accent); background: #F1F5F9; }
+        .option-label input[type="radio"] { accent-color: var(--accent); }
+
+        .q-card.correct-card { border-color: var(--success); background-color: #F0FDF4; }
+        .q-card.incorrect-card { border-color: var(--error); background-color: #FEF2F2; }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 2px solid var(--border);
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        .btn-check { background-color: var(--success); }
+        .btn-reload { background-color: var(--accent); }
+        .score { font-weight: bold; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🟣 Négations suites</h2>
+
+    <div class="rule-box">
+        💡 <strong>Consigne :</strong> Choisissez la forme négative qui convient au contexte ou à la transformation.
+    </div>
+
+    <div class="questions-list" id="exoContent"></div>
+
+    <div class="controls">
+        <button class="btn btn-check" onclick="verifier()">✅ Vérifier par JPJ</button>
+        <button class="btn btn-reload" onclick="generer()">🔄 Rejouer (5 questions)</button>
+        <div class="score" id="scoreDisplay"></div>
+    </div>
+</div>
+
+<script>
+    const banqueQuestions = [
+        { q: "Tu as compris quelque chose ? — Non, je n'ai (_______) compris.", opts: ["rien", "personne", "aucun"], ans: 0 },
+        { q: "Il y a quelqu'un dans la classe ? — Non, il n'y a (_______).", opts: ["rien", "personne", "plus"], ans: 1 },
+        { q: "Vous avez des questions ? — Non, nous n'avons (_______) question.", opts: ["pas de", "aucune", "rien de"], ans: 1 },
+        { q: "Est-ce qu'elle mange encore de la viande ? — Non, elle (_______) mange. (végétarienne)", opts: ["ne la plus", "n'en mange plus", "ne mange pas de"], ans: 1 },
+        { q: "Tu as vu quelqu'un au parc ? — Non, je n'ai vu (_______).", opts: ["rien", "personne", "jamais"], ans: 1 },
+        { q: "Qu'est-ce que tu fais ce week-end ? — Je ne fais (_______), je me repose.", opts: ["rien", "personne", "aucun"], ans: 0 },
+        { q: "Il a des amis dans cette ville ? — Non, il n'a (_______) ami ici.", opts: ["aucun", "pas un", "personne"], ans: 0 },
+        { q: "Tu penses encore à ton ex ? — Non, je (_______) pense.", opts: ["ne lui plus", "n'y pense plus", "ne pense pas"], ans: 1 },
+        { q: "Qu'est-ce qu'il y a dans ce sac ? — Il n'y a (_______) dedans.", opts: ["personne", "aucun", "rien"], ans: 2 },
+        { q: "Elle sort souvent le soir ? — Non, elle ne sort (_______) la semaine.", opts: ["jamais", "rien", "personne"], ans: 0 },
+        { q: "Tu as acheté du pain ? — Non, je n'ai pas acheté (_______) pain.", opts: ["du", "de", "un"], ans: 1 },
+        { q: "(_______) ne m'a téléphoné ce matin.", opts: ["Rien", "Personne", "Aucun"], ans: 1 },
+        { q: "(_______) n'est impossible avec de la volonté !", opts: ["Rien", "Personne", "Jamais"], ans: 0 },
+        { q: "Vous avez trouvé une solution ? — Non, nous n'avons (_______) idée.", opts: ["pas d'", "aucune", "rien d'"], ans: 1 },
+        { q: "Tu attends quelqu'un ? — Non, je n'attends (_______).", opts: ["rien", "personne", "plus"], ans: 1 },
+        { q: "Il a encore son ancienne voiture ? — Non, il ne l'a (_______).", opts: ["pas", "plus", "jamais"], ans: 1 },
+        { q: "Avez-vous vu mes lunettes ? — Non, je ne les ai vues (_______).", opts: ["nulle part", "personne", "rien"], ans: 0 },
+        { q: "Elle mange toujours au bureau ? — Non, elle n'y mange (_______).", opts: ["plus", "jamais", "rien"], ans: 1 },
+        { q: "Tu veux quelque chose à boire ? — Non merci, je ne veux (_______).", opts: ["personne", "rien", "aucun"], ans: 1 },
+        { q: "Il reste du gâteau ? — Non, il n'y en a (_______).", opts: ["plus", "rien", "personne"], ans: 0 }
+    ];
+
+    let selectionActuelle = [];
+
+    function generer() {
+        const container = document.getElementById('exoContent');
+        document.getElementById('scoreDisplay').innerText = '';
+        container.innerHTML = '';
+
+        selectionActuelle = [...banqueQuestions].sort(() => Math.random() - 0.5).slice(0, 5);
+
+        selectionActuelle.forEach((item, qIndex) => {
+            let htmlOptions = item.opts.map((opt, oIndex) => `
+                <label class="option-label">
+                    <input type="radio" name="q_${qIndex}" value="${oIndex}">
+                    ${opt}
+                </label>
+            `).join('');
+
+            container.innerHTML += `
+            <div class="q-card" id="card_${qIndex}">
+                <div class="q-title">${qIndex + 1}. ${item.q}</div>
+                <div class="options-group">${htmlOptions}</div>
+            </div>`;
+        });
+    }
+
+    function verifier() {
+        let score = 0;
+        selectionActuelle.forEach((item, qIndex) => {
+            const card = document.getElementById(`card_${qIndex}`);
+            const selectedOpt = document.querySelector(`input[name="q_${qIndex}"]:checked`);
+            if (selectedOpt && parseInt(selectedOpt.value) === item.ans) {
+                card.className = "q-card correct-card";
+                score++;
+            } else {
+                card.className = "q-card incorrect-card";
+            }
+        });
+        document.getElementById('scoreDisplay').innerText = `Score : ${score} / 5`;
+    }
+
+    window.onload = generer;
+</script>
+
+</body>
+</html>
