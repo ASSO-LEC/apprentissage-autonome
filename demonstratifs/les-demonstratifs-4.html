@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les démonstratifs - Exercice 4</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+        .rule-box {
+            background: #e8f4f8;
+            border-left: 4px solid #2980b9;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+        .q-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .q-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+        }
+        .num {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        input[type="text"] {
+            padding: 6px 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 15px;
+            width: 110px;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: bold;
+        }
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            outline: none;
+            box-shadow: 0 0 5px rgba(41, 128, 185, 0.3);
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        button {
+            border: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            transition: background 0.2s;
+        }
+        .btn-check { background-color: #2ecc71; }
+        .btn-check:hover { background-color: #27ae60; }
+        .btn-reload { background-color: #2980b9; }
+        .btn-reload:hover { background-color: #1f618d; }
+
+        .correct {
+            border-color: #2ecc71 !important;
+            background-color: #e8f8f5 !important;
+            color: #27ae60;
+        }
+        .incorrect {
+            border-color: #e74c3c !important;
+            background-color: #fce4d6 !important;
+            color: #c0392b;
+        }
+        #resultat {
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>les démonstratifs 4ème exercice<br> 👉 ce cet cette ces</h1>
+
+    <div class="rule-box">
+        💡 <strong>Consigne :</strong> Complétez avec <strong>ce</strong>, <strong>cet</strong>, <strong>cette</strong> ou <strong>ces</strong>.
+    </div>
+
+    <div id="exercice"></div>
+
+    <div class="btn-container">
+        <button class="btn-check" onclick="verifierReponses()">Vérifier mes réponses par JPJ</button>
+        <button class="btn-reload" onclick="genererTirage()">🔄 Nouveau tirage (6 questions)</button>
+        <div id="resultat"></div>
+    </div>
+</div>
+
+<script>
+// Banque de mots issue du 4ème exercice (18 éléments)
+const banqueMots = [
+    { mot: "plante", ans: "cette" },
+    { mot: "cours", ans: "ce" },
+    { mot: "assiette", ans: "cette" },
+    { mot: "verres", ans: "ces" },
+    { mot: "jeune homme", ans: "ce" },
+    { mot: "tarte", ans: "cette" },
+    { mot: "été", ans: "cet" },
+    { mot: "fleurs", ans: "ces" },
+    { mot: "grande lampe", ans: "cette" },
+    { mot: "joyeux chats", ans: "ces" },
+    { mot: "aimable étudiante", ans: "cette" },
+    { mot: "matériel indispensable", ans: "ce" },
+    { mot: "indispensable matériel", ans: "cet" },
+    { mot: "invention", ans: "cette" },
+    { mot: "appartement", ans: "cet" },
+    { mot: "jeune fille", ans: "cette" },
+    { mot: "épaisse tranche", ans: "cette" },
+    { mot: "éclairs", ans: "ces" }
+];
+
+let selectionActuelle = [];
+
+function genererTirage() {
+    const container = document.getElementById('exercice');
+    const resultDiv = document.getElementById('resultat');
+    resultDiv.innerHTML = '';
+    container.innerHTML = '';
+
+    // Sélection aléatoire de 6 questions parmi les 18
+    selectionActuelle = [...banqueMots].sort(() => Math.random() - 0.5).slice(0, 6);
+
+    selectionActuelle.forEach((item, index) => {
+        container.innerHTML += `
+        <div class="q-card">
+            <div class="q-left">
+                <span class="num">${index + 1}.</span>
+                <input type="text" data-ans="${item.ans}" placeholder="...">
+                <span>${item.mot}</span>
+            </div>
+        </div>`;
+    });
+}
+
+function verifierReponses() {
+    const inputs = document.querySelectorAll('#exercice input[type="text"]');
+    let score = 0;
+    const total = inputs.length;
+
+    inputs.forEach(input => {
+        // Nettoyage de la saisie utilisateur (minuscules, sans espaces inutiles)
+        const repUtilisateur = input.value.trim().toLowerCase();
+        const bonneReponse = input.getAttribute('data-ans').trim().toLowerCase();
+
+        if (repUtilisateur === bonneReponse && repUtilisateur !== "") {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const affichageResultat = document.getElementById('resultat');
+    affichageResultat.innerHTML = `Votre score : ${score} / ${total}`;
+    
+    if (score === total) {
+        affichageResultat.style.color = '#2ecc71';
+        affichageResultat.innerHTML += " - Sans faute ! Bravo ! 🎉";
+    } else if (score >= total / 2) {
+        affichageResultat.style.color = '#e67e22';
+        affichageResultat.innerHTML += " - Pas mal, mais vous pouvez faire mieux ! 👍";
+    } else {
+        affichageResultat.style.color = '#e74c3c';
+        affichageResultat.innerHTML += " - Révisez bien la leçon et réessayez ! 📚";
+    }
+}
+
+// Chargement automatique au lancement de la page
+window.onload = genererTirage;
+</script>
+<script src="../../securite.js"></script>
+</body>
+</html>
