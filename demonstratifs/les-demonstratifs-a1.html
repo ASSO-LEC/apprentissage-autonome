@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les démonstratifs</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+        .rule-box {
+            background: #e8f4f8;
+            border-left: 4px solid #2980b9;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+        .q-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .q-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+        }
+        .num {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        input[type="text"] {
+            padding: 6px 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 15px;
+            width: 110px;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: bold;
+        }
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            outline: none;
+            box-shadow: 0 0 5px rgba(41, 128, 185, 0.3);
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        button {
+            border: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            transition: background 0.2s;
+        }
+        .btn-check { background-color: #2ecc71; }
+        .btn-check:hover { background-color: #27ae60; }
+        .btn-reload { background-color: #2980b9; }
+        .btn-reload:hover { background-color: #1f618d; }
+
+        .correct {
+            border-color: #2ecc71 !important;
+            background-color: #e8f8f5 !important;
+            color: #27ae60;
+        }
+        .incorrect {
+            border-color: #e74c3c !important;
+            background-color: #fce4d6 !important;
+            color: #c0392b;
+        }
+        #resultat {
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Les démonstratifs <br> 👉 ce / cet / cette / ces</h1>
+
+    <div class="rule-box">
+        💡 <strong>Consigne :</strong> Complétez avec le bon adjectif démonstratif (<strong>ce</strong>, <strong>cet</strong>, <strong>cette</strong> ou <strong>ces</strong>).
+    </div>
+
+    <div id="exercice"></div>
+
+    <div class="btn-container">
+        <button class="btn-check" onclick="verifierReponses()">✅ Vérifier mes réponses par JPJ</button>
+        <button class="btn-reload" onclick="genererTirage()">🔄 Rejouer (6 questions)</button>
+        <div id="resultat"></div>
+    </div>
+</div>
+
+<script>
+// Banque complète de 51 mots (19 originaux + 32 nouveaux)
+const banqueMots = [
+    // --- Mots originaux (19) ---
+    { mot: "magasin", ans: "ce" },
+    { mot: "melon", ans: "ce" },
+    { mot: "banane", ans: "cette" },
+    { mot: "ananas", ans: "cet" },
+    { mot: "légume", ans: "ce" },
+    { mot: "avion", ans: "cet" },
+    { mot: "monsieur", ans: "ce" },
+    { mot: "forêt", ans: "cette" },
+    { mot: "hôpital", ans: "cet" },
+    { mot: "eau", ans: "cette" },
+    { mot: "canapé", ans: "ce" },
+    { mot: "animal", ans: "cet" },
+    { mot: "hôtels", ans: "ces" },
+    { mot: "couleur", ans: "cette" },
+    { mot: "horloge", ans: "cette" },
+    { mot: "téléphone", ans: "ce" },
+    { mot: "semaines", ans: "ces" },
+    { mot: "lait", ans: "ce" },
+    { mot: "personne", ans: "cette" },
+
+    // --- 32 nouveaux mots ajoutés ---
+    { mot: "arbre", ans: "cet" },
+    { mot: "maison", ans: "cette" },
+    { mot: "enfants", ans: "ces" },
+    { mot: "livre", ans: "ce" },
+    { mot: "image", ans: "cette" },
+    { mot: "élève", ans: "cet" },
+    { mot: "chaises", ans: "ces" },
+    { mot: "gâteau", ans: "ce" },
+    { mot: "histoire", ans: "cette" },
+    { mot: "appartement", ans: "cet" },
+    { mot: "fleurs", ans: "ces" },
+    { mot: "stylo", ans: "ce" },
+    { mot: "école", ans: "cette" },
+    { mot: "homme", ans: "cet" },
+    { mot: "pommes", ans: "ces" },
+    { mot: "sac", ans: "ce" },
+    { mot: "idée", ans: "cette" },
+    { mot: "oiseau", ans: "cet" },
+    { mot: "voitures", ans: "ces" },
+    { mot: "pantalon", ans: "ce" },
+    { mot: "amie", ans: "cette" },
+    { mot: "ordinateur", ans: "cet" },
+    { mot: "photos", ans: "ces" },
+    { mot: "manteau", ans: "ce" },
+    { mot: "affaire", ans: "cette" },
+    { mot: "hiver", ans: "cet" },
+    { mot: "chaussures", ans: "ces" },
+    { mot: "verre", ans: "ce" },
+    { mot: "table", ans: "cette" },
+    { mot: "exercice", ans: "cet" },
+    { mot: "étudiants", ans: "ces" },
+    { mot: "soleil", ans: "ce" }
+];
+
+let selectionActuelle = [];
+
+function genererTirage() {
+    const container = document.getElementById('exercice');
+    const resultDiv = document.getElementById('resultat');
+    resultDiv.innerHTML = '';
+    container.innerHTML = '';
+
+    // Tirage aléatoire de 6 mots
+    selectionActuelle = [...banqueMots].sort(() => Math.random() - 0.5).slice(0, 6);
+
+    selectionActuelle.forEach((item, index) => {
+        container.innerHTML += `
+        <div class="q-card">
+            <div class="q-left">
+                <span class="num">${index + 1}.</span>
+                <input type="text" data-ans="${item.ans}" placeholder="...">
+                <span>${item.mot}</span>
+            </div>
+        </div>`;
+    });
+}
+
+function verifierReponses() {
+    const inputs = document.querySelectorAll('#exercice input[type="text"]');
+    let score = 0;
+    const total = inputs.length;
+
+    inputs.forEach(input => {
+        // Nettoie la réponse : retire les espaces autour (.trim()), met en minuscules (.toLowerCase())
+        // et supprime les accents éventuels (.normalize...)
+        const repUtilisateur = input.value
+            .trim()
+            .toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        const bonneReponse = input.getAttribute('data-ans')
+            .toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        if (repUtilisateur === bonneReponse && repUtilisateur !== "") {
+            input.className = 'correct';
+            score++;
+        } else {
+            input.className = 'incorrect';
+        }
+    });
+
+    const affichageResultat = document.getElementById('resultat');
+    affichageResultat.innerHTML = `Votre score : ${score} / ${total}`;
+    
+    if (score === total) {
+        affichageResultat.style.color = '#2ecc71';
+        affichageResultat.innerHTML += " - Sans faute ! Bravo ! 🎉";
+    } else if (score >= total / 2) {
+        affichageResultat.style.color = '#e67e22';
+        affichageResultat.innerHTML += " - Pas mal, vous pouvez faire mieux ! 👍";
+    } else {
+        affichageResultat.style.color = '#e74c3c';
+        affichageResultat.innerHTML += " - Révisez bien la leçon et réessayez ! 📚";
+    }
+}
+
+// Chargement initial
+window.onload = genererTirage;
+</script>
+<script src="../securite.js"></script>
+</body>
+</html>
