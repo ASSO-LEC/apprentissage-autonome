@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Pronoms Démonstratifs</title>
+    <style>
+        :root {
+            --primary: #2b5c8f;
+            --primary-light: #eef4fc;
+            --success: #2e7d32;
+            --success-bg: #e8f5e9;
+            --error: #c62828;
+            --error-bg: #ffebee;
+            --text: #2c3e50;
+            --bg: #fafbfc;
+            --border: #dcdde1;
+        }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
+        header { background: linear-gradient(135deg, var(--primary), #1a365d); color: white; padding: 40px 20px; text-align: center; border-bottom: 5px solid #0f2340; }
+        header h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
+        header p { margin: 0; font-size: 1.1rem; opacity: 0.9; }
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        .instructions { background-color: white; border-left: 5px solid var(--primary); padding: 20px; margin-bottom: 30px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .instructions h2 { margin-top: 0; color: var(--primary); font-size: 1.3rem; }
+        .control-panel { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        button { background-color: var(--primary); color: white; border: none; padding: 12px 24px; font-size: 1rem; font-weight: 600; border-radius: 5px; cursor: pointer; transition: all 0.2s ease; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+        button.btn-secondary { background-color: #636e72; }
+        button.btn-success { background-color: var(--success); }
+        .score-box { background-color: var(--primary-light); border: 1px solid #bfdbfe; padding: 15px 20px; border-radius: 8px; margin-bottom: 30px; font-size: 1.2rem; font-weight: bold; color: var(--primary); display: none; text-align: center; }
+        .quiz-list { display: flex; flex-direction: column; gap: 20px; }
+        .question-card { background-color: white; border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); position: relative; }
+        .question-number { font-weight: bold; color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; display: inline-block; }
+        .question-text { font-size: 1.15rem; margin-bottom: 15px; font-weight: 500; }
+        .question-text .gap { border-bottom: 2px dashed var(--primary); padding: 0 15px; color: var(--primary); font-weight: bold; }
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+        .option-label { display: flex; align-items: center; background-color: #f8f9fa; border: 1px solid var(--border); padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+        .option-label input { margin-right: 10px; transform: scale(1.1); }
+        .question-card.correct { border-color: var(--success); background-color: var(--success-bg); }
+        .question-card.incorrect { border-color: var(--error); background-color: var(--error-bg); }
+        .feedback-explanation { margin-top: 15px; padding: 12px; border-radius: 6px; font-size: 0.95rem; display: none; border: 1px solid transparent; }
+        .question-card.correct .feedback-explanation { display: block; background-color: #e8f5e9; color: #1b5e20; border-color: #c8e6c9; }
+        .question-card.incorrect .feedback-explanation { display: block; background-color: #ffebee; color: #b71c1c; border-color: #ffcdd2; }
+        .answer-key-section { margin-top: 40px; background-color: white; border: 1px solid var(--border); border-radius: 8px; padding: 25px; }
+        .answer-key-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 20px; }
+        .key-item { padding: 8px; background-color: #f1f2f6; border-radius: 4px; font-size: 0.9rem; border-left: 3px solid var(--primary); }
+        .key-item span { font-weight: bold; color: var(--success); }
+        @media print { .no-print, header, .control-panel, .score-box { display: none !important; } .question-card { page-break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Les Pronoms Démonstratifs feuille 5</h1>
+        <p>Entraînez-vous à utiliser : <strong>celui/celle(s)/ceux (-ci/-là), ceci, cela</strong></p>
+    </header>
+
+    <div class="container">
+        
+        <div class="instructions no-print">
+            <h2>Consignes pour les apprenants :</h2>
+            <p>Remplacez le groupe nominal répété ou désignez l'objet correct à l'aide d'un pronom démonstratif adapté.</p>
+            <ul>
+                <li><strong>Celui-ci / Celui-là :</strong> masculin singulier (proche / lointain).</li>
+                <li><strong>Celle-ci / Celle-là :</strong> féminin singulier (proche / lointain).</li>
+                <li><strong>Ceux-ci / Ceux-là :</strong> masculin pluriel (proche / lointain).</li>
+                <li><strong>Celles-ci / Celles-là :</strong> féminin pluriel (proche / lointain).</li>
+                <li><strong>Ceci / Cela (ou Ça) :</strong> neutre, remplace une idée, une action ou désigne quelque chose de non identifié.</li>
+            </ul>
+        </div>
+
+        <div class="control-panel no-print">
+            <button onclick="checkAnswers()" class="btn-success">Corriger mes réponses par JPJ<br>AVEC EXPLICATIONS DES ERREURS</button>
+            <button onclick="resetQuiz()" class="btn-secondary">Réinitialiser le test</button>
+            <button onclick="window.print()" class="btn-secondary">Imprimer / Sauvegarder PDF</button>
+        </div>
+
+        <div id="scoreBox" class="score-box"></div>
+
+        <form id="quizForm" onsubmit="event.preventDefault();">
+            <div class="quiz-list" id="quizList"></div>
+        </form>
+
+        <div class="answer-key-section no-print">
+            <h2>Feuille de Réponses (Enseignant)</h2>
+            <button onclick="toggleAnswerKey()" class="btn-secondary">Afficher / Masquer les solutions <br> sans explication</button>
+            <div id="answerKeyContainer" class="answer-key-grid" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+			{ id: 1, text: "___ est inadmissible ! Vous devez ranger votre chambre immédiatement.", options: ["Cela", "Ceci", "Celui-ci", "Celle-ci"], ans: "Cela", exp: "Pronom neutre 'Cela' utilisé pour réprouver un comportement déjà constaté." },
+            { id: 2, text: "De ces deux routes, ___ (la plus proche d'ici) est la plus rapide.", options: ["celle-ci", "celle-là", "celles-ci", "celui-ci"], ans: "celle-ci", exp: "'Route' est féminin singulier. Le suffixe '-ci' marque la proximité géographique." },
+            { id: 3, text: "Parmi ces livres posés là-bas, prends ___ (le plus lointain).", options: ["celui-là", "celui-ci", "ceux-là", "celle-là"], ans: "celui-là", exp: "'Livre' est un nom masculin singulier. Le suffixe '-là' indique la distance." },
+            { id: 4, text: "Range ___ dans le placard, s'il te plaît.", options: ["cela", "ceci", "celui-ci", "celle-ci"], ans: "cela", exp: "Pronom neutre 'cela' (ou ça) pour demander de ranger un objet désigné globalement." },
+            { id: 5, text: "Ces deux garçons sont jumeaux. ___ (le plus proche de nous) est né deux minutes avant.", options: ["celui-ci", "celui-là", "ceux-ci", "celle-ci"], ans: "celui-ci", exp: "'Garçon' est masculin singulier. Le suffixe '-ci' montre la proximité." },
+            { id: 6, text: "Voici deux chaises : prends ___ (la plus proche) si tu veux t'asseoir.", options: ["celle-ci", "celle-là", "celles-ci", "celui-ci"], ans: "celle-ci", exp: "'Chaise' est féminin singulier. Le suffixe '-ci' marque la proximité." },
+            { id: 7, text: "Retiens bien ___ : la ponctualité est essentielle pour réussir.", options: ["ceci", "cela", "celui-ci", "celle-ci"], ans: "ceci", exp: "'Ceci' sert de pronom neutre pour annoncer la règle qui suit." },
+            { id: 8, text: "De tous ces gâteaux, ___ (ceux qui sont là-bas) me font le plus envie.", options: ["ceux-là", "ceux-ci", "celui-là", "celles-là"], ans: "ceux-là", exp: "'Gâteaux' est masculin pluriel. On choisit '-là' pour indiquer l'éloignement." },
+            { id: 9, text: "___ est un secret, ne le révèle pas aux autres.", options: ["Ceci", "Cela", "Celui-ci", "Celle-ci"], ans: "Ceci", exp: "On emploie le pronom neutre 'ceci' pour présenter ce qui va suivre." },
+            { id: 10, text: "J'ai deux frères : ___ (le plus lointain dans le discours, le premier cité) vit au Canada.", options: ["celui-là", "celui-ci", "ceux-là", "celle-là"], ans: "celui-là", exp: "'Frère' est masculin singulier. Le suffixe '-là' reprend le premier élément mentionné." },
+            { id: 11, text: "Ces deux robes te vont bien, mais achète ___ (la plus proche de toi).", options: ["celle-ci", "celle-là", "celles-ci", "celui-ci"], ans: "celle-ci", exp: "'Robe' est féminin singulier. Le suffixe '-ci' marque la proximité physique." },
+            { id: 12, text: "Il y a deux bus : ___ (le plus proche) part tout de suite, l'autre dans dix minutes.", options: ["celui-ci", "celui-là", "ceux-ci", "celle-ci"], ans: "celui-ci", exp: "'Bus' est masculin singulier. '-ci' indique qu'il s'agit du plus proche." },
+            { id: 13, text: "Regarde ces montagnes au loin. ___ (les plus lointaines) sont toujours enneigées.", options: ["celles-là", "celles-ci", "ceux-là", "celle-là"], ans: "celles-là", exp: "'Montagnes' est féminin pluriel. On utilise '-là' pour indiquer l'éloignement géographique." },
+            { id: 14, text: "___ m'amuse beaucoup, ton histoire est vraiment drôle.", options: ["Cela", "Ceci", "Celui-ci", "Celle-ci"], ans: "Cela", exp: "'Cela' fait référence de façon neutre à l'histoire qui vient d'être racontée." },
+            { id: 15, text: "De ces deux exercices, résous d'abord ___ (le plus proche de toi).", options: ["celui-ci", "celui-là", "ceux-ci", "celle-ci"], ans: "celui-ci", exp: "'Exercice' est masculin singulier. On choisit '-ci' pour la proximité immédiate." },
+            { id: 16, text: "Voici deux photos : ___ (la plus proche) est celle de mes vacances à la mer.", options: ["celle-ci", "celle-là", "celles-ci", "celui-ci"], ans: "celle-ci", exp: "'Photo' est un nom féminin singulier. Le suffixe '-ci' marque la proximité." },
+            { id: 17, text: "Ne mange pas ___ ! Ce n'est pas encore lavé.", options: ["cela", "ceci", "celui-ci", "ceux-ci"], ans: "cela", exp: "'Cela' (ou 'ça') est le pronom neutre utilisé pour désigner un aliment ou un objet présent." },
+            { id: 18, text: "Regarde ces deux manteaux sur le cintre. ___ (le plus éloigné) est imperméable.", options: ["celui-là", "celui-ci", "ceux-là", "celle-là"], ans: "celui-là", exp: "'Manteau' est masculin singulier. Le suffixe '-là' exprime la distance." },
+            { id: 19, text: "Ces deux filles sont sœurs : ___ (la plus proche dans le discours, citée en dernier) est étudiante.", options: ["celle-ci", "celle-là", "celles-ci", "celui-ci"], ans: "celle-ci", exp: "'Fille' est féminin singulier. Le suffixe '-ci' reprend l'élément le plus récent." },
+            { id: 20, text: "Répète après moi ___ : je promets de dire toute la vérité.", options: ["ceci", "cela", "celui-ci", "celle-ci"], ans: "ceci", exp: "'Ceci' est employé de façon neutre pour annoncer les paroles qui vont suivre." }
+           
+		
+		];
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function loadQuiz() {
+            const quizList = document.getElementById('quizList');
+            quizList.innerHTML = "";
+
+            // Tirage aléatoire de 6 questions parmi le tableau
+            questionsSelectionnees = shuffle([...questions]).slice(0, 6);
+
+            questionsSelectionnees.forEach((q, index) => {
+                const mixedOptions = shuffle([...q.options]);
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `card-${q.id}`;
+
+                let optionsHTML = '';
+                mixedOptions.forEach(opt => {
+                    optionsHTML += `
+                        <label class="option-label">
+                            <input type="radio" name="q-${q.id}" value="${opt}">
+                            ${opt}
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <span class="question-number">Question ${index + 1}</span>
+                    <div class="question-text">${q.text.replace("___", "<span class='gap'>...</span>")}</div>
+                    <div class="options-grid">${optionsHTML}</div>
+                    <div class="feedback-explanation" id="feedback-${q.id}">
+                        <strong>Explication :</strong> ${q.exp} (Bonne réponse : <strong>${q.ans}</strong>)
+                    </div>
+                `;
+                quizList.appendChild(card);
+            });
+            generateAnswerKey();
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            const scoreBox = document.getElementById('scoreBox');
+
+            questionsSelectionnees.forEach(q => {
+                const card = document.getElementById(`card-${q.id}`);
+                const selectedInput = document.querySelector(`input[name="q-${q.id}"]:checked`);
+                card.classList.remove('correct', 'incorrect');
+
+                if (selectedInput) {
+                    if (selectedInput.value === q.ans) {
+                        score++;
+                        card.classList.add('correct');
+                    } else { card.classList.add('incorrect'); }
+                } else { card.classList.add('incorrect'); }
+            });
+
+            scoreBox.style.display = 'block';
+            scoreBox.innerHTML = `Votre Score : ${score} / ${questionsSelectionnees.length} (${Math.round((score / questionsSelectionnees.length) * 100)}% de réussite)`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizForm').reset();
+            const cards = document.querySelectorAll('.question-card');
+            cards.forEach(card => card.classList.remove('correct', 'incorrect'));
+            document.getElementById('scoreBox').style.display = 'none';
+            loadQuiz();
+        }
+
+        function generateAnswerKey() {
+            const container = document.getElementById('answerKeyContainer');
+            container.innerHTML = "";
+            questionsSelectionnees.forEach((q, index) => {
+                const item = document.createElement('div');
+                item.className = 'key-item';
+                item.innerHTML = `Q${index + 1} : <span>${q.ans}</span>`;
+                container.appendChild(item);
+            });
+        }
+
+        function toggleAnswerKey() {
+            const container = document.getElementById('answerKeyContainer');
+            container.style.display = container.style.display === 'none' ? 'grid' : 'none';
+        }
+
+        window.onload = loadQuiz;
+    </script>
+    </script>
+<script src="../securite.js"></script>
+</body>
+</html>
