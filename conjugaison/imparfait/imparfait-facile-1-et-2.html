@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Imparfait facile (Niveau A1/A2)</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto; }
+        h1 { text-align: center; color: #2c3e50; }
+        .intro { background: #e8f4f8; padding: 15px; border-radius: 8px; border-left: 5px solid #3498db; margin-bottom: 25px; }
+        .exercise { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .exercise h2 { color: #2980b9; font-size: 1.2em; border-bottom: 2px solid #ecf0f1; padding-bottom: 5px; }
+        .item { margin-bottom: 12px; }
+        label { font-weight: bold; }
+        input[type="text"] { width: 150px; padding: 5px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+        .correct { border-color: #2ecc71 !important; background-color: #e8f8f5; }
+        .incorrect { border-color: #e74c3c !important; background-color: #fadbd8; }
+        .btn-container { text-align: center; margin: 30px 0; }
+        button { background-color: #27ae60; color: white; border: none; padding: 12px 25px; font-size: 1.1em; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #219150; }
+        #result { text-align: center; font-size: 1.4em; font-weight: bold; margin-top: 20px; color: #2c3e50; }
+        .feedback { font-size: 0.9em; font-weight: normal; margin-left: 10px; }
+        .text-correct { color: #27ae60; }
+        .text-incorrect { color: #c0392b; }
+    </style>
+</head>
+<body>
+
+    <h1>Quiz d'application — L'Imparfait</h1>
+    
+    <div class="intro">
+        <strong>Rappel de la formule :</strong> Prendre la forme du verbe au <em>présent avec « nous »</em>, retirer <em>-ons</em> et ajouter : <strong>-ais, -ais, -ait, -ions, -iez, -aient</strong>.<br>
+        <em>Exception :</em> <strong>être</strong> &rarr; j'étais, tu étais, il était, nous étions, vous étiez, ils étaient.
+    </div>
+
+    <form id="quizForm">
+
+        <!-- EXERCICE 1 -->
+        <div class="exercise">
+            <h2>Exercice 1 : Verbes du 1er groupe (-er)</h2>
+            <div class="item">1. Avant, j' (habiter) <input type="text" data-ans="habitais"> à Paris. <span class="feedback"></span></div>
+            <div class="item">2. Quand tu (parler) <input type="text" data-ans="parlais"> français, tu utilisais des gestes. <span class="feedback"></span></div>
+            <div class="item">3. Il (écouter) <input type="text" data-ans="écoutait"> de la musique chaque soir. <span class="feedback"></span></div>
+            <div class="item">4. Nous (regarder) <input type="text" data-ans="regardions"> la télévision en famille. <span class="feedback"></span></div>
+            <div class="item">5. Elles (travailler) <input type="text" data-ans="travaillaient"> dans une grande entreprise. <span class="feedback"></span></div>
+        </div>
+
+        <!-- EXERCICE 2 -->
+        <div class="exercise">
+            <h2>Exercice 2 : Verbes du 2e groupe (nous -issons)</h2>
+            <div class="item">6. Tu (finir) <input type="text" data-ans="finissais"> toujours tes devoirs à 18h. <span class="feedback"></span></div>
+            <div class="item">7. Elle (choisir) <input type="text" data-ans="choisissait"> toujours le même dessert. <span class="feedback"></span></div>
+            <div class="item">8. Nous (réussir) <input type="text" data-ans="réussissions"> nos examens avec soin. <span class="feedback"></span></div>
+            <div class="item">9. Vous (grandir) <input type="text" data-ans="grandissiez"> très vite ! <span class="feedback"></span></div>
+            <div class="item">10. Ils (réfléchir) <input type="text" data-ans="réfléchissaient"> avant de répondre. <span class="feedback"></span></div>
+        </div>
+
+        
+
+        <div class="btn-container">
+            <button type="button" onclick="checkQuiz()">Vérifier mes réponses</button>
+        </div>
+
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function checkQuiz() {
+            const inputs = document.querySelectorAll('input[type="text"]');
+            let score = 0;
+            const total = inputs.length;
+
+            inputs.forEach(input => {
+                const userAns = input.value.trim().toLowerCase();
+                const correctAns = input.getAttribute('data-ans').toLowerCase();
+                const feedbackSpan = input.nextElementSibling;
+
+                if (userAns === correctAns) {
+                    input.className = 'correct';
+                    feedbackSpan.textContent = '✓';
+                    feedbackSpan.className = 'feedback text-correct';
+                    score++;
+                } else {
+                    input.className = 'incorrect';
+                    feedbackSpan.textContent = `✗ (${correctAns})`;
+                    feedbackSpan.className = 'feedback text-incorrect';
+                }
+            });
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `Votre score : ${score} / ${total}`;
+        }
+    </script>
+</body>
+</html>
