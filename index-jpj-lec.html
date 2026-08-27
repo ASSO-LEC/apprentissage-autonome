@@ -634,7 +634,14 @@ function filtrerNiveau(codeNiveau) {
 document.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash.toLowerCase().replace('#', '');
     if (hash && typeof filtrerNiveau === 'function') {
+        // 1. Applique le filtre
         filtrerNiveau(hash);
+        
+        // 2. Masque la barre de boutons du haut pour empêcher de changer de niveau
+        const barreBoutons = document.querySelector('.zone-boutons-filtres'); // ou la classe de ta barre de boutons
+        if (barreBoutons) {
+            barreBoutons.style.display = 'none';
+        }
     }
 });
 </script>
