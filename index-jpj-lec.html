@@ -630,5 +630,13 @@ function filtrerNiveau(codeNiveau) {
     document.querySelectorAll('details').forEach(det => det.removeAttribute('open'));
   });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.toLowerCase().replace('#', '');
+    if (hash && typeof filtrerNiveau === 'function') {
+        filtrerNiveau(hash);
+    }
+});
+</script>
 </body>
 </html>
