@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La famille par JPJ - Quiz 6 Mots</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .counter {
+            text-align: center;
+            font-weight: bold;
+            color: #16a085;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        .word-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .definition {
+            font-size: 1rem;
+            max-width: 60%;
+            line-height: 1.4;
+        }
+        .letter-boxes {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .letter-input {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid #7f8c8d;
+            border-radius: 4px;
+        }
+        .letter-input.space-box {
+            background-color: #e0e0e0;
+            border-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .letter-input.correct {
+            background-color: #16a085;
+            color: white;
+            border-color: #117a65;
+        }
+        .btn-action {
+            display: block;
+            width: 100%;
+            max-width: 280px;
+            margin: 25px auto 0 auto;
+            text-align: center;
+            background-color: #16a085;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .btn-action:hover {
+            background-color: #117a65;
+        }
+        .btn-restart {
+            background-color: #34495e;
+            margin-top: 10px;
+        }
+        .btn-restart:hover {
+            background-color: #2c3e50;
+        }
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Les membres de la famille par JPJ</h1>
+    <div class="subtitle">NE PAS OUBLIER LE TRAIT D'UNION "-"</div>
+    <div class="counter">Mots trouvés : <span id="score">0</span> / 6</div>
+
+    <div id="game-board">
+        <!-- Les 6 questions générées apparaissent ici -->
+    </div>
+
+    <div id="success-msg" class="success-message"> Bravo ! Vous avez trouvé les 6 mots !</div>
+
+    <button class="btn-action btn-restart" onclick="startNewGame()"> Recommencer (6 nouvelles définitions)</button>
+</div>
+
+<script>
+    // Liste complète des 49 définitions
+    const allGameData = [
+        { info: "Le père et la mère qui sont responsables d'un ou plusieurs enfants. Les ", word: "PARENTS" },
+        { info: "Autre nom de la maman. La ", word: "MERE" },
+        { info: "Autre nom de mère. La ", word: "MAMAN" },
+        { info: "Autre nom de papa. Le ", word: "PERE" },
+        { info: "Autre nom de père. Le ", word: "PAPA" },
+        { info: "Personne de sexe masculin enfant de ses parents. Le ", word: "FILS" },
+        { info: "Personne de sexe féminin enfant de ses parents. La ", word: "FILLE" },
+        { info: "Garçon qui a les mêmes parents qu'un autre enfant. Le ", word: "FRERE" },
+        { info: "Fille qui a les mêmes parents qu'un autre enfant. La ", word: "SOEUR" },
+        { info: "Être humain de sexe féminin. La ", word: "FEMME" },
+        { info: "Homme uni par le mariage. Le ", word: "MARI" },
+        { info: "Pour moi, c'est la sœur de mon père ou de ma mère. La ", word: "TANTE" },
+        { info: "Pour moi, c'est le frère de mon père ou de ma mère. L' ", word: "ONCLE" },
+        { info: "Fils de mon oncle ou de ma tante. Un ", word: "COUSIN" },
+        { info: "Fille de mon oncle ou de ma tante. Une ", word: "COUSINE" },
+        { info: "Fils du frère ou de la sœur de mon père ou de ma mère. Le ", word: "NEVEU" },
+        { info: "Fille du frère ou de la sœur de mon père ou de ma mère. La ", word: "NIECE" },
+        { info: "Les parents des parents. Les ", word: "GRANDS-PARENTS" },
+        { info: "La mère de ma mère ou la mère de mon père. La ", word: "GRAND-MERE" },
+        { info: "Autre nom de grand-mère. ", word: "MAMIE" },
+        { info: "Le père de ma mère ou le père de mon père. Le ", word: "GRAND-PERE" },
+        { info: "Autre nom de grand-père. ", word: "PEPE" },
+        { info: "Pour des parents, enfants d'un fils ou d'une fille. Les ", word: "PETITS-ENFANTS" },
+        { info: "Pour des parents, fils d'un fils ou d'une fille. Le ", word: "PETIT-FILS" },
+        { info: "Pour des parents, fille d'un fils ou d'une fille. La ", word: "PETITE-FILLE" },
+        { info: "Père du grand-père ou de la grand-mère. L' ", word: "ARRIERE-GRAND-PERE" },
+        { info: "Mère du grand-père ou de la grand-mère. L' ", word: "ARRIERE-GRAND-MERE" },
+        { info: "Femme choisie par les parents pour veiller sur leur enfant. La ", word: "MARRAINE" },
+        { info: "Homme choisi par les parents pour veiller sur leur enfant. Le ", word: "PARRAIN" },
+        { info: "Personne avec laquelle on a des relations d'amour. Le ", word: "PETIT AMI" },
+        { info: "Personne avec laquelle on a des relations d'amour. La ", word: "PETITE AMIE" },
+        { info: "Frère de votre femme ou frère de votre mari. Le ", word: "BEAU-FRERE" },
+        { info: "Sœur de votre femme ou sœur de votre mari. La ", word: "BELLE-SOEUR" },
+        { info: "Maman de votre femme ou de votre mari. La ", word: "BELLE-MERE" },
+        { info: "Papa de votre femme ou de votre mari. Le ", word: "BEAU-PERE" },
+        { info: "Le mari de votre fille. Le ", word: "BEAU-FILS" },
+        { info: "La femme de votre fils. La ", word: "BELLE-FILLE" },
+        { info: "Se dit du frère, de la sœur le plus âgé(e). L' ", word: "AINE" },
+        { info: "Le plus jeune d'une famille. Le ", word: "BENJAMIN" },
+        { info: "La plus jeune d'une famille. La ", word: "BENJAMINE" },
+        { info: "Se dit de garçons nés d'un même accouchement. Les ", word: "JUMEAUX" },
+        { info: "Se dit de filles nées d'un même accouchement. Les ", word: "JUMELLES" },
+        { info: "Enfant qui a perdu son père et sa mère, ou l'un des deux. Un ", word: "ORPHELIN" },
+        { info: "Un compagnon, un camarade. Un ", word: "AMI" },
+        { info: "Une compagne, une très bonne copine. Une ", word: "AMIE" },
+        { info: "Un regroupement d'individus du même âge. Une ", word: "GENERATION" },
+        { info: "Personne qui est à l'origine d'une famille dont on descend. Un ", word: "ANCETRE" },
+        { info: "Les personnes issues d'un individu : enfants, petits-enfants. Les ", word: "DESCENDANTS" },
+        { info: "Femme unie par le mariage. Une ", word: "EPOUSE" }
+    ];
+
+    let currentQuestions = [];
+    let foundWords = new Set();
+
+    function getRandomQuestions(num) {
+        const shuffled = [...allGameData].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, num);
+    }
+
+    function startNewGame() {
+        const board = document.getElementById('game-board');
+        board.innerHTML = '';
+        foundWords.clear();
+        document.getElementById('score').innerText = '0';
+        document.getElementById('success-msg').style.display = 'none';
+
+        currentQuestions = getRandomQuestions(6);
+
+        currentQuestions.forEach((item, index) => {
+            const row = document.createElement('div');
+            row.className = 'word-row';
+
+            const defDiv = document.createElement('div');
+            defDiv.className = 'definition';
+            defDiv.innerHTML = `${index + 1}. ${item.info}`;
+            row.appendChild(defDiv);
+
+            const boxesDiv = document.createElement('div');
+            boxesDiv.className = 'letter-boxes';
+
+            for (let i = 0; i < item.word.length; i++) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'letter-input';
+                input.maxLength = 1;
+                input.dataset.wordIndex = index;
+                input.dataset.letterIndex = i;
+
+                if (item.word[i] === ' ') {
+                    input.className = 'letter-input space-box';
+                    input.value = ' ';
+                    input.disabled = true;
+                } else {
+                    input.addEventListener('input', (e) => handleInput(e, input, item.word, index));
+                    input.addEventListener('keydown', (e) => handleKeyDown(e, input));
+                }
+
+                boxesDiv.appendChild(input);
+            }
+
+            row.appendChild(boxesDiv);
+            board.appendChild(row);
+        });
+
+        // Focus sur le premier champ
+        const firstInput = board.querySelector('input:not([disabled])');
+        if (firstInput) firstInput.focus();
+    }
+
+    function handleInput(e, input, correctWord, wordIndex) {
+        const val = input.value.toUpperCase();
+        input.value = val;
+
+        if (val) {
+            let next = input.nextElementSibling;
+            while (next && next.classList.contains('space-box')) {
+                next = next.nextElementSibling;
+            }
+            if (next) next.focus();
+        }
+
+        checkWord(wordIndex, correctWord);
+    }
+
+    function handleKeyDown(e, input) {
+        if (e.key === 'Backspace' && !input.value) {
+            let prev = input.previousElementSibling;
+            while (prev && prev.classList.contains('space-box')) {
+                prev = prev.previousElementSibling;
+            }
+            if (prev) {
+                prev.focus();
+                prev.value = '';
+            }
+        }
+    }
+
+    function checkWord(wordIndex, correctWord) {
+        const rows = document.getElementsByClassName('word-row');
+        const inputs = rows[wordIndex].getElementsByClassName('letter-input');
+        let currentGuess = '';
+
+        for (let input of inputs) {
+            currentGuess += input.value;
+        }
+
+        if (currentGuess === correctWord) {
+            for (let input of inputs) {
+                input.classList.add('correct');
+                input.disabled = true;
+            }
+            foundWords.add(wordIndex);
+            document.getElementById('score').innerText = foundWords.size;
+
+            if (foundWords.size === 6) {
+                document.getElementById('success-msg').style.display = 'block';
+            }
+        }
+    }
+
+    // Initialisation au chargement de la page
+    startNewGame();
+</script>
+</body>
+</html>
