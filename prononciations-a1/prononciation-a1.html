@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prononciation Entraînement</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            margin: 0;
+            padding: 12px;
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #0d9488, #06b6d4);
+            color: white;
+            padding: 16px 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0 0 6px 0;
+            font-size: 1.4rem;
+        }
+        .header p {
+            margin: 0;
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+        .progression {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.95rem;
+        }
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .word-card {
+            background: white;
+            border-radius: 14px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .image-box {
+            width: 150px;
+            height: 150px;
+            border-radius: 12px;
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid #cbd5e1;
+            margin-bottom: 12px;
+        }
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .word-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 14px;
+        }
+        .controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+        }
+        .btn {
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn-model {
+            background-color: #0d9488;
+            color: white;
+        }
+        .btn-model:hover {
+            background-color: #0f766e;
+        }
+        .btn-record {
+            background-color: #dc2626;
+            color: white;
+        }
+        .btn-record.recording {
+            animation: pulse 1.2s infinite;
+            background-color: #991b1b;
+        }
+        .btn-stop {
+            background-color: #475569;
+            color: white;
+        }
+        .audio-player {
+            margin-top: 10px;
+            width: 100%;
+            max-width: 280px;
+        }
+        .nav-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+        .btn-nav {
+            background-color: #0284c7;
+            color: white;
+            font-size: 1.05rem;
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            justify-content: center;
+        }
+        .btn-nav:hover {
+            background-color: #0369a1;
+        }
+        .btn-restart {
+            background-color: #4d7c0f;
+            color: white;
+            box-shadow: 0 4px 10px rgba(77, 124, 15, 0.3);
+        }
+        .btn-restart:hover {
+            background-color: #3f6212;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🗣️ Prononciation FLE le son 'O'</h1>
+        <p>Écoutez le modèle, enregistrez-vous et comparez !</p>
+    </div>
+
+    <div class="progression">
+        <span id="serie-info">Série 1 / 6</span>
+        <span id="mots-count">5 mots</span>
+    </div>
+
+    <div id="quiz-container" class="card-container">
+        <!-- Génération dynamique des cartes -->
+    </div>
+
+    <div class="nav-section">
+        <button id="btn-suite" class="btn btn-nav" onclick="chargerSerieSuivante()">
+            ➡️ Série suivante (5 autres mots)
+        </button>
+        <button id="btn-recommencer" class="btn btn-nav btn-restart" onclick="recommencerTout()" style="display:none;">
+            🔄 Recommencer depuis le début
+        </button>
+    </div>
+
+    <script>
+        // Liste exacte des 30 mots A1 (6 séries de 5 mots)
+        // Images/audio associés aux noms simples sans accent en minuscules
+        const banqueDeMots = [
+            // Série 1 (Mots 1 à 5)
+            [
+                { texte: "La météo", image: "images/meteo.jpg", audio: "audio/meteo.mp3" },
+                { texte: "Une photo", image: "images/photo.jpg", audio: "audio/photo.mp3" },
+                { texte: "Le resto", image: "images/resto.jpg", audio: "audio/resto.mp3" },
+                { texte: "Le McDo", image: "images/mcdo.jpg", audio: "audio/mcdo.mp3" },
+                { texte: "Un zéro", image: "images/zero.jpg", audio: "audio/zero.mp3" }
+            ],
+            // Série 2 (Mots 6 à 10)
+            [
+                { texte: "Trop", image: "images/trop.jpg", audio: "audio/trop.mp3" },
+                { texte: "Un Tricot", image: "images/tricot.jpg", audio: "audio/tricot.mp3" },
+                { texte: "Le Repos", image: "images/repos.jpg", audio: "audio/repos.mp3" },
+                { texte: "Un Chapeau", image: "images/chapeau.jpg", audio: "audio/chapeau.mp3" },
+                { texte: "Un Abricot", image: "images/abricot.jpg", audio: "audio/abricot.mp3" }
+            ],
+            // Série 3 (Mots 11 à 15)
+            [
+                { texte: "Un Oiseau", image: "images/oiseau.jpg", audio: "audio/oiseau.mp3" },
+                { texte: "Un Oignon", image: "images/oignon.jpg", audio: "audio/oignon.mp3" },
+                { texte: "Une Auto", image: "images/auto.jpg", audio: "audio/auto.mp3" },
+                { texte: "Le Cacao", image: "images/cacao.jpg", audio: "audio/cacao.mp3" },
+                { texte: "Un Tuyau", image: "images/tuyau.jpg", audio: "audio/tuyau.mp3" }
+            ],
+            // Série 4 (Mots 16 à 20)
+            [
+                { texte: "Un maillot", image: "images/maillot.jpg", audio: "audio/maillot.mp3" },
+                { texte: "Un bateau", image: "images/bateau.jpg", audio: "audio/bateau.mp3" },
+                { texte: "Un gâteau", image: "images/gateau.jpg", audio: "audio/gateau.mp3" },
+                { texte: "Un manteau", image: "images/manteau.jpg", audio: "audio/manteau.mp3" },
+                { texte: "Le bureau", image: "images/bureau.jpg", audio: "audio/bureau.mp3" }
+            ],
+            // Série 5 (Mots 21 à 25)
+            [
+                { texte: "Le cadeau", image: "images/cadeau.jpg", audio: "audio/cadeau.mp3" },
+                { texte: "Gros", image: "images/gros.jpg", audio: "audio/gros.mp3" },
+                { texte: "Un chameau", image: "images/chameau.jpg", audio: "audio/chameau.mp3" },
+                { texte: "Un couteau", image: "images/couteau.jpg", audio: "audio/couteau.mp3" },
+                { texte: "Un drapeau", image: "images/drapeau.jpg", audio: "audio/drapeau.mp3" }
+            ],
+            // Série 6 (Mots 26 à 30)
+            [
+                { texte: "Les impôts", image: "images/impots.jpg", audio: "audio/impots.mp3" },
+                { texte: "Un rideau", image: "images/rideau.jpg", audio: "audio/rideau.mp3" },
+                { texte: "Un veau", image: "images/veau.jpg", audio: "audio/veau.mp3" },
+                { texte: "La peau", image: "images/peau.jpg", audio: "audio/peau.mp3" },
+                { texte: "Un marteau", image: "images/marteau.jpg", audio: "audio/marteau.mp3" }
+            ]
+        ];
+
+        let indexSerie = 0;
+        let enregistreurs = {};
+        let morceauxAudio = {};
+
+        function afficherSerie(numIndex) {
+            const container = document.getElementById("quiz-container");
+            container.innerHTML = "";
+            document.getElementById("serie-info").innerText = `Série ${numIndex + 1} / ${banqueDeMots.length}`;
+
+            const motsSerie = banqueDeMots[numIndex];
+
+            motsSerie.forEach((item, idx) => {
+                const card = document.createElement("div");
+                card.className = "word-card";
+
+                card.innerHTML = `
+                    <div class="image-box">
+                        <img src="${item.image}" alt="${item.texte}" onerror="this.src='https://via.placeholder.com/150?text=${encodeURIComponent(item.texte)}'">
+                    </div>
+                    <div class="word-title">${item.texte}</div>
+                    <div class="controls-row">
+                        <button class="btn btn-model" onclick="jouerAudio('${item.audio}')">
+                            🔊 Écouter
+                        </button>
+                        <button id="btn-rec-${idx}" class="btn btn-record" onclick="demarrerEnregistrement(${idx})">
+                            🔴 M'enregistrer
+                        </button>
+                        <button id="btn-stop-${idx}" class="btn btn-stop" style="display:none;" onclick="arreterEnregistrement(${idx})">
+                            ⏹️ Stopper
+                        </button>
+                    </div>
+                    <audio id="player-user-${idx}" class="audio-player" controls style="display:none;"></audio>
+                `;
+
+                container.appendChild(card);
+            });
+
+            // Gérer l'affichage des boutons de navigation
+            const btnSuite = document.getElementById("btn-suite");
+            const btnRecommencer = document.getElementById("btn-recommencer");
+
+            if (numIndex === banqueDeMots.length - 1) {
+                btnSuite.style.display = "none";
+                btnRecommencer.style.display = "inline-flex";
+            } else {
+                btnSuite.style.display = "inline-flex";
+                btnRecommencer.style.display = "none";
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function jouerAudio(urlAudio) {
+            const audio = new Audio(urlAudio);
+            audio.play().catch(e => {
+                alert("Fichier audio introuvable : " + urlAudio + "\nVérifiez qu'il est bien placé dans le dossier audio/.");
+            });
+        }
+
+        async function demarrerEnregistrement(idx) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                enregistreurs[idx] = new MediaRecorder(stream);
+                morceauxAudio[idx] = [];
+
+                enregistreurs[idx].ondataavailable = e => {
+                    if (e.data.size > 0) morceauxAudio[idx].push(e.data);
+                };
+
+                enregistreurs[idx].onstop = () => {
+                    const blob = new Blob(morceauxAudio[idx], { type: 'audio/mp3' });
+                    const audioUrl = URL.createObjectURL(blob);
+                    const player = document.getElementById(`player-user-${idx}`);
+                    player.src = audioUrl;
+                    player.style.display = "block";
+                };
+
+                enregistreurs[idx].start();
+
+                document.getElementById(`btn-rec-${idx}`).classList.add("recording");
+                document.getElementById(`btn-rec-${idx}`).style.display = "none";
+                document.getElementById(`btn-stop-${idx}`).style.display = "inline-flex";
+
+            } catch (err) {
+                alert("Impossible d'accéder au micro. Veuillez autoriser le micro dans votre navigateur.");
+            }
+        }
+
+        function arreterEnregistrement(idx) {
+            if (enregistreurs[idx] && enregistreurs[idx].state !== "inactive") {
+                enregistreurs[idx].stop();
+                enregistreurs[idx].stream.getTracks().forEach(track => track.stop());
+
+                document.getElementById(`btn-rec-${idx}`).classList.remove("recording");
+                document.getElementById(`btn-rec-${idx}`).style.display = "inline-flex";
+                document.getElementById(`btn-stop-${idx}`).style.display = "none";
+            }
+        }
+
+        function chargerSerieSuivante() {
+            if (indexSerie < banqueDeMots.length - 1) {
+                indexSerie++;
+                afficherSerie(indexSerie);
+            }
+        }
+
+        function recommencerTout() {
+            indexSerie = 0;
+            afficherSerie(0);
+        }
+
+        // Chargement initial
+        afficherSerie(0);
+    </script>
+</body>
+</html>
