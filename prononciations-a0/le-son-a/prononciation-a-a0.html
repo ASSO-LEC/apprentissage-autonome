@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prononciation FLE - Le son 'A'</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-bar {
+            background-color: #1d4ed8;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header-bar h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header-bar p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .sub-header {
+            max-width: 900px;
+            margin: 15px auto;
+            padding: 0 15px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .word-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 160px;
+        }
+
+        .image-box {
+            width: 150px;
+            height: 150px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid #cbd5e1;
+            margin-bottom: 12px;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .controls-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-model {
+            background-color: #0d9488;
+            color: white;
+        }
+
+        .btn-record {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        .btn-stop {
+            background-color: #475569;
+            color: white;
+        }
+
+        .btn-next {
+            background-color: #0284c7;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 25px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-top: 8px;
+            height: 30px;
+        }
+
+        .nav-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <h1>🗣️ Prononciation FLE le son 'A'</h1>
+        <p>Écoutez le modèle, enregistrez-vous et comparez !</p>
+    </div>
+
+    <div class="sub-header" id="serie-info">Série 1 / 2</div>
+
+    <div class="quiz-container" id="quiz-container"></div>
+
+    <div class="nav-container">
+        <button id="btn-suite" class="btn btn-next" onclick="chargerSerieSuivante()">
+            → Série suivante
+        </button>
+        <button id="btn-recommencer" class="btn btn-next" style="display:none;" onclick="recommencerTout()">
+            🔄 Recommencer
+        </button>
+    </div>
+
+    <script>
+        const banqueDeMots = [
+            [
+                { image: "images/ca.jpg", audio: "audio/ca.mp3" },
+                { image: "images/fa.jpg", audio: "audio/fa.mp3" },
+                { image: "images/ha.jpg", audio: "audio/ha.mp3" }
+            ],
+            [
+                { image: "images/la.jpg", audio: "audio/la.mp3" },
+                { image: "images/ma.jpg", audio: "audio/ma.mp3" },
+                { image: "images/papa.jpg", audio: "audio/papa.mp3" }
+            ],
+            [
+                { image: "images/sa.jpg", audio: "audio/sa.mp3" },
+                { image: "images/ta.jpg", audio: "audio/ta.mp3" },
+                { image: "images/va.jpg", audio: "audio/va.mp3" }
+            ]
+        ];
+
+        let indexSerie = 0;
+        let enregistreurs = {};
+        let morceauxAudio = {};
+
+        function afficherSerie(numIndex) {
+            const container = document.getElementById("quiz-container");
+            container.innerHTML = "";
+            document.getElementById("serie-info").innerText = `Série ${numIndex + 1} / ${banqueDeMots.length}`;
+
+            const motsSerie = banqueDeMots[numIndex];
+
+            motsSerie.forEach((item, idx) => {
+                const card = document.createElement("div");
+                card.className = "word-card";
+
+                card.innerHTML = `
+                    <div class="image-box">
+                        <img src="${item.image}" alt="Image son A">
+                    </div>
+                    <div class="controls-row">
+                        <button class="btn btn-model" onclick="jouerAudio('${item.audio}')">
+                            🔊 Écouter
+                        </button>
+                        <button id="btn-rec-${idx}" class="btn btn-record" onclick="demarrerEnregistrement(${idx})">
+                            🔴 M'enregistrer
+                        </button>
+                        <button id="btn-stop-${idx}" class="btn btn-stop" style="display:none;" onclick="arreterEnregistrement(${idx})">
+                            ⏹️ Stopper
+                        </button>
+                    </div>
+                    <audio id="player-user-${idx}" class="audio-player" controls style="display:none;"></audio>
+                `;
+
+                container.appendChild(card);
+            });
+
+            const btnSuite = document.getElementById("btn-suite");
+            const btnRecommencer = document.getElementById("btn-recommencer");
+
+            if (numIndex === banqueDeMots.length - 1) {
+                btnSuite.style.display = "none";
+                btnRecommencer.style.display = "inline-flex";
+            } else {
+                btnSuite.style.display = "inline-flex";
+                btnRecommencer.style.display = "none";
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function jouerAudio(urlAudio) {
+            const audio = new Audio(urlAudio);
+            audio.play().catch(e => {
+                alert("Fichier audio introuvable : " + urlAudio + " - Vérifiez qu'il est bien placé dans le dossier audio/.");
+            });
+        }
+
+        async function demarrerEnregistrement(idx) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                enregistreurs[idx] = new MediaRecorder(stream);
+                morceauxAudio[idx] = [];
+
+                enregistreurs[idx].ondataavailable = e => {
+                    if (e.data.size > 0) morceauxAudio[idx].push(e.data);
+                };
+
+                enregistreurs[idx].onstop = () => {
+                    const blob = new Blob(morceauxAudio[idx], { type: 'audio/mp3' });
+                    const audioUrl = URL.createObjectURL(blob);
+                    const player = document.getElementById(`player-user-${idx}`);
+                    player.src = audioUrl;
+                    player.style.display = "block";
+                };
+
+                enregistreurs[idx].start();
+
+                document.getElementById(`btn-rec-${idx}`).style.display = "none";
+                document.getElementById(`btn-stop-${idx}`).style.display = "inline-flex";
+
+            } catch (err) {
+                alert("Impossible d'accéder au micro. Veuillez autoriser le micro.");
+            }
+        }
+
+        function arreterEnregistrement(idx) {
+            if (enregistreurs[idx] && enregistreurs[idx].state !== "inactive") {
+                enregistreurs[idx].stop();
+                enregistreurs[idx].stream.getTracks().forEach(track => track.stop());
+
+                document.getElementById(`btn-rec-${idx}`).style.display = "inline-flex";
+                document.getElementById(`btn-stop-${idx}`).style.display = "none";
+            }
+        }
+
+        function chargerSerieSuivante() {
+            if (indexSerie < banqueDeMots.length - 1) {
+                indexSerie++;
+                afficherSerie(indexSerie);
+            }
+        }
+
+        function recommencerTout() {
+            indexSerie = 0;
+            afficherSerie(0);
+        }
+
+        afficherSerie(0);
+    </script>
+</body>
+</html>
