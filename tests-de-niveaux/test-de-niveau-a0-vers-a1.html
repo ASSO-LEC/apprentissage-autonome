@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Niveau FLE A0/A1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden-question { display: none; }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; }
+            .card-container { shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-8 px-4 font-sans text-slate-800">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6 md:p-8 card-container">
+        
+        <!-- Header & Progress -->
+        <div id="quiz-header" class="border-b pb-4 mb-6 flex justify-between items-center flex-wrap gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-indigo-700">Test de Français FLE (Niveau A0 / A1)</h1>
+                <p class="text-sm text-slate-500">Évaluation des compétences de base - 20 questions</p>
+            </div>
+            <div id="progress-container" class="text-right">
+                <span class="text-sm font-semibold text-indigo-600" id="progress-text">Question 1 / 20</span>
+                <div class="w-32 bg-slate-200 rounded-full h-2.5 mt-1">
+                    <div id="progress-bar" class="bg-indigo-600 h-2.5 rounded-full" style="width: 5%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Questions -->
+        <form id="quiz-form" onsubmit="return false;">
+            
+<!-- Question 1: Identité -->
+<div class="question-step" data-step="1">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 1: Informations personnelles</h2>
+    <div class="space-y-4">
+        <div>
+            <label class="block text-sm font-medium mb-1">Nom :</label>
+            <input type="text" id="user-nom" placeholder="Uniquement des lettres" class="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500 outline-none">
+        </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Prénom :</label>
+            <input type="text" id="user-prenom" placeholder="Uniquement des lettres" class="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500 outline-none">
+        </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Ville :</label>
+            <input type="text" id="user-ville" placeholder="Uniquement des lettres" class="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500 outline-none">
+        </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Âge :</label>
+            <div class="flex items-center gap-2">
+                <input type="number" id="user-age" placeholder="Ex: 25" class="w-32 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500 outline-none">
+                <span>ans</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Question 2: Présentation -->
+<div class="question-step hidden-question" data-step="2">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 2: Présentation de l'âge</h2>
+    <div class="space-y-3 bg-slate-50 p-4 rounded-lg">
+        <p>Pour exprimer mon âge en français :</p>
+        <label class="block font-medium mt-2">Choisissez la forme correcte :</label>
+        <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="q2" value="suis" class="text-indigo-600">
+                <span>Je suis <span class="display-age font-bold text-indigo-700">...</span> ans</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="q2" value="fais" class="text-indigo-600">
+                <span>Je fais <span class="display-age font-bold text-indigo-700">...</span> ans</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="q2" value="ai" class="text-indigo-600">
+                <span>J'ai <span class="display-age font-bold text-indigo-700">...</span> ans</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="q2" value="vais" class="text-indigo-600">
+                <span>Je vais <span class="display-age font-bold text-indigo-700">...</span> ans</span>
+            </label>
+        </div>
+    </div>
+</div>
+		   
+		   
+           <!-- Question 3: Lettres voisines (1) -->
+<div class="question-step hidden-question" data-step="3">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-2">Question 3: Les lettres voisines (1)</h2>
+    <p class="text-sm text-slate-600 mb-4">Écrivez la lettre qui vient juste <strong>avant</strong> et celle qui vient juste <strong>après</strong> (en MAJUSCULE) :</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        
+        <!-- V -->
+        <div class="flex items-center gap-2 justify-center bg-pink-50 p-3 rounded-md">
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q3_1a">
+            <span>← <strong>V</strong> →</span>
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q3_1b">
+        </div>
+
+        <!-- J -->
+        <div class="flex items-center gap-2 justify-center bg-pink-50 p-3 rounded-md">
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q3_2a">
+            <span>← <strong>J</strong> →</span>
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q3_2b">
+        </div>
+
+        <!-- F -->
+        <div class="flex items-center gap-2 justify-center bg-pink-50 p-3 rounded-md">
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q3_3a">
+            <span>← <strong>F</strong> →</span>
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q3_3b">
+        </div>
+
+        <!-- M -->
+        <div class="flex items-center gap-2 justify-center bg-pink-50 p-3 rounded-md">
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q3_4a">
+            <span>← <strong>M</strong> →</span>
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q3_4b">
+        </div>
+
+    </div>
+</div>
+
+            <!-- Question 4: Lettres voisines (2) -->
+<div class="question-step hidden-question" data-step="4">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-2">Question 4: Les lettres voisines (2)</h2>
+    <p class="text-sm text-slate-600 mb-4">Écrivez la lettre qui vient juste <strong>avant</strong> et celle qui vient juste <strong>après</strong> :</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        
+        <!-- C -->
+        <div class="flex items-center gap-2 justify-center bg-pink-50 p-3 rounded-md">
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q4_1a">
+            <span>← <strong>C</strong> →</span>
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q4_1b">
+        </div>
+
+        <!-- Q -->
+        <div class="flex items-center gap-2 justify-center bg-pink-50 p-3 rounded-md">
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q4_2a">
+            <span>← <strong>Q</strong> →</span>
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q4_2b">
+        </div>
+
+        <!-- D -->
+        <div class="flex items-center gap-2 justify-center bg-pink-50 p-3 rounded-md">
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q4_3a">
+            <span>← <strong>D</strong> →</span>
+            <input type="text" maxlength="1" class="w-10 h-10 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white font-bold uppercase rounded shadow-sm" id="q4_3b">
+        </div>
+
+    </div>
+</div>
+
+            <!-- Question 5: Intrus ordre alphabétique -->
+            <div class="question-step hidden-question" data-step="5">
+                <h2 class="text-lg font-semibold text-indigo-900 mb-2">Question 5: Ordre alphabétique</h2>
+                <p class="text-sm text-slate-600 mb-4">Quelle suite de lettres n'est <strong>PAS</strong> dans l'ordre alphabétique ?</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-2 border p-3 rounded cursor-pointer hover:bg-slate-50">
+                        <input type="radio" name="q5" value="A-B-C-D"> A - B - C - D
+                    </label>
+                    <label class="flex items-center gap-2 border p-3 rounded cursor-pointer hover:bg-slate-50">
+                        <input type="radio" name="q5" value="M-N-P-O"> M - N - P - O
+                    </label>
+                    <label class="flex items-center gap-2 border p-3 rounded cursor-pointer hover:bg-slate-50">
+                        <input type="radio" name="q5" value="R-S-T-U"> R - S - T - U
+                    </label>
+                    <label class="flex items-center gap-2 border p-3 rounded cursor-pointer hover:bg-slate-50">
+                        <input type="radio" name="q5" value="X-Y-Z"> X - Y - Z
+                    </label>
+                </div>
+            </div>
+
+           <!-- Question 6: Alphabet lacunaire -->
+<div class="question-step hidden-question" data-step="6">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-2">Question 6: Compléter l'alphabet</h2>
+    <p class="text-sm text-slate-600 mb-4">Remplissez les trous dans l'alphabet :</p>
+    <div class="bg-amber-50 p-4 rounded-lg font-mono text-center leading-loose">
+        A - B - C - D - E - F - G -
+        <input type="text" maxlength="1" id="q6_H" class="w-8 h-8 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white uppercase rounded font-bold shadow-sm"> -
+        <input type="text" maxlength="1" id="q6_I" class="w-8 h-8 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white uppercase rounded font-bold shadow-sm"> -
+        <input type="text" maxlength="1" id="q6_J" class="w-8 h-8 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white uppercase rounded font-bold shadow-sm"> - K - L - M - N - O - P -
+        <input type="text" maxlength="1" id="q6_Q" class="w-8 h-8 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white uppercase rounded font-bold shadow-sm"> -
+        <input type="text" maxlength="1" id="q6_R" class="w-8 h-8 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white uppercase rounded font-bold shadow-sm"> -
+        <input type="text" maxlength="1" id="q6_S" class="w-8 h-8 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white uppercase rounded font-bold shadow-sm"> - T - U - V -
+        <input type="text" maxlength="1" id="q6_W" class="w-8 h-8 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white uppercase rounded font-bold shadow-sm"> -
+        <input type="text" maxlength="1" id="q6_X" class="w-8 h-8 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white uppercase rounded font-bold shadow-sm"> -
+        <input type="text" maxlength="1" id="q6_Y" class="w-8 h-8 text-center border border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white uppercase rounded font-bold shadow-sm"> - Z
+    </div>
+</div>
+
+<!-- Question 7: Mots simples -->
+<div class="question-step hidden-question" data-step="7">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 7: Compléter les mots Mettre la lettre manquante dans la case</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        
+        <!-- Pot -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/pot.jpg" alt="Pot" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-semibold text-slate-700">un p...t</p>
+            <input type="text" id="q7_pot" maxlength="1" class="w-12 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center text-lg font-bold rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Rat -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/rat.jpg" alt="Rat" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-semibold text-slate-700">un r...t</p>
+            <input type="text" id="q7_rat" maxlength="1" class="w-12 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center text-lg font-bold rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Dé -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/de.jpg" alt="Dé" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-semibold text-slate-700">un d...</p>
+            <input type="text" id="q7_de" maxlength="1" class="w-12 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center text-lg font-bold rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Dame -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/dame.jpg" alt="Dame" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-semibold text-slate-700">une d...me</p>
+            <input type="text" id="q7_dame" maxlength="1" class="w-12 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center text-lg font-bold rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Télé -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/tele.jpg" alt="Télé" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-semibold text-slate-700">la t...lé</p>
+            <input type="text" id="q7_tele" maxlength="1" class="w-12 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center text-lg font-bold rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Lame -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/lame.jpg" alt="Lame" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-semibold text-slate-700">une l...me</p>
+            <input type="text" id="q7_lame" maxlength="1" class="w-12 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center text-lg font-bold rounded mt-2 shadow-sm">
+        </div>
+
+    </div>
+</div>
+
+ <!-- Question 8: Voyelle / Consonne -->
+<div class="question-step hidden-question" data-step="8">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 8: Voyelle ou Consonne ?</h2>
+    <div class="space-y-3">
+        
+        <!-- A -->
+        <div class="flex items-center gap-6 border-b pb-2">
+            <span class="font-bold text-lg w-8">A :</span>
+            <div class="space-x-4">
+                <label><input type="radio" name="q8_A" value="Voyelle"> Voyelle</label>
+                <label><input type="radio" name="q8_A" value="Consonne"> Consonne</label>
+            </div>
+        </div>
+
+        <!-- B -->
+        <div class="flex items-center gap-6 border-b pb-2">
+            <span class="font-bold text-lg w-8">B :</span>
+            <div class="space-x-4">
+                <label><input type="radio" name="q8_B" value="Voyelle"> Voyelle</label>
+                <label><input type="radio" name="q8_B" value="Consonne"> Consonne</label>
+            </div>
+        </div>
+
+        <!-- E -->
+        <div class="flex items-center gap-6 border-b pb-2">
+            <span class="font-bold text-lg w-8">E :</span>
+            <div class="space-x-4">
+                <label><input type="radio" name="q8_E" value="Voyelle"> Voyelle</label>
+                <label><input type="radio" name="q8_E" value="Consonne"> Consonne</label>
+            </div>
+        </div>
+
+        <!-- M -->
+        <div class="flex items-center gap-6 border-b pb-2">
+            <span class="font-bold text-lg w-8">M :</span>
+            <div class="space-x-4">
+                <label><input type="radio" name="q8_M" value="Voyelle"> Voyelle</label>
+                <label><input type="radio" name="q8_M" value="Consonne"> Consonne</label>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+            <!-- Question 9: Identification Voyelles -->
+            <div class="question-step hidden-question" data-step="9">
+                <h2 class="text-lg font-semibold text-indigo-900 mb-2">Question 9: Les voyelles de l'alphabet</h2>
+                <p class="text-sm text-slate-600 mb-4">Cochez <strong>toutes</strong> les voyelles parmi ces lettres :</p>
+                <div class="grid grid-cols-4 gap-3 text-center font-bold text-xl">
+                    <label class="border p-3 rounded cursor-pointer hover:bg-indigo-50"><input type="checkbox" id="q9_A" class="mr-2"> A</label>
+                    <label class="border p-3 rounded cursor-pointer hover:bg-indigo-50"><input type="checkbox" id="q9_B" class="mr-2"> B</label>
+                    <label class="border p-3 rounded cursor-pointer hover:bg-indigo-50"><input type="checkbox" id="q9_E" class="mr-2"> E</label>
+                    <label class="border p-3 rounded cursor-pointer hover:bg-indigo-50"><input type="checkbox" id="q9_R" class="mr-2"> R</label>
+                    <label class="border p-3 rounded cursor-pointer hover:bg-indigo-50"><input type="checkbox" id="q9_O" class="mr-2"> O</label>
+                    <label class="border p-3 rounded cursor-pointer hover:bg-indigo-50"><input type="checkbox" id="q9_I" class="mr-2"> I</label>
+                    <label class="border p-3 rounded cursor-pointer hover:bg-indigo-50"><input type="checkbox" id="q9_U" class="mr-2"> U</label>
+                    <label class="border p-3 rounded cursor-pointer hover:bg-indigo-50"><input type="checkbox" id="q9_Y" class="mr-2"> Y</label>
+                </div>
+            </div>
+<!-- Question 10: Sons complexes (ou, on) -->
+<div class="question-step hidden-question" data-step="10">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 10: Sons complexes (ON / OU) compléter avec ON ou OU</h2>
+    <div class="grid grid-cols-2 gap-4">
+        
+        <!-- Pont -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/pont.jpg" alt="Pont" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-medium">un p...t</p>
+            <input type="text" id="q10_pont" placeholder="on / ou" class="w-24 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Souris -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/souris.jpg" alt="Souris" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-medium">une s...ris</p>
+            <input type="text" id="q10_souris" placeholder="on / ou" class="w-24 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Camion -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/camion.jpg" alt="Camion" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-medium">un cami...</p>
+            <input type="text" id="q10_camion" placeholder="on / ou" class="w-24 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Mouche -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/mouche.jpg" alt="Mouche" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-medium">une m...che</p>
+            <input type="text" id="q10_mouche" placeholder="on / ou" class="w-24 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded mt-2 shadow-sm">
+        </div>
+
+    </div>
+</div>
+
+<!-- Question 11: Sons complexes (oi, ch, j) -->
+<div class="question-step hidden-question" data-step="11">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 11: Mots avec sons complexes Compléter avec OI  ou  CH  ou  J</h2>
+    <div class="grid grid-cols-2 gap-4">
+
+        <!-- Voiture -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/voiture.jpg" alt="Voiture" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-medium">une v...ture</p>
+            <input type="text" id="q11_voiture" placeholder="oi / ou" class="w-24 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Pyjama -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/pyjama.jpg" alt="Pyjama" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-medium">un py...ama</p>
+            <input type="text" id="q11_pyjama" placeholder="j / ch" class="w-24 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Chien -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/chien.jpg" alt="Chien" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-medium">un ...ien</p>
+            <input type="text" id="q11_chien" placeholder="ch / j" class="w-24 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded mt-2 shadow-sm">
+        </div>
+
+        <!-- Poire -->
+        <div class="border p-3 rounded text-center">
+            <img src="images/poire.jpg" alt="Poire" class="mx-auto mb-2 h-16 object-contain" />
+            <p class="font-medium">une p...re</p>
+            <input type="text" id="q11_poire" placeholder="oi / ou" class="w-24 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded mt-2 shadow-sm">
+        </div>
+
+    </div>
+</div>
+
+<!-- Question 12: Les Animaux -->
+<div class="question-step hidden-question" data-step="12">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-2">Question 12: Vocabulaire - Animaux</h2>
+    <p class="text-sm text-slate-600 mb-4">Écrivez le mot exact des animaux :</p>
+    <div class="space-y-3">
+
+        <!-- Chat -->
+        <div class="flex items-center gap-4 border p-2 rounded">
+            <div class="flex items-center gap-3">
+                <img src="images/chat.jpg" alt="Chat" class="h-20 w-20 object-contain" />
+                <span>Un animal qui miaule : un </span>
+            </div>
+            <input type="text" id="q12_chat" class="w-32 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded shadow-sm">
+        </div>
+
+        <!-- Chien -->
+        <div class="flex items-center gap-4 border p-2 rounded">
+            <div class="flex items-center gap-3">
+                <img src="images/chien.jpg" alt="Chien" class="h-20 w-20 object-contain" />
+                <span>Un animal qui aboie : un </span>
+            </div>
+            <input type="text" id="q12_chien" class="w-32 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded shadow-sm">
+        </div>
+
+        <!-- Oiseau -->
+        <div class="flex items-center gap-4 border p-2 rounded">
+            <div class="flex items-center gap-3">
+                <img src="images/oiseau.jpg" alt="Oiseau" class="h-20 w-20 object-contain" />
+                <span>Un animal qui vole : un </span>
+            </div>
+            <input type="text" id="q12_oiseau" class="w-32 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white p-1 text-center rounded shadow-sm">
+        </div>
+
+    </div>
+</div>
+
+<!-- Question 13: Phonétique -eil, -euil -->
+<div class="question-step hidden-question" data-step="13">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-2">Question 13: Phonétique complexifiée</h2>
+    <p class="text-sm text-slate-600 mb-4">Choisissez la bonne terminaison :</p>
+    <div class="space-y-3">
+        
+        <!-- Soleil -->
+        <div class="flex items-center justify-between border-b pb-2">
+            <div class="flex items-center gap-3">
+                <img src="images/soleil.jpg" alt="Soleil" class="h-16 w-16 object-contain" />
+                <span>Un sol... :</span>
+            </div>
+            <select id="q13_soleil" class="border p-1 rounded">
+                <option value="">Choisir...</option>
+                <option value="eil">eil</option>
+                <option value="euil">euil</option>
+                <option value="aille">aille</option>
+            </select>
+        </div>
+
+        <!-- Écureuil -->
+        <div class="flex items-center justify-between border-b pb-2">
+            <div class="flex items-center gap-3">
+                <img src="images/ecureuil.jpg" alt="Écureuil" class="h-24 w-24 object-contain" />
+                <span>Un écur... :</span>
+            </div>
+            <select id="q13_ecureuil" class="border p-1 rounded">
+                <option value="">Choisir...</option>
+                <option value="eil">eil</option>
+                <option value="euil">euil</option>
+                <option value="aille">aille</option>
+            </select>
+        </div>
+
+    </div>
+</div>
+
+<!-- Question 14: Nombres en chiffres -->
+<div class="question-step hidden-question" data-step="14">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 14: Écrire en chiffres</h2>
+    <div class="space-y-3">
+        
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-16">Trois :</span>
+            <input type="number" id="q14_3" class="w-24 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white rounded text-center font-bold shadow-sm">
+        </div>
+
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-16">Sept :</span>
+            <input type="number" id="q14_7" class="w-24 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white rounded text-center font-bold shadow-sm">
+        </div>
+
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-16">Dix :</span>
+            <input type="number" id="q14_10" class="w-24 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white rounded text-center font-bold shadow-sm">
+        </div>
+
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-16">Treize :</span>
+            <input type="number" id="q14_13" class="w-24 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white rounded text-center font-bold shadow-sm">
+        </div>
+
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-16">Seize :</span>
+            <input type="number" id="q14_16" class="w-24 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white rounded text-center font-bold shadow-sm">
+        </div>
+
+    </div>
+</div>
+
+<!-- Question 15: Nombres en lettres -->
+<div class="question-step hidden-question" data-step="15">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 15: Écrire les chiffres en lettres</h2>
+    <div class="space-y-3">
+        
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-8 font-bold">5 :</span>
+            <input type="text" id="q15_5" class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-semibold shadow-sm">
+        </div>
+
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-8 font-bold">8 :</span>
+            <input type="text" id="q15_8" class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-semibold shadow-sm">
+        </div>
+
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-8 font-bold">12 :</span>
+            <input type="text" id="q15_12" class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-semibold shadow-sm">
+        </div>
+
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-8 font-bold">15 :</span>
+            <input type="text" id="q15_15" class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-semibold shadow-sm">
+        </div>
+
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-8 font-bold">16 :</span>
+            <input type="text" id="q15_16" class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-semibold shadow-sm">
+        </div>
+
+        <div class="flex items-center gap-3 border-b pb-2">
+            <span class="w-8 font-bold">18 :</span>
+            <input type="text" id="q15_18" class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-semibold shadow-sm">
+        </div>
+
+    </div>
+</div>
+
+<!-- Question 16: Jours de la semaine -->
+<div class="question-step hidden-question" data-step="16">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-2">Question 16: Les jours de la semaine</h2>
+    <p class="text-sm text-slate-600 mb-4">Complétez les jours manquants :</p>
+    <div class="space-y-3 text-slate-800 font-medium">
+        
+        <p class="flex items-center gap-2">
+            <span>Lundi -</span>
+            <input type="text" id="q16_mardi" placeholder="..." class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-bold shadow-sm">
+            <span>- Mercredi</span>
+        </p>
+
+        <p class="flex items-center gap-2">
+            <span>Mercredi -</span>
+            <input type="text" id="q16_jeudi" placeholder="..." class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-bold shadow-sm">
+            <span>- Vendredi</span>
+        </p>
+
+        <p class="flex items-center gap-2">
+            <span>Samedi -</span>
+            <input type="text" id="q16_dimanche" placeholder="..." class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-bold shadow-sm">
+            <span>- Lundi</span>
+        </p>
+
+    </div>
+</div>
+
+<!-- Question 17: Mois de l'année -->
+<div class="question-step hidden-question" data-step="17">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-2">Question 17: Les mois de l'année</h2>
+    <p class="text-sm text-slate-600 mb-4">Complétez la suite des mois :</p>
+    <div class="space-y-3 text-slate-800 font-medium">
+        
+        <p class="flex items-center gap-2">
+            <span>Janvier - Février -</span>
+            <input type="text" id="q17_mars" placeholder="..." class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-bold shadow-sm">
+            <span>- Avril</span>
+        </p>
+
+        <p class="flex items-center gap-2">
+            <span>Mai -</span>
+            <input type="text" id="q17_juin" placeholder="..." class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-bold shadow-sm">
+            <span>- Juillet</span>
+        </p>
+
+        <p class="flex items-center gap-2">
+            <span>Août -</span>
+            <input type="text" id="q17_septembre" placeholder="..." class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-bold shadow-sm">
+            <span>- Octobre</span>
+        </p>
+
+        <p class="flex items-center gap-2">
+            <span>Novembre -</span>
+            <input type="text" id="q17_decembre" placeholder="..." class="w-32 p-1 border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center rounded font-bold shadow-sm">
+            <span>- Janvier</span>
+        </p>
+
+    </div>
+</div>
+
+
+<!-- Question 18: Fruits -->
+<div class="question-step hidden-question" data-step="18">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 18: Vocabulaire - Fruits</h2>
+    <div class="grid grid-cols-3 gap-6 text-center">
+        
+        <!-- Banane -->
+        <div class="border p-4 rounded flex flex-col items-center">
+            <img src="images/banane.jpg" alt="Banane" class="h-28 mb-3 object-contain" />
+            <input type="text" id="q18_banane" placeholder="Nom..." class="w-full border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center p-2 rounded text-base font-semibold shadow-sm">
+        </div>
+
+        <!-- Orange -->
+        <div class="border p-4 rounded flex flex-col items-center">
+            <img src="images/orange.jpg" alt="Orange" class="h-28 mb-3 object-contain" />
+            <input type="text" id="q18_orange" placeholder="Nom..." class="w-full border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center p-2 rounded text-base font-semibold shadow-sm">
+        </div>
+
+        <!-- Pomme -->
+        <div class="border p-4 rounded flex flex-col items-center">
+            <img src="images/pomme.jpg" alt="Pomme" class="mx-auto h-28 mb-3 object-contain" />
+            <input type="text" id="q18_pomme" placeholder="Nom..." class="w-full border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center p-2 rounded text-base font-semibold shadow-sm">
+        </div>
+
+    </div>
+</div>
+
+ <!-- Question 19: Boissons -->
+<div class="question-step hidden-question" data-step="19">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 19: Vocabulaire - Inscrire le nom des boissons (sans article)</h2>
+    <div class="grid grid-cols-3 gap-6 text-center">
+        
+        <!-- Café -->
+        <div class="border p-4 rounded flex flex-col items-center">
+            <img src="images/cafe.jpg" alt="Café" class="h-28 mb-3 object-contain" />
+            <input type="text" id="q19_cafe" placeholder="Nom..." class="w-full border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center p-2 rounded text-base font-semibold shadow-sm">
+        </div>
+
+        <!-- Eau -->
+        <div class="border p-4 rounded flex flex-col items-center">
+            <img src="images/eau.jpg" alt="Eau" class="h-28 mb-3 object-contain" />
+            <input type="text" id="q19_eau" placeholder="Nom..." class="w-full border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center p-2 rounded text-base font-semibold shadow-sm">
+        </div>
+
+        <!-- Thé -->
+        <div class="border p-4 rounded flex flex-col items-center">
+            <img src="images/the.jpg" alt="Thé" class="h-28 mb-3 object-contain" />
+            <input type="text" id="q19_the" placeholder="Nom..." class="w-full border-2 border-indigo-300 bg-indigo-50 hover:bg-indigo-100 focus:bg-white text-center p-2 rounded text-base font-semibold shadow-sm">
+        </div>
+
+    </div>
+</div>
+ 
+
+<!-- Question 20: Conjugaison Être et Avoir -->
+<div class="question-step hidden-question" data-step="20">
+    <h2 class="text-lg font-semibold text-indigo-900 mb-4">Question 20: Conjugaison (Présent)</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Verbe ÊTRE -->
+        <div class="border p-4 rounded bg-slate-50 shadow-sm">
+            <h3 class="font-bold mb-3 text-indigo-800 border-b pb-1">Verbe ÊTRE</h3>
+            <div class="space-y-2">
+                <p>Je <input type="text" id="q20_suis" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Tu <input type="text" id="q20_es" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Il / Elle / On <input type="text" id="q20_est" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Nous <input type="text" id="q20_sommes" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Vous <input type="text" id="q20_etes" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Ils / Elles <input type="text" id="q20_sont" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+            </div>
+        </div>
+
+        <!-- Verbe AVOIR -->
+        <div class="border p-4 rounded bg-slate-50 shadow-sm">
+            <h3 class="font-bold mb-3 text-indigo-800 border-b pb-1">Verbe AVOIR</h3>
+            <div class="space-y-2">
+                <p>J'<input type="text" id="q20_ai" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Tu <input type="text" id="q20_as" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Il / Elle / On <input type="text" id="q20_a" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Nous <input type="text" id="q20_avons" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Vous <input type="text" id="q20_avez" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+                <p>Ils / Elles <input type="text" id="q20_ont" class="border-b-2 border-indigo-500 bg-yellow-100 focus:bg-yellow-200 w-28 text-center font-bold text-indigo-700 outline-none rounded-t px-1 transition-colors"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Navigation Buttons -->
+            <div class="mt-8 flex justify-between items-center border-t pt-4 no-print">
+                <button type="button" id="prev-btn" onclick="changeStep(-1)" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 rounded-md font-medium text-slate-700 hidden">
+                    Précédent
+                </button>
+                <div class="ml-auto flex gap-2">
+                    <button type="button" id="next-btn" onclick="changeStep(1)" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-medium">
+                        Suivant
+                    </button>
+                    <button type="button" id="finish-btn" onclick="finishQuiz()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md font-medium hidden">
+                        Terminer le test & Voir le Bilan
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Dynamic Results / Diagnostic Page for Tutors -->
+        <div id="results-screen" class="hidden">
+            <div class="border-b pb-4 mb-6 flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">Bilan d'Évaluation FLE (A0/A1)</h2>
+                    <p class="text-sm text-slate-500">Document réservé aux bénévoles / formateurs</p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-slate-800 text-white px-3 py-1.5 rounded text-sm hover:bg-slate-700">🖨️ Imprimer ce bilan</button>
+            </div>
+
+            <!-- Info Apprenant -->
+            <div class="bg-indigo-50 p-4 rounded-lg mb-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div><strong>Nom :</strong> <span id="res-nom">-</span></div>
+                <div><strong>Prénom :</strong> <span id="res-prenom">-</span></div>
+                <div><strong>Ville :</strong> <span id="res-ville">-</span></div>
+                <div><strong>Âge :</strong> <span id="res-age">-</span> ans</div>
+            </div>
+
+            <!-- Score global -->
+            <div class="mb-6 bg-slate-50 p-4 rounded-lg border flex items-center justify-between">
+                <div>
+                    <h3 class="font-bold text-slate-700">Score Global Indicatif</h3>
+                    <p class="text-xs text-slate-500">Basé sur le nombre de réponses exactes aux questions</p>
+                </div>
+                <div class="text-right">
+                    <span id="score-text" class="text-3xl font-extrabold text-indigo-600">0 / 20</span>
+                    <p id="score-percent" class="text-xs text-slate-500">0% de réussite</p>
+                </div>
+            </div>
+
+            <!-- Detail Tableau -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-slate-100 border-b">
+                            <th class="p-2 border">N°</th>
+                            <th class="p-2 border">Compétence / Objet</th>
+                            <th class="p-2 border">Réponse de l'Apprenant</th>
+                            <th class="p-2 border">Réponse Attendue</th>
+                            <th class="p-2 border text-center">Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-table-body">
+                        <!-- Populated by Javascript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-8 border-t pt-4 no-print flex justify-between">
+                <button onclick="location.reload()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded hover:bg-slate-300">
+                    🔄 Recommencer un test
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 20;
+
+        function updateStepDisplay() {
+            document.querySelectorAll('.question-step').forEach(step => {
+                step.classList.add('hidden-question');
+            });
+            
+            const currentEl = document.querySelector(`.question-step[data-step="${currentStep}"]`);
+            if (currentEl) {
+                currentEl.classList.remove('hidden-question');
+            }
+
+            document.getElementById('progress-text').innerText = `Question ${currentStep} / ${totalSteps}`;
+            document.getElementById('progress-bar').style.width = `${(currentStep / totalSteps) * 100}%`;
+
+            document.getElementById('prev-btn').classList.toggle('hidden', currentStep === 1);
+            
+            if (currentStep === totalSteps) {
+                document.getElementById('next-btn').classList.add('hidden');
+                document.getElementById('finish-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('next-btn').classList.remove('hidden');
+                document.getElementById('finish-btn').classList.add('hidden');
+            }
+        }
+
+        function changeStep(delta) {
+            currentStep += delta;
+            if (currentStep < 1) currentStep = 1;
+            if (currentStep > totalSteps) currentStep = totalSteps;
+            updateStepDisplay();
+        }
+
+        function clean(str) {
+            return (str || '').trim().toLowerCase();
+        }
+
+        function finishQuiz() {
+            // Hide Form & Progress
+            document.getElementById('quiz-form').classList.add('hidden');
+            document.getElementById('progress-container').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+
+            // Set User Info
+            const nom = document.getElementById('user-nom').value || 'Non renseigné';
+            const prenom = document.getElementById('user-prenom').value || 'Non renseigné';
+            const ville = document.getElementById('user-ville').value || 'Non renseignée';
+            const age = document.getElementById('user-age').value || '-';
+
+            document.getElementById('res-nom').innerText = nom;
+            document.getElementById('res-prenom').innerText = prenom;
+            document.getElementById('res-ville').innerText = ville;
+            document.getElementById('res-age').innerText = age;
+
+            // Define Correction Rules
+            const q2_val = document.querySelector('input[name="q2"]:checked')?.value;
+            const q5_val = document.querySelector('input[name="q5"]:checked')?.value;
+            const q8_A = document.querySelector('input[name="q8_A"]:checked')?.value;
+            const q8_B = document.querySelector('input[name="q8_B"]:checked')?.value;
+
+            const evalList = [
+                {
+                    id: 1,
+                    title: "Informations personnelles",
+                    user: `Nom: ${nom}, Prénom: ${prenom}`,
+                    expected: "Nom et Prénom renseignés",
+                    isCorrect: nom !== 'Non renseigné' && prenom !== 'Non renseigné'
+                },
+                {
+                    id: 2,
+                    title: "Structure pour l'âge (Avoir)",
+                    user: q2_val ? `J'${q2_val}` : "Passé / Non répondu",
+                    expected: "J'ai ... ans",
+                    isCorrect: q2_val === 'ai'
+                },
+                {
+                    id: 3,
+                    title: "Lettres voisines (V, J, F, M)",
+                    user: `V: ${clean(document.getElementById('q3_1a').value)}-${clean(document.getElementById('q3_1b').value)}`,
+                    expected: "U-W, I-K, E-G, L-N",
+                    isCorrect: clean(document.getElementById('q3_1a').value) === 'u' && clean(document.getElementById('q3_1b').value) === 'w'
+                },
+                {
+                    id: 4,
+                    title: "Lettres voisines (C, Q, D)",
+                    user: `C: ${clean(document.getElementById('q4_1a').value)}-${clean(document.getElementById('q4_1b').value)}`,
+                    expected: "B-D, P-R, C-E",
+                    isCorrect: clean(document.getElementById('q4_1a').value) === 'b' && clean(document.getElementById('q4_1b').value) === 'd'
+                },
+                {
+                    id: 5,
+                    title: "Ordre alphabétique (Intrus)",
+                    user: q5_val || "Non répondu",
+                    expected: "M-N-P-O",
+                    isCorrect: q5_val === "M-N-P-O"
+                },
+                {
+                    id: 6,
+                    title: "Alphabet lacunaire (H, I, J, Q...)",
+                    user: `H,I,J: ${clean(document.getElementById('q6_H').value)}${clean(document.getElementById('q6_I').value)}${clean(document.getElementById('q6_J').value)}`,
+                    expected: "H, I, J, Q, R, S, W, X, Y",
+                    isCorrect: clean(document.getElementById('q6_H').value) === 'h' && clean(document.getElementById('q6_Q').value) === 'q'
+                },
+                {
+                    id: 7,
+                    title: "Compléter les mots simples",
+                    user: `pot, rat, dé: ${clean(document.getElementById('q7_pot').value)}, ${clean(document.getElementById('q7_rat').value)}, ${clean(document.getElementById('q7_de').value)}`,
+                    expected: "o, a, é/e",
+                    isCorrect: clean(document.getElementById('q7_pot').value) === 'o' && clean(document.getElementById('q7_rat').value) === 'a'
+                },
+                {
+                    id: 8,
+                    title: "Distinction Voyelles / Consonnes",
+                    user: `A=${q8_A || '-'}, B=${q8_B || '-'}`,
+                    expected: "A=Voyelle, B=Consonne",
+                    isCorrect: q8_A === 'Voyelle' && q8_B === 'Consonne'
+                },
+                {
+                    id: 9,
+                    title: "Sélection des voyelles",
+                    user: document.getElementById('q9_A').checked ? "A coché" : "Incomplet",
+                    expected: "A, E, O, I, U, Y cochés",
+                    isCorrect: document.getElementById('q9_A').checked && document.getElementById('q9_E').checked && !document.getElementById('q9_B').checked
+                },
+                {
+                    id: 10,
+                    title: "Sons complexes (ON / OU)",
+                    user: `pont: ${clean(document.getElementById('q10_pont').value)}, souris: ${clean(document.getElementById('q10_souris').value)}`,
+                    expected: "pont (on), souris (ou)",
+                    isCorrect: clean(document.getElementById('q10_pont').value) === 'on' && clean(document.getElementById('q10_souris').value) === 'ou'
+                },
+                {
+                    id: 11,
+                    title: "Sons complexes (OI, CH, J)",
+                    user: `voiture: ${clean(document.getElementById('q11_voiture').value)}, chien: ${clean(document.getElementById('q11_chien').value)}`,
+                    expected: "voiture (oi), chien (ch)",
+                    isCorrect: clean(document.getElementById('q11_voiture').value) === 'oi' && clean(document.getElementById('q11_chien').value) === 'ch'
+                },
+                {
+                    id: 12,
+                    title: "Vocabulaire Animaux",
+                    user: `Chat: ${clean(document.getElementById('q12_chat').value)}`,
+                    expected: "chat, chien, oiseau",
+                    isCorrect: clean(document.getElementById('q12_chat').value) === 'chat'
+                },
+                {
+                    id: 13,
+                    title: "Phonétique (-eil, -euil)",
+                    user: `soleil: ${document.getElementById('q13_soleil').value}`,
+                    expected: "soleil (eil), écureuil (euil)",
+                    isCorrect: document.getElementById('q13_soleil').value === 'eil' && document.getElementById('q13_ecureuil').value === 'euil'
+                },
+                {
+                    id: 14,
+                    title: "Écriture des nombres en chiffres",
+                    user: `3: ${document.getElementById('q14_3').value}, 7: ${document.getElementById('q14_7').value}`,
+                    expected: "3, 7, 10",
+                    isCorrect: document.getElementById('q14_3').value === '3' && document.getElementById('q14_7').value === '7'
+                },
+                {
+                    id: 15,
+                    title: "Nombres en lettres",
+                    user: `5: ${clean(document.getElementById('q15_5').value)}, 8: ${clean(document.getElementById('q15_8').value)}`,
+                    expected: "cinq, huit",
+                    isCorrect: clean(document.getElementById('q15_5').value) === 'cinq' && clean(document.getElementById('q15_8').value) === 'huit'
+                },
+                {
+                    id: 16,
+                    title: "Jours de la semaine",
+                    user: `Mardi: ${clean(document.getElementById('q16_mardi').value)}, Jeudi: ${clean(document.getElementById('q16_jeudi').value)}`,
+                    expected: "mardi, jeudi",
+                    isCorrect: clean(document.getElementById('q16_mardi').value) === 'mardi' && clean(document.getElementById('q16_jeudi').value) === 'jeudi'
+                },
+                {
+                    id: 17,
+                    title: "Mois de l'année",
+                    user: `Mars: ${clean(document.getElementById('q17_mars').value)}, Juin: ${clean(document.getElementById('q17_juin').value)}`,
+                    expected: "mars, juin",
+                    isCorrect: clean(document.getElementById('q17_mars').value) === 'mars' && clean(document.getElementById('q17_juin').value) === 'juin'
+                },
+                {
+                    id: 18,
+                    title: "Vocabulaire - Fruits",
+                    user: `Banane: ${clean(document.getElementById('q18_banane').value)}`,
+                    expected: "banane, orange, pomme",
+                    isCorrect: clean(document.getElementById('q18_banane').value) === 'banane'
+                },
+                {
+                    id: 19,
+                    title: "Vocabulaire - Boissons",
+                    user: `Café: ${clean(document.getElementById('q19_cafe').value)}, Eau: ${clean(document.getElementById('q19_eau').value)}`,
+                    expected: "café, eau",
+                    isCorrect: clean(document.getElementById('q19_cafe').value) === 'café' || clean(document.getElementById('q19_cafe').value) === 'cafe'
+                },
+                {
+                    id: 20,
+                    title: "Conjugaison Être / Avoir",
+                    user: `Je suis: ${clean(document.getElementById('q20_suis').value)}, J'ai: ${clean(document.getElementById('q20_ai').value)}`,
+                    expected: "suis, es / ai, as",
+                    isCorrect: clean(document.getElementById('q20_suis').value) === 'suis' && clean(document.getElementById('q20_ai').value) === 'ai'
+                }
+            ];
+
+            // Render Table & Calculate Score
+            let correctCount = 0;
+            const tbody = document.getElementById('results-table-body');
+            tbody.innerHTML = '';
+
+            evalList.forEach(item => {
+                if (item.isCorrect) correctCount++;
+
+                const tr = document.createElement('tr');
+                tr.className = 'border-b hover:bg-slate-50';
+
+                let statusBadge = item.isCorrect 
+                    ? '<span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold">🟢 Correct</span>'
+                    : (item.user.includes('Non') || item.user.includes('-') 
+                        ? '<span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold">⚪ Passé</span>'
+                        : '<span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">🔴 À revoir</span>');
+
+                tr.innerHTML = `
+                    <td class="p-2 border text-center font-bold">${item.id}</td>
+                    <td class="p-2 border">${item.title}</td>
+                    <td class="p-2 border font-mono text-xs">${item.user || '<em>Aucune réponse</em>'}</td>
+                    <td class="p-2 border text-xs text-slate-600">${item.expected}</td>
+                    <td class="p-2 border text-center">${statusBadge}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Set Score
+            document.getElementById('score-text').innerText = `${correctCount} / 20`;
+            document.getElementById('score-percent').innerText = `${Math.round((correctCount / 20) * 100)}% de réussite`;
+        }
+
+        // Initialize First Step
+        updateStepDisplay();
+    </script>
+	<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const inputAge = document.getElementById('user-age');
+
+    function mettreAJourAge() {
+        const ageVal = (inputAge && inputAge.value.trim() !== '') ? inputAge.value.trim() : '...';
+        document.querySelectorAll('.display-age').forEach(function (el) {
+            el.textContent = ageVal;
+        });
+    }
+
+    // 1. Écoute la saisie en direct
+    if (inputAge) {
+        inputAge.addEventListener('input', mettreAJourAge);
+        inputAge.addEventListener('change', mettreAJourAge);
+    }
+
+    // 2. Écoute les clics sur la page (bouton Suivant, etc.)
+    document.addEventListener('click', mettreAJourAge);
+});
+</script>
+</body>
+</html>
