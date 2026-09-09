@@ -18,7 +18,7 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
         }
         h1 {
@@ -67,7 +67,7 @@
             font-size: 2rem;
             font-weight: bold;
             color: #27ae60;
-            margin: 20px 0;
+            margin: 15px 0 5px 0;
         }
         .niveau {
             font-size: 1.3rem;
@@ -78,14 +78,64 @@
             background-color: #3498db;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 25px;
             font-size: 1rem;
+            font-weight: bold;
         }
         .restart-btn:hover {
             background-color: #2980b9;
+        }
+
+        /* --- Nouveaux styles pour le rapport détaillé --- */
+        .report-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .report-section h2 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            border-bottom: 2px solid #eef2f3;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        .report-card {
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+        .report-card.correct-card {
+            border-left: 5px solid #27ae60;
+        }
+        .report-card.incorrect-card {
+            border-left: 5px solid #e74c3c;
+        }
+        .report-card .q-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .report-card .ans-user {
+            margin-top: 5px;
+            font-size: 0.95rem;
+        }
+        .report-card .ans-correct {
+            margin-top: 3px;
+            font-size: 0.95rem;
+            color: #27ae60;
+            font-weight: 600;
+        }
+        .text-success {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        .text-error {
+            color: #e74c3c;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -96,7 +146,7 @@
 </div>
 
 <script>
-// 1. Les données du QCM (Questions, propositions et bonnes réponses)
+// 1. Les données du QCM
 const quizData = [
     {
         question: "1. Conjugaison (Le passé) : Complète la phrase suivante au temps qui convient :",
@@ -148,6 +198,7 @@ const quizData = [
 // 2. Variables pour suivre l'état du jeu
 let currentQuestionIndex = 0;
 let score = 0;
+let userAnswers = []; // Stocke les choix enregistrés de l'utilisateur
 
 const quizContainer = document.getElementById('quiz');
 
@@ -155,7 +206,6 @@ const quizContainer = document.getElementById('quiz');
 function loadQuestion() {
     const currentQuestion = quizData[currentQuestionIndex];
     
-    // Génération du HTML pour la question actuelle
     let htmlContent = `
         <div class="question">${currentQuestion.question}</div>
         <div class="context">${currentQuestion.context}</div>
@@ -165,7 +215,7 @@ function loadQuestion() {
     currentQuestion.options.forEach((option, index) => {
         htmlContent += `
             <li>
-                <button class="option-btn" onclick="selectOption(${option.isCorrect})">
+                <button class="option-btn" onclick="selectOption(${index})">
                     ${option.text}
                 </button>
             </li>
@@ -177,8 +227,20 @@ function loadQuestion() {
 }
 
 // 4. Fonction appelée quand l'utilisateur clique sur une réponse
-function selectOption(isCorrect) {
-    if (isCorrect) {
+function selectOption(optionIndex) {
+    const currentQuestion = quizData[currentQuestionIndex];
+    const selectedOption = currentQuestion.options[optionIndex];
+
+    // Sauvegarde la réponse
+    userAnswers.push({
+        question: currentQuestion.question,
+        context: currentQuestion.context,
+        selectedText: selectedOption.text,
+        isCorrect: selectedOption.isCorrect,
+        correctText: currentQuestion.options.find(opt => opt.isCorrect).text
+    });
+
+    if (selectedOption.isCorrect) {
         score++;
     }
     
@@ -191,7 +253,7 @@ function selectOption(isCorrect) {
     }
 }
 
-// 5. Fonction pour afficher le bilan final
+// 5. Fonction pour afficher le bilan final avec le rapport détaillé
 function showResults() {
     let niveau = "";
     let conseils = "";
@@ -207,12 +269,38 @@ function showResults() {
         conseils = "C'est un bon début ! Tu es actuellement au niveau A1. Prends le temps de bien réviser le présent des verbes et le vocabulaire de la vie quotidienne pour progresser.";
     }
 
+    // Construction du rapport détaillé
+    let reportHtml = `<div class="report-section"><h2>Rapport détaillé</h2>`;
+    
+    userAnswers.forEach((item, idx) => {
+        const cardClass = item.isCorrect ? "correct-card" : "incorrect-card";
+        const statusText = item.isCorrect 
+            ? `<span class="text-success">✓ Correct</span>` 
+            : `<span class="text-error">✗ Incorrect</span>`;
+
+        reportHtml += `
+            <div class="report-card ${cardClass}">
+                <div class="q-title">Question ${idx + 1}: ${statusText}</div>
+                <div><em>${item.context}</em></div>
+                <div class="ans-user">
+                    Votre réponse : <strong class="${item.isCorrect ? 'text-success' : 'text-error'}">${item.selectedText}</strong>
+                </div>
+                ${!item.isCorrect ? `<div class="ans-correct">Réponse attendue : ${item.correctText}</div>` : ''}
+            </div>
+        `;
+    });
+    
+    reportHtml += `</div>`;
+
     quizContainer.innerHTML = `
         <div class="result-container">
             <h1>Résultats du Test</h1>
             <div class="score">${score} / ${quizData.length}</div>
             <div class="niveau">${niveau}</div>
-            <p style="margin-top: 20px; line-height: 1.5;">${conseils}</p>
+            <p style="margin-top: 15px; line-height: 1.5;">${conseils}</p>
+            
+            ${reportHtml}
+
             <button class="restart-btn" onclick="restartQuiz()">Recommencer le test</button>
         </div>
     `;
@@ -222,10 +310,11 @@ function showResults() {
 function restartQuiz() {
     currentQuestionIndex = 0;
     score = 0;
+    userAnswers = [];
     loadQuestion();
 }
 
-// Lancement initial du quiz au chargement de la page
+// Lancement initial du quiz
 loadQuestion();
 </script>
 <script src="../securite.js"></script>
