@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ecrire les nombres</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background-color: #f4f4f9; }
+        .container { max-width: 800px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        input { width: 100px; padding: 5px; border: 1px solid #ccc; border-radius: 4px; text-align: center; font-weight: bold; color: #34495e; }
+        button { padding: 10px 20px; background-color: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; }
+        button:hover { background-color: #219a52; }
+        .result { margin-top: 20px; font-weight: bold; font-size: 1.2em; }
+        .correct { border: 2px solid #27ae60; background-color: #e8f8f5; }
+        .incorrect { border: 2px solid #e74c3c; background-color: #fce4d6; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ecrire en toutes lettres les nombres suivants </h1>
+    <p></p>
+    
+    <p>
+        
+		<br> 17 = <input type="text" id="v1" data-ans="dix-sept">  .....9 = <input type="text" id="v2" data-ans="neuf"> .....15 = <input type="text" id="v3" data-ans="quinze"> 
+		.....24 = <input type="text" id="v4" data-ans="vingt-quatre"> <br>
+		13 = <input type="text" id="v5" data-ans="treize"> .....14 = <input type="text" id="v6" data-ans="quatorze"> .....11 = <input type="text" id="v7" data-ans="onze">
+		.....16 = <input type="text" id="v8" data-ans="seize"> <br>
+		0 = <input type="text" id="v9" data-ans="zéro"> ......10 = <input type="text" id="v10" data-ans="dix"> 
+		
+    </p>
+    
+    <button onclick="verifier()">Vérifier mes réponses par JPJ</button>
+    <div class="result" id="resultat"></div>
+</div>
+
+<script>
+    function verifier() {
+        let score = 0;
+        let total = 25;
+        for(let i=1; i<=total; i++) {
+            let input = document.getElementById('v'+i);
+            if(input.value.trim().toLowerCase() === input.getAttribute('data-ans').toLowerCase()) {
+                input.className = 'correct';
+                score++;
+            } else {
+                input.className = 'incorrect';
+            }
+        }
+        document.getElementById('resultat').innerText = "Score : " + score + " / " + total;
+    }
+</script>
+<script src="../../../securite.js"></script>
+</body>
+</html>
