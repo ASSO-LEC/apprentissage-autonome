@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELF A1 - Compréhension des Écrits</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .exercice-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .exercice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .exercice-header h2 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        .points {
+            font-weight: bold;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .consigne {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        /* Document Styling */
+        .document-container {
+            background-color: #f9f9f9;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* Email style */
+        .email-box {
+            background-color: #d1e3ed;
+            border: 1px solid #a4c4d6;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: monospace;
+        }
+
+        .email-header-line {
+            margin-bottom: 5px;
+            background: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .email-body {
+            background: #fff;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 3px;
+            white-space: pre-line;
+        }
+
+        /* Notice Board style */
+        .board-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            background: #e2e1dd;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .note-card {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 4px;
+            width: calc(33% - 20px);
+            min-width: 200px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Questions */
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .question-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-left: 10px;
+        }
+
+        .options-group.horizontal {
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .option-item.image-option {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .option-item img {
+            max-width: 180px;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>DELF A1 - Compréhension des Écrits</h1>
+
+    <!-- EXERCICE 1 -->
+    <section class="exercice-card">
+        <div class="exercice-header">
+            <h2>EXERCICE 1</h2>
+            <span class="points">6 points</span>
+        </div>
+        <p class="consigne">Vous recevez ce message de votre amie française. Répondez aux questions.</p>
+        
+        
+
+        <div class="document-container">
+            <div class="email-box">
+                <div class="email-header-line"><strong>De :</strong> laure@mail.fr</div>
+                <div class="email-header-line"><strong>Objet :</strong> Cet après-midi</div>
+                <div class="email-body">Salut !
+Tu as du temps cet après-midi ? Je dois rester tard au bureau. Tu peux aller prendre mon fils à l'école à 16 h ? Vous pouvez aller au parc ou faire du vélo, Thomas adore ça ! J'arrive à la maison à 19 h, on peut manger ensemble ! Je ne peux pas répondre au téléphone, je finis la réunion à 18 h. Écris-moi un message.
+Un grand merci !
+Bises
+Laure</div>
+            </div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question">
+            <div class="question-title">
+                <span>1. Pourquoi est-ce que Laure vous écrit ?</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q1_1"> A. Elle veut faire du vélo.</label>
+                <label class="option-item"><input type="radio" name="q1_1"> B. Elle doit travailler tard.</label>
+                <label class="option-item"><input type="radio" name="q1_1"> C. Elle cherche un bureau.</label>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <div class="question-title">
+                <span>2. Où est-ce que vous allez chercher Thomas ?</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q1_2"> A. Au parc.</label>
+                <label class="option-item"><input type="radio" name="q1_2"> B. À l'école.</label>
+                <label class="option-item"><input type="radio" name="q1_2"> C. À la maison.</label>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <div class="question-title">
+                <span>3. Qu'est-ce que Thomas aime faire ?</span>
+                <span class="points">1,5 point</span>
+            </div>
+            <div class="options-group horizontal">
+                <label class="option-item image-option">
+                    <img src="images/ex1-q3-a.jpg" alt="Faire du vélo">
+                    <span><input type="radio" name="q1_3"> A</span>
+                </label>
+                <label class="option-item image-option">
+                    <img src="images/ex1-q3-b.jpg" alt="Jouer au tennis">
+                    <span><input type="radio" name="q1_3"> B</span>
+                </label>
+                <label class="option-item image-option">
+                    <img src="images/ex1-q3-c.jpg" alt="Jouer au football">
+                    <span><input type="radio" name="q1_3"> C</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <div class="question-title">
+                <span>4. À quelle heure Laure est-elle chez elle ?</span>
+                <span class="points">1,5 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q1_4"> A. À 16 heures.</label>
+                <label class="option-item"><input type="radio" name="q1_4"> B. À 18 heures.</label>
+                <label class="option-item"><input type="radio" name="q1_4"> C. À 19 heures.</label>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <div class="question-title">
+                <span>5. Comment devez-vous contacter Laure ?</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group horizontal">
+                <label class="option-item image-option">
+                    <img src="images/ex1-q5-a.jpg" alt="Téléphoner">
+                    <span><input type="radio" name="q1_5"> A</span>
+                </label>
+                <label class="option-item image-option">
+                    <img src="images/ex1-q5-b.jpg" alt="Aller à l'accueil">
+                    <span><input type="radio" name="q1_5"> B</span>
+                </label>
+                <label class="option-item image-option">
+                    <img src="images/ex1-q5-c.jpg" alt="Envoyer un message">
+                    <span><input type="radio" name="q1_5"> C</span>
+                </label>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- EXERCICE 2 -->
+    <section class="exercice-card">
+        <div class="exercice-header">
+            <h2>EXERCICE 2</h2>
+            <span class="points">6 points</span>
+        </div>
+        <p class="consigne">Vous êtes en France, dans une école de langues. Vous lisez le panneau suivant. Répondez aux questions.</p>
+
+       
+
+        <div class="document-container" style="text-align: center;">
+            <h3>COURS DE FRANÇAIS</h3>
+            <p><strong>À partir du 1<sup>er</sup> septembre, le bureau des inscriptions a une nouvelle adresse :</strong><br>
+            35 rue Pierre Dupré (à la sortie du bâtiment, tourner à gauche, prendre la 2<sup>e</sup> rue à droite, puis continuer tout droit)<br>
+            et un nouveau numéro de téléphone : 06 12 15 18 99.</p>
+            <p>Pour vous inscrire, venez nous voir.<br>
+            Pour le premier cours, apportez une pièce d'identité.</p>
+            <p><strong>Horaires d'ouverture</strong><br>
+            Du lundi au vendredi : 9 h - 12 h et 12 h 30 - 17 h<br>
+            <a href="mailto:cours@francais.com">cours@francais.com</a></p>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question">
+            <div class="question-title">
+                <span>1. Quel chemin prendre pour aller au bureau des inscriptions ?</span>
+                <span class="points">2 points</span>
+            </div>
+            <div class="options-group horizontal">
+                <label class="option-item image-option">
+                    <img src="images/ex2-q1-a.jpg" alt="Plan A">
+                    <span><input type="radio" name="q2_1"> A</span>
+                </label>
+                <label class="option-item image-option">
+                    <img src="images/ex2-q1-b.jpg" alt="Plan B">
+                    <span><input type="radio" name="q2_1"> B</span>
+                </label>
+                <label class="option-item image-option">
+                    <img src="images/ex2-q1-c.jpg" alt="Plan C">
+                    <span><input type="radio" name="q2_1"> C</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <div class="question-title">
+                <span>2. Qu'est-ce qui change au bureau des inscriptions ?</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q2_2"> A. le numéro de téléphone.</label>
+                <label class="option-item"><input type="radio" name="q2_2"> B. les horaires d'ouverture.</label>
+                <label class="option-item"><input type="radio" name="q2_2"> C. le prix des cours de français.</label>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <div class="question-title">
+                <span>3. Pour s'inscrire au cours, il faut...</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q2_3"> A. téléphoner.</label>
+                <label class="option-item"><input type="radio" name="q2_3"> B. aller sur place.</label>
+                <label class="option-item"><input type="radio" name="q2_3"> C. envoyer un mail.</label>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <div class="question-title">
+                <span>4. Pour le premier cours, vous devez prendre...</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q2_4"> A. Votre diplôme.</label>
+                <label class="option-item"><input type="radio" name="q2_4"> B. Votre passeport.</label>
+                <label class="option-item"><input type="radio" name="q2_4"> C. Votre carte bancaire.</label>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <div class="question-title">
+                <span>5. À quelle heure ouvre le bureau des inscriptions ?</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q2_5"> A. À 9 heures.</label>
+                <label class="option-item"><input type="radio" name="q2_5"> B. À 12 heures.</label>
+                <label class="option-item"><input type="radio" name="q2_5"> C. À 17 heures.</label>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- EXERCICE 3 -->
+    <section class="exercice-card">
+        <div class="exercice-header">
+            <h2>EXERCICE 3</h2>
+            <span class="points">6 points</span>
+        </div>
+        <p class="consigne">Vous travaillez en France. Vous lisez ces annonces sur le panneau d'affichage de votre entreprise. Répondez aux questions.</p>
+
+        
+
+        <div class="document-container">
+            <div class="board-container">
+                <div class="note-card">
+                    <strong>Cours de piano en ligne</strong><br>
+                    pendant les pauses déjeuner.<br>
+                    (1 cours = 30 minutes)<br>
+                    <small>www.apprenez-a-jouer.fr</small>
+                </div>
+                <div class="note-card">
+                    <strong>Ciné-club</strong><br>
+                    tous les premiers samedis du mois à 20 h.<br>
+                    <small>cinema.ensemble@net.fr</small>
+                </div>
+                <div class="note-card">
+                    <strong>Cours de tennis</strong><br>
+                    du lundi 12 au dimanche 18 novembre, de 18 h à 20 h.<br>
+                    Écrivez-nous sur :<br>
+                    <small>bouge@net.fr</small>
+                </div>
+                <div class="note-card">
+                    <strong>Appartements à louer.</strong><br>
+                    Visites tous les samedis entre 10 h et 15 h (1 heure par visite).<br>
+                    <small>jedemenage@net.fr</small>
+                </div>
+                <div class="note-card">
+                    <strong>Atelier de conversation en anglais.</strong><br>
+                    Le vendredi de 18 h à 20 h, au Café des Langues !
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question">
+            <div class="question-title">
+                <span>1. Que pouvez-vous faire une fois par mois ?</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q3_1"> A. Voir un film.</label>
+                <label class="option-item"><input type="radio" name="q3_1"> B. Parler en anglais.</label>
+                <label class="option-item"><input type="radio" name="q3_1"> C. Apprendre la musique.</label>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <div class="question-title">
+                <span>2. Quand pouvez-vous prendre des cours de musique ?</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q3_2"> A. Le matin.</label>
+                <label class="option-item"><input type="radio" name="q3_2"> B. Le midi.</label>
+                <label class="option-item"><input type="radio" name="q3_2"> C. Le soir.</label>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <div class="question-title">
+                <span>3. À quelle heure commence l'atelier de conversation ?</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q3_3"> A. À 10 heures.</label>
+                <label class="option-item"><input type="radio" name="q3_3"> B. À 18 heures.</label>
+                <label class="option-item"><input type="radio" name="q3_3"> C. À 20 heures.</label>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <div class="question-title">
+                <span>4. Que pouvez-vous faire le samedi ?</span>
+                <span class="points">1,5 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q3_4"> A. Travailler au restaurant.</label>
+                <label class="option-item"><input type="radio" name="q3_4"> B. Visiter des appartements.</label>
+                <label class="option-item"><input type="radio" name="q3_4"> C. Faire une activité sportive.</label>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <div class="question-title">
+                <span>5. À quelle heure finit le cours de sport ?</span>
+                <span class="points">1,5 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q3_5"> A. À 16 heures.</label>
+                <label class="option-item"><input type="radio" name="q3_5"> B. À 18 heures.</label>
+                <label class="option-item"><input type="radio" name="q3_5"> C. À 20 heures.</label>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- EXERCICE 4 -->
+    <section class="exercice-card">
+        <div class="exercice-header">
+            <h2>EXERCICE 4</h2>
+            <span class="points">7 points</span>
+        </div>
+        <p class="consigne">Vous lisez cet article dans un journal francophone. Répondez aux questions.</p>
+
+       
+
+        <div class="document-container">
+            <h3 style="color: var(--accent-color); text-transform: uppercase;">Visitez le Liliom !</h3>
+            <p>Comme chaque année, au mois de novembre, nous vous invitons à la Journée Portes ouvertes du <em>Liliom</em>, le plus vieux cinéma de la ville. Lundi prochain, de 10 h à 19 h, venez voir des grands films et parlez avec vos acteurs préférés ! Vous pouvez vous prendre en photo avec eux, faire des vidéos et les voir jouer. Attention, vous ne pouvez pas téléphoner ou manger dans le cinéma ! Vous êtes intéressé ? Pour réserver, téléphonez-nous avant jeudi.</p>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question">
+            <div class="question-title">
+                <span>1. On peut visiter le Liliom...</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q4_1"> A. une fois par semaine.</label>
+                <label class="option-item"><input type="radio" name="q4_1"> B. une fois par mois.</label>
+                <label class="option-item"><input type="radio" name="q4_1"> C. une fois par an.</label>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <div class="question-title">
+                <span>2. Pendant combien de temps le Liliom est-il ouvert aux visiteurs ?</span>
+                <span class="points">1 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q4_2"> A. Un jour.</label>
+                <label class="option-item"><input type="radio" name="q4_2"> B. Deux jours.</label>
+                <label class="option-item"><input type="radio" name="q4_2"> C. Trois jours.</label>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <div class="question-title">
+                <span>3. Au Liliom, les visiteurs peuvent aussi...</span>
+                <span class="points">1,5 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q4_3"> A. rencontrer des acteurs.</label>
+                <label class="option-item"><input type="radio" name="q4_3"> B. prendre un cours de cinéma.</label>
+                <label class="option-item"><input type="radio" name="q4_3"> C. voir une exposition de photos.</label>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <div class="question-title">
+                <span>4. Qu'est-ce que vous pouvez faire dans le cinéma ?</span>
+                <span class="points">2 points</span>
+            </div>
+            <div class="options-group horizontal">
+                <label class="option-item image-option">
+                    <img src="images/ex4-q4-a.jpg" alt="Téléphoner">
+                    <span><input type="radio" name="q4_4"> A</span>
+                </label>
+                <label class="option-item image-option">
+                    <img src="images/ex4-q4-b.jpg" alt="Prendre des photos">
+                    <span><input type="radio" name="q4_4"> C</span>
+                </label>
+                <label class="option-item image-option">
+                    <img src="images/ex4-q4-c.jpg" alt="Manger du popcorn">
+                    <span><input type="radio" name="q4_4"> C</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <div class="question-title">
+                <span>5. Comment est-ce que vous réservez ?</span>
+                <span class="points">1,5 point</span>
+            </div>
+            <div class="options-group">
+                <label class="option-item"><input type="radio" name="q4_5"> A. par mail.</label>
+                <label class="option-item"><input type="radio" name="q4_5"> B. sur place.</label>
+                <label class="option-item"><input type="radio" name="q4_5"> C. par téléphone.</label>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
