@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELF A2 — Compréhension de l'oral (Sujet Complet)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-radio:checked + label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- EN-TÊTE DU TEST -->
+        <header class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-extrabold text-slate-800 border-b pb-3 mb-4">DELF A2 — Compréhension de l'oral</h1>
+            <p class="text-slate-600 text-lg">Écoutez les documents sonores puis répondez aux questions.</p>
+            <div class="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-800 text-sm font-semibold px-4 py-2 rounded-lg">
+                Total : 25 points (Exercices 1, 2, 3 et 4)
+            </div>
+        </header>
+
+        <form id="quizForm" class="space-y-8">
+
+            <!-- ================= EXERCICE 1 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 1</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">5 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Lisez les questions. Écoutez le document puis répondez. Vous entendez cette annonce.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audio/delf-a2-tp-coll-exemple2-exercice1.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <label for="ex1_q1" class="block font-medium text-slate-800 text-lg mb-2">1. Le retard va être de combien de temps ? (1 pt)</label>
+                        <input type="text" id="ex1_q1" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ex: 40 minutes">
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Quelle est la cause de ce retard ? (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <input type="radio" id="ex1_q2_a" name="ex1_q2" value="A" class="hidden custom-radio">
+                                <label for="ex1_q2_a" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/ex1_cause_a.jpg" alt="Neige" class="h-24 object-contain mb-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/120?text=Neige';">
+                                    <span class="font-bold">A</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex1_q2_b" name="ex1_q2" value="B" class="hidden custom-radio">
+                                <label for="ex1_q2_b" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/ex1_cause_b.jpg" alt="Pluie" class="h-24 object-contain mb-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/120?text=Pluie';">
+                                    <span class="font-bold">B</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex1_q2_c" name="ex1_q2" value="C" class="hidden custom-radio">
+                                <label for="ex1_q2_c" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/ex1_cause_c.jpg" alt="Vent" class="h-24 object-contain mb-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/120?text=Vent';">
+                                    <span class="font-bold">C</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. L'avion en retard vient… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="A" class="mr-2"> A. d'Italie.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="B" class="mr-2"> B. de Paris.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="C" class="mr-2"> C. de Madrid.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. Pour avoir plus d'informations, que faut-il faire ? (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <input type="radio" id="ex1_q4_a" name="ex1_q4" value="A" class="hidden custom-radio">
+                                <label for="ex1_q4_a" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/ex1_info_a.jpg" alt="Accueil / Guichet" class="h-28 object-contain mb-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/120?text=Guichet';">
+                                    <span class="font-bold">A</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex1_q4_b" name="ex1_q4" value="B" class="hidden custom-radio">
+                                <label for="ex1_q4_b" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/ex1_info_b.jpg" alt="Demander un agent" class="h-28 object-contain mb-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/120?text=Agent';">
+                                    <span class="font-bold">B</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex1_q4_c" name="ex1_q4" value="C" class="hidden custom-radio">
+                                <label for="ex1_q4_c" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/ex1_info_c.jpg" alt="Téléphoner" class="h-28 object-contain mb-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/120?text=Appel';">
+                                    <span class="font-bold">C</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <label for="ex1_q5" class="block font-medium text-slate-800 text-lg mb-2">5. Que vous souhaite la compagnie ? (1 pt)</label>
+                        <input type="text" id="ex1_q5" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 2 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 2</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">6 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Lisez les questions. Écoutez le document puis répondez. Vous entendez ce message sur votre répondeur.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audio/delf-a2-tp-coll-exemple2-exercice2.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. Le magasin vend… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <input type="radio" id="ex2_q1_a" name="ex2_q1" value="A" class="hidden custom-radio">
+                                <label for="ex2_q1_a" class="flex flex-col items-center justify-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/meubles.jpg" alt="Meubles" class="h-28 object-contain mb-2 rounded" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150?text=Meubles';">
+                                    <span class="font-bold">A</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex2_q1_b" name="ex2_q1" value="B" class="hidden custom-radio">
+                                <label for="ex2_q1_b" class="flex flex-col items-center justify-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/pantalon.jpg" alt="Vêtements" class="h-28 object-contain mb-2 rounded" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150?text=V%C3%Aatements';">
+                                    <span class="font-bold">B</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex2_q1_c" name="ex2_q1" value="C" class="hidden custom-radio">
+                                <label for="ex2_q1_c" class="flex flex-col items-center justify-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/chaussures.jpg" alt="Chaussures" class="h-28 object-contain mb-2 rounded" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x150?text=Chaussures';">
+                                    <span class="font-bold">C</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Le magasin offre des promotions parce que c'est bientôt… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="A" class="mr-2"> A. Noël.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="B" class="mr-2"> B. les vacances.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="C" class="mr-2"> C. votre anniversaire.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Il y a des réductions de… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="A" class="mr-2"> A. 5%</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="B" class="mr-2"> B. 15%</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="C" class="mr-2"> C. 50%</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <label for="ex2_q4" class="block font-medium text-slate-800 text-lg mb-2">4. Quels sont les jours d'ouverture du magasin ? (1 pt)</label>
+                        <input type="text" id="ex2_q4" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <label for="ex2_q5" class="block font-medium text-slate-800 text-lg mb-2">5. Le soir, le magasin ferme à quelle heure ? (1 pt)</label>
+                        <input type="text" id="ex2_q5" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <label for="ex2_q6" class="block font-medium text-slate-800 text-lg mb-2">6. Que pouvez-vous faire pour avoir plus d'informations ? (1 pt)</label>
+                        <input type="text" id="ex2_q6" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 3 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 3</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">6 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Lisez les questions. Écoutez le document puis répondez. Vous écoutez cette émission de radio française.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audio/delf-a2-tp-coll-exemple2-exercice3.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. La journaliste parle d'un événement qui… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="A" class="mr-2"> A. est déjà fini.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="B" class="mr-2"> B. se passe en ce moment.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="C" class="mr-2"> C. va commencer très bientôt.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Quelle est la spécialité du salon présentée dans l'émission ? (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <input type="radio" id="ex3_q2_a" name="ex3_q2" value="A" class="hidden custom-radio">
+                                <label for="ex3_q2_a" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full">
+                                    <img src="images/ex3_specialite_a.jpg" alt="Option A - Cupcakes" class="w-full h-32 object-cover rounded-lg mb-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x120?text=Cupcakes';">
+                                    <span class="font-bold">A</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex3_q2_b" name="ex3_q2" value="B" class="hidden custom-radio">
+                                <label for="ex3_q2_b" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full">
+                                    <img src="images/ex3_specialite_b.jpg" alt="Option B - Salade" class="w-full h-32 object-cover rounded-lg mb-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x120?text=Salade';">
+                                    <span class="font-bold">B</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex3_q2_c" name="ex3_q2" value="C" class="hidden custom-radio">
+                                <label for="ex3_q2_c" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full">
+                                    <img src="images/ex3_specialite_c.jpg" alt="Option C - Pâtes" class="w-full h-32 object-cover rounded-lg mb-2" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x120?text=P%C3%A2tes';">
+                                    <span class="font-bold">C</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <label for="ex3_q3" class="block font-medium text-slate-800 text-lg mb-2">3. À qui est réservé ce salon ? (1 pt)</label>
+                        <input type="text" id="ex3_q3" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. Que font les chefs présents au salon ? Ils… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="A" class="mr-2"> A. parlent de leur travail.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="B" class="mr-2"> B. participent à un concours.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="C" class="mr-2"> C. cherchent de nouveaux employés.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <label for="ex3_q5" class="block font-medium text-slate-800 text-lg mb-2">5. Quelle nouvelle activité est proposée cette année au salon ? (1 pt)</label>
+                        <input type="text" id="ex3_q5" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <label for="ex3_q6" class="block font-medium text-slate-800 text-lg mb-2">6. Pour un adulte, quel est le prix d'une entrée achetée sur place ? (1 pt)</label>
+                        <input type="text" id="ex3_q6" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 4 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 4</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">8 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous allez entendre deux fois quatre dialogues, correspondant à quatre situations différentes. Vous êtes en vacances chez des amis français. Vous entendez ces conversations. Reliez chaque dialogue à la situation correspondante (2 pts par bonne réponse).</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audio/delf-a2-tp-coll-exemple2-exercice4.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Dialogue 1 -->
+                    <div class="border border-slate-200 p-4 rounded-xl bg-slate-50 space-y-2">
+                        <label for="ex4_d1" class="font-bold text-slate-700 block">Dialogue 1</label>
+                        <select id="ex4_d1" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                            <option value="">Sélectionner la situation...</option>
+                            <option value="A">A. Proposer de l'aide</option>
+                            <option value="B">B. Informer</option>
+                            <option value="C">C. S'excuser</option>
+                            <option value="D">D. Conseiller quelque chose</option>
+                        </select>
+                    </div>
+
+                    <!-- Dialogue 2 -->
+                    <div class="border border-slate-200 p-4 rounded-xl bg-slate-50 space-y-2">
+                        <label for="ex4_d2" class="font-bold text-slate-700 block">Dialogue 2</label>
+                        <select id="ex4_d2" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                            <option value="">Sélectionner la situation...</option>
+                            <option value="A">A. Proposer de l'aide</option>
+                            <option value="B">B. Informer</option>
+                            <option value="C">C. S'excuser</option>
+                            <option value="D">D. Conseiller quelque chose</option>
+                        </select>
+                    </div>
+
+                    <!-- Dialogue 3 -->
+                    <div class="border border-slate-200 p-4 rounded-xl bg-slate-50 space-y-2">
+                        <label for="ex4_d3" class="font-bold text-slate-700 block">Dialogue 3</label>
+                        <select id="ex4_d3" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                            <option value="">Sélectionner la situation...</option>
+                            <option value="A">A. Proposer de l'aide</option>
+                            <option value="B">B. Informer</option>
+                            <option value="C">C. S'excuser</option>
+                            <option value="D">D. Conseiller quelque chose</option>
+                        </select>
+                    </div>
+
+                    <!-- Dialogue 4 -->
+                    <div class="border border-slate-200 p-4 rounded-xl bg-slate-50 space-y-2">
+                        <label for="ex4_d4" class="font-bold text-slate-700 block">Dialogue 4</label>
+                        <select id="ex4_d4" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+                            <option value="">Sélectionner la situation...</option>
+                            <option value="A">A. Proposer de l'aide</option>
+                            <option value="B">B. Informer</option>
+                            <option value="C">C. S'excuser</option>
+                            <option value="D">D. Conseiller quelque chose</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BOUTON DE VALIDATION -->
+            <div class="text-center pt-4">
+                <button type="button" onclick="validerQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-xl shadow-lg transition">
+                    Valider mes réponses
+                </button>
+            </div>
+        </form>
+
+        <!-- ZONE DE RÉSULTAT -->
+        <div id="resultatCard" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
+            <h3 class="text-2xl font-bold text-slate-800 border-b pb-2">Rapport des résultats</h3>
+            <div class="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <span class="text-lg font-medium text-slate-700">Note globale :</span>
+                <span id="scoreTotal" class="text-3xl font-extrabold text-blue-600"></span>
+            </div>
+            
+            <div id="detailCorrection" class="space-y-3"></div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE CORRECTION AUTOMATIQUE -->
+    <script>
+        function validerQuiz() {
+            let score = 0;
+
+            const intentMap = {
+                'A': 'Proposer de l\'aide',
+                'B': 'Informer',
+                'C': 'S\'excuser',
+                'D': 'Conseiller quelque chose'
+            };
+
+            const questions = [
+                // EXERCICE 1 (5 pts)
+                { type: 'text', id: 'ex1_q1', check: (v) => v.includes('40') || v.includes('quarante'), pts: 1, label: 'Exercice 1 - Q1 : Durée du retard', attendu: '40 minutes / min.' },
+                { type: 'radio', name: 'ex1_q2', val: 'B', pts: 1, label: 'Exercice 1 - Q2 : Cause du retard', displayVal: 'Option B (Pluie)' },
+                { type: 'radio', name: 'ex1_q3', val: 'C', pts: 1, label: 'Exercice 1 - Q3 : Provenance de l\'avion', displayVal: 'Option C (De Madrid)' },
+                { type: 'radio', name: 'ex1_q4', val: 'A', pts: 1, label: 'Exercice 1 - Q4 : Action pour information', displayVal: 'Option A (Aller au guichet/accueil)' },
+                { type: 'text', id: 'ex1_q5', check: (v) => v.includes('excellente') || v.includes('bonne') || v.includes('journee') || v.includes('journée'), pts: 1, label: 'Exercice 1 - Q5 : Souhait de la compagnie', attendu: 'Une excellente journée' },
+
+                // EXERCICE 2 (6 pts)
+                { type: 'radio', name: 'ex2_q1', val: 'B', pts: 1, label: 'Exercice 2 - Q1 : Produits vendus', displayVal: 'Option B (Vêtements / Pantalon)' },
+                { type: 'radio', name: 'ex2_q2', val: 'A', pts: 1, label: 'Exercice 2 - Q2 : Motif des promotions', displayVal: 'Option A (C\'est bientôt Noël)' },
+                { type: 'radio', name: 'ex2_q3', val: 'C', pts: 1, label: 'Exercice 2 - Q3 : Pourcentage de réduction', displayVal: 'Option C (50%)' },
+                { type: 'text', id: 'ex2_q4', check: (v) => v.includes('lundi') && v.includes('samedi'), pts: 1, label: 'Exercice 2 - Q4 : Jours d\'ouverture', attendu: 'Du lundi au samedi' },
+                { type: 'text', id: 'ex2_q5', check: (v) => v.includes('20') || v.includes('8'), pts: 1, label: 'Exercice 2 - Q5 : Heure de fermeture', attendu: '20 h / 8 heures du soir' },
+                { type: 'text', id: 'ex2_q6', check: (v) => v.includes('site') || v.includes('internet') || v.includes('magasin'), pts: 1, label: 'Exercice 2 - Q6 : Moyen d\'information', attendu: 'Consulter le site internet / Aller au magasin' },
+
+                // EXERCICE 3 (6 pts)
+                { type: 'radio', name: 'ex3_q1', val: 'A', pts: 1, label: 'Exercice 3 - Q1 : Statut de l\'événement', displayVal: 'Option A (Est déjà fini)' },
+                { type: 'radio', name: 'ex3_q2', val: 'A', pts: 1, label: 'Exercice 3 - Q2 : Spécialité du salon', displayVal: 'Option A (Image A - Pâtisserie/Cupcakes)' },
+                { type: 'text', id: 'ex3_q3', check: (v) => v.includes('professionnel') || v.includes('public'), pts: 1, label: 'Exercice 3 - Q3 : Public cible', attendu: 'Les professionnels et le grand public' },
+                { type: 'radio', name: 'ex3_q4', val: 'A', pts: 1, label: 'Exercice 3 - Q4 : Rôle des chefs', displayVal: 'Option A (Parlent de leur travail)' },
+                { type: 'text', id: 'ex3_q5', check: (v) => v.includes('cours') || v.includes('classe') || v.includes('atelier'), pts: 1, label: 'Exercice 3 - Q5 : Nouvelle activité', attendu: 'Suivre une classe / un cours avec un chef' },
+                { type: 'text', id: 'ex3_q6', check: (v) => v.includes('10') || v.includes('dix'), pts: 1, label: 'Exercice 3 - Q6 : Prix de l\'entrée', attendu: '10 € / Dix euros' },
+
+                // EXERCICE 4 (8 pts)
+                { type: 'select', id: 'ex4_d1', val: 'B', pts: 2, label: 'Exercice 4 - Dialogue 1', displayVal: 'B. Informer' },
+                { type: 'select', id: 'ex4_d2', val: 'D', pts: 2, label: 'Exercice 4 - Dialogue 2', displayVal: 'D. Conseiller quelque chose' },
+                { type: 'select', id: 'ex4_d3', val: 'A', pts: 2, label: 'Exercice 4 - Dialogue 3', displayVal: 'A. Proposer de l\'aide' },
+                { type: 'select', id: 'ex4_d4', val: 'C', pts: 2, label: 'Exercice 4 - Dialogue 4', displayVal: 'C. S\'excuser' }
+            ];
+
+            let htmlDetail = '<div class="space-y-3">';
+
+            questions.forEach(q => {
+                let estCorrect = false;
+                let userDisplay = '';
+                let attenduDisplay = '';
+
+                if (q.type === 'radio') {
+                    const checked = document.querySelector(`input[name="${q.name}"]:checked`);
+                    const userVal = checked ? checked.value : '';
+                    estCorrect = (userVal === q.val);
+                    userDisplay = userVal ? `Option ${userVal}` : 'Aucune réponse';
+                    attenduDisplay = q.displayVal;
+                } else if (q.type === 'text') {
+                    const input = document.getElementById(q.id);
+                    const rawVal = input ? input.value.trim() : '';
+                    const cleanVal = rawVal.toLowerCase();
+                    estCorrect = rawVal !== '' && q.check(cleanVal);
+                    userDisplay = rawVal !== '' ? rawVal : 'Aucune réponse';
+                    attenduDisplay = q.attendu;
+                } else if (q.type === 'select') {
+                    const select = document.getElementById(q.id);
+                    const userVal = select ? select.value : '';
+                    estCorrect = (userVal === q.val);
+                    userDisplay = userVal ? `${userVal}. ${intentMap[userVal] || ''}` : 'Aucune réponse';
+                    attenduDisplay = q.displayVal;
+                }
+
+                if (estCorrect) {
+                    score += q.pts;
+                    htmlDetail += `
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                            <div>
+                                <span class="font-bold">✔ ${q.label}</span>
+                                <span class="text-sm block text-green-700">Votre réponse : ${userDisplay}</span>
+                            </div>
+                            <span class="font-bold">+${q.pts} pt${q.pts > 1 ? 's' : ''}</span>
+                        </div>`;
+                } else {
+                    htmlDetail += `
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">✘ ${q.label}</span>
+                                <span class="font-bold">0 pt</span>
+                            </div>
+                            <div class="text-sm mt-1">
+                                <span>Votre réponse : <span class="font-semibold text-red-600">${userDisplay}</span></span> | 
+                                <span>Réponse attendue : <span class="font-semibold text-green-700">${attenduDisplay}</span></span>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            htmlDetail += '</div>';
+
+            document.getElementById('scoreTotal').innerText = `${score} / 25 points`;
+            document.getElementById('detailCorrection').innerHTML = htmlDetail;
+            document.getElementById('resultatCard').classList.remove('hidden');
+            document.getElementById('resultatCard').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
