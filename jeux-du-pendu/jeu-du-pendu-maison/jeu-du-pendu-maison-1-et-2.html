@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Pendu Maison Fiche 2 avec Genre (Un / Une)</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; padding: 20px; }
+        .word-display { font-size: 2rem; letter-spacing: 0.3rem; margin: 20px; font-weight: bold; }
+        .article-display { color: #2563eb; border-bottom: 2px dashed #2563eb; padding-bottom: 2px; }
+        .letters-container { display: flex; flex-wrap: wrap; justify-content: center; max-width: 600px; margin: 0 auto; }
+        .article-buttons { margin: 15px 0; }
+        .article-btn { margin: 0 5px; padding: 8px 16px; font-size: 1rem; font-weight: bold; cursor: pointer; background-color: #e0f2fe; border: 2px solid #0284c7; color: #0369a1; border-radius: 5px; }
+        .article-btn:disabled { background-color: #ddd; border-color: #ccc; color: #888; cursor: not-allowed; }
+        .letter-btn { margin: 5px; padding: 10px 15px; font-size: 1.1rem; cursor: pointer; background-color: #fff; border: 2px solid #ccc; border-radius: 5px; }
+        .letter-btn:disabled { background-color: #ddd; cursor: not-allowed; }
+        .message { font-size: 1.5rem; margin: 20px; font-weight: bold; }
+        .info { margin: 10px; color: #555; }
+        button#restart { padding: 10px 20px; font-size: 1rem; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+        
+        /* Style pour la zone d'image d'aide */
+        .image-container { margin: 20px auto; min-height: 200px; display: flex; justify-content: center; align-items: center; }
+        .game-image { max-width: 250px; max-height: 250px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px solid #333; }
+        .victory-image { border: 2px solid green; box-shadow: 0 4px 15px rgba(0,255,0,0.3); }
+    </style>
+</head>
+<body>
+
+    <h1>Le Jeu du Pendu — Merci au LEC pour la fiche maison 2</h1>
+    <div class="info">Vies restantes : <span id="lives">6</span></div>
+    
+    <div class="image-container">
+        <img id="gameImage" class="game-image" src="" alt="Aide visuelle">
+    </div>
+
+    <div class="word-display">
+        <span id="articleDisplay" class="article-display">_ _ _</span>&nbsp;&nbsp;&nbsp;<span id="wordDisplay"></span>
+    </div>
+
+    <!-- Boutons raccourcis pour les articles -->
+    <div class="article-buttons">
+        <button id="btnUn" class="article-btn" onclick="selectArticle('un')">UN</button>
+        <button id="btnUne" class="article-btn" onclick="selectArticle('une')">UNE</button>
+    </div>
+
+    <div class="letters-container" id="lettersContainer"></div>
+    <div class="message" id="message"></div>
+    
+    <button id="restart" onclick="initGame()">Recommencer</button>
+
+    <script>
+        // 1. LISTE DES MOTS, GENRES ET IMAGES ASSOCIEES
+        const listeMots = [
+            { mot: "armoire", genre: "une", imgIndex: "armoire.jpg" },
+            { mot: "baignoire", genre: "une", imgIndex: "baignoire.jpg" },
+            { mot: "bibliothèque", genre: "une", imgIndex: "bibliotheque.jpg" },
+            { mot: "bureau", genre: "un", imgIndex: "bureau.jpg" },
+            { mot: "canapé", genre: "un", imgIndex: "canape.jpg" },
+            { mot: "chaise", genre: "une", imgIndex: "chaise.jpg" },
+            { mot: "commode", genre: "une", imgIndex: "commode.jpg" },
+            { mot: "congélateur", genre: "un", imgIndex: "congelateur.jpg" },
+            { mot: "cuisinière", genre: "une", imgIndex: "cuisiniere.jpg" },
+            { mot: "douche", genre: "une", imgIndex: "douche.jpg" }, 
+            { mot: "évier", genre: "un", imgIndex: "evier.jpg" },
+            { mot: "fauteuil", genre: "un", imgIndex: "fauteuil.jpg" },
+            { mot: "four", genre: "un", imgIndex: "four.jpg" },
+            { mot: "lampe", genre: "une", imgIndex: "lampe.jpg" },
+            { mot: "lavabo", genre: "un", imgIndex: "lavabo.jpg" },
+            { mot: "lave-linge", genre: "un", imgIndex: "lavelinge.jpg" }, 
+            { mot: "lave-vaisselle", genre: "un", imgIndex: "lavevaisselle.jpg" },
+            { mot: "lit", genre: "un", imgIndex: "lit.jpg" },
+            { mot: "lits superposés", genre: "un", imgIndex: "lits-superposes.jpg" },
+            { mot: "placard", genre: "un", imgIndex: "placard.jpg" },
+            { mot: "porte", genre: "une", imgIndex: "porte.jpg" },
+            { mot: "porte-manteau", genre: "un", imgIndex: "portemanteau.jpg" },
+            { mot: "réfrigérateur", genre: "un", imgIndex: "refrigerateur.jpg" },
+            { mot: "sèche-linge", genre: "un", imgIndex: "sechelinge.jpg" },
+            { mot: "table", genre: "une", imgIndex: "table.jpg" }, 
+            { mot: "table basse", genre: "une", imgIndex: "tablebasse.jpg" },
+            { mot: "table de chevet", genre: "une", imgIndex: "tablechevet.jpg" },
+            { mot: "tabouret", genre: "un", imgIndex: "tabouret.jpg" },			
+            { mot: "salle à manger", genre: "une", imgIndex: "salleamanger.jpg" },
+            { mot: "salon", genre: "un", imgIndex: "salon.jpg" },
+            { mot: "chambre", genre: "une", imgIndex: "chambre.jpg" },
+            { mot: "toilette", genre: "une", imgIndex: "toilettes.jpg" },
+            { mot: "cuisine", genre: "une", imgIndex: "cuisine.jpg" },
+            { mot: "garage", genre: "un", imgIndex: "garage.jpg" },
+            { mot: "chambre d enfants", genre: "une", imgIndex: "chambredenfant.jpg" },
+            { mot: "entrée", genre: "une", imgIndex: "entree.jpg" },
+            { mot: "salle de bain", genre: "une", imgIndex: "salledebain.jpg" }, 
+            { mot: "cave", genre: "une", imgIndex: "cave.jpg" },
+            { mot: "wc", genre: "un", imgIndex: "wc.jpg" },
+            { mot: "lustre", genre: "un", imgIndex: "lustre.jpg" },
+            { mot: "lampe de bureau", genre: "une", imgIndex: "lampedeureau.jpg" },
+            { mot: "téléviseur", genre: "un", imgIndex: "televiseur.jpg" },
+            { mot: "télévision", genre: "une", imgIndex: "television.jpg" },
+            { mot: "cheval à bascule", genre: "un", imgIndex: "chevalabascule.jpg" }, 
+            { mot: "voiture", genre: "une", imgIndex: "voiture.jpg" },
+            { mot: "escalier", genre: "un", imgIndex: "escalier.jpg" },
+            { mot: "casier à bouteilles", genre: "un", imgIndex: "casierabouteille.jpg" },
+            { mot: "chaise pivotante", genre: "une", imgIndex: "chaisepivotante.jpg" },
+            { mot: "étagère à livres", genre: "une", imgIndex: "etagerealivre.jpg" },
+            { mot: "lit pour enfant", genre: "un", imgIndex: "litdenfant.jpg" },
+            { mot: "étagère à casseroles", genre: "une", imgIndex: "etagereacasserole.jpg" },
+            { mot: "tonneau", genre: "un", imgIndex: "tonneau.jpg" },
+            { mot: "coffre à jouets", genre: "un", imgIndex: "coffreajouet.jpg" }
+        ];
+
+        // 2. IMAGE DE VICTOIRE
+        const imageVictoire = "victoire.jpg";
+
+        let currentWordObject = null;
+        let wordToGuess = "";
+        let correctArticle = "";
+        let displayedWord = [];
+        let displayedArticle = ["_", "_", "_"];
+        let userChosenArticle = "";
+        let maxLives = 6;
+        let currentLives = maxLives;
+
+        function normalizeString(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        function initGame() {
+            currentLives = maxLives;
+            document.getElementById("lives").textContent = currentLives;
+            document.getElementById("message").textContent = "";
+            
+            // Tirage aléatoire
+            const randomIndex = Math.floor(Math.random() * listeMots.length);
+            currentWordObject = listeMots[randomIndex];
+            wordToGuess = currentWordObject.mot;
+            correctArticle = currentWordObject.genre;
+
+            // Réinitialiser la zone d'article
+            displayedArticle = ["_", "_", "_"];
+            userChosenArticle = "";
+
+            const imgElement = document.getElementById("gameImage");
+            imgElement.src = currentWordObject.imgIndex;
+            imgElement.classList.remove("victory-image");
+            imgElement.style.display = "block";
+            
+            // Préparation des masques pour le mot
+            displayedWord = [];
+            for (let char of wordToGuess) {
+                if (char === " ") {
+                    displayedWord.push(" ");
+                } else if (char === "-") {
+                    displayedWord.push("-");
+                } else {
+                    displayedWord.push("_");
+                }
+            }
+            
+            enableArticleButtons(true);
+            renderDisplays();
+            generateKeyboard();
+        }
+
+        function renderDisplays() {
+            const htmlWord = displayedWord.map(char => char === " " ? "&nbsp;&nbsp;" : char).join(" ");
+            document.getElementById("wordDisplay").innerHTML = htmlWord;
+
+            const htmlArticle = displayedArticle.join(" ");
+            document.getElementById("articleDisplay").innerHTML = htmlArticle;
+        }
+
+        function generateKeyboard() {
+            const container = document.getElementById("lettersContainer");
+            container.innerHTML = "";
+            const alphabet = "abcdefghijklmnopqrstuvwxyz";
+            for (let letter of alphabet) {
+                const btn = document.createElement("button");
+                btn.textContent = letter.toUpperCase();
+                btn.classList.add("letter-btn");
+                btn.id = "btn-letter-" + letter;
+                btn.onclick = () => guessLetter(letter, btn);
+                container.appendChild(btn);
+            }
+        }
+
+        function selectArticle(art) {
+            userChosenArticle = art;
+            if (art === "un") {
+                displayedArticle = ["U", "N", "&nbsp;"];
+            } else {
+                displayedArticle = ["U", "N", "E"];
+            }
+            
+            renderDisplays();
+            checkWin();
+        }
+
+        function guessLetter(letter, buttonElement) {
+            buttonElement.disabled = true;
+            let letterFound = false;
+            const normalizedTarget = normalizeString(wordToGuess);
+
+            for (let i = 0; i < normalizedTarget.length; i++) {
+                if (normalizedTarget[i] === letter) {
+                    displayedWord[i] = wordToGuess[i];
+                    letterFound = true;
+                }
+            }
+
+            if (letterFound) {
+                renderDisplays();
+                checkWin();
+            } else {
+                currentLives--;
+                document.getElementById("lives").textContent = currentLives;
+                checkLose();
+            }
+        }
+
+        function checkWin() {
+            const wordIsComplete = !displayedWord.includes("_");
+            const articleIsCorrect = (userChosenArticle === correctArticle);
+
+            if (wordIsComplete && articleIsCorrect) {
+                document.getElementById("message").textContent = `🎉 Bravo ! C'est bien "${correctArticle.toUpperCase()} ${wordToGuess.toUpperCase()}" !`;
+                disableAllButtons();
+                
+                const imgElement = document.getElementById("gameImage");
+                imgElement.src = imageVictoire;
+                imgElement.classList.add("victory-image");
+            } else if (wordIsComplete && !articleIsCorrect && userChosenArticle !== "") {
+                document.getElementById("message").textContent = "⚠️ Le nom du meuble/objet est correct, mais l'article (UN / UNE) n'est pas le bon !";
+            }
+        }
+
+        function checkLose() {
+            if (currentLives <= 0) {
+                document.getElementById("message").textContent = `💥 Perdu ! La bonne réponse était : "${correctArticle} ${wordToGuess}"`;
+                disableAllButtons();
+            }
+        }
+
+        function disableAllButtons() {
+            const buttons = document.querySelectorAll(".letter-btn");
+            buttons.forEach(btn => btn.disabled = true);
+            enableArticleButtons(false);
+        }
+
+        function enableArticleButtons(enable) {
+            document.getElementById("btnUn").disabled = !enable;
+            document.getElementById("btnUne").disabled = !enable;
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
