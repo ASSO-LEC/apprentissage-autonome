@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Pendu Fruits avec Genre (Un / Une)</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; padding: 20px; }
+        .word-display { font-size: 2rem; letter-spacing: 0.3rem; margin: 20px; font-weight: bold; }
+        .article-display { color: #2563eb; border-bottom: 2px dashed #2563eb; padding-bottom: 2px; }
+        .letters-container { display: flex; flex-wrap: wrap; justify-content: center; max-width: 600px; margin: 0 auto; }
+        .article-buttons { margin: 15px 0; }
+        .article-btn { margin: 0 5px; padding: 8px 16px; font-size: 1rem; font-weight: bold; cursor: pointer; background-color: #e0f2fe; border: 2px solid #0284c7; color: #0369a1; border-radius: 5px; }
+        .article-btn:disabled { background-color: #ddd; border-color: #ccc; color: #888; cursor: not-allowed; }
+        .letter-btn { margin: 5px; padding: 10px 15px; font-size: 1.1rem; cursor: pointer; background-color: #fff; border: 2px solid #ccc; border-radius: 5px; }
+        .letter-btn:disabled { background-color: #ddd; cursor: not-allowed; }
+        .message { font-size: 1.5rem; margin: 20px; font-weight: bold; }
+        .info { margin: 10px; color: #555; }
+        button#restart { padding: 10px 20px; font-size: 1rem; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+        
+        /* Style pour la zone d'image d'aide */
+        .image-container { margin: 20px auto; min-height: 200px; display: flex; justify-content: center; align-items: center; }
+        .game-image { max-width: 250px; max-height: 250px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px solid #333; }
+        .victory-image { border: 2px solid green; box-shadow: 0 4px 15px rgba(0,255,0,0.3); }
+    </style>
+</head>
+<body>
+
+    <h1>Le Jeu du Pendu — Les Fruits & leur Genre</h1>
+    <div class="info">Vies restantes : <span id="lives">4</span></div>
+    
+    <div class="image-container">
+        <img id="gameImage" class="game-image" src="" alt="Aide visuelle">
+    </div>
+
+    <div class="word-display">
+        <span id="articleDisplay" class="article-display">_ _ _</span>&nbsp;&nbsp;&nbsp;<span id="wordDisplay"></span>
+    </div>
+
+    <!-- Boutons raccourcis pour les articles -->
+    <div class="article-buttons">
+        <button id="btnUn" class="article-btn" onclick="selectArticle('un')">UN</button>
+        <button id="btnUne" class="article-btn" onclick="selectArticle('une')">UNE</button>
+    </div>
+
+    <div class="letters-container" id="lettersContainer"></div>
+    <div class="message" id="message"></div>
+    
+    <button id="restart" onclick="initGame()">Recommencer le jeu</button>
+
+    <script>
+        // 1. LISTE DES MOTS, GENRES ET IMAGES
+        const listeMots = [
+            { mot: "orange", genre: "une", imgIndex: "orange.jpg" },
+            { mot: "mandarine", genre: "une", imgIndex: "mandarine.jpg" },
+            { mot: "citron", genre: "un", imgIndex: "citron.jpg" },
+            { mot: "pasteque", genre: "une", imgIndex: "pasteque.jpg" },
+            { mot: "pamplemousse", genre: "un", imgIndex: "pamplemousse.jpg" },
+            { mot: "melon", genre: "un", imgIndex: "melon.jpg" },
+            { mot: "pomme", genre: "une", imgIndex: "pomme.jpg" },
+            { mot: "raisin", genre: "un", imgIndex: "raisin.jpg" },
+            { mot: "abricot", genre: "un", imgIndex: "abricot.jpg" },
+            { mot: "poire", genre: "une", imgIndex: "poire.jpg" }, 
+            { mot: "peche", genre: "une", imgIndex: "peche.jpg" },
+            { mot: "banane", genre: "une", imgIndex: "banane.jpg" },
+            { mot: "fraise", genre: "une", imgIndex: "fraise.jpg" },
+            { mot: "mangue", genre: "une", imgIndex: "mangue.jpg" },
+            { mot: "groseille", genre: "une", imgIndex: "groseille.jpg" },
+            { mot: "cerise", genre: "une", imgIndex: "cerise.jpg" }, 
+            { mot: "prune", genre: "une", imgIndex: "prune.jpg" },
+            { mot: "framboise", genre: "une", imgIndex: "framboise.jpg" },
+            { mot: "noisette", genre: "une", imgIndex: "noisette.jpg" },
+            { mot: "noix", genre: "une", imgIndex: "noix.jpg" },
+            { mot: "ananas", genre: "un", imgIndex: "ananas.jpg" },
+            { mot: "litchi", genre: "un", imgIndex: "litchi.jpg" },
+            { mot: "kiwi", genre: "un", imgIndex: "kiwi.jpg" },
+            { mot: "noix de coco", genre: "une", imgIndex: "noixdecoco.jpg" }
+        ];
+
+        const imageVictoire = "victoire.jpg";
+
+        let currentWordObject = null;
+        let wordToGuess = "";
+        let correctArticle = "";
+        let displayedWord = [];
+        let displayedArticle = ["_", "_", "_"]; // Support fixe de 3 emplacements
+        let userChosenArticle = "";
+        let maxLives = 4;
+        let currentLives = maxLives;
+
+        function normalizeString(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        function initGame() {
+            currentLives = maxLives;
+            document.getElementById("lives").textContent = currentLives;
+            document.getElementById("message").textContent = "";
+            
+            // Tirage aléatoire
+            const randomIndex = Math.floor(Math.random() * listeMots.length);
+            currentWordObject = listeMots[randomIndex];
+            wordToGuess = currentWordObject.mot;
+            correctArticle = currentWordObject.genre;
+
+            // Réinitialiser les affichages
+            displayedArticle = ["_", "_", "_"];
+            userChosenArticle = "";
+
+            const imgElement = document.getElementById("gameImage");
+            imgElement.src = currentWordObject.imgIndex;
+            imgElement.classList.remove("victory-image");
+            imgElement.style.display = "block";
+            
+            // Préparation des tirets pour le mot
+            displayedWord = [];
+            for (let char of wordToGuess) {
+                if (char === " ") {
+                    displayedWord.push(" ");
+                } else if (char === "-") {
+                    displayedWord.push("-");
+                } else {
+                    displayedWord.push("_");
+                }
+            }
+            
+            enableArticleButtons(true);
+            renderDisplays();
+            generateKeyboard();
+        }
+
+        function renderDisplays() {
+            const htmlWord = displayedWord.map(char => char === " " ? "&nbsp;&nbsp;" : char).join(" ");
+            document.getElementById("wordDisplay").innerHTML = htmlWord;
+
+            const htmlArticle = displayedArticle.join(" ");
+            document.getElementById("articleDisplay").innerHTML = htmlArticle;
+        }
+
+        function generateKeyboard() {
+            const container = document.getElementById("lettersContainer");
+            container.innerHTML = "";
+            const alphabet = "abcdefghijklmnopqrstuvwxyz";
+            for (let letter of alphabet) {
+                const btn = document.createElement("button");
+                btn.textContent = letter.toUpperCase();
+                btn.classList.add("letter-btn");
+                btn.id = "btn-letter-" + letter;
+                btn.onclick = () => guessLetter(letter, btn);
+                container.appendChild(btn);
+            }
+        }
+
+        function selectArticle(art) {
+            userChosenArticle = art;
+            if (art === "un") {
+                displayedArticle = ["U", "N", "&nbsp;"];
+            } else {
+                displayedArticle = ["U", "N", "E"];
+            }
+            
+            // Désactiver le bouton E du clavier si "UN" est choisi
+            renderDisplays();
+            checkWin();
+        }
+
+        function guessLetter(letter, buttonElement) {
+            buttonElement.disabled = true;
+            let letterFound = false;
+            const normalizedTarget = normalizeString(wordToGuess);
+
+            // 1. Vérification dans le nom du fruit
+            for (let i = 0; i < normalizedTarget.length; i++) {
+                if (normalizedTarget[i] === letter) {
+                    displayedWord[i] = wordToGuess[i];
+                    letterFound = true;
+                }
+            }
+
+            // 2. Gestion de la lettre 'E' si cliquée (peut servir pour former "UNE")
+            if (letter === "u" || letter === "n") {
+                // Si les lettres U ou N sont pressées, elles aident aussi à deviner le nom du fruit
+            }
+
+            if (letterFound) {
+                renderDisplays();
+                checkWin();
+            } else {
+                currentLives--;
+                document.getElementById("lives").textContent = currentLives;
+                checkLose();
+            }
+        }
+
+        function checkWin() {
+            const wordIsComplete = !displayedWord.includes("_");
+            const articleIsCorrect = (userChosenArticle === correctArticle);
+
+            if (wordIsComplete && articleIsCorrect) {
+                document.getElementById("message").textContent = `🎉 Bravo ! C'est bien "${correctArticle.toUpperCase()} ${wordToGuess.toUpperCase()}" !`;
+                disableAllButtons();
+                
+                const imgElement = document.getElementById("gameImage");
+                imgElement.src = imageVictoire;
+                imgElement.classList.add("victory-image");
+            } else if (wordIsComplete && !articleIsCorrect && userChosenArticle !== "") {
+                document.getElementById("message").textContent = "⚠️ Le nom du fruit est correct, mais l'article (UN / UNE) n'est pas le bon !";
+            }
+        }
+
+        function checkLose() {
+            if (currentLives <= 0) {
+                document.getElementById("message").textContent = `💥 Perdu ! La bonne réponse était : "${correctArticle} ${wordToGuess}"`;
+                disableAllButtons();
+            }
+        }
+
+        function disableAllButtons() {
+            const buttons = document.querySelectorAll(".letter-btn");
+            buttons.forEach(btn => btn.disabled = true);
+            enableArticleButtons(false);
+        }
+
+        function enableArticleButtons(enable) {
+            document.getElementById("btnUn").disabled = !enable;
+            document.getElementById("btnUne").disabled = !enable;
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
