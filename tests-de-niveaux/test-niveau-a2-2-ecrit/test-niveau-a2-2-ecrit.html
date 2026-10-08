@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELF A2 — Compréhension des écrits</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-radio:checked + label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- EN-TÊTE DU TEST -->
+        <header class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-extrabold text-slate-800 border-b pb-3 mb-4">DELF A2 — Compréhension des écrits</h1>
+            <p class="text-slate-600 text-lg">Pour répondre aux questions, cochez la bonne réponse ou écrivez l'information demandée.</p>
+            <div class="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-800 text-sm font-semibold px-4 py-2 rounded-lg">
+                Total : 25 points (Exercices 1, 2, 3 et 4)
+            </div>
+        </header>
+
+        <form id="quizForm" class="space-y-8">
+
+            <!-- ================= EXERCICE 1 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 1</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">5 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous habitez en France. Plusieurs de vos amis français recherchent un appartement. Vous lisez ces annonces dans le journal.</p>
+                    
+                    <!-- ANNONCES -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-700">
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <span class="font-bold text-blue-600 block mb-1">Annonce 1</span>
+                            <p>Loue appartement meublé dans centre-ville. Clair. Très calme. Très bon état général. Prix intéressant. <br><em class="text-xs text-slate-500">www.loueimmo.fr</em></p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <span class="font-bold text-blue-600 block mb-1">Annonce 2</span>
+                            <p>Petite maison à 10 minutes de la ville. Idéale pour famille de 4 personnes. <br><em class="text-xs text-slate-500">Tél. : 02 60 38 54 10</em></p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <span class="font-bold text-blue-600 block mb-1">Annonce 3</span>
+                            <p>Appartement boulevard Sextius, 3<sup>e</sup> étage. Soleil. Espace. Non meublé. 1 place de garage. <br><em class="text-xs text-slate-500">Tél. le soir au 02 60 26 71 59</em></p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <span class="font-bold text-blue-600 block mb-1">Annonce 4</span>
+                            <p>Loue maison avec jardin à 45 minutes du centre-ville. 220 m². Bon état général. <br><em class="text-xs text-slate-500">Contacter Sophie : 06 58 44 82 29</em></p>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 shadow-sm md:col-span-2">
+                            <span class="font-bold text-blue-600 block mb-1">Annonce 5</span>
+                            <p>Petit appartement neuf. 45 m². Meublé. À 10 minutes à pied des universités. Prix intéressant. <br><em class="text-xs text-slate-500">Tél. après 16 h au 02 60 75 88 36</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="font-medium text-slate-800 text-lg">Quelle est l'annonce qui les intéresse ? Écrivez le numéro de l'annonce correspondant à chaque personne :</p>
+
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 gap-3">
+                        <label for="ex1_a" class="text-slate-700"><strong>A.</strong> Bénédicte et Christophe cherchent une maison près de la ville. Ils ont 2 enfants.</label>
+                        <select id="ex1_a" class="p-2 border border-slate-300 rounded-lg bg-white w-32 font-bold">
+                            <option value="">N°...</option>
+                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 gap-3">
+                        <label for="ex1_b" class="text-slate-700"><strong>B.</strong> Albert cherche un appartement pas trop cher. Il est étudiant.</label>
+                        <select id="ex1_b" class="p-2 border border-slate-300 rounded-lg bg-white w-32 font-bold">
+                            <option value="">N°...</option>
+                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 gap-3">
+                        <label for="ex1_c" class="text-slate-700"><strong>C.</strong> Didier cherche un appartement assez grand. Il a une voiture.</label>
+                        <select id="ex1_c" class="p-2 border border-slate-300 rounded-lg bg-white w-32 font-bold">
+                            <option value="">N°...</option>
+                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 gap-3">
+                        <label for="ex1_d" class="text-slate-700"><strong>D.</strong> Émilie cherche un appartement en ville. Elle n'aime pas le bruit.</label>
+                        <select id="ex1_d" class="p-2 border border-slate-300 rounded-lg bg-white w-32 font-bold">
+                            <option value="">N°...</option>
+                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 gap-3">
+                        <label for="ex1_e" class="text-slate-700"><strong>E.</strong> Fred cherche une grande maison à l'extérieur de la ville. Il a 3 enfants, un chien et une voiture.</label>
+                        <select id="ex1_e" class="p-2 border border-slate-300 rounded-lg bg-white w-32 font-bold">
+                            <option value="">N°...</option>
+                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 2 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 2</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">6 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous recevez ce message électronique :</p>
+                    
+                    <!-- EMAIL -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 font-sans text-sm text-slate-700 space-y-2">
+                        <div class="border-b pb-2">
+                            <p><strong>De :</strong> voyage@malin.com</p>
+                            <p><strong>Objet :</strong> Votre voyage à Paris</p>
+                        </div>
+                        <p class="pt-2">Madame, Monsieur,</p>
+                        <p>C'est avec grand plaisir que je vous envoie ce message pour vous décrire votre voyage à Paris en notre compagnie.</p>
+                        <p>À votre arrivée, le 7 juin prochain, nous allons vous accueillir à l'aéroport pour vous conduire à votre hôtel. Puis, du 8 au 17 juin, vous allez visiter la capitale de notre pays accompagnés de notre guide, Hervé, qui vous fera découvrir les musées, les rues, les boutiques mais aussi les restaurants de Paris.</p>
+                        <p>N'oubliez pas votre appareil photo ! Les températures en ce moment à Paris sont comprises entre 20 et 24 degrés. Un climat délicieux.</p>
+                        <p>À très bientôt.<br><em>L'équipe de voyagemalin.com</em></p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. Quand allez-vous arriver à l'hôtel ? (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="A" class="mr-2"> A. Le 7 juin.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="B" class="mr-2"> B. Le 8 juin.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="C" class="mr-2"> C. Le 17 juin.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Hervé travaille... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="A" class="mr-2"> A. comme guide à Paris.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="B" class="mr-2"> B. dans un musée à Paris.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="C" class="mr-2"> C. dans un restaurant à Paris.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <label for="ex2_q3" class="block font-medium text-slate-800 text-lg mb-2">3. Que devez-vous emporter avec vous ? (1,5 pt)</label>
+                        <input type="text" id="ex2_q3" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ex: appareil photo">
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <label for="ex2_q4" class="block font-medium text-slate-800 text-lg mb-2">4. Quelle est la température minimale à Paris en ce moment ? (1,5 pt)</label>
+                        <input type="text" id="ex2_q4" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ex: 20 degrés">
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Selon l'agence, le climat de cette saison est... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="A" class="mr-2"> A. plutôt froid.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="B" class="mr-2"> B. plutôt chaud.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="C" class="mr-2"> C. plutôt agréable.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 3 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 3</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">6 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous lisez cet article dans un magazine francophone :</p>
+                    
+                    <!-- ARTICLE -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-700 space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 text-center">Guide d'achat de l'ordinateur portable : Comparez !</h3>
+                        <p>Utile dans la vie privée et professionnelle, quel est l'ordinateur portable idéal ? Suivez nos conseils !</p>
+                        <p>Avant de faire cet achat, vous devez comparer les ordinateurs en fonction du poids, de la taille, etc. Bref : réfléchir à l'utilisation que vous allez en faire et non pas en fonction du prix, même mini !</p>
+                        <p class="font-bold">Quelques modèles :</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>L'Ordi-fami :</strong> si tout le monde l'utilise, il vous faut un ordinateur portable familial.</li>
+                            <li><strong>Le petit Ordi :</strong> si vous vous déplacez beaucoup, choisissez ce petit modèle léger.</li>
+                            <li><strong>L'Ordi-écolo :</strong> fonctionne à l'énergie du soleil. Il vous permet donc de travailler aussi longtemps que vous voulez !</li>
+                            <li><strong>L'Ordi-média :</strong> a une grande capacité de mémoire (1 To). Vous pouvez garder sans difficulté toute votre collection de musique, de vidéos et de photos.</li>
+                        </ul>
+                        <p class="italic text-xs text-slate-500 pt-2 border-t">Attention : un ordinateur portable dure 5-7 ans en moyenne. Il faut bien le choisir ! — D'après www.ordimagazine.fr</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. D'après l'article, aujourd'hui, l'ordinateur portable... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="A" class="mr-2"> A. coûte de moins en moins cher.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="B" class="mr-2"> B. sert dans toutes les situations de la vie.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="C" class="mr-2"> C. est remplacé par les téléphones mobiles.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. D'après l'article, avant d'acheter un ordinateur portable, vous devez... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="A" class="mr-2"> A. vous informer sur les tarifs.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="B" class="mr-2"> B. demander conseil à votre famille.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="C" class="mr-2"> C. penser à vos besoins liés à l'ordinateur.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Le petit Ordi est idéal pour les personnes comme... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <input type="radio" id="ex3_q3_a" name="ex3_q3" value="A" class="hidden custom-radio">
+                                <label for="ex3_q3_a" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/ex3_q3_a.jpg" alt="Voyageur / Personne en déplacement" class="h-28 object-contain mb-2 rounded" onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Voyageur';">
+                                    <span class="font-bold">A</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex3_q3_b" name="ex3_q3" value="B" class="hidden custom-radio">
+                                <label for="ex3_q3_b" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/ex3_q3_b.jpg" alt="Famille à la maison" class="h-28 object-contain mb-2 rounded" onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Famille';">
+                                    <span class="font-bold">B</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex3_q3_c" name="ex3_q3" value="C" class="hidden custom-radio">
+                                <label for="ex3_q3_c" class="flex flex-col items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 h-full text-center">
+                                    <img src="images/ex3_q3_c.jpg" alt="Photographe" class="h-28 object-contain mb-2 rounded" onerror="this.onerror=null; this.src='https://via.placeholder.com/150?text=Photographe';">
+                                    <span class="font-bold">C</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <label for="ex3_q4" class="block font-medium text-slate-800 text-lg mb-2">4. Quel avantage présente l'Ordi-média ? (1,5 pt)</label>
+                        <input type="text" id="ex3_q4" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ex: grande capacité de mémoire">
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <label for="ex3_q5" class="block font-medium text-slate-800 text-lg mb-2">5. D'après l'article, combien de temps garde-t-on un ordinateur portable, en général ? (1,5 pt)</label>
+                        <input type="text" id="ex3_q5" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ex: 5 à 7 ans">
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 4 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 4</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">8 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous lisez cet article sur un site internet francophone :</p>
+                    
+                    <!-- ARTICLE CANNES -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-700 space-y-3">
+                        <h3 class="text-lg font-bold text-slate-800 text-center">Le 65<sup>e</sup> festival de Cannes</h3>
+                        <p>Cette année, le soixante-cinquième Festival de Cannes, qui aura lieu du 16 au 27 juin, est différent avec de nombreux films sud-américains et asiatiques. Le directeur du festival a annoncé jeudi dernier la liste officielle des films choisis pour le concours : 1779 films — un chiffre plus important chaque année — ont été proposés mais seulement cinquante-quatre films originaires de vingt-six pays seront présentés au final. « Un choix difficile mais important : le public français écoute souvent les professionnels de Cannes pour choisir le film qu'il va aller voir au cinéma. »</p>
+                        <p>Depuis sa création, le 20 septembre 1946, pour fêter la fin de la guerre, cette fête du cinéma conduit toujours plus d'acteurs et de cinéastes sur le tapis rouge, heureux de monter les vingt-quatre marches devant les appareils photos des journalistes du monde entier. L'actrice française Bérénice Béjo, qui a gagné un prix pour son dernier film, le 24 février dernier, va ouvrir la fête le 16 juin. Le président du festival va annoncer le grand gagnant le soir du 27 juin.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 VRAI / FAUX -->
+                    <div class="p-4 border border-slate-200 rounded-xl bg-slate-50 space-y-3">
+                        <p class="font-medium text-slate-800 text-base">1. Les films présentés au festival de Cannes cette année sont surtout d'origine française. (1,5 pt)</p>
+                        <div class="flex gap-6">
+                            <label class="inline-flex items-center"><input type="radio" name="ex4_q1_vf" value="Vrai" class="mr-2"> Vrai</label>
+                            <label class="inline-flex items-center"><input type="radio" name="ex4_q1_vf" value="Faux" class="mr-2"> Faux</label>
+                        </div>
+                        <div>
+                            <label for="ex4_q1_justif" class="block text-sm text-slate-600 mb-1">Justification (recopiez le passage du texte) :</label>
+                            <input type="text" id="ex4_q1_justif" class="w-full p-2 border border-slate-300 rounded-lg bg-white" placeholder="Justification...">
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Cette année, le directeur du festival de Cannes a reçu... de films que les autres années. (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex4_q2" value="A" class="mr-2"> A. moins</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex4_q2" value="B" class="mr-2"> B. autant</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex4_q2" value="C" class="mr-2"> C. plus</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 VRAI / FAUX -->
+                    <div class="p-4 border border-slate-200 rounded-xl bg-slate-50 space-y-3">
+                        <p class="font-medium text-slate-800 text-base">3. Les Français s'intéressent peu aux films choisis au festival de Cannes. (1,5 pt)</p>
+                        <div class="flex gap-6">
+                            <label class="inline-flex items-center"><input type="radio" name="ex4_q3_vf" value="Vrai" class="mr-2"> Vrai</label>
+                            <label class="inline-flex items-center"><input type="radio" name="ex4_q3_vf" value="Faux" class="mr-2"> Faux</label>
+                        </div>
+                        <div>
+                            <label for="ex4_q3_justif" class="block text-sm text-slate-600 mb-1">Justification (recopiez le passage du texte) :</label>
+                            <input type="text" id="ex4_q3_justif" class="w-full p-2 border border-slate-300 rounded-lg bg-white" placeholder="Justification...">
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <label for="ex4_q4" class="block font-medium text-slate-800 text-lg mb-2">4. Pourquoi le festival a-t-il été créé en 1946 ? (1,5 pt)</label>
+                        <input type="text" id="ex4_q4" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ex: Pour fêter la fin de la guerre">
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <label for="ex4_q5" class="block font-medium text-slate-800 text-lg mb-2">5. Où les acteurs sont-ils pris en photo ? (1,5 pt)</label>
+                        <input type="text" id="ex4_q5" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ex: Sur les 24 marches / tapis rouge">
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Bérénice Béjo participera au festival de Cannes le... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex4_q6" value="A" class="mr-2"> A. 24 février.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex4_q6" value="B" class="mr-2"> B. 16 juin.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex4_q6" value="C" class="mr-2"> C. 27 juin.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BOUTON DE VALIDATION -->
+            <div class="text-center pt-4">
+                <button type="button" onclick="validerQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-xl shadow-lg transition">
+                    Valider mes réponses
+                </button>
+            </div>
+        </form>
+
+        <!-- ZONE DE RÉSULTAT -->
+        <div id="resultatCard" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
+            <h3 class="text-2xl font-bold text-slate-800 border-b pb-2">Rapport des résultats</h3>
+            <div class="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <span class="text-lg font-medium text-slate-700">Note globale :</span>
+                <span id="scoreTotal" class="text-3xl font-extrabold text-blue-600"></span>
+            </div>
+            
+            <div id="detailCorrection" class="space-y-3"></div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE CORRECTION AUTOMATIQUE -->
+    <script>
+        function validerQuiz() {
+            let score = 0;
+
+            const questions = [
+                // EXERCICE 1 (5 pts)
+                { type: 'select', id: 'ex1_a', val: '2', pts: 1, label: 'Exercice 1 - Situation A (Maison près de la ville)', attendu: 'Annonce 2' },
+                { type: 'select', id: 'ex1_b', val: '5', pts: 1, label: 'Exercice 1 - Situation B (Étudiant pas cher)', attendu: 'Annonce 5' },
+                { type: 'select', id: 'ex1_c', val: '3', pts: 1, label: 'Exercice 1 - Situation C (Grand appartement + garage)', attendu: 'Annonce 3' },
+                { type: 'select', id: 'ex1_d', val: '1', pts: 1, label: 'Exercice 1 - Situation D (Appartement calme en ville)', attendu: 'Annonce 1' },
+                { type: 'select', id: 'ex1_e', val: '4', pts: 1, label: 'Exercice 1 - Situation E (Grande maison extérieur)', attendu: 'Annonce 4' },
+
+                // EXERCICE 2 (6 pts)
+                { type: 'radio', name: 'ex2_q1', val: 'A', pts: 1, label: 'Exercice 2 - Q1 : Arrivée à l\'hôtel', displayVal: 'Option A (Le 7 juin)' },
+                { type: 'radio', name: 'ex2_q2', val: 'A', pts: 1, label: 'Exercice 2 - Q2 : Métier d\'Hervé', displayVal: 'Option A (Comme guide)' },
+                { type: 'text', id: 'ex2_q3', check: (v) => v.includes('appareil') || v.includes('photo'), pts: 1.5, label: 'Exercice 2 - Q3 : À emporter', attendu: 'Un appareil photo' },
+                { type: 'text', id: 'ex2_q4', check: (v) => v.includes('20') || v.includes('vingt'), pts: 1.5, label: 'Exercice 2 - Q4 : Température minimale', attendu: '20 degrés / 20 °C' },
+                { type: 'radio', name: 'ex2_q5', val: 'C', pts: 1, label: 'Exercice 2 - Q5 : Climat de la saison', displayVal: 'Option C (Plutôt agréable)' },
+
+                // EXERCICE 3 (6 pts)
+                { type: 'radio', name: 'ex3_q1', val: 'B', pts: 1, label: 'Exercice 3 - Q1 : Utilité de l\'ordinateur', displayVal: 'Option B (Sert dans toutes les situations)' },
+                { type: 'radio', name: 'ex3_q2', val: 'C', pts: 1, label: 'Exercice 3 - Q2 : À faire avant l\'achat', displayVal: 'Option C (Penser à vos besoins)' },
+                { type: 'radio', name: 'ex3_q3', val: 'A', pts: 1, label: 'Exercice 3 - Q3 : Public du Petit Ordi', displayVal: 'Option A (Personne qui se déplace)' },
+                { type: 'text', id: 'ex3_q4', check: (v) => v.includes('memoire') || v.includes me => v.includes('mémoire') || v.includes('1 to') || v.includes('1to') || v.includes('capacite') || v.includes('capacité'), pts: 1.5, label: 'Exercice 3 - Q4 : Avantage de l\'Ordi-média', attendu: 'Grande capacité de mémoire (1 To)' },
+                { type: 'text', id: 'ex3_q5', check: (v) => (v.includes('5') && v.includes('7')) || v.includes('cinq'), pts: 1.5, label: 'Exercice 3 - Q5 : Durée de conservation', attendu: '5 à 7 ans' },
+
+                // EXERCICE 4 (8 pts)
+                { type: 'vf_justif', vfName: 'ex4_q1_vf', vfVal: 'Faux', justifId: 'ex4_q1_justif', checkJustif: (v) => v.includes('sud-américains') || v.includes('asiatiques') || v.includes('sud americains'), pts: 1.5, label: 'Exercice 4 - Q1 : Origine des films (V/F + Justification)', attendu: 'Faux — "Avec de nombreux films sud-américains et asiatiques"' },
+                { type: 'radio', name: 'ex4_q2', val: 'C', pts: 1, label: 'Exercice 4 - Q2 : Nombre de films reçus', displayVal: 'Option C (Plus de films)' },
+                { type: 'vf_justif', vfName: 'ex4_q3_vf', vfVal: 'Faux', justifId: 'ex4_q3_justif', checkJustif: (v) => v.includes('ecoute') || v.includes('écoute') || v.includes('professionnels'), pts: 1.5, label: 'Exercice 4 - Q3 : Intérêt des Français (V/F + Justification)', attendu: 'Faux — "Le public français écoute souvent les professionnels de Cannes"' },
+                { type: 'text', id: 'ex4_q4', check: (v) => v.includes('guerre') || v.includes('feter') || v.includes('fêter'), pts: 1.5, label: 'Exercice 4 - Q4 : Création du festival en 1946', attendu: 'Pour fêter la fin de la guerre' },
+                { type: 'text', id: 'ex4_q5', check: (v) => v.includes('marche') || v.includes('tapis') || v.includes('rouge'), pts: 1.5, label: 'Exercice 4 - Q5 : Lieu des photos', attendu: 'Sur le tapis rouge / sur les 24 marches' },
+                { type: 'radio', name: 'ex4_q6', val: 'B', pts: 1, label: 'Exercice 4 - Q6 : Date de participation de Bérénice Béjo', displayVal: 'Option B (16 juin)' }
+            ];
+
+            let htmlDetail = '<div class="space-y-3">';
+
+            questions.forEach(q => {
+                let estCorrect = false;
+                let userDisplay = '';
+                let attenduDisplay = '';
+
+                if (q.type === 'select') {
+                    const select = document.getElementById(q.id);
+                    const userVal = select ? select.value : '';
+                    estCorrect = (userVal === q.val);
+                    userDisplay = userVal ? `Annonce ${userVal}` : 'Aucune réponse';
+                    attenduDisplay = q.attendu;
+                } else if (q.type === 'radio') {
+                    const checked = document.querySelector(`input[name="${q.name}"]:checked`);
+                    const userVal = checked ? checked.value : '';
+                    estCorrect = (userVal === q.val);
+                    userDisplay = userVal ? `Option ${userVal}` : 'Aucune réponse';
+                    attenduDisplay = q.displayVal;
+                } else if (q.type === 'text') {
+                    const input = document.getElementById(q.id);
+                    const rawVal = input ? input.value.trim() : '';
+                    const cleanVal = rawVal.toLowerCase();
+                    estCorrect = rawVal !== '' && q.check(cleanVal);
+                    userDisplay = rawVal !== '' ? rawVal : 'Aucune réponse';
+                    attenduDisplay = q.attendu;
+                } else if (q.type === 'vf_justif') {
+                    const checkedVF = document.querySelector(`input[name="${q.vfName}"]:checked`);
+                    const vfVal = checkedVF ? checkedVF.value : '';
+                    const justifInput = document.getElementById(q.justifId);
+                    const rawJustif = justifInput ? justifInput.value.trim() : '';
+                    const cleanJustif = rawJustif.toLowerCase();
+
+                    const vfOk = (vfVal === q.vfVal);
+                    const justifOk = rawJustif !== '' && q.checkJustif(cleanJustif);
+
+                    estCorrect = vfOk && justifOk;
+                    userDisplay = `${vfVal || 'Aucun choix'} | Justif : "${rawJustif || 'Aucune'}"`;
+                    attenduDisplay = q.attendu;
+                }
+
+                if (estCorrect) {
+                    score += q.pts;
+                    htmlDetail += `
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                            <div>
+                                <span class="font-bold">✔ ${q.label}</span>
+                                <span class="text-sm block text-green-700">Votre réponse : ${userDisplay}</span>
+                            </div>
+                            <span class="font-bold">+${q.pts} pt${q.pts > 1 ? 's' : ''}</span>
+                        </div>`;
+                } else {
+                    htmlDetail += `
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">✘ ${q.label}</span>
+                                <span class="font-bold">0 pt</span>
+                            </div>
+                            <div class="text-sm mt-1">
+                                <span>Votre réponse : <span class="font-semibold text-red-600">${userDisplay}</span></span> | 
+                                <span>Réponse attendue : <span class="font-semibold text-green-700">${attenduDisplay}</span></span>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            htmlDetail += '</div>';
+
+            document.getElementById('scoreTotal').innerText = `${score} / 25 points`;
+            document.getElementById('detailCorrection').innerHTML = htmlDetail;
+            document.getElementById('resultatCard').classList.remove('hidden');
+            document.getElementById('resultatCard').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
