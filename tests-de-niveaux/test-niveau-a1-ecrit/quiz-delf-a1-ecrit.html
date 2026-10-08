@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELF A1 — Compréhension des écrits</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-radio:checked + label {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- EN-TÊTE DU TEST -->
+        <header class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-extrabold text-slate-800 border-b pb-3 mb-4">DELF A1 — Compréhension des écrits</h1>
+            <p class="text-slate-600 text-lg">Lisez les documents puis répondez aux questions.</p>
+            <div class="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-800 text-sm font-semibold px-4 py-2 rounded-lg">
+                Total : 25 points
+            </div>
+        </header>
+
+        <form id="quizForm" class="space-y-8">
+
+            <!-- ================= EXERCICE 1 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 1</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">6 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous habitez en France. Vous lisez cette annonce dans un centre commercial.</p>
+                    
+                    <!-- Image de l'annonce Exercice 1 -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                        <img src="images/annonce1.jpg" alt="Annonce Exercice 1" class="mx-auto max-h-72 object-contain rounded-lg border bg-white shadow-sm">
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. Cette annonce concerne quel travail ? (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <input type="radio" id="ex1_q1_a" name="ex1_q1" value="A" class="hidden custom-radio">
+                                <label for="ex1_q1_a" class="flex flex-col items-center justify-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer transition hover:bg-slate-50 h-full">
+                                    <img src="images/exercice1-a.jpg" alt="Option A" class="h-32 object-contain mb-2 rounded border">
+                                    <span class="font-bold text-lg text-slate-800">A</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex1_q1_b" name="ex1_q1" value="B" class="hidden custom-radio">
+                                <label for="ex1_q1_b" class="flex flex-col items-center justify-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer transition hover:bg-slate-50 h-full">
+                                    <img src="images/exercice1-b.jpg" alt="Option B" class="h-32 object-contain mb-2 rounded border">
+                                    <span class="font-bold text-lg text-slate-800">B</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex1_q1_c" name="ex1_q1" value="C" class="hidden custom-radio">
+                                <label for="ex1_q1_c" class="flex flex-col items-center justify-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer transition hover:bg-slate-50 h-full">
+                                    <img src="images/exercice1-c.jpg" alt="Option C" class="h-32 object-contain mb-2 rounded border">
+                                    <span class="font-bold text-lg text-slate-800">C</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Quel jour devez-vous travailler ? (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="A" class="mr-2"> A. Le lundi.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="B" class="mr-2"> B. Le mercredi.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="C" class="mr-2"> C. Le vendredi.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Il faut être disponible… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="A" class="mr-2"> A. le matin.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="B" class="mr-2"> B. le midi.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="C" class="mr-2"> C. le soir.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <label for="ex1_q4" class="block font-medium text-slate-800 text-lg mb-2">4. Combien est-on payé pour une soirée ? (1 pt)</label>
+                        <input type="text" id="ex1_q4" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <label for="ex1_q5" class="block font-medium text-slate-800 text-lg mb-2">5. Si vous êtes intéressé par l'annonce, que devez-vous faire ? (2 pts)</label>
+                        <input type="text" id="ex1_q5" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 2 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 2</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">6 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous êtes en France, dans une bibliothèque. Vous lisez le panneau suivant.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center space-y-4">
+                        <img src="images/exercice2-bibliotheque.jpg" alt="Panneau Bibliothèque" class="mx-auto max-h-72 object-contain rounded-lg border bg-white">
+                        <img src="images/exercice2-plan.jpg" alt="Plan Bibliothèque" class="mx-auto max-h-72 object-contain rounded-lg border bg-white">
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. Les livres pour enfants sont… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 text-sm"><input type="radio" name="ex2_q1" value="A" class="mr-2"> A. au premier étage, avec les journaux.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 text-sm"><input type="radio" name="ex2_q1" value="B" class="mr-2"> B. au deuxième étage, à côté des toilettes.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 text-sm"><input type="radio" name="ex2_q1" value="C" class="mr-2"> C. au deuxième étage, derrière la salle internet.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Dans la bibliothèque, il y a… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="A" class="mr-2"> A. une cafétéria.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="B" class="mr-2"> B. une salle de cinéma.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="C" class="mr-2"> C. une salle de spectacle.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <label for="ex2_q3" class="block font-medium text-slate-800 text-lg mb-2">3. Indiquez la lettre correspondant à l'emplacement de la salle Internet. (2 pts)</label>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center mb-3">
+                            <img src="images/exercice2-plan1.jpg" alt="Plan de la bibliothèque" class="mx-auto max-h-72 object-contain rounded-lg border bg-white shadow-sm">
+                        </div>
+                        <input type="text" id="ex2_q3" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez la lettre (ex: E)...">
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <label for="ex2_q4" class="block font-medium text-slate-800 text-lg mb-2">4. À quelle heure la bibliothèque ouvre-t-elle le matin ? (1 pt)</label>
+                        <input type="text" id="ex2_q4" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <label for="ex2_q5" class="block font-medium text-slate-800 text-lg mb-2">5. Quel jour est-ce que la bibliothèque est ouverte l'après-midi ? (1 pt)</label>
+                        <input type="text" id="ex2_q5" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 3 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 3</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">6 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous êtes en France. Vous cherchez du travail. Vous lisez ces annonces dans le journal.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                        <img src="images/exercice3.jpg" alt="Annonces Exercice 3" class="mx-auto max-h-80 object-contain rounded-lg border bg-white">
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <label for="ex3_q1" class="block font-medium text-slate-800 text-lg mb-2">1. Qui propose un travail de serveur ? (1 pt)</label>
+                        <input type="text" id="ex3_q1" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <label for="ex3_q2" class="block font-medium text-slate-800 text-lg mb-2">2. Le docteur offre un travail pour combien de temps ? (1 pt)</label>
+                        <input type="text" id="ex3_q2" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <label for="ex3_q3" class="block font-medium text-slate-800 text-lg mb-2">3. Quelle est la date du mariage ? (1 pt)</label>
+                        <input type="text" id="ex3_q3" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <label for="ex3_q4" class="block font-medium text-slate-800 text-lg mb-2">4. Quand commence le travail à « Sport plus » ? (1 pt)</label>
+                        <input type="text" id="ex3_q4" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Michel travaille… (2 pts)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="A" class="mr-2"> A. dans un restaurant.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="B" class="mr-2"> B. dans un club de sport.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="C" class="mr-2"> C. dans un magasin de chaussures.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 4 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 4</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">7 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous faites des études à Paris. Vous voulez faire une sortie avec d'autres étudiants. Vous lisez cet article sur le site internet de l'université.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                        <img src="images/exercice4-article.jpg" alt="Article Exercice 4" class="mx-auto max-h-80 object-contain rounded-lg border bg-white shadow-sm">
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. L'après-midi, s'il y a du soleil, dans l'article on vous conseille… (2 pts)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 text-sm"><input type="radio" name="ex4_q1" value="A" class="mr-2"> A. de visiter un musée.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 text-sm"><input type="radio" name="ex4_q1" value="B" class="mr-2"> B. d'aller dans un parc.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 text-sm"><input type="radio" name="ex4_q1" value="C" class="mr-2"> C. de faire un tour de bateau sur la Seine.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <label for="ex4_q2" class="block font-medium text-slate-800 text-lg mb-2">2. Quel musée on vous conseille de visiter s'il pleut ? (1 pt)</label>
+                        <input type="text" id="ex4_q2" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Le soir, s'il ne fait pas beau, on vous propose… (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <input type="radio" id="ex4_q3_a" name="ex4_q3" value="A" class="hidden custom-radio">
+                                <label for="ex4_q3_a" class="flex flex-col items-center justify-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer transition hover:bg-slate-50 h-full">
+                                    <img src="images/exercice4-q3-a.jpg" alt="Option A - Théâtre" class="h-32 object-contain mb-2 rounded border">
+                                    <span class="font-bold text-lg text-slate-800">A</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex4_q3_b" name="ex4_q3" value="B" class="hidden custom-radio">
+                                <label for="ex4_q3_b" class="flex flex-col items-center justify-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer transition hover:bg-slate-50 h-full">
+                                    <img src="images/exercice4-q3-b.jpg" alt="Option B - Bateau" class="h-32 object-contain mb-2 rounded border">
+                                    <span class="font-bold text-lg text-slate-800">B</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ex4_q3_c" name="ex4_q3" value="C" class="hidden custom-radio">
+                                <label for="ex4_q3_c" class="flex flex-col items-center justify-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer transition hover:bg-slate-50 h-full">
+                                    <img src="images/exercice4-q3-c.jpg" alt="Option C - Musée" class="h-32 object-contain mb-2 rounded border">
+                                    <span class="font-bold text-lg text-slate-800">C</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. Le restaurant proposé dans l'article est à côté… (2 pts)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 text-sm"><input type="radio" name="ex4_q4" value="A" class="mr-2"> A. de la Tour Eiffel.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 text-sm"><input type="radio" name="ex4_q4" value="B" class="mr-2"> B. des Champs-Élysées.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 text-sm"><input type="radio" name="ex4_q4" value="C" class="mr-2"> C. du musée Carnavalet.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <label for="ex4_q5" class="block font-medium text-slate-800 text-lg mb-2">5. Où pouvez-vous réserver ? (1 pt)</label>
+                        <input type="text" id="ex4_q5" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Écrivez votre réponse ici...">
+                    </div>
+                </div>
+            </section>
+
+            <!-- BOUTON DE VALIDATION -->
+            <div class="text-center pt-4">
+                <button type="button" onclick="validerQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-xl shadow-lg transition">
+                    Valider mes réponses
+                </button>
+            </div>
+        </form>
+
+        <!-- ZONE DE RÉSULTAT -->
+        <div id="resultatCard" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
+            <h3 class="text-2xl font-bold text-slate-800 border-b pb-2">Rapport de correction</h3>
+            <div class="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <span class="text-lg font-medium text-slate-700">Note globale :</span>
+                <span id="scoreTotal" class="text-3xl font-extrabold text-blue-600"></span>
+            </div>
+            
+            <div id="detailCorrection" class="space-y-3"></div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE CORRECTION AUTOMATIQUE ET DE RAPPORT D'ERREURS -->
+    <script>
+        function validerQuiz() {
+            let score = 0;
+
+            // Liste de contrôle de toutes les questions
+            const questions = [
+                // EXERCICE 1
+                { type: 'radio', name: 'ex1_q1', val: 'A', pts: 1, label: 'Exercice 1 - Q1 : Type de travail', displayVal: 'Option A' },
+                { type: 'radio', name: 'ex1_q2', val: 'C', pts: 1, label: 'Exercice 1 - Q2 : Jour de travail', displayVal: 'Option C (Le vendredi)' },
+                { type: 'radio', name: 'ex1_q3', val: 'C', pts: 1, label: 'Exercice 1 - Q3 : Disponibilité', displayVal: 'Option C (Le soir)' },
+                { type: 'text', id: 'ex1_q4', check: (v) => v.includes('45'), pts: 1, label: 'Exercice 1 - Q4 : Rémunération', attendu: '45 €' },
+                { type: 'text', id: 'ex1_q5', check: (v) => v.includes('appel') || v.includes('téléphon') || v.includes('06') || v.includes('lemaitre') || v.includes('lemaître'), pts: 2, label: 'Exercice 1 - Q5 : Démarche', attendu: 'Appeler / Téléphoner (Anna Lemaître / au 06 45 08 52 49)' },
+
+                // EXERCICE 2
+                { type: 'radio', name: 'ex2_q1', val: 'A', pts: 1, label: 'Exercice 2 - Q1 : Livres enfants', displayVal: 'Option A (Au premier étage, avec les journaux)' },
+                { type: 'radio', name: 'ex2_q2', val: 'A', pts: 1, label: 'Exercice 2 - Q2 : Équipement', displayVal: 'Option A (Une cafétéria)' },
+                { type: 'text', id: 'ex2_q3', check: (v) => v === 'e', pts: 2, label: 'Exercice 2 - Q3 : Salle Internet', attendu: 'Lettre E' },
+                { type: 'text', id: 'ex2_q4', check: (v) => v.includes('8'), pts: 1, label: 'Exercice 2 - Q4 : Heure ouverture', attendu: '8 h' },
+                { type: 'text', id: 'ex2_q5', check: (v) => v.includes('samedi'), pts: 1, label: 'Exercice 2 - Q5 : Ouvert l\'après-midi', attendu: 'Le samedi' },
+
+                // EXERCICE 3
+                { type: 'text', id: 'ex3_q1', check: (v) => v.includes('bon appétit') || v.includes('restaurant'), pts: 1, label: 'Exercice 3 - Q1 : Travail de serveur', attendu: 'Le restaurant « Bon appétit »' },
+                { type: 'text', id: 'ex3_q2', check: (v) => v.includes('3') || v.includes('trois'), pts: 1, label: 'Exercice 3 - Q2 : Durée docteur', attendu: '3 semaines' },
+                { type: 'text', id: 'ex3_q3', check: (v) => v.includes('30') || v.includes('mai'), pts: 1, label: 'Exercice 3 - Q3 : Date du mariage', attendu: '30 mai' },
+                { type: 'text', id: 'ex3_q4', check: (v) => v.includes('octobre'), pts: 1, label: 'Exercice 3 - Q4 : Début Sport plus', attendu: 'En octobre' },
+                { type: 'radio', name: 'ex3_q5', val: 'B', pts: 2, label: 'Exercice 3 - Q5 : Lieu de travail Michel', displayVal: 'Option B (Dans un club de sport)' },
+
+                // EXERCICE 4
+                { type: 'radio', name: 'ex4_q1', val: 'B', pts: 2, label: 'Exercice 4 - Q1 : Soleil après-midi', displayVal: 'Option B (D\'aller dans un parc)' },
+                { type: 'text', id: 'ex4_q2', check: (v) => v.includes('carnavalet'), pts: 1, label: 'Exercice 4 - Q2 : Musée pluie', attendu: 'Musée Carnavalet' },
+                { type: 'radio', name: 'ex4_q3', val: 'A', pts: 1, label: 'Exercice 4 - Q3 : Soirée mauvais temps', displayVal: 'Option A (Théâtre)' },
+                { type: 'radio', name: 'ex4_q4', val: 'B', pts: 2, label: 'Exercice 4 - Q4 : Emplacement restaurant', displayVal: 'Option B (Des Champs-Élysées)' },
+                { type: 'text', id: 'ex4_q5', check: (v) => v.includes('127') || v.includes('bureau'), pts: 1, label: 'Exercice 4 - Q5 : Lieu de réservation', attendu: 'Au bureau 127' }
+            ];
+
+            let htmlDetail = '<div class="space-y-3">';
+
+            questions.forEach(q => {
+                let estCorrect = false;
+                let userDisplay = '';
+                let attenduDisplay = '';
+
+                if (q.type === 'radio') {
+                    const checked = document.querySelector(`input[name="${q.name}"]:checked`);
+                    const userVal = checked ? checked.value : '';
+                    estCorrect = (userVal === q.val);
+                    userDisplay = userVal ? `Option ${userVal}` : 'Aucune réponse';
+                    attenduDisplay = q.displayVal;
+                } else if (q.type === 'text') {
+                    const input = document.getElementById(q.id);
+                    const rawVal = input ? input.value.trim() : '';
+                    const cleanVal = rawVal.toLowerCase();
+                    estCorrect = rawVal !== '' && q.check(cleanVal);
+                    userDisplay = rawVal !== '' ? rawVal : 'Aucune réponse';
+                    attenduDisplay = q.attendu;
+                }
+
+                if (estCorrect) {
+                    score += q.pts;
+                    htmlDetail += `
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                            <div>
+                                <span class="font-bold">✔ ${q.label}</span>
+                                <span class="text-sm block text-green-700">Votre réponse : ${userDisplay}</span>
+                            </div>
+                            <span class="font-bold">+${q.pts} pt${q.pts > 1 ? 's' : ''}</span>
+                        </div>`;
+                } else {
+                    htmlDetail += `
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">✘ ${q.label}</span>
+                                <span class="font-bold">0 pt</span>
+                            </div>
+                            <div class="text-sm mt-1">
+                                <span>Votre réponse : <span class="font-semibold text-red-600">${userDisplay}</span></span> | 
+                                <span>Réponse attendue : <span class="font-semibold text-green-700">${attenduDisplay}</span></span>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            htmlDetail += '</div>';
+
+            // Affichage de la note finale et du rapport
+            document.getElementById('scoreTotal').innerText = `${score} / 25 points`;
+            document.getElementById('detailCorrection').innerHTML = htmlDetail;
+            document.getElementById('resultatCard').classList.remove('hidden');
+            
+            // Défilement automatique vers les résultats
+            document.getElementById('resultatCard').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
