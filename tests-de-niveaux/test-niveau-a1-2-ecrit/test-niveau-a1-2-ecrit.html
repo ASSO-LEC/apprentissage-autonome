@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELF A1 - Compréhension des Écrits</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+            --correct: #16a34a;
+            --incorrect: #dc2626;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .exercice-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .exercice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .exercice-header h2 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        .points {
+            font-weight: bold;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .consigne {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Document Styling */
+        .document-container {
+            background-color: #f9f9f9;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* Email style */
+        .email-box {
+            background-color: #d1e3ed;
+            border: 1px solid #a4c4d6;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: monospace;
+        }
+
+        .email-header-line {
+            margin-bottom: 5px;
+            background: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .email-body {
+            background: #fff;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 3px;
+            white-space: pre-line;
+        }
+
+        /* Notice Board style */
+        .board-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            background: #e2e1dd;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .note-card {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 4px;
+            width: calc(33% - 20px);
+            min-width: 200px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Questions */
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .question-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-left: 10px;
+        }
+
+        .options-group.horizontal {
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .option-item.image-option {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .option-item img {
+            max-width: 180px;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        /* Badges et Boutons */
+        .badge-correct {
+            background-color: #dcfce7;
+            color: var(--correct);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .badge-incorrect {
+            background-color: #fee2e2;
+            color: var(--incorrect);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #1a252f;
+        }
+
+        .btn-print {
+            background-color: #475569;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .btn-print:hover {
+            background-color: #334155;
+        }
+
+        .score-board {
+            display: none;
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .score-header {
+            text-align: center;
+        }
+
+        .score-board h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .score-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 10px 0;
+        }
+
+        .feedback-correct {
+            color: var(--correct);
+            font-weight: bold;
+        }
+
+        .feedback-incorrect {
+            color: var(--incorrect);
+            font-weight: bold;
+        }
+
+        /* Styles du Rapport */
+        .report-section {
+            margin-top: 24px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 18px;
+            text-align: left;
+        }
+
+        .report-section h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .report-table th, .report-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .report-table th {
+            background-color: #f1f5f9;
+        }
+
+        .report-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .report-list li {
+            background: #f8fafc;
+            border-left: 4px solid var(--incorrect);
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        @media print {
+            .btn-submit, .btn-print { display: none; }
+            body { background-color: white; }
+            .exercice-card { box-shadow: none; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>DELF A1 - Compréhension des Écrits</h1>
+
+    <!-- PANNEAU DE RÉSULTAT ET RAPPORT DE CORRECTION -->
+    <div id="score-board" class="score-board">
+        <div class="score-header">
+            <h2>Résultat du Test</h2>
+            <div id="score-number" class="score-number">0 / 25</div>
+            <p id="score-message"></p>
+        </div>
+
+        <div class="report-section">
+            <h3>Bilan par Exercice</h3>
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Exercice</th>
+                        <th>Score obtenu</th>
+                        <th>Score maximum</th>
+                        <th>Taux de réussite</th>
+                    </tr>
+                </thead>
+                <tbody id="report-summary-body"></tbody>
+            </table>
+
+            <h3>Détail des erreurs et corrections</h3>
+            <ul id="report-details-list" class="report-list"></ul>
+
+            <div style="text-align: center;">
+                <button type="button" class="btn-print" onclick="window.print()">Imprimer / Télécharger le rapport (PDF)</button>
+            </div>
+        </div>
+    </div>
+
+    <form id="quiz-form">
+        <!-- EXERCICE 1 -->
+        <section class="exercice-card">
+            <div class="exercice-header">
+                <h2>EXERCICE 1</h2>
+                <span class="points">6 points</span>
+            </div>
+            <p class="consigne">Vous recevez ce message de votre amie française. Répondez aux questions.</p>
+
+            <div class="document-container">
+                <div class="email-box">
+                    <div class="email-header-line"><strong>De :</strong> laure@mail.fr</div>
+                    <div class="email-header-line"><strong>Objet :</strong> Cet après-midi</div>
+                    <div class="email-body">Salut !
+Tu as du temps cet après-midi ? Je dois rester tard au bureau. Tu peux aller prendre mon fils à l'école à 16 h ? Vous pouvez aller au parc ou faire du vélo, Thomas adore ça ! J'arrive à la maison à 19 h, on peut manger ensemble ! Je ne peux pas répondre au téléphone, je finis la réunion à 18 h. Écris-moi un message.
+Un grand merci !
+Bises
+Laure</div>
+                </div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question" data-ex="1" data-label="Ex 1 - Q1 (Raison du message de Laure)" data-points="1" data-correct="B">
+                <div class="question-title">
+                    <span>1. Pourquoi est-ce que Laure vous écrit ? <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q1_1" value="A"> A. Elle veut faire du vélo.</label>
+                    <label class="option-item"><input type="radio" name="q1_1" value="B"> B. Elle doit travailler tard.</label>
+                    <label class="option-item"><input type="radio" name="q1_1" value="C"> C. Elle cherche un bureau.</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question" data-ex="1" data-label="Ex 1 - Q2 (Lieu de prise en charge de Thomas)" data-points="1" data-correct="B">
+                <div class="question-title">
+                    <span>2. Où est-ce que vous allez chercher Thomas ? <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q1_2" value="A"> A. Au parc.</label>
+                    <label class="option-item"><input type="radio" name="q1_2" value="B"> B. À l'école.</label>
+                    <label class="option-item"><input type="radio" name="q1_2" value="C"> C. À la maison.</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question" data-ex="1" data-label="Ex 1 - Q3 (Activité préférée de Thomas)" data-points="1.5" data-correct="A">
+                <div class="question-title">
+                    <span>3. Qu'est-ce que Thomas aime faire ? <span class="result-badge"></span></span>
+                    <span class="points">1,5 point</span>
+                </div>
+                <div class="options-group horizontal">
+                    <label class="option-item image-option">
+                        <img src="images/ex1-q3-a.jpg" alt="Faire du vélo">
+                        <span><input type="radio" name="q1_3" value="A"> A</span>
+                    </label>
+                    <label class="option-item image-option">
+                        <img src="images/ex1-q3-b.jpg" alt="Jouer au tennis">
+                        <span><input type="radio" name="q1_3" value="B"> B</span>
+                    </label>
+                    <label class="option-item image-option">
+                        <img src="images/ex1-q3-c.jpg" alt="Jouer au football">
+                        <span><input type="radio" name="q1_3" value="C"> C</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question" data-ex="1" data-label="Ex 1 - Q4 (Heure de retour de Laure)" data-points="1.5" data-correct="C">
+                <div class="question-title">
+                    <span>4. À quelle heure Laure est-elle chez elle ? <span class="result-badge"></span></span>
+                    <span class="points">1,5 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q1_4" value="A"> A. À 16 heures.</label>
+                    <label class="option-item"><input type="radio" name="q1_4" value="B"> B. À 18 heures.</label>
+                    <label class="option-item"><input type="radio" name="q1_4" value="C"> C. À 19 heures.</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question" data-ex="1" data-label="Ex 1 - Q5 (Moyen de contact avec Laure)" data-points="1" data-correct="C">
+                <div class="question-title">
+                    <span>5. Comment devez-vous contacter Laure ? <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group horizontal">
+                    <label class="option-item image-option">
+                        <img src="images/ex1-q5-a.jpg" alt="Téléphoner">
+                        <span><input type="radio" name="q1_5" value="A"> A</span>
+                    </label>
+                    <label class="option-item image-option">
+                        <img src="images/ex1-q5-b.jpg" alt="Aller à l'accueil">
+                        <span><input type="radio" name="q1_5" value="B"> B</span>
+                    </label>
+                    <label class="option-item image-option">
+                        <img src="images/ex1-q5-c.jpg" alt="Envoyer un message">
+                        <span><input type="radio" name="q1_5" value="C"> C</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- EXERCICE 2 -->
+        <section class="exercice-card">
+            <div class="exercice-header">
+                <h2>EXERCICE 2</h2>
+                <span class="points">6 points</span>
+            </div>
+            <p class="consigne">Vous êtes en France, dans une école de langues. Vous lisez le panneau suivant. Répondez aux questions.</p>
+
+            <div class="document-container" style="text-align: center;">
+                <h3>COURS DE FRANÇAIS</h3>
+                <p><strong>À partir du 1<sup>er</sup> septembre, le bureau des inscriptions a une nouvelle adresse :</strong><br>
+                35 rue Pierre Dupré (à la sortie du bâtiment, tourner à gauche, prendre la 2<sup>e</sup> rue à droite, puis continuer tout droit)<br>
+                et un nouveau numéro de téléphone : 06 12 15 18 99.</p>
+                <p>Pour vous inscrire, venez nous voir.<br>
+                Pour le premier cours, apportez une pièce d'identité.</p>
+                <p><strong>Horaires d'ouverture</strong><br>
+                Du lundi au vendredi : 9 h - 12 h et 12 h 30 - 17 h<br>
+                <a href="mailto:cours@francais.com">cours@francais.com</a></p>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question" data-ex="2" data-label="Ex 2 - Q1 (Itinéraire bureau des inscriptions)" data-points="2" data-correct="A">
+                <div class="question-title">
+                    <span>1. Quel chemin prendre pour aller au bureau des inscriptions ? <span class="result-badge"></span></span>
+                    <span class="points">2 points</span>
+                </div>
+                <div class="options-group horizontal">
+                    <label class="option-item image-option">
+                        <img src="images/ex2-q1-a.jpg" alt="Plan A">
+                        <span><input type="radio" name="q2_1" value="A"> A</span>
+                    </label>
+                    <label class="option-item image-option">
+                        <img src="images/ex2-q1-b.jpg" alt="Plan B">
+                        <span><input type="radio" name="q2_1" value="B"> B</span>
+                    </label>
+                    <label class="option-item image-option">
+                        <img src="images/ex2-q1-c.jpg" alt="Plan C">
+                        <span><input type="radio" name="q2_1" value="C"> C</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question" data-ex="2" data-label="Ex 2 - Q2 (Changement au bureau des inscriptions)" data-points="1" data-correct="A">
+                <div class="question-title">
+                    <span>2. Qu'est-ce qui change au bureau des inscriptions ? <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q2_2" value="A"> A. Le numéro de téléphone.</label>
+                    <label class="option-item"><input type="radio" name="q2_2" value="B"> B. Les horaires d'ouverture.</label>
+                    <label class="option-item"><input type="radio" name="q2_2" value="C"> C. Le prix des cours de français.</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question" data-ex="2" data-label="Ex 2 - Q3 (Procédure d'inscription)" data-points="1" data-correct="B">
+                <div class="question-title">
+                    <span>3. Pour s'inscrire au cours, il faut... <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q2_3" value="A"> A. Téléphoner.</label>
+                    <label class="option-item"><input type="radio" name="q2_3" value="B"> B. Aller sur place.</label>
+                    <label class="option-item"><input type="radio" name="q2_3" value="C"> C. Envoyer un mail.</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question" data-ex="2" data-label="Ex 2 - Q4 (Document à apporter premier cours)" data-points="1" data-correct="B">
+                <div class="question-title">
+                    <span>4. Pour le premier cours, vous devez prendre... <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q2_4" value="A"> A. Votre diplôme.</label>
+                    <label class="option-item"><input type="radio" name="q2_4" value="B"> B. Votre passeport (pièce d'identité).</label>
+                    <label class="option-item"><input type="radio" name="q2_4" value="C"> C. Votre carte bancaire.</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question" data-ex="2" data-label="Ex 2 - Q5 (Heure d'ouverture du bureau)" data-points="1" data-correct="A">
+                <div class="question-title">
+                    <span>5. À quelle heure ouvre le bureau des inscriptions ? <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q2_5" value="A"> A. À 9 heures.</label>
+                    <label class="option-item"><input type="radio" name="q2_5" value="B"> B. À 12 heures.</label>
+                    <label class="option-item"><input type="radio" name="q2_5" value="C"> C. À 17 heures.</label>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- EXERCICE 3 -->
+        <section class="exercice-card">
+            <div class="exercice-header">
+                <h2>EXERCICE 3</h2>
+                <span class="points">6 points</span>
+            </div>
+            <p class="consigne">Vous travaillez en France. Vous lisez ces annonces sur le panneau d'affichage de votre entreprise. Répondez aux questions.</p>
+
+            <div class="document-container">
+                <div class="board-container">
+                    <div class="note-card">
+                        <strong>Cours de piano en ligne</strong><br>
+                        pendant les pauses déjeuner.<br>
+                        (1 cours = 30 minutes)<br>
+                        <small>www.apprenez-a-jouer.fr</small>
+                    </div>
+                    <div class="note-card">
+                        <strong>Ciné-club</strong><br>
+                        tous les premiers samedis du mois à 20 h.<br>
+                        <small>cinema.ensemble@net.fr</small>
+                    </div>
+                    <div class="note-card">
+                        <strong>Cours de tennis</strong><br>
+                        du lundi 12 au dimanche 18 novembre, de 18 h à 20 h.<br>
+                        Écrivez-nous sur :<br>
+                        <small>bouge@net.fr</small>
+                    </div>
+                    <div class="note-card">
+                        <strong>Appartements à louer.</strong><br>
+                        Visites tous les samedis entre 10 h et 15 h (1 heure par visite).<br>
+                        <small>jedemenage@net.fr</small>
+                    </div>
+                    <div class="note-card">
+                        <strong>Atelier de conversation en anglais.</strong><br>
+                        Le vendredi de 18 h à 20 h, au Café des Langues !
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question" data-ex="3" data-label="Ex 3 - Q1 (Activité mensuelle)" data-points="1" data-correct="A">
+                <div class="question-title">
+                    <span>1. Que pouvez-vous faire une fois par mois ? <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q3_1" value="A"> A. Voir un film (Ciné-club).</label>
+                    <label class="option-item"><input type="radio" name="q3_1" value="B"> B. Parler en anglais.</label>
+                    <label class="option-item"><input type="radio" name="q3_1" value="C"> C. Apprendre la musique.</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question" data-ex="3" data-label="Ex 3 - Q2 (Moment des cours de musique)" data-points="1" data-correct="B">
+                <div class="question-title">
+                    <span>2. Quand pouvez-vous prendre des cours de musique ? <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q3_2" value="A"> A. Le matin.</label>
+                    <label class="option-item"><input type="radio" name="q3_2" value="B"> B. Le midi (pause déjeuner).</label>
+                    <label class="option-item"><input type="radio" name="q3_2" value="C"> C. Le soir.</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question" data-ex="3" data-label="Ex 3 - Q3 (Heure de début de l'atelier d'anglais)" data-points="1" data-correct="B">
+                <div class="question-title">
+                    <span>3. À quelle heure commence l'atelier de conversation ? <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q3_3" value="A"> A. À 10 heures.</label>
+                    <label class="option-item"><input type="radio" name="q3_3" value="B"> B. À 18 heures.</label>
+                    <label class="option-item"><input type="radio" name="q3_3" value="C"> C. À 20 heures.</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question" data-ex="3" data-label="Ex 3 - Q4 (Activité du samedi)" data-points="1.5" data-correct="B">
+                <div class="question-title">
+                    <span>4. Que pouvez-vous faire le samedi ? <span class="result-badge"></span></span>
+                    <span class="points">1,5 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q3_4" value="A"> A. Travailler au restaurant.</label>
+                    <label class="option-item"><input type="radio" name="q3_4" value="B"> B. Visiter des appartements.</label>
+                    <label class="option-item"><input type="radio" name="q3_4" value="C"> C. Faire une activité sportive.</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question" data-ex="3" data-label="Ex 3 - Q5 (Heure de fin du cours de sport)" data-points="1.5" data-correct="C">
+                <div class="question-title">
+                    <span>5. À quelle heure finit le cours de sport ? <span class="result-badge"></span></span>
+                    <span class="points">1,5 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q3_5" value="A"> A. À 16 heures.</label>
+                    <label class="option-item"><input type="radio" name="q3_5" value="B"> B. À 18 heures.</label>
+                    <label class="option-item"><input type="radio" name="q3_5" value="C"> C. À 20 heures.</label>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- EXERCICE 4 -->
+        <section class="exercice-card">
+            <div class="exercice-header">
+                <h2>EXERCICE 4</h2>
+                <span class="points">7 points</span>
+            </div>
+            <p class="consigne">Vous lisez cet article dans un journal francophone. Répondez aux questions.</p>
+
+            <div class="document-container">
+                <h3 style="color: var(--accent-color); text-transform: uppercase;">Visitez le Liliom !</h3>
+                <p>Comme chaque année, au mois de novembre, nous vous invitons à la Journée Portes ouvertes du <em>Liliom</em>, le plus vieux cinéma de la ville. Lundi prochain, de 10 h à 19 h, venez voir des grands films et parlez avec vos acteurs préférés ! Vous pouvez vous prendre en photo avec eux, faire des vidéos et les voir jouer. Attention, vous ne pouvez pas téléphoner ou manger dans le cinéma ! Vous êtes intéressé ? Pour réserver, téléphonez-nous avant jeudi.</p>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question" data-ex="4" data-label="Ex 4 - Q1 (Fréquence des visites)" data-points="1" data-correct="C">
+                <div class="question-title">
+                    <span>1. On peut visiter le Liliom... <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q4_1" value="A"> A. une fois par semaine.</label>
+                    <label class="option-item"><input type="radio" name="q4_1" value="B"> B. une fois par mois.</label>
+                    <label class="option-item"><input type="radio" name="q4_1" value="C"> C. une fois par an.</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question" data-ex="4" data-label="Ex 4 - Q2 (Durée de la Journée Portes Ouvertes)" data-points="1" data-correct="A">
+                <div class="question-title">
+                    <span>2. Pendant combien de temps le Liliom est-il ouvert aux visiteurs ? <span class="result-badge"></span></span>
+                    <span class="points">1 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q4_2" value="A"> A. Un jour.</label>
+                    <label class="option-item"><input type="radio" name="q4_2" value="B"> B. Deux jours.</label>
+                    <label class="option-item"><input type="radio" name="q4_2" value="C"> C. Trois jours.</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question" data-ex="4" data-label="Ex 4 - Q3 (Activité possible au cinéma)" data-points="1.5" data-correct="A">
+                <div class="question-title">
+                    <span>3. Au Liliom, les visiteurs peuvent aussi... <span class="result-badge"></span></span>
+                    <span class="points">1,5 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q4_3" value="A"> A. rencontrer des acteurs.</label>
+                    <label class="option-item"><input type="radio" name="q4_3" value="B"> B. prendre un cours de cinéma.</label>
+                    <label class="option-item"><input type="radio" name="q4_3" value="C"> C. voir une exposition de photos.</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question" data-ex="4" data-label="Ex 4 - Q4 (Autorisation dans le cinéma)" data-points="2" data-correct="B">
+                <div class="question-title">
+                    <span>4. Qu'est-ce que vous pouvez faire dans le cinéma ? <span class="result-badge"></span></span>
+                    <span class="points">2 points</span>
+                </div>
+                <div class="options-group horizontal">
+                    <label class="option-item image-option">
+                        <img src="images/ex4-q4-a.jpg" alt="Téléphoner">
+                        <span><input type="radio" name="q4_4" value="A"> A</span>
+                    </label>
+                    <label class="option-item image-option">
+                        <img src="images/ex4-q4-b.jpg" alt="Prendre des photos">
+                        <span><input type="radio" name="q4_4" value="B"> B</span>
+                    </label>
+                    <label class="option-item image-option">
+                        <img src="images/ex4-q4-c.jpg" alt="Manger du popcorn">
+                        <span><input type="radio" name="q4_4" value="C"> C</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question" data-ex="4" data-label="Ex 4 - Q5 (Moyen de réservation)" data-points="1.5" data-correct="C">
+                <div class="question-title">
+                    <span>5. Comment est-ce que vous réservez ? <span class="result-badge"></span></span>
+                    <span class="points">1,5 point</span>
+                </div>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="q4_5" value="A"> A. par mail.</label>
+                    <label class="option-item"><input type="radio" name="q4_5" value="B"> B. sur place.</label>
+                    <label class="option-item"><input type="radio" name="q4_5" value="C"> C. par téléphone.</label>
+                </div>
+            </div>
+        </section>
+
+        <div class="btn-container">
+            <button type="button" class="btn-submit" onclick="validateQuiz()">Valider les réponses et générer le rapport</button>
+        </div>
+    </form>
+</div>
+
+<script>
+  function validateQuiz() {
+    let totalScore = 0;
+    const maxScore = 25;
+
+    const exScores = {
+      1: { score: 0, max: 6 },
+      2: { score: 0, max: 6 },
+      3: { score: 0, max: 6 },
+      4: { score: 0, max: 7 }
+    };
+
+    const errorsList = [];
+
+    // Réinitialiser les badges
+    document.querySelectorAll('.result-badge').forEach(b => b.innerHTML = '');
+
+    // Correction de toutes les questions
+    document.querySelectorAll('.question').forEach(q => {
+      const exNum = parseInt(q.dataset.ex);
+      const label = q.dataset.label;
+      const correctOption = q.dataset.correct;
+      const points = parseFloat(q.dataset.points);
+      const badgeSpan = q.querySelector('.result-badge');
+      const selected = q.querySelector('input[type="radio"]:checked');
+
+      if (selected) {
+        if (selected.value === correctOption) {
+          totalScore += points;
+          exScores[exNum].score += points;
+          badgeSpan.innerHTML = `<span class="badge-correct">✓ Exact (+${points} pt)</span>`;
+        } else {
+          badgeSpan.innerHTML = `<span class="badge-incorrect">✗ Incorrect (Réponse : ${correctOption})</span>`;
+          errorsList.push({
+            question: label,
+            userAns: selected.value,
+            correctAns: correctOption
+          });
+        }
+      } else {
+        badgeSpan.innerHTML = `<span class="badge-incorrect">Non répondu (Réponse : ${correctOption})</span>`;
+        errorsList.push({
+          question: label,
+          userAns: "Aucune réponse",
+          correctAns: correctOption
+        });
+      }
+    });
+
+    // Synthèse par exercice
+    const tbody = document.getElementById('report-summary-body');
+    tbody.innerHTML = '';
+    for (let i = 1; i <= 4; i++) {
+      const row = document.createElement('tr');
+      const pct = Math.round((exScores[i].score / exScores[i].max) * 100);
+      row.innerHTML = `
+        <td><strong>Exercice ${i}</strong></td>
+        <td>${exScores[i].score} pt(s)</td>
+        <td>${exScores[i].max} pts</td>
+        <td>${pct}%</td>
+      `;
+      tbody.appendChild(row);
+    }
+
+    // Liste détaillée des erreurs
+    const detailsList = document.getElementById('report-details-list');
+    detailsList.innerHTML = '';
+
+    if (errorsList.length === 0) {
+      detailsList.innerHTML = '<li style="border-left-color: var(--correct); font-weight: bold; color: var(--correct);">Félicitations ! Parfait, vous n\'avez commis aucune erreur.</li>';
+    } else {
+      errorsList.forEach(err => {
+        const item = document.createElement('li');
+        item.innerHTML = `<strong>${err.question} :</strong> Votre réponse : <em>${err.userAns}</em> | Bonne réponse : <strong>${err.correctAns}</strong>`;
+        detailsList.appendChild(item);
+      });
+    }
+
+    // Affichage du tableau de bord
+    const scoreBoard = document.getElementById('score-board');
+    const scoreNum = document.getElementById('score-number');
+    const scoreMsg = document.getElementById('score-message');
+
+    scoreNum.textContent = `${totalScore} / ${maxScore}`;
+    scoreBoard.style.display = 'block';
+
+    if (totalScore >= 12.5) {
+      scoreMsg.textContent = "Félicitations, vous avez réussi cette épreuve de compréhension des écrits !";
+      scoreMsg.className = "feedback-correct";
+    } else {
+      scoreMsg.textContent = "Niveau insuffisant (note sous le seuil de 50%). Entraînez-vous encore !";
+      scoreMsg.className = "feedback-incorrect";
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
