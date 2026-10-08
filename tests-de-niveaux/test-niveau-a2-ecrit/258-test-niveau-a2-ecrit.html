@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DELF A2 - Compréhension des Écrits</title>
+  <style>
+    :root {
+      --primary: #0055a5;
+      --primary-hover: #003d78;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --border: #cbd5e1;
+      --correct: #16a34a;
+      --incorrect: #dc2626;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0 0 8px 0;
+      font-size: 1.8rem;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .exercise {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .exercise-title {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-top: 0;
+      margin-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+    }
+
+    .exercise-instruction {
+      font-style: italic;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+
+    .doc-block {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .doc-title {
+      font-weight: bold;
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #334155;
+    }
+
+    .doc-content {
+      background-color: #ffffff;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+
+    .question:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .question-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option-card {
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #fff;
+    }
+
+    .option-card:hover {
+      border-color: var(--primary);
+      background-color: #f0f7ff;
+    }
+
+    .option-card img {
+      max-width: 100%;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 8px;
+      border-radius: 4px;
+    }
+
+    .option-card label {
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .radio-option:hover {
+      background-color: #f1f5f9;
+    }
+
+    .radio-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .matching-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      overflow-x: auto;
+      display: block;
+    }
+
+    .matching-table th, .matching-table td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: center;
+    }
+
+    .matching-table th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .matching-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      min-width: 200px;
+    }
+
+    .btn-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-print {
+      background-color: #475569;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .btn-print:hover {
+      background-color: #334155;
+    }
+
+    .score-board {
+      display: none;
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .score-header {
+      text-align: center;
+    }
+
+    .score-board h2 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .score-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--text);
+      margin: 10px 0;
+    }
+
+    .feedback-correct {
+      color: var(--correct);
+      font-weight: bold;
+    }
+
+    .feedback-incorrect {
+      color: var(--incorrect);
+      font-weight: bold;
+    }
+
+    .badge-correct {
+      background-color: #dcfce7;
+      color: var(--correct);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
+    .badge-incorrect {
+      background-color: #fee2e2;
+      color: var(--incorrect);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
+    /* Style du Rapport */
+    .report-section {
+      margin-top: 24px;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 18px;
+      text-align: left;
+    }
+
+    .report-section h3 {
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .report-table th, .report-table td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+    }
+
+    .report-table th {
+      background-color: #f1f5f9;
+    }
+
+    .report-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .report-list li {
+      background: #f8fafc;
+      border-left: 4px solid var(--incorrect);
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .img-center {
+      display: block;
+      margin: 0 auto 15px auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    @media print {
+      .btn-submit, .btn-print { display: none; }
+      body { background-color: white; }
+      .exercise { box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>DELF A2 Tout Public — Épreuve Écrite</h1>
+    <p>Compréhension des écrits (25 points)</p>
+  </header>
+
+  <!-- PANNEAU DE RÉSULTAT ET RAPPORT -->
+  <div id="score-board" class="score-board">
+    <div class="score-header">
+      <h2>Résultat de l'Épreuve</h2>
+      <div id="score-number" class="score-number">0 / 25</div>
+      <p id="score-message"></p>
+    </div>
+
+    <!-- Rapport synthétique -->
+    <div class="report-section">
+      <h3>Bilan par Exercice</h3>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Exercice</th>
+            <th>Score obtenu</th>
+            <th>Score maximum</th>
+            <th>Taux de réussite</th>
+          </tr>
+        </thead>
+        <tbody id="report-summary-body"></tbody>
+      </table>
+
+      <h3>Détail des erreurs et corrections</h3>
+      <ul id="report-details-list" class="report-list"></ul>
+
+      <div style="text-align: center;">
+        <button type="button" class="btn-print" onclick="window.print()">Imprimer / Télécharger le rapport (PDF)</button>
+      </div>
+    </div>
+  </div>
+
+  <form id="quiz-form">
+
+    <!-- EXERCICE 1 -->
+    <div class="exercise">
+      <h2 class="exercise-title">EXERCICE 1 (6 points)</h2>
+      <p class="exercise-instruction">Vous voulez offrir un livre à vos amis français. Vous lisez cette publicité. Associez chaque document à la personne correspondante. Attention : il y a 8 personnes mais seulement 6 documents.</p>
+
+      <div class="doc-block">
+        <p><strong>Document 1 :</strong> <em>Beau jeu</em> de Mike Powell — Ce livre montre l'ambiance des compétitions sportives au plus près de l'action, des spectateurs et des sportifs.</p>
+        <p><strong>Document 2 :</strong> <em>Juste une casserole</em> de Sabrina Fauda-Rôle — Le livre idéal pour les cuisiniers débutants qui ont seulement une casserole !</p>
+        <p><strong>Document 3 :</strong> <em>Guide du comédien</em> d'Alain Hegel et Éric Normand — Un livre de conseils pour tous ceux qui veulent devenir acteurs... et les autres.</p>
+        <p><strong>Document 4 :</strong> <em>J'élève mon enfant</em> de Laurence Pernoud — Votre enfant vient de naître et vous vous posez des questions sur son sommeil, son alimentation...</p>
+        <p><strong>Document 5 :</strong> <em>Paradis blanc</em> de Li Gang — Un beau livre pour les amoureux de la nature. De magnifiques photos de chevaux et d'oiseaux sauvages.</p>
+        <p><strong>Document 6 :</strong> <em>Transsibérien</em> de Marc Di Duca — Vivez une aventure magique, à bord de ce train unique qui traverse 3 pays : Chine, Russie, Mongolie.</p>
+      </div>
+
+      <table class="matching-table">
+        <thead>
+          <tr>
+            <th>Personnes</th>
+            <th>Doc 1<br>(1,5 pt)</th>
+            <th>Doc 2<br>(1,5 pt)</th>
+            <th>Doc 3<br>(0,5 pt)</th>
+            <th>Doc 4<br>(1 pt)</th>
+            <th>Doc 5<br>(1 pt)</th>
+            <th>Doc 6<br>(0,5 pt)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-question" data-ex="1" data-label="A. Gladys (bébé)" data-name="ex1_pA" data-points="1" data-correct="4">
+            <td>A. Gladys attend un bébé. <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex1_pA" value="1"></td>
+            <td><input type="radio" name="ex1_pA" value="2"></td>
+            <td><input type="radio" name="ex1_pA" value="3"></td>
+            <td><input type="radio" name="ex1_pA" value="4"></td>
+            <td><input type="radio" name="ex1_pA" value="5"></td>
+            <td><input type="radio" name="ex1_pA" value="6"></td>
+          </tr>
+          <tr class="table-question" data-ex="1" data-label="B. Simon (russe)" data-name="ex1_pB" data-points="0" data-correct="none">
+            <td>B. Simon apprend le russe. <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex1_pB" value="1"></td>
+            <td><input type="radio" name="ex1_pB" value="2"></td>
+            <td><input type="radio" name="ex1_pB" value="3"></td>
+            <td><input type="radio" name="ex1_pB" value="4"></td>
+            <td><input type="radio" name="ex1_pB" value="5"></td>
+            <td><input type="radio" name="ex1_pB" value="6"></td>
+          </tr>
+          <tr class="table-question" data-ex="1" data-label="C. Vincent (animaux)" data-name="ex1_pC" data-points="1" data-correct="5">
+            <td>C. Vincent adore les animaux. <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex1_pC" value="1"></td>
+            <td><input type="radio" name="ex1_pC" value="2"></td>
+            <td><input type="radio" name="ex1_pC" value="3"></td>
+            <td><input type="radio" name="ex1_pC" value="4"></td>
+            <td><input type="radio" name="ex1_pC" value="5"></td>
+            <td><input type="radio" name="ex1_pC" value="6"></td>
+          </tr>
+          <tr class="table-question" data-ex="1" data-label="D. Paul (voyages)" data-name="ex1_pD" data-points="0.5" data-correct="6">
+            <td>D. Paul est passionné de voyages. <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex1_pD" value="1"></td>
+            <td><input type="radio" name="ex1_pD" value="2"></td>
+            <td><input type="radio" name="ex1_pD" value="3"></td>
+            <td><input type="radio" name="ex1_pD" value="4"></td>
+            <td><input type="radio" name="ex1_pD" value="5"></td>
+            <td><input type="radio" name="ex1_pD" value="6"></td>
+          </tr>
+          <tr class="table-question" data-ex="1" data-label="E. Lucie (théâtre)" data-name="ex1_pE" data-points="0.5" data-correct="3">
+            <td>E. Lucie prend des cours de théâtre. <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex1_pE" value="1"></td>
+            <td><input type="radio" name="ex1_pE" value="2"></td>
+            <td><input type="radio" name="ex1_pE" value="3"></td>
+            <td><input type="radio" name="ex1_pE" value="4"></td>
+            <td><input type="radio" name="ex1_pE" value="5"></td>
+            <td><input type="radio" name="ex1_pE" value="6"></td>
+          </tr>
+          <tr class="table-question" data-ex="1" data-label="F. François (maison)" data-name="ex1_pF" data-points="0" data-correct="none">
+            <td>F. François veut acheter une maison. <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex1_pF" value="1"></td>
+            <td><input type="radio" name="ex1_pF" value="2"></td>
+            <td><input type="radio" name="ex1_pF" value="3"></td>
+            <td><input type="radio" name="ex1_pF" value="4"></td>
+            <td><input type="radio" name="ex1_pF" value="5"></td>
+            <td><input type="radio" name="ex1_pF" value="6"></td>
+          </tr>
+          <tr class="table-question" data-ex="1" data-label="G. Odile (foot)" data-name="ex1_pG" data-points="1.5" data-correct="1">
+            <td>G. Odile est présidente d'un club de foot. <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex1_pG" value="1"></td>
+            <td><input type="radio" name="ex1_pG" value="2"></td>
+            <td><input type="radio" name="ex1_pG" value="3"></td>
+            <td><input type="radio" name="ex1_pG" value="4"></td>
+            <td><input type="radio" name="ex1_pG" value="5"></td>
+            <td><input type="radio" name="ex1_pG" value="6"></td>
+          </tr>
+          <tr class="table-question" data-ex="1" data-label="H. Mario (cuisine)" data-name="ex1_pH" data-points="1.5" data-correct="2">
+            <td>H. Mario commence des cours de cuisine. <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex1_pH" value="1"></td>
+            <td><input type="radio" name="ex1_pH" value="2"></td>
+            <td><input type="radio" name="ex1_pH" value="3"></td>
+            <td><input type="radio" name="ex1_pH" value="4"></td>
+            <td><input type="radio" name="ex1_pH" value="5"></td>
+            <td><input type="radio" name="ex1_pH" value="6"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- EXERCICE 2 -->
+    <div class="exercise">
+      <h2 class="exercise-title">EXERCICE 2 (6 points)</h2>
+      <p class="exercise-instruction">Vous habitez en France. Vous lisez ce message à l'entrée de votre immeuble.</p>
+
+      <div class="doc-block">
+        <div class="doc-content">
+          <p><strong>Chers voisins,</strong></p>
+          <p>Le beau temps est enfin de retour ! Pour fêter l'arrivée de l'été, nous vous proposons de nous retrouver entre voisins dimanche soir dans le jardin public, derrière la cour de l'immeuble. Si vous voulez venir, pourriez-vous mettre votre nom sur cette liste ?</p>
+          <p>Nous nous occupons des boissons et des pizzas, apportez votre verre et vos couverts. Et merci aux personnes qui ont le temps de cuisiner de venir avec des pâtisseries à partager. Après dîner, nous ferons des jeux, nous chanterons et nous danserons. Attention : les jeux de ballon ne seront pas autorisés le jour de la fête mais les animaux de compagnie sont les bienvenus.</p>
+          <p>Nous cherchons quelqu'un à 16 h, dimanche, pour installer avec nous les chaises et les tables. Merci d'envoyer un message au 06 78 98 00 21 avant vendredi.</p>
+          <p><em>La famille Bichat</em></p>
+        </div>
+      </div>
+
+      <div class="question" data-ex="2" data-label="Ex 2 - Q1 (Raison de la fête)" data-points="1" data-correct="C">
+        <div class="question-title">1. On vous invite à une fête pour... (1 point) <span class="result-badge"></span></div>
+        <div class="options">
+          <label class="radio-option"><input type="radio" name="ex2_q1" value="A"> A. le début des vacances.</label>
+          <label class="radio-option"><input type="radio" name="ex2_q1" value="B"> B. le départ de vos voisins.</label>
+          <label class="radio-option"><input type="radio" name="ex2_q1" value="C"> C. le changement de saison.</label>
+        </div>
+      </div>
+
+      <div class="question" data-ex="2" data-label="Ex 2 - Q2 (Lieu de la fête)" data-points="1" data-correct="A">
+        <div class="question-title">2. Où est la fête ? (1 point) <span class="result-badge"></span></div>
+        <div class="options">
+          <label class="radio-option"><input type="radio" name="ex2_q2" value="A"> A. Dans un parc de la ville.</label>
+          <label class="radio-option"><input type="radio" name="ex2_q2" value="B"> B. Dans la cour de l'immeuble.</label>
+          <label class="radio-option"><input type="radio" name="ex2_q2" value="C"> C. Dans l'appartement des voisins.</label>
+        </div>
+      </div>
+
+      <div class="question" data-ex="2" data-label="Ex 2 - Q3 (Condition de participation)" data-points="1" data-correct="A">
+        <div class="question-title">3. Pour aller à la fête, vous devez d'abord... (1 point) <span class="result-badge"></span></div>
+        <div class="options">
+          <label class="radio-option"><input type="radio" name="ex2_q3" value="A"> A. remplir un document.</label>
+          <label class="radio-option"><input type="radio" name="ex2_q3" value="B"> B. répondre à ce message.</label>
+          <label class="radio-option"><input type="radio" name="ex2_q3" value="C"> C. téléphoner à vos voisins.</label>
+        </div>
+      </div>
+
+      <div class="question" data-ex="2" data-label="Ex 2 - Q4 (Objets à apporter)" data-points="1" data-correct="A">
+        <div class="question-title">4. Que devez-vous apporter ? (1 point) <span class="result-badge"></span></div>
+        <div class="options-grid">
+          <div class="option-card">
+            <img src="images/ex2_q4_a.jpg" alt="Verre et couverts">
+            <label><input type="radio" name="ex2_q4" value="A"> A</label>
+          </div>
+          <div class="option-card">
+            <img src="images/ex2_q4_b.jpg" alt="Boissons">
+            <label><input type="radio" name="ex2_q4" value="B"> B</label>
+          </div>
+          <div class="option-card">
+            <img src="images/ex2_q4_c.jpg" alt="Pizzas">
+            <label><input type="radio" name="ex2_q4" value="C"> C</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="question" data-ex="2" data-label="Ex 2 - Q5 (Interdiction)" data-points="1" data-correct="B">
+        <div class="question-title">5. Qu'est-ce qui est interdit pendant la fête ? (1 point) <span class="result-badge"></span></div>
+        <div class="options-grid">
+          <div class="option-card">
+            <img src="images/ex2_q5_a.jpg" alt="Animaux interdits">
+            <label><input type="radio" name="ex2_q5" value="A"> A</label>
+          </div>
+          <div class="option-card">
+            <img src="images/ex2_q5_b.jpg" alt="Jeux de ballon interdits">
+            <label><input type="radio" name="ex2_q5" value="B"> B</label>
+          </div>
+          <div class="option-card">
+            <img src="images/ex2_q5_c.jpg" alt="Musique interdite">
+            <label><input type="radio" name="ex2_q5" value="C"> C</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="question" data-ex="2" data-label="Ex 2 - Q6 (Aide demandée)" data-points="1" data-correct="A">
+        <div class="question-title">6. Qu'est-ce qu'on vous demande de faire dimanche après-midi ? (1 point) <span class="result-badge"></span></div>
+        <div class="options">
+          <label class="radio-option"><input type="radio" name="ex2_q6" value="A"> A. Aider les voisins.</label>
+          <label class="radio-option"><input type="radio" name="ex2_q6" value="B"> B. Apporter le repas.</label>
+          <label class="radio-option"><input type="radio" name="ex2_q6" value="C"> C. Organiser les activités.</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCICE 3 -->
+    <div class="exercise">
+      <h2 class="exercise-title">EXERCICE 3 (6 points)</h2>
+      <p class="exercise-instruction">Vous travaillez dans une boulangerie. Vous lisez ces documents.</p>
+
+      <!-- Document 1 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 1 : Règles de propreté</div>
+        <div class="doc-content">
+          <p><strong>À votre arrivée au travail :</strong></p>
+          <ul>
+            <li>nettoyez-vous bien les mains à l'eau et au savon dans la salle d'eau ;</li>
+            <li>mettez votre tenue de travail : protection sur les cheveux, chaussures et uniforme ;</li>
+            <li>rangez vos affaires personnelles dans le placard de la salle de repos des employés.</li>
+          </ul>
+          <p>Vous pouvez trouver des vêtements de travail propres à l'accueil.<br>Certains postes de travail nécessitent de porter des gants.</p>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q1 (Action prioritaire)" data-points="0.5" data-correct="B">
+          <div class="question-title">1. Quand vous arrivez au travail, que devez-vous faire en premier ? (0,5 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q1" value="A"> A. Mettre des gants.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q1" value="B"> B. Vous laver les mains.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q1" value="C"> C. Attacher vos cheveux.</label>
+          </div>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q2 (Rangement affaires)" data-points="2" data-correct="B">
+          <div class="question-title">2. Où pouvez-vous mettre vos vêtements et objets personnels ? (2 points) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q2" value="A"> A. À l'accueil.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q2" value="B"> B. En salle de pause.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q2" value="C"> C. Dans la salle d'eau.</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Document 2 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 2 : Note de service</div>
+        <div class="doc-content">
+          <p>Bonjour,</p>
+          <p>Merci de me remplacer pour servir les clients au magasin. Tous les prix sont affichés, mais si besoin, j'ai mis la liste des prix à côté de la caisse. Pour rappel, les chèques ne sont pas acceptés.</p>
+          <p>Madame Sanchez va passer prendre un gâteau au chocolat vers 10 h, elle a déjà payé (le ticket de caisse est près du téléphone). Le gâteau est dans le frigo.</p>
+          <p>Merci !<br><em>Sylvie</em></p>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q3 (Emplacement liste prix)" data-points="0.5" data-correct="B">
+          <div class="question-title">3. La liste des prix des produits est à côté... (0,5 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q3" value="A"> A. du frigo.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q3" value="B"> B. de la caisse.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q3" value="C"> C. du téléphone.</label>
+          </div>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q4 (Objet de la visite client)" data-points="1" data-correct="C">
+          <div class="question-title">4. Une cliente doit venir pour... (1 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q4" value="A"> A. payer.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q4" value="B"> B. passer une commande.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q4" value="C"> C. chercher une commande.</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Document 3 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 3 : Mode d'emploi — machine pour faire des glaces</div>
+        <div class="doc-content">
+          <ol>
+            <li>Mélangez le lait, la crème, les jaunes d'œufs et le sucre.</li>
+            <li>Ajoutez des morceaux de fraises, bananes, oranges, etc.</li>
+            <li>Versez la préparation dans la machine.</li>
+            <li>Appuyez sur le bouton « Marche », en bas à droite de la machine.</li>
+            <li>Mixez 4 minutes 30 maximum, sinon la glace devient trop dure.</li>
+            <li>Éteignez la machine et nettoyez-la à l'eau chaude.</li>
+          </ol>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q5 (Type de glace)" data-points="1" data-correct="B">
+          <div class="question-title">5. Ce document vous propose de faire des glaces... (1 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q5" value="A"> A. au yaourt.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q5" value="B"> B. aux fruits.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q5" value="C"> C. au chocolat.</label>
+          </div>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q6 (Point d'attention machine)" data-points="1" data-correct="C">
+          <div class="question-title">6. Pour réussir votre glace, vous devez faire très attention... (1 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q6" value="A"> A. à la température de l'eau.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q6" value="B"> B. au nombre d'œufs utilisés.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q6" value="C"> C. à la durée de marche de la machine.</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCICE 4 -->
+    <div class="exercise">
+      <h2 class="exercise-title">EXERCICE 4 (7 points)</h2>
+      <p class="exercise-instruction">Vous lisez cet article de journal.</p>
+
+      <div class="doc-block">
+        <img src="images/train_brest.jpg" alt="Petit train Brest" class="img-center">
+        <div class="doc-title">« PETITS TRAINS », UNE NOUVELLE IDÉE DE SORTIE À BREST</div>
+        <div class="doc-content">
+          <p>Jacques Le Cornec, le maire de Brest, a fêté samedi l'ouverture d'un nouveau musée, créé par Jean Jumel, un passionné de petits trains depuis qu'il a 5 ans.</p>
+          <p>Dans ce musée, vous pouvez voir 10 trains électriques qui se déplacent dans de magnifiques décors, mais aussi des films sur l'histoire des trains français. Et le premier samedi de chaque mois, venez rencontrer des conducteurs de trains !</p>
+          <p>« Ce lieu peut plaire aux personnes de 2 à 100 ans ! », dit Jean. Deux jeunes en formation à l'université de Brest ont aidé Jean à réunir les 10 000 € nécessaires à la réalisation du projet.</p>
+          <p>Ouvert du mardi au samedi, d'avril à septembre.<br>Contact : office de tourisme de Brest.</p>
+          <p><em>D'après www.letelegramme.fr</em></p>
+        </div>
+      </div>
+
+      <div class="question" data-ex="4" data-label="Ex 4 - Q1 (Sujet de l'article)" data-points="1" data-correct="A">
+        <div class="question-title">1. Cet article parle... (1 point) <span class="result-badge"></span></div>
+        <div class="options">
+          <label class="radio-option"><input type="radio" name="ex4_q1" value="A"> A. d'un musée.</label>
+          <label class="radio-option"><input type="radio" name="ex4_q1" value="B"> B. d'un parc de jeux.</label>
+          <label class="radio-option"><input type="radio" name="ex4_q1" value="C"> C. d'une salle de spectacle.</label>
+        </div>
+      </div>
+
+      <div class="question" data-ex="4" data-label="Ex 4 - Q2 (Activité possible)" data-points="1.5" data-correct="C">
+        <div class="question-title">2. Que pouvez-vous faire dans ce lieu ? (1,5 point) <span class="result-badge"></span></div>
+        <div class="options">
+          <label class="radio-option"><input type="radio" name="ex4_q2" value="A"> A. Conduire des trains.</label>
+          <label class="radio-option"><input type="radio" name="ex4_q2" value="B"> B. Construire des circuits de trains.</label>
+          <label class="radio-option"><input type="radio" name="ex4_q2" value="C"> C. Rencontrer des conducteurs de trains.</label>
+        </div>
+      </div>
+
+      <div class="question" data-ex="4" data-label="Ex 4 - Q3 (Réservé aux séniors)" data-points="1.5" data-correct="Faux">
+        <div class="question-title">3. Ce lieu est réservé aux personnes âgées. (1,5 point) <span class="result-badge"></span></div>
+        <div class="options">
+          <label class="radio-option"><input type="radio" name="ex4_q3" value="Vrai"> Vrai</label>
+          <label class="radio-option"><input type="radio" name="ex4_q3" value="Faux"> Faux</label>
+        </div>
+      </div>
+
+      <div class="question" data-ex="4" data-label="Ex 4 - Q4 (Aide projet)" data-points="1.5" data-correct="B">
+        <div class="question-title">4. Qui a aidé Jean Jumel à réaliser son projet ? (1,5 point) <span class="result-badge"></span></div>
+        <div class="options">
+          <label class="radio-option"><input type="radio" name="ex4_q4" value="A"> A. La mairie.</label>
+          <label class="radio-option"><input type="radio" name="ex4_q4" value="B"> B. Des étudiants.</label>
+          <label class="radio-option"><input type="radio" name="ex4_q4" value="C"> C. L'office de tourisme.</label>
+        </div>
+      </div>
+
+      <div class="question" data-ex="4" data-label="Ex 4 - Q5 (Jour d'ouverture)" data-points="1.5" data-correct="B">
+        <div class="question-title">5. Quel jour pouvez-vous aller dans ce lieu ? (1,5 point) <span class="result-badge"></span></div>
+        <div class="options">
+          <label class="radio-option"><input type="radio" name="ex4_q5" value="A"> A. Le lundi.</label>
+          <label class="radio-option"><input type="radio" name="ex4_q5" value="B"> B. Le jeudi.</label>
+          <label class="radio-option"><input type="radio" name="ex4_q5" value="C"> C. Le dimanche.</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <button type="button" class="btn-submit" onclick="validateQuiz()">Valider les réponses et générer le rapport</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  function validateQuiz() {
+    let totalScore = 0;
+    const maxScore = 25;
+
+    // Scores par exercice
+    const exScores = {
+      1: { score: 0, max: 6 },
+      2: { score: 0, max: 6 },
+      3: { score: 0, max: 6 },
+      4: { score: 0, max: 7 }
+    };
+
+    const errorsList = [];
+
+    // Réinitialiser les badges
+    document.querySelectorAll('.result-badge').forEach(b => b.innerHTML = '');
+
+    // 1. Correction des questions à choix multiples (Ex 2, 3, 4)
+    document.querySelectorAll('.question').forEach(q => {
+      const exNum = parseInt(q.dataset.ex);
+      const label = q.dataset.label;
+      const correctOption = q.dataset.correct;
+      const points = parseFloat(q.dataset.points);
+      const badgeSpan = q.querySelector('.result-badge');
+      const selected = q.querySelector('input[type="radio"]:checked');
+
+      if (selected) {
+        if (selected.value === correctOption) {
+          totalScore += points;
+          exScores[exNum].score += points;
+          badgeSpan.innerHTML = `<span class="badge-correct">✓ Exact (+${points} pt)</span>`;
+        } else {
+          badgeSpan.innerHTML = `<span class="badge-incorrect">✗ Incorrect (Réponse : ${correctOption})</span>`;
+          errorsList.push({
+            question: label,
+            userAns: selected.value,
+            correctAns: correctOption
+          });
+        }
+      } else {
+        badgeSpan.innerHTML = `<span class="badge-incorrect">Non répondu (Réponse : ${correctOption})</span>`;
+        errorsList.push({
+          question: label,
+          userAns: "Aucune réponse",
+          correctAns: correctOption
+        });
+      }
+    });
+
+    // 2. Correction du tableau d'association (Exercice 1)
+    document.querySelectorAll('.table-question').forEach(row => {
+      const exNum = parseInt(row.dataset.ex);
+      const label = row.dataset.label;
+      const correctOption = row.dataset.correct;
+      const points = parseFloat(row.dataset.points);
+      const name = row.dataset.name;
+      const badgeSpan = row.querySelector('.result-badge');
+      const selected = row.querySelector(`input[name="${name}"]:checked`);
+
+      if (selected) {
+        if (selected.value === correctOption) {
+          totalScore += points;
+          exScores[exNum].score += points;
+          badgeSpan.innerHTML = `<span class="badge-correct">✓ (+${points} pt)</span>`;
+        } else {
+          const cText = (correctOption === "none") ? "Aucun document" : `Doc ${correctOption}`;
+          badgeSpan.innerHTML = `<span class="badge-incorrect">✗ (${cText})</span>`;
+          errorsList.push({
+            question: label,
+            userAns: `Doc ${selected.value}`,
+            correctAns: cText
+          });
+        }
+      } else {
+        if (correctOption === "none") {
+          totalScore += points; // Correspondance correcte (aucun doc sélectionné)
+          exScores[exNum].score += points;
+          badgeSpan.innerHTML = `<span class="badge-correct">✓ (Aucun doc)</span>`;
+        } else {
+          badgeSpan.innerHTML = `<span class="badge-incorrect">Non répondu (Doc ${correctOption})</span>`;
+          errorsList.push({
+            question: label,
+            userAns: "Aucune réponse",
+            correctAns: `Doc ${correctOption}`
+          });
+        }
+      }
+    });
+
+    // 3. Génération du tableau synthétique
+    const tbody = document.getElementById('report-summary-body');
+    tbody.innerHTML = '';
+    for (let i = 1; i <= 4; i++) {
+      const row = document.createElement('tr');
+      const pct = Math.round((exScores[i].score / exScores[i].max) * 100);
+      row.innerHTML = `
+        <td><strong>Exercice ${i}</strong></td>
+        <td>${exScores[i].score} pt(s)</td>
+        <td>${exScores[i].max} pts</td>
+        <td>${pct}%</td>
+      `;
+      tbody.appendChild(row);
+    }
+
+    // 4. Génération de la liste détaillée des erreurs
+    const detailsList = document.getElementById('report-details-list');
+    detailsList.innerHTML = '';
+
+    if (errorsList.length === 0) {
+      detailsList.innerHTML = '<li style="border-left-color: var(--correct); font-weight: bold; color: var(--correct);">Félicitations ! Sans faute, aucune erreur commise.</li>';
+    } else {
+      errorsList.forEach(err => {
+        const item = document.createElement('li');
+        item.innerHTML = `<strong>${err.question} :</strong> Votre réponse : <em>${err.userAns}</em> | Bonne réponse : <strong>${err.correctAns}</strong>`;
+        detailsList.appendChild(item);
+      });
+    }
+
+    // 5. Affichage final du panneau de résultats
+    const scoreBoard = document.getElementById('score-board');
+    const scoreNum = document.getElementById('score-number');
+    const scoreMsg = document.getElementById('score-message');
+
+    scoreNum.textContent = `${totalScore} / ${maxScore}`;
+    scoreBoard.style.display = 'block';
+
+    if (totalScore >= 12.5) {
+      scoreMsg.textContent = "Félicitations ! Vous avez réussi cette épreuve de compréhension écrite.";
+      scoreMsg.className = "feedback-correct";
+    } else {
+      scoreMsg.textContent = "Résultat insuffisant (seuil de réussite : 12,5/25). Continuez de vous entraîner !";
+      scoreMsg.className = "feedback-incorrect";
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
