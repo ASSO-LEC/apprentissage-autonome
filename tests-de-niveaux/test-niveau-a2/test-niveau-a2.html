@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DELF A2 - Compréhension de l'Oral</title>
+  <style>
+    :root {
+      --primary: #0055a5;
+      --primary-hover: #003d78;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --border: #cbd5e1;
+      --correct: #16a34a;
+      --incorrect: #dc2626;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0 0 8px 0;
+      font-size: 1.8rem;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .exercise {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .exercise-title {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-top: 0;
+      margin-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+    }
+
+    .exercise-instruction {
+      font-style: italic;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+
+    .audio-player {
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    .doc-block {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .doc-title {
+      font-weight: bold;
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #334155;
+    }
+
+    .question {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+
+    .question:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .question-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option-card {
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #fff;
+    }
+
+    .option-card:hover {
+      border-color: var(--primary);
+      background-color: #f0f7ff;
+    }
+
+    .option-card img {
+      max-width: 100%;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 8px;
+      border-radius: 4px;
+    }
+
+    .option-card label {
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .radio-option:hover {
+      background-color: #f1f5f9;
+    }
+
+    .radio-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .matching-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      overflow-x: auto;
+      display: block;
+    }
+
+    .matching-table th, .matching-table td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .matching-table th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .matching-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      min-width: 120px;
+    }
+
+    .btn-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-print {
+      background-color: #475569;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .btn-print:hover {
+      background-color: #334155;
+    }
+
+    .score-board {
+      display: none;
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .score-header {
+      text-align: center;
+    }
+
+    .score-board h2 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .score-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--text);
+      margin: 10px 0;
+    }
+
+    .feedback-correct {
+      color: var(--correct);
+      font-weight: bold;
+    }
+
+    .feedback-incorrect {
+      color: var(--incorrect);
+      font-weight: bold;
+    }
+
+    .badge-correct {
+      background-color: #dcfce7;
+      color: var(--correct);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
+    .badge-incorrect {
+      background-color: #fee2e2;
+      color: var(--incorrect);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
+    /* Styles du Rapport */
+    .report-section {
+      margin-top: 24px;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 18px;
+      text-align: left;
+    }
+
+    .report-section h3 {
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .report-table th, .report-table td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+    }
+
+    .report-table th {
+      background-color: #f1f5f9;
+    }
+
+    .report-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .report-list li {
+      background: #f8fafc;
+      border-left: 4px solid var(--incorrect);
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    @media print {
+      .btn-submit, .btn-print, .audio-player { display: none; }
+      body { background-color: white; }
+      .exercise { box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>DELF A2 Tout Public — Épreuve Oral</h1>
+    <p>Compréhension de l'oral (25 points)</p>
+  </header>
+
+  <!-- PANNEAU DE RÉSULTAT ET RAPPORT -->
+  <div id="score-board" class="score-board">
+    <div class="score-header">
+      <h2>Résultat du Test</h2>
+      <div id="score-number" class="score-number">0 / 25</div>
+      <p id="score-message"></p>
+    </div>
+
+    <!-- Rapport synthétique -->
+    <div class="report-section">
+      <h3>Bilan par Exercice</h3>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Exercice</th>
+            <th>Score obtenu</th>
+            <th>Score maximum</th>
+            <th>Taux de réussite</th>
+          </tr>
+        </thead>
+        <tbody id="report-summary-body"></tbody>
+      </table>
+
+      <h3>Détail des erreurs et corrections</h3>
+      <ul id="report-details-list" class="report-list"></ul>
+
+      <div style="text-align: center;">
+        <button type="button" class="btn-print" onclick="window.print()">Imprimer / Télécharger le rapport (PDF)</button>
+      </div>
+    </div>
+  </div>
+
+  <form id="quiz-form">
+    <!-- EXERCICE 1 -->
+    <div class="exercise">
+      <h2 class="exercise-title">EXERCICE 1 (6 points)</h2>
+      <p class="exercise-instruction">Vous écoutez des annonces publiques. Vous allez écouter plusieurs documents. Il y a 2 écoutes.</p>
+      
+      <audio controls class="audio-player">
+        <source src="audio/delf-a2-tp-coll-exemple1-exercice1.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas le lecteur audio.
+      </audio>
+
+      <!-- Doc 1 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 1</div>
+        <div class="question" data-ex="1" data-label="Ex 1 - Doc 1 (Action à faire dans le bus)" data-points="2" data-correct="B">
+          <div class="question-title">1. Qu'est-ce que vous devez faire ? (2 points) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex1_q1" value="A"> A. Monter dans le bus.</label>
+            <label class="radio-option"><input type="radio" name="ex1_q1" value="B"> B. Avancer dans le bus.</label>
+            <label class="radio-option"><input type="radio" name="ex1_q1" value="C"> C. Attendre le prochain bus.</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doc 2 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 2</div>
+        <div class="question" data-ex="1" data-label="Ex 1 - Doc 2 (Moment de l'annonce)" data-points="1" data-correct="C">
+          <div class="question-title">2. À quel moment peut-on entendre ce message ? (1 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex1_q2" value="A"> A. Le matin.</label>
+            <label class="radio-option"><input type="radio" name="ex1_q2" value="B"> B. Le midi.</label>
+            <label class="radio-option"><input type="radio" name="ex1_q2" value="C"> C. Le soir.</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doc 3 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 3</div>
+        <div class="question" data-ex="1" data-label="Ex 1 - Doc 3 (Moyen d'information)" data-points="1" data-correct="B">
+          <div class="question-title">3. Comment est-ce que vous pouvez avoir des informations ? (1 point) <span class="result-badge"></span></div>
+          <div class="options-grid">
+            <div class="option-card">
+              <img src="images/doc1a.jpg" alt="Option A">
+              <label><input type="radio" name="ex1_q3" value="A"> A</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc1b.jpg" alt="Option B">
+              <label><input type="radio" name="ex1_q3" value="B"> B</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc1c.jpg" alt="Option C">
+              <label><input type="radio" name="ex1_q3" value="C"> C</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doc 4 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 4</div>
+        <div class="question" data-ex="1" data-label="Ex 1 - Doc 4 (Interdiction)" data-points="0.5" data-correct="C">
+          <div class="question-title">4. Qu'est-ce qui est interdit ? (0,5 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex1_q4" value="A"> A. Filmer.</label>
+            <label class="radio-option"><input type="radio" name="ex1_q4" value="B"> B. Téléphoner.</label>
+            <label class="radio-option"><input type="radio" name="ex1_q4" value="C"> C. Photographier.</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doc 5 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 5</div>
+        <div class="question" data-ex="1" data-label="Ex 1 - Doc 5 (Consigne)" data-points="0.5" data-correct="B">
+          <div class="question-title">5. Qu'est-ce que vous devez faire ? (0,5 point) <span class="result-badge"></span></div>
+          <div class="options-grid">
+            <div class="option-card">
+              <img src="images/doc3a.jpg" alt="Option A">
+              <label><input type="radio" name="ex1_q5" value="A"> A</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc3b.jpg" alt="Option B">
+              <label><input type="radio" name="ex1_q5" value="B"> B</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc3c.jpg" alt="Option C">
+              <label><input type="radio" name="ex1_q5" value="C"> C</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doc 6 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 6</div>
+        <div class="question" data-ex="1" data-label="Ex 1 - Doc 6 (Promotion)" data-points="1" data-correct="C">
+          <div class="question-title">6. Qu'est-ce qui est moins cher aujourd'hui ? (1 point) <span class="result-badge"></span></div>
+          <div class="options-grid">
+            <div class="option-card">
+              <img src="images/doc5a.jpg" alt="Option A">
+              <label><input type="radio" name="ex1_q6" value="A"> A</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc5b.jpg" alt="Option B">
+              <label><input type="radio" name="ex1_q6" value="B"> B</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc5c.jpg" alt="Option C">
+              <label><input type="radio" name="ex1_q6" value="C"> C</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCICE 2 -->
+    <div class="exercise">
+      <h2 class="exercise-title">EXERCICE 2 (6 points)</h2>
+      <p class="exercise-instruction">Vous écoutez la radio.</p>
+
+      <audio controls class="audio-player">
+        <source src="audio/delf-a2-tp-coll-exemple1-exercice2.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas le lecteur audio.
+      </audio>
+
+      <!-- Doc 1 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 1</div>
+        <div class="question" data-ex="2" data-label="Ex 2 - Doc 1 Q1 (Activité journaliste)" data-points="0.5" data-correct="B">
+          <div class="question-title">1. De quelle activité parle la journaliste ? (0,5 point) <span class="result-badge"></span></div>
+          <div class="options-grid">
+            <div class="option-card">
+              <img src="images/doc6a.jpg" alt="Option A">
+              <label><input type="radio" name="ex2_q1" value="A"> A</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc6b.jpg" alt="Option B">
+              <label><input type="radio" name="ex2_q1" value="B"> B</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc6c.jpg" alt="Option C">
+              <label><input type="radio" name="ex2_q1" value="C"> C</label>
+            </div>
+          </div>
+        </div>
+        <div class="question" data-ex="2" data-label="Ex 2 - Doc 1 Q2 (Condition d'accès)" data-points="1" data-correct="C">
+          <div class="question-title">2. Pour entrer, il faut... (1 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex2_q2" value="A"> A. venir très tôt.</label>
+            <label class="radio-option"><input type="radio" name="ex2_q2" value="B"> B. acheter un billet.</label>
+            <label class="radio-option"><input type="radio" name="ex2_q2" value="C"> C. faire une réservation.</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doc 2 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 2</div>
+        <div class="question" data-ex="2" data-label="Ex 2 - Doc 2 Q3 (Durée événement)" data-points="1" data-correct="B">
+          <div class="question-title">3. Combien de temps dure l'événement ? (1 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex2_q3" value="A"> A. Une journée.</label>
+            <label class="radio-option"><input type="radio" name="ex2_q3" value="B"> B. Une semaine.</label>
+            <label class="radio-option"><input type="radio" name="ex2_q3" value="C"> C. Un mois.</label>
+          </div>
+        </div>
+        <div class="question" data-ex="2" data-label="Ex 2 - Doc 2 Q4 (Activité enfants)" data-points="1" data-correct="B">
+          <div class="question-title">4. Les enfants peuvent faire une activité... (1 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex2_q4" value="A"> A. d'écriture.</label>
+            <label class="radio-option"><input type="radio" name="ex2_q4" value="B"> B. de dessin.</label>
+            <label class="radio-option"><input type="radio" name="ex2_q4" value="C"> C. de lecture.</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doc 3 -->
+      <div class="doc-block">
+        <div class="doc-title">DOCUMENT 3</div>
+        <div class="question" data-ex="2" data-label="Ex 2 - Doc 3 Q5 (Particularité centre loisirs)" data-points="2" data-correct="A">
+          <div class="question-title">5. Pourquoi ce centre de loisirs est-il spécial ? (2 points) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex2_q5" value="A"> A. Il accueille des animaux.</label>
+            <label class="radio-option"><input type="radio" name="ex2_q5" value="B"> B. Les activités sont gratuites.</label>
+            <label class="radio-option"><input type="radio" name="ex2_q5" value="C"> C. Il faut réserver longtemps à l'avance.</label>
+          </div>
+        </div>
+        <div class="question" data-ex="2" data-label="Ex 2 - Doc 3 Q6 (Activité proposée)" data-points="0.5" data-correct="B">
+          <div class="question-title">6. Quelle activité est proposée ? (0,5 point) <span class="result-badge"></span></div>
+          <div class="options-grid">
+            <div class="option-card">
+              <img src="images/doc21a.jpg" alt="Option A">
+              <label><input type="radio" name="ex2_q6" value="A"> A</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc21b.jpg" alt="Option B">
+              <label><input type="radio" name="ex2_q6" value="B"> B</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc21c.jpg" alt="Option C">
+              <label><input type="radio" name="ex2_q6" value="C"> C</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCICE 3 -->
+    <div class="exercise">
+      <h2 class="exercise-title">EXERCICE 3 (6 points)</h2>
+      <p class="exercise-instruction">Vous travaillez dans une pâtisserie. Vous écoutez ce message sur un répondeur téléphonique.</p>
+
+      <audio controls class="audio-player">
+        <source src="audio/delf-a2-tp-coll-exemple1-exercice3.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas le lecteur audio.
+      </audio>
+
+      <div class="doc-block">
+        <div class="question" data-ex="3" data-label="Ex 3 - Q1 (Événement Mme Fortin)" data-points="0.5" data-correct="B">
+          <div class="question-title">1. Quel événement fête Mme Fortin ? (0,5 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q1" value="A"> A. Son anniversaire.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q1" value="B"> B. L'anniversaire de sa fille.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q1" value="C"> C. L'anniversaire de ses cousins.</label>
+          </div>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q2 (Gâteau souhaité)" data-points="2" data-correct="C">
+          <div class="question-title">2. Quel gâteau Mme Fortin voudrait-elle ? (2 points) <span class="result-badge"></span></div>
+          <div class="options-grid">
+            <div class="option-card">
+              <img src="images/doc26a.jpg" alt="Option A">
+              <label><input type="radio" name="ex3_q2" value="A"> A</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc26b.jpg" alt="Option B">
+              <label><input type="radio" name="ex3_q2" value="B"> B</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc26c.jpg" alt="Option C">
+              <label><input type="radio" name="ex3_q2" value="C"> C</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q3 (Décoration sur le gâteau)" data-points="0.5" data-correct="C">
+          <div class="question-title">3. Qu'est-ce que Mme Fortin souhaite mettre sur les gâteaux ? (0,5 point) <span class="result-badge"></span></div>
+          <div class="options-grid">
+            <div class="option-card">
+              <img src="images/doc32a.jpg" alt="Option A">
+              <label><input type="radio" name="ex3_q3" value="A"> A</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc32b.jpg" alt="Option B">
+              <label><input type="radio" name="ex3_q3" value="B"> B</label>
+            </div>
+            <div class="option-card">
+              <img src="images/doc32c.jpg" alt="Option C">
+              <label><input type="radio" name="ex3_q3" value="C"> C</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q4 (Action à effectuer)" data-points="0.5" data-correct="A">
+          <div class="question-title">4. Vous devez... (0,5 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q4" value="A"> A. téléphoner à Mme Fortin.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q4" value="B"> B. attendre un appel de Mme Fortin.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q4" value="C"> C. envoyer un message à Mme Fortin.</label>
+          </div>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q5 (Demande d'information)" data-points="1.5" data-correct="A">
+          <div class="question-title">5. Mme Fortin veut une information sur... (1,5 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q5" value="A"> A. les prix des gâteaux.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q5" value="B"> B. les goûts des gâteaux.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q5" value="C"> C. les tailles des gâteaux.</label>
+          </div>
+        </div>
+
+        <div class="question" data-ex="3" data-label="Ex 3 - Q6 (Personne pour le retrait)" data-points="1" data-correct="C">
+          <div class="question-title">6. Qui doit prendre les gâteaux ? (1 point) <span class="result-badge"></span></div>
+          <div class="options">
+            <label class="radio-option"><input type="radio" name="ex3_q6" value="A"> A. Mme Fortin.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q6" value="B"> B. La fille de Mme Fortin.</label>
+            <label class="radio-option"><input type="radio" name="ex3_q6" value="C"> C. Le mari de Mme Fortin.</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCICE 4 -->
+    <div class="exercise">
+      <h2 class="exercise-title">EXERCICE 4 (7 points)</h2>
+      <p class="exercise-instruction">Vous écoutez 4 dialogues. Cochez pour associer chaque dialogue à la situation correspondante. Attention : il y a 6 situations mais seulement 4 dialogues.</p>
+
+      <audio controls class="audio-player">
+        <source src="audio/delf-a2-tp-coll-exemple1-exercice4.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas le lecteur audio.
+      </audio>
+
+      <table class="matching-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>A. Inviter quelqu'un</th>
+            <th>B. Remercier quelqu'un</th>
+            <th>C. Demander un service</th>
+            <th>D. Accepter des excuses</th>
+            <th>E. S'informer sur les transports</th>
+            <th>F. Se renseigner sur des horaires</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-question" data-ex="4" data-label="Ex 4 - Dialogue 1" data-name="ex4_d1" data-points="2" data-correct="C">
+            <td>Dialogue 1 (2 pts) <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex4_d1" value="A"></td>
+            <td><input type="radio" name="ex4_d1" value="B"></td>
+            <td><input type="radio" name="ex4_d1" value="C"></td>
+            <td><input type="radio" name="ex4_d1" value="D"></td>
+            <td><input type="radio" name="ex4_d1" value="E"></td>
+            <td><input type="radio" name="ex4_d1" value="F"></td>
+          </tr>
+          <tr class="table-question" data-ex="4" data-label="Ex 4 - Dialogue 2" data-name="ex4_d2" data-points="0.5" data-correct="D">
+            <td>Dialogue 2 (0,5 pt) <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex4_d2" value="A"></td>
+            <td><input type="radio" name="ex4_d2" value="B"></td>
+            <td><input type="radio" name="ex4_d2" value="C"></td>
+            <td><input type="radio" name="ex4_d2" value="D"></td>
+            <td><input type="radio" name="ex4_d2" value="E"></td>
+            <td><input type="radio" name="ex4_d2" value="F"></td>
+          </tr>
+          <tr class="table-question" data-ex="4" data-label="Ex 4 - Dialogue 3" data-name="ex4_d3" data-points="2.5" data-correct="A">
+            <td>Dialogue 3 (2,5 pts) <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex4_d3" value="A"></td>
+            <td><input type="radio" name="ex4_d3" value="B"></td>
+            <td><input type="radio" name="ex4_d3" value="C"></td>
+            <td><input type="radio" name="ex4_d3" value="D"></td>
+            <td><input type="radio" name="ex4_d3" value="E"></td>
+            <td><input type="radio" name="ex4_d3" value="F"></td>
+          </tr>
+          <tr class="table-question" data-ex="4" data-label="Ex 4 - Dialogue 4" data-name="ex4_d4" data-points="2" data-correct="F">
+            <td>Dialogue 4 (2 pts) <span class="result-badge"></span></td>
+            <td><input type="radio" name="ex4_d4" value="A"></td>
+            <td><input type="radio" name="ex4_d4" value="B"></td>
+            <td><input type="radio" name="ex4_d4" value="C"></td>
+            <td><input type="radio" name="ex4_d4" value="D"></td>
+            <td><input type="radio" name="ex4_d4" value="E"></td>
+            <td><input type="radio" name="ex4_d4" value="F"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="btn-container">
+      <button type="button" class="btn-submit" onclick="validateQuiz()">Valider les réponses et générer le rapport</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  function validateQuiz() {
+    let totalScore = 0;
+    const maxScore = 25;
+
+    // Scores par exercice
+    const exScores = {
+      1: { score: 0, max: 6 },
+      2: { score: 0, max: 6 },
+      3: { score: 0, max: 6 },
+      4: { score: 0, max: 7 }
+    };
+
+    const errorsList = [];
+
+    // Réinitialiser les badges
+    document.querySelectorAll('.result-badge').forEach(b => b.innerHTML = '');
+
+    // 1. Correction des questions standards (Exercices 1, 2, 3)
+    document.querySelectorAll('.question').forEach(q => {
+      const exNum = parseInt(q.dataset.ex);
+      const label = q.dataset.label;
+      const correctOption = q.dataset.correct;
+      const points = parseFloat(q.dataset.points);
+      const badgeSpan = q.querySelector('.result-badge');
+      const selected = q.querySelector('input[type="radio"]:checked');
+
+      if (selected) {
+        if (selected.value === correctOption) {
+          totalScore += points;
+          exScores[exNum].score += points;
+          badgeSpan.innerHTML = `<span class="badge-correct">✓ Exact (+${points} pt)</span>`;
+        } else {
+          badgeSpan.innerHTML = `<span class="badge-incorrect">✗ Incorrect (Réponse : ${correctOption})</span>`;
+          errorsList.push({
+            question: label,
+            userAns: selected.value,
+            correctAns: correctOption
+          });
+        }
+      } else {
+        badgeSpan.innerHTML = `<span class="badge-incorrect">Non répondu (Réponse : ${correctOption})</span>`;
+        errorsList.push({
+          question: label,
+          userAns: "Aucune réponse",
+          correctAns: correctOption
+        });
+      }
+    });
+
+    // 2. Correction du tableau d'association (Exercice 4)
+    document.querySelectorAll('.table-question').forEach(row => {
+      const exNum = parseInt(row.dataset.ex);
+      const label = row.dataset.label;
+      const correctOption = row.dataset.correct;
+      const points = parseFloat(row.dataset.points);
+      const name = row.dataset.name;
+      const badgeSpan = row.querySelector('.result-badge');
+      const selected = row.querySelector(`input[name="${name}"]:checked`);
+
+      if (selected) {
+        if (selected.value === correctOption) {
+          totalScore += points;
+          exScores[exNum].score += points;
+          badgeSpan.innerHTML = `<span class="badge-correct">✓ (+${points} pt)</span>`;
+        } else {
+          badgeSpan.innerHTML = `<span class="badge-incorrect">✗ (Réponse : ${correctOption})</span>`;
+          errorsList.push({
+            question: label,
+            userAns: selected.value,
+            correctAns: correctOption
+          });
+        }
+      } else {
+        badgeSpan.innerHTML = `<span class="badge-incorrect">Non répondu (Réponse : ${correctOption})</span>`;
+        errorsList.push({
+          question: label,
+          userAns: "Aucune réponse",
+          correctAns: correctOption
+        });
+      }
+    });
+
+    // 3. Génération du tableau synthétique
+    const tbody = document.getElementById('report-summary-body');
+    tbody.innerHTML = '';
+    for (let i = 1; i <= 4; i++) {
+      const row = document.createElement('tr');
+      const pct = Math.round((exScores[i].score / exScores[i].max) * 100);
+      row.innerHTML = `
+        <td><strong>Exercice ${i}</strong></td>
+        <td>${exScores[i].score} pt(s)</td>
+        <td>${exScores[i].max} pts</td>
+        <td>${pct}%</td>
+      `;
+      tbody.appendChild(row);
+    }
+
+    // 4. Génération de la liste détaillée des erreurs
+    const detailsList = document.getElementById('report-details-list');
+    detailsList.innerHTML = '';
+
+    if (errorsList.length === 0) {
+      detailsList.innerHTML = '<li style="border-left-color: var(--correct); font-weight: bold; color: var(--correct);">Félicitations ! Sans faute, aucune erreur commise.</li>';
+    } else {
+      errorsList.forEach(err => {
+        const item = document.createElement('li');
+        item.innerHTML = `<strong>${err.question} :</strong> Votre réponse : <em>${err.userAns}</em> | Bonne réponse : <strong>${err.correctAns}</strong>`;
+        detailsList.appendChild(item);
+      });
+    }
+
+    // 5. Affichage final du panneau de résultats
+    const scoreBoard = document.getElementById('score-board');
+    const scoreNum = document.getElementById('score-number');
+    const scoreMsg = document.getElementById('score-message');
+
+    scoreNum.textContent = `${totalScore} / ${maxScore}`;
+    scoreBoard.style.display = 'block';
+
+    if (totalScore >= 12.5) {
+      scoreMsg.textContent = "Félicitations, vous avez réussi cette épreuve de compréhension orale !";
+      scoreMsg.className = "feedback-correct";
+    } else {
+      scoreMsg.textContent = "Niveau insuffisant (note sous le seuil de 50%). Entraînez-vous encore !";
+      scoreMsg.className = "feedback-incorrect";
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
