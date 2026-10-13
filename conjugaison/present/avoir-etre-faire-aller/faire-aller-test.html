@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test 1- Faire et Aller</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-emerald-50 via-white to-teal-50 min-h-screen p-4 md:p-8 font-sans">
+  <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-emerald-100">
+    <!-- Header -->
+    <div class="bg-emerald-600 text-white p-6 md:p-8 text-center relative">
+      <div class="inline-block bg-emerald-500/50 text-emerald-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+       
+      </div>
+      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">Verbes FAIRE et ALLER au présent</h1>
+      <p class="text-emerald-100 text-sm mt-2">Conjuguez correctement les verbes entre parenthèses.</p>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6 md:p-8">
+      <form id="quiz-form" onsubmit="evaluateQuiz(event)" class="space-y-6">
+        <div id="questions-container" class="space-y-4"></div>
+
+        <button type="submit" id="submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg hover:shadow-emerald-200 transition-all text-lg flex items-center justify-center gap-2">
+          <i class="fas fa-check-circle"></i> Vérifier mes réponses avec JPJ
+        </button>
+      </form>
+
+      <!-- Results & Error Report -->
+      <div id="results-container" class="hidden mt-8"></div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      { id: 4, promptBefore: "Tu", promptAfter: "des crêpes.", verb: "faire", answer: "fais", rule: "Faire avec 'tu' -> tu fais." },
+      { id: 8, promptBefore: "Nous", promptAfter: "un exercice d'anglais.", verb: "faire", answer: "faisons", rule: "Faire avec 'nous' -> nous faisons." },
+      { id: 9, promptBefore: "Elle", promptAfter: "en Italie en car.", verb: "aller", answer: "va", rule: "Aller avec 'elle' -> elle va." },
+      { id: 12, promptBefore: "Tu", promptAfter: "en Espagne en train.", verb: "aller", answer: "vas", rule: "Aller avec 'tu' -> tu vas." },
+      { id: 14, promptBefore: "Vous", promptAfter: "en Pologne en mai.", verb: "aller", answer: "allez", rule: "Aller avec 'vous' -> vous allez." },
+      { id: 16, promptBefore: "Il", promptAfter: "des gâteaux.", verb: "faire", answer: "fait", rule: "Faire avec 'il' -> il fait." },
+      { id: 17, promptBefore: "Il", promptAfter: "en Allemagne en avion.", verb: "aller", answer: "va", rule: "Aller avec 'il' -> il va." },
+      { id: 20, promptBefore: "Ils", promptAfter: "au Maroc pour voir des amis.", verb: "aller", answer: "vont", rule: "Aller avec 'ils' -> ils vont." },
+      { id: 22, promptBefore: "Elles", promptAfter: "des calculs difficiles.", verb: "faire", answer: "font", rule: "Faire avec 'elles' -> elles font." },
+      { id: 23, promptBefore: "Je", promptAfter: "une omelette tous les jours.", verb: "faire", answer: "fais", rule: "Faire avec 'je' -> je fais." },
+      { id: 25, promptBefore: "Elle", promptAfter: "de la danse.", verb: "faire", answer: "fait", rule: "Faire avec 'elle' -> elle fait." },
+      { id: 26, promptBefore: "Nous", promptAfter: "au Portugal en stop.", verb: "aller", answer: "allons", rule: "Aller avec 'nous' -> nous allons." },
+      { id: 29, promptBefore: "Vous", promptAfter: "des promotions.", verb: "faire", answer: "faites", rule: "Faire avec 'vous' -> vous faites (attention !)." },
+      { id: 30, promptBefore: "Ils", promptAfter: "un exercice de français.", verb: "faire", answer: "font", rule: "Faire avec 'ils' -> ils font." },
+      { id: 31, promptBefore: "Je", promptAfter: "à Paris.", verb: "aller", answer: "vais", rule: "Aller avec 'je' -> je vais." },
+      { id: 32, promptBefore: "Elles", promptAfter: "en Algérie chaque année.", verb: "aller", answer: "vont", rule: "Aller avec 'elles' -> elles vont." }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('questions-container');
+      container.innerHTML = questions.map((q, idx) => `
+        <div class="p-4 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-white hover:border-emerald-100 hover:shadow-sm transition-all" id="q-card-${idx}">
+          <label class="text-gray-800 text-base md:text-lg flex flex-wrap items-center gap-2 font-medium">
+            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">${idx + 1}.</span>
+            <span>${q.promptBefore}</span>
+            <span class="text-sm font-semibold text-gray-500 italic">(${q.verb})</span>
+            <input type="text" id="input-${idx}" autocomplete="off" class="border-2 border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-lg px-3 py-1.5 text-emerald-900 font-bold w-36 outline-none transition-all text-center">
+            <span>${q.promptAfter}</span>
+          </label>
+        </div>
+      `).join('');
+    }
+
+    function evaluateQuiz(e) {
+      e.preventDefault();
+      let score = 0;
+      let errors = [];
+
+      questions.forEach((q, idx) => {
+        const input = document.getElementById(`input-${idx}`);
+        const userAns = input.value.trim().toLowerCase();
+        const card = document.getElementById(`q-card-${idx}`);
+
+        if (userAns === q.answer) {
+          score++;
+          card.className = "p-4 rounded-xl border-2 border-emerald-200 bg-emerald-50/50";
+          input.className = "border-2 border-emerald-500 bg-emerald-100 text-emerald-900 font-bold px-3 py-1.5 rounded-lg w-36 text-center";
+        } else {
+          card.className = "p-4 rounded-xl border-2 border-rose-200 bg-rose-50/50";
+          input.className = "border-2 border-rose-500 bg-rose-100 text-rose-900 font-bold px-3 py-1.5 rounded-lg w-36 text-center";
+          errors.push({ ...q, userAns: userAns || "(sans réponse)" });
+        }
+      });
+
+      showResults(score, questions.length, errors);
+    }
+
+    function showResults(score, total, errors) {
+      const resultsDiv = document.getElementById('results-container');
+      const scorePct = Math.round((score / total) * 100);
+      
+      let html = `
+        <div class="border-t-2 border-gray-100 pt-6">
+          <div class="bg-gradient-to-r ${scorePct >= 70 ? 'from-emerald-500 to-teal-600' : 'from-amber-500 to-rose-500'} text-white rounded-2xl p-6 text-center shadow-lg mb-8">
+            <h2 class="text-2xl font-bold">Votre Score : ${score} / ${total} (${scorePct}%)</h2>
+            <p class="text-sm opacity-90 mt-1">${score === total ? 'Parfait ! Félicitations ! 🎉' : 'Consultez votre rapport d\'erreurs ci-dessous pour vous améliorer.'}</p>
+          </div>
+      `;
+
+      if (errors.length > 0) {
+        html += `
+          <div class="bg-rose-50 rounded-2xl p-6 border border-rose-200">
+            <h3 class="text-xl font-bold text-rose-800 mb-4 flex items-center gap-2">
+              <i class="fas fa-exclamation-triangle text-rose-600"></i> Rapport d'erreurs (${errors.length})
+            </h3>
+            <div class="space-y-3">
+              ${errors.map(err => `
+                <div class="bg-white p-4 rounded-xl border border-rose-100 shadow-sm text-sm">
+                  <p class="font-medium text-gray-800">
+                    Phrase : <span class="italic font-normal">${err.promptBefore} <strong>___</strong>${err.promptAfter}</span>
+                  </p>
+                  <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <p class="text-rose-600 font-medium">❌ Votre réponse : <span class="line-through">${err.userAns}</span></p>
+                    <p class="text-emerald-600 font-bold">✅ Bonne réponse : <span>${err.answer}</span></p>
+                  </div>
+                  <p class="mt-2 text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-100">
+                    💡 <strong>Règle :</strong> ${err.rule}
+                  </p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      html += `
+        <button onclick="location.reload()" class="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl transition-all">
+          🔄 Recommencer le test
+        </button>
+      </div>`;
+
+      resultsDiv.innerHTML = html;
+      resultsDiv.classList.remove('hidden');
+      resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
