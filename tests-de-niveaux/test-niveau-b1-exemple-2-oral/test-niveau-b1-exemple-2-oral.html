@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compréhension de l'oral — DELF B1 (Exemple 2)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-radio:checked + label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- EN-TÊTE DU TEST -->
+        <header class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-extrabold text-slate-800 border-b pb-3 mb-4">Compréhension de l'oral — DELF B1</h1>
+            <p class="text-slate-600 text-lg">Vous allez entendre trois enregistrements, correspondant à trois documents différents. Pour répondre aux questions, cochez la bonne réponse ou écrivez l'information demandée.</p>
+            <div class="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-800 text-sm font-semibold px-4 py-2 rounded-lg">
+                Total : 25 points (Exercices 1, 2 et 3)
+            </div>
+        </header>
+
+        <form id="quizForm" class="space-y-8">
+
+            <!-- ================= EXERCICE 1 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 1</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">6 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Lisez les questions. Écoutez le document puis répondez.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audios/delf-b1-tp-coll-exemple2-exercice1.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <label for="ex1_q1" class="block font-medium text-slate-800 text-lg mb-2">1. Qu'est-ce que Charlotte a pensé de ses vacances ? (1 pt)</label>
+                        <input type="text" id="ex1_q1" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Votre réponse...">
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. L'un des problèmes à l'hôtel était que : (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="A" class="mr-2"> A. la chambre était trop petite.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="B" class="mr-2"> B. sa chambre n'était pas réservée.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="C" class="mr-2"> C. il n'y avait pas de salle de bain dans la chambre.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Ce que Charlotte a aimé, c'est... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="A" class="mr-2"> A. la taille de la piscine.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="B" class="mr-2"> B. la nourriture du restaurant.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="C" class="mr-2"> C. la gentillesse des autres voyageurs.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. Le personnel de l'hôtel n'était pas... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="A" class="mr-2"> A. aimable.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="B" class="mr-2"> B. nombreux.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="C" class="mr-2"> C. expérimenté.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <label for="ex1_q5" class="block font-medium text-slate-800 text-lg mb-2">5. Qui avait organisé les vacances de Charlotte ? (1 pt)</label>
+                        <input type="text" id="ex1_q5" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Votre réponse...">
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Paul est d'accord pour... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="A" class="mr-2"> A. passer ses prochaines vacances avec Charlotte.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="B" class="mr-2"> B. aider Charlotte à organiser ses prochaines vacances.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="C" class="mr-2"> C. prêter sa maison à Charlotte pour les prochaines vacances.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 2 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 2</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">8 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Lisez les questions. Écoutez le document puis répondez.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audios/delf-b1-tp-coll-exemple2-exercice2.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <label for="ex2_q1" class="block font-medium text-slate-800 text-lg mb-2">1. De quelle sorte de site parle le journaliste ? (1,5 pt)</label>
+                        <input type="text" id="ex2_q1" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Votre réponse...">
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Quels objets recherche-t-on particulièrement pour les enfants sur ces sites ? (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="A" class="mr-2"> A. Des jouets.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="B" class="mr-2"> B. Des tablettes.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="C" class="mr-2"> C. Des vêtements.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <label for="ex2_q3" class="block font-medium text-slate-800 text-lg mb-2">3. Que faut-il faire pour donner un objet sur le site Consoblog.com ? (1,5 pt)</label>
+                        <input type="text" id="ex2_q3" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Votre réponse...">
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <label for="ex2_q4" class="block font-medium text-slate-800 text-lg mb-2">4. Pour quelle raison principale donne-t-on ? (2 pts)</label>
+                        <input type="text" id="ex2_q4" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Votre réponse...">
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Le don des objets sur Internet rencontre beaucoup de succès auprès... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="A" class="mr-2"> A. des jeunes.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="B" class="mr-2"> B. des retraités.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="C" class="mr-2"> C. des femmes au foyer.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. La qualité du service du site Consoblog.com est garantie par... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="A" class="mr-2"> A. la précision des descriptions des objets offerts.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="B" class="mr-2"> B. l'obligation de publier des photos dans les annonces.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="C" class="mr-2"> C. les notes mises par les personnes qui récupèrent les objets.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 3 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 3</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">11 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Lisez les questions. Écoutez le document puis répondez.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audios/delf-b1-tp-coll-exemple2-exercice3.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. Cette émission vise à... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="A" class="mr-2"> A. informer les commerçants.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="B" class="mr-2"> B. critiquer les achats en ligne.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="C" class="mr-2"> C. conseiller les consommateurs.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Thierry Sagnier constate qu'Internet permet au consommateur... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="A" class="mr-2"> A. de devenir lui-même vendeur.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="B" class="mr-2"> B. d'acheter sans perdre de temps.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="C" class="mr-2"> C. de bénéficier de services gratuits.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Que pense Thierry Sagnier des commerçants qui vendent à moitié prix ? (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="A" class="mr-2"> A. Ils mettent des prix trop élevés à l'origine.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="B" class="mr-2"> B. Ils préfèrent vendre sans bénéfices que ne pas vendre.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="C" class="mr-2"> C. Ils donnent une mauvaise image de la qualité des produits.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <label for="ex3_q4" class="block font-medium text-slate-800 text-lg mb-2">4. Pourquoi, selon Thierry Sagnier, certains articles sont-ils vendus chers ? (2 pts)</label>
+                        <input type="text" id="ex3_q4" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Votre réponse...">
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Thierry Sagnier donne un exemple de produit financé par la publicité. Lequel ? (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="A" class="mr-2"> A. Les concerts publics.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="B" class="mr-2"> B. Les films sur Internet.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="C" class="mr-2"> C. Les journaux gratuits.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <label for="ex3_q6" class="block font-medium text-slate-800 text-lg mb-2">6. Que font certains restaurants pour attirer les clients ? (2 pts)</label>
+                        <input type="text" id="ex3_q6" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Votre réponse...">
+                    </div>
+
+                    <!-- Q7 -->
+                    <div>
+                        <label for="ex3_q7" class="block font-medium text-slate-800 text-lg mb-2">7. Selon Thierry Sagnier, pourquoi les supermarchés offrent-ils des produits gratuits à leurs clients ? (2 pts)</label>
+                        <input type="text" id="ex3_q7" class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Votre réponse...">
+                    </div>
+
+                    <!-- Q8 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">8. Que pense Thierry Sagnier des offres gratuites des supermarchés ? (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q8" value="A" class="mr-2"> A. Il faut en profiter.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q8" value="B" class="mr-2"> B. Il faut être prudent.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q8" value="C" class="mr-2"> C. Il faut s'assurer de la qualité du produit.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BOUTON DE VALIDATION -->
+            <div class="text-center pt-4">
+                <button type="button" onclick="validerQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-xl shadow-lg transition">
+                    Valider mes réponses
+                </button>
+            </div>
+        </form>
+
+        <!-- ZONE DE RÉSULTAT -->
+        <div id="resultatCard" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
+            <h3 class="text-2xl font-bold text-slate-800 border-b pb-2">Rapport des résultats</h3>
+            <div class="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <span class="text-lg font-medium text-slate-700">Note globale :</span>
+                <span id="scoreTotal" class="text-3xl font-extrabold text-blue-600"></span>
+            </div>
+            
+            <div id="detailCorrection" class="space-y-3"></div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE CORRECTION AUTOMATIQUE -->
+    <script>
+        function validerQuiz() {
+            let score = 0;
+
+            const questions = [
+                // EXERCICE 1 (6 pts)
+                { type: 'text', id: 'ex1_q1', check: (v) => v.includes('nul') || v.includes('pas aimé') || v.includes('deteste') || v.includes('mauvais'), pts: 1, label: 'Exercice 1 - Q1 : Avis sur les vacances', attendu: "C'était nul / Elle n'a pas aimé" },
+                { type: 'radio', name: 'ex1_q2', val: 'B', pts: 1, label: 'Exercice 1 - Q2 : Problème à l\'hôtel', displayVal: 'Option B (Sa chambre n\'était pas réservée)' },
+                { type: 'radio', name: 'ex1_q3', val: 'C', pts: 1, label: 'Exercice 1 - Q3 : Ce que Charlotte a aimé', displayVal: 'Option C (La gentillesse des autres voyageurs)' },
+                { type: 'radio', name: 'ex1_q4', val: 'C', pts: 1, label: 'Exercice 1 - Q4 : Défaut du personnel', displayVal: 'Option C (Expérimenté)' },
+                { type: 'text', id: 'ex1_q5', check: (v) => v.includes('agence') || v.includes('voyage'), pts: 1, label: 'Exercice 1 - Q5 : Organisateur', attendu: 'Une agence de voyages' },
+                { type: 'radio', name: 'ex1_q6', val: 'B', pts: 1, label: 'Exercice 1 - Q6 : Proposition de Paul', displayVal: 'Option B (Aider Charlotte à organiser ses prochaines vacances)' },
+
+                // EXERCICE 2 (8 pts)
+                { type: 'text', id: 'ex2_q1', check: (v) => v.includes('donner') || v.includes('don'), pts: 1.5, label: 'Exercice 2 - Q1 : Sorte de site', attendu: 'Des sites pour donner des objets' },
+                { type: 'radio', name: 'ex2_q2', val: 'A', pts: 1, label: 'Exercice 2 - Q2 : Objets pour enfants', displayVal: 'Option A (Des jouets)' },
+                { type: 'text', id: 'ex2_q3', check: (v) => v.includes('annonce') || v.includes('petite annonce'), pts: 1.5, label: 'Exercice 2 - Q3 : Action pour donner', attendu: 'Il faut passer une petite annonce' },
+                { type: 'text', id: 'ex2_q4', check: (v) => v.includes('generosite') || v.includes('générosité') || v.includes('solidarite') || v.includes('solidarité') || v.includes('service') || v.includes('envie de donner'), pts: 2, label: 'Exercice 2 - Q4 : Raison principale', attendu: 'Par générosité / solidarité / rendre service' },
+                { type: 'radio', name: 'ex2_q5', val: 'A', pts: 1, label: 'Exercice 2 - Q5 : Succès auprès de...', displayVal: 'Option A (Des jeunes)' },
+                { type: 'radio', name: 'ex2_q6', val: 'C', pts: 1, label: 'Exercice 2 - Q6 : Garantie de qualité', displayVal: 'Option C (Les notes mises par les personnes qui récupèrent les objets)' },
+
+                // EXERCICE 3 (11 pts)
+                { type: 'radio', name: 'ex3_q1', val: 'C', pts: 1, label: 'Exercice 3 - Q1 : Objectif de l\'émission', displayVal: 'Option C (Conseiller les consommateurs)' },
+                { type: 'radio', name: 'ex3_q2', val: 'C', pts: 1, label: 'Exercice 3 - Q2 : Avantage d\'Internet', displayVal: 'Option C (De bénéficier de services gratuits)' },
+                { type: 'radio', name: 'ex3_q3', val: 'A', pts: 1, label: 'Exercice 3 - Q3 : Commerçants à moitié prix', displayVal: 'Option A (Ils mettent des prix trop élevés à l\'origine)' },
+                { type: 'text', id: 'ex3_q4', check: (v) => v.includes('gagner') || v.includes('argent') || v.includes('surs') || v.includes('sûrs'), pts: 2, label: 'Exercice 3 - Q4 : Articles vendus chers', attendu: 'Les vendeurs veulent être sûrs de gagner de l\'argent' },
+                { type: 'radio', name: 'ex3_q5', val: 'C', pts: 1, label: 'Exercice 3 - Q5 : Exemple financé par la pub', displayVal: 'Option C (Les journaux gratuits)' },
+                { type: 'text', id: 'ex3_q6', check: (v) => v.includes('repas') || v.includes('enfant'), pts: 2, label: 'Exercice 3 - Q6 : Restaurants pour attirer', attendu: 'Ils offrent le repas (aux enfants)' },
+                { type: 'text', id: 'ex3_q7', check: (v) => v.includes('revenir') || v.includes('vendre') || v.includes('clients'), pts: 2, label: 'Exercice 3 - Q7 : Produits gratuits supermarchés', attendu: 'Pour faire revenir les clients et pouvoir leur vendre ensuite' },
+                { type: 'radio', name: 'ex3_q8', val: 'B', pts: 1, label: 'Exercice 3 - Q8 : Avis sur les offres gratuites', displayVal: 'Option B (Il faut être prudent)' }
+            ];
+            let htmlDetail = '<div class="space-y-3">';
+
+            questions.forEach(q => {
+                let estCorrect = false;
+                let userDisplay = '';
+                let attenduDisplay = '';
+
+                if (q.type === 'radio') {
+                    const checked = document.querySelector(`input[name="${q.name}"]:checked`);
+                    const userVal = checked ? checked.value : '';
+                    estCorrect = (userVal === q.val);
+                    userDisplay = userVal ? `Option ${userVal}` : 'Aucune réponse';
+                    attenduDisplay = q.displayVal;
+                } else if (q.type === 'text') {
+                    const input = document.getElementById(q.id);
+                    const rawVal = input ? input.value.trim() : '';
+                    const cleanVal = rawVal.toLowerCase();
+                    estCorrect = rawVal !== '' && q.check(cleanVal);
+                    userDisplay = rawVal !== '' ? rawVal : 'Aucune réponse';
+                    attenduDisplay = q.attendu;
+                }
+
+                if (estCorrect) {
+                    score += q.pts;
+                    htmlDetail += `
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                            <div>
+                                <span class="font-bold">✔ ${q.label}</span>
+                                <span class="text-sm block text-green-700">Votre réponse : ${userDisplay}</span>
+                            </div>
+                            <span class="font-bold">+${q.pts} pt${q.pts > 1 ? 's' : ''}</span>
+                        </div>`;
+                } else {
+                    htmlDetail += `
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">✘ ${q.label}</span>
+                                <span class="font-bold">0 pt</span>
+                            </div>
+                            <div class="text-sm mt-1">
+                                <span>Votre réponse : <span class="font-semibold text-red-600">${userDisplay}</span></span> | 
+                                <span>Réponse attendue : <span class="font-semibold text-green-700">${attenduDisplay}</span></span>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            htmlDetail += '</div>';
+
+            document.getElementById('scoreTotal').innerText = `${score} / 25 points`;
+            document.getElementById('detailCorrection').innerHTML = htmlDetail;
+            document.getElementById('resultatCard').classList.remove('hidden');
+            document.getElementById('resultatCard').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
