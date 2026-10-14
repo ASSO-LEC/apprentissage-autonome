@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELF B1 — Compréhension de l'oral</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-radio:checked + label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- EN-TÊTE DU TEST -->
+        <header class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-extrabold text-slate-800 border-b pb-3 mb-4">DELF B1 — Compréhension de l'oral</h1>
+            <p class="text-slate-600 text-lg">Vous allez écouter plusieurs documents. Il y a 2 écoutes. Pour répondre aux questions, cochez la bonne réponse.</p>
+            <div class="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-800 text-sm font-semibold px-4 py-2 rounded-lg">
+                Total : 25 points (Exercices 1, 2 et 3)
+            </div>
+        </header>
+
+        <form id="quizForm" class="space-y-8">
+
+            <!-- ================= EXERCICE 1 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 1</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">7 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous écoutez une conversation. Lisez les questions. Écoutez le document puis répondez.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audios/delf-b1-tp-coll-exemple1-exercice1.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. Qu'est-ce que Célia va fêter ? (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q1" value="A" class="mr-2"> A. Son diplôme.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q1" value="B" class="mr-2"> B. Son mariage.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q1" value="C" class="mr-2"> C. Son anniversaire.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Il y aura seulement quelques amis à la fête parce que... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="A" class="mr-2"> A. la maison est petite.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="B" class="mr-2"> B. beaucoup ne sont pas disponibles.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="C" class="mr-2"> C. Célia veut avoir le temps de discuter avec chacun.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Lilian va arriver un peu plus tard parce qu'il... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="A" class="mr-2"> A. va manger chez ses parents.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="B" class="mr-2"> B. doit s'occuper de ses enfants.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="C" class="mr-2"> C. travaille une partie du week-end.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. Lilian accepte de venir à la fête parce qu'il... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="A" class="mr-2"> A. adore la montagne.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="B" class="mr-2"> B. est très proche de Célia.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="C" class="mr-2"> C. souhaite découvrir la région.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Le repas de la fête sera préparé par... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q5" value="A" class="mr-2"> A. Célia.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q5" value="B" class="mr-2"> B. tout le monde.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q5" value="C" class="mr-2"> C. un restaurateur.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Pour sa fête, Célia espère... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="A" class="mr-2"> A. qu'il fera beau.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="B" class="mr-2"> B. qu'elle aura un beau cadeau.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="C" class="mr-2"> C. que tous ses amis viendront.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 2 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 2</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">9 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous écoutez la radio. Lisez les questions. Écoutez le document puis répondez.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audios/delf-b1-tp-coll-exemple1-exercice2.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. Grâce à <em>Un regard pour toi</em>, les personnes malvoyantes peuvent acheter leurs vêtements... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="A" class="mr-2"> A. accompagnées par un bénévole.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="B" class="mr-2"> B. dans des magasins spécialisés.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="C" class="mr-2"> C. sur le site internet de l'association.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Hayette trouve que les employés des magasins sont trop... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="A" class="mr-2"> A. curieux.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="B" class="mr-2"> B. occupés.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="C" class="mr-2"> C. désagréables.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Grâce à l'association, Hayette... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="A" class="mr-2"> A. a de nouveaux amis.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="B" class="mr-2"> B. s'habille de manière différente.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="C" class="mr-2"> C. dépense moins d'argent pour s'habiller.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. Les collègues d'Hayette... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q4" value="A" class="mr-2"> A. lui donnent des conseils.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q4" value="B" class="mr-2"> B. sont surpris par sa façon de s'habiller.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q4" value="C" class="mr-2"> C. veulent savoir où elle trouve ses vêtements.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Pour les malvoyants, les vêtements permettent de... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="A" class="mr-2"> A. développer la confiance en soi.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="B" class="mr-2"> B. s'intégrer professionnellement.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="C" class="mr-2"> C. discuter de la mode avec leurs amis.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Quel appel lance Hayette ? (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="A" class="mr-2"> A. Elle a besoin de personnes pour l'aider.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="B" class="mr-2"> B. Elle invite les malvoyants à la contacter.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="C" class="mr-2"> C. Elle recherche un local pour l'association.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">7. Quand ils entrent dans l'association, les bénévoles doivent... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q7" value="A" class="mr-2"> A. assister à une présentation de la responsable.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q7" value="B" class="mr-2"> B. participer à une réunion avec d'autres membres.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q7" value="C" class="mr-2"> C. avoir un rendez-vous téléphonique avec un malvoyant.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 3 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 3</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">9 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous écoutez la radio. Lisez les questions. Écoutez le document puis répondez.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audios/delf-b1-tp-coll-exemple1-exercice3.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. La société Baluchon... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="A" class="mr-2"> A. apporte des repas dans les entreprises.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="B" class="mr-2"> B. propose des cours de cuisine aux salariés.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="C" class="mr-2"> C. livre des produits dans les restaurations collectives.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Selon François Dechy, le temps que les gens prennent pour manger... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="A" class="mr-2"> A. diminue.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="B" class="mr-2"> B. est stable.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="C" class="mr-2"> C. augmente.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Selon François Dechy, le moment du déjeuner est important pour... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="A" class="mr-2"> A. mieux travailler.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="B" class="mr-2"> B. rester en bonne santé.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="C" class="mr-2"> C. rencontrer ses collègues.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. François Dechy veut proposer un service... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="A" class="mr-2"> A. rapide.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="B" class="mr-2"> B. biologique.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="C" class="mr-2"> C. bon marché.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. François Dechy travaille avec... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="A" class="mr-2"> A. de jeunes étudiants.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="B" class="mr-2"> B. des personnes en difficulté.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="C" class="mr-2"> C. des diplômés de la restauration.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Baluchon est une entreprise qui propose aussi... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q6" value="A" class="mr-2"> A. des formations professionnalisantes.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q6" value="B" class="mr-2"> B. des rencontres avec de grands cuisiniers.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q6" value="C" class="mr-2"> C. des cours de lecture et de mathématiques.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">7. Quel est l'avantage de la cuisine prêtée par la mairie ? Elle est... (1,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q7" value="A" class="mr-2"> A. bien située.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q7" value="B" class="mr-2"> B. très grande.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q7" value="C" class="mr-2"> C. toute équipée.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BOUTON DE VALIDATION -->
+            <div class="text-center pt-4">
+                <button type="button" onclick="validerQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-xl shadow-lg transition">
+                    Valider mes réponses
+                </button>
+            </div>
+        </form>
+
+        <!-- ZONE DE RÉSULTAT -->
+        <div id="resultatCard" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
+            <h3 class="text-2xl font-bold text-slate-800 border-b pb-2">Rapport des résultats</h3>
+            <div class="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <span class="text-lg font-medium text-slate-700">Note globale :</span>
+                <span id="scoreTotal" class="text-3xl font-extrabold text-blue-600"></span>
+            </div>
+            
+            <div id="detailCorrection" class="space-y-3"></div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE CORRECTION AUTOMATIQUE -->
+    <script>
+        function validerQuiz() {
+            let score = 0;
+
+            const questions = [
+                // EXERCICE 1 (7 pts)
+                { type: 'radio', name: 'ex1_q1', val: 'C', pts: 1, label: 'Exercice 1 - Q1 : Événement Célia', displayVal: 'Option C (Son anniversaire)' },
+                { type: 'radio', name: 'ex1_q2', val: 'C', pts: 1.5, label: 'Exercice 1 - Q2 : Nombre d\'invités', displayVal: 'Option C (Célia veut avoir le temps de discuter avec chacun)' },
+                { type: 'radio', name: 'ex1_q3', val: 'C', pts: 1, label: 'Exercice 1 - Q3 : Retard de Lilian', displayVal: 'Option C (Travaille une partie du week-end)' },
+                { type: 'radio', name: 'ex1_q4', val: 'B', pts: 1.5, label: 'Exercice 1 - Q4 : Raison de la venue de Lilian', displayVal: 'Option B (Est très proche de Célia)' },
+                { type: 'radio', name: 'ex1_q5', val: 'B', pts: 1, label: 'Exercice 1 - Q5 : Préparation du repas', displayVal: 'Option B (Tout le monde)' },
+                { type: 'radio', name: 'ex1_q6', val: 'C', pts: 1, label: 'Exercice 1 - Q6 : Souhait de Célia', displayVal: 'Option C (Que tous ses amis viendront)' },
+
+                // EXERCICE 2 (9 pts)
+                { type: 'radio', name: 'ex2_q1', val: 'A', pts: 1, label: 'Exercice 2 - Q1 : Achat de vêtements', displayVal: 'Option A (Accompagnées par un bénévole)' },
+                { type: 'radio', name: 'ex2_q2', val: 'B', pts: 1, label: 'Exercice 2 - Q2 : Employés des magasins', displayVal: 'Option B (Occupés)' },
+                { type: 'radio', name: 'ex2_q3', val: 'B', pts: 1, label: 'Exercice 2 - Q3 : Changement pour Hayette', displayVal: 'Option B (S\'habille de manière différente)' },
+                { type: 'radio', name: 'ex2_q4', val: 'C', pts: 1.5, label: 'Exercice 2 - Q4 : Réaction des collègues', displayVal: 'Option C (Veulent savoir où elle trouve ses vêtements)' },
+                { type: 'radio', name: 'ex2_q5', val: 'A', pts: 1.5, label: 'Exercice 2 - Q5 : Rôle des vêtements', displayVal: 'Option A (Développer la confiance en soi)' },
+                { type: 'radio', name: 'ex2_q6', val: 'A', pts: 1.5, label: 'Exercice 2 - Q6 : Appel d\'Hayette', displayVal: 'Option A (Elle a besoin de personnes pour l\'aider)' },
+                { type: 'radio', name: 'ex2_q7', val: 'B', pts: 1.5, label: 'Exercice 2 - Q7 : Intégration des bénévoles', displayVal: 'Option B (Participer à une réunion avec d\'autres membres)' },
+
+                // EXERCICE 3 (9 pts)
+                { type: 'radio', name: 'ex3_q1', val: 'A', pts: 1.5, label: 'Exercice 3 - Q1 : Activité de Baluchon', displayVal: 'Option A (Apporte des repas dans les entreprises)' },
+                { type: 'radio', name: 'ex3_q2', val: 'A', pts: 1, label: 'Exercice 3 - Q2 : Temps pour manger', displayVal: 'Option A (Diminue)' },
+                { type: 'radio', name: 'ex3_q3', val: 'A', pts: 1, label: 'Exercice 3 - Q3 : Importance du déjeuner', displayVal: 'Option A (Mieux travailler)' },
+                { type: 'radio', name: 'ex3_q4', val: 'B', pts: 1, label: 'Exercice 3 - Q4 : Type de service', displayVal: 'Option B (Biologique)' },
+                { type: 'radio', name: 'ex3_q5', val: 'B', pts: 1.5, label: 'Exercice 3 - Q5 : Collaborateurs de François Dechy', displayVal: 'Option B (Des personnes en difficulté)' },
+                { type: 'radio', name: 'ex3_q6', val: 'A', pts: 1.5, label: 'Exercice 3 - Q6 : Offre complémentaire', displayVal: 'Option A (Des formations professionnalisantes)' },
+                { type: 'radio', name: 'ex3_q7', val: 'A', pts: 1.5, label: 'Exercice 3 - Q7 : Avantage de la cuisine', displayVal: 'Option A (Bien située)' }
+            ];
+
+            let htmlDetail = '<div class="space-y-3">';
+
+            questions.forEach(q => {
+                const checked = document.querySelector(`input[name="${q.name}"]:checked`);
+                const userVal = checked ? checked.value : '';
+                const estCorrect = (userVal === q.val);
+                const userDisplay = userVal ? `Option ${userVal}` : 'Aucune réponse';
+
+                if (estCorrect) {
+                    score += q.pts;
+                    htmlDetail += `
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                            <div>
+                                <span class="font-bold">✔ ${q.label}</span>
+                                <span class="text-sm block text-green-700">Votre réponse : ${userDisplay}</span>
+                            </div>
+                            <span class="font-bold">+${q.pts} pt${q.pts > 1 ? 's' : ''}</span>
+                        </div>`;
+                } else {
+                    htmlDetail += `
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">✘ ${q.label}</span>
+                                <span class="font-bold">0 pt</span>
+                            </div>
+                            <div class="text-sm mt-1">
+                                <span>Votre réponse : <span class="font-semibold text-red-600">${userDisplay}</span></span> | 
+                                <span>Réponse attendue : <span class="font-semibold text-green-700">${q.displayVal}</span></span>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            htmlDetail += '</div>';
+
+            document.getElementById('scoreTotal').innerText = `${score} / 25 points`;
+            document.getElementById('detailCorrection').innerHTML = htmlDetail;
+            document.getElementById('resultatCard').classList.remove('hidden');
+            document.getElementById('resultatCard').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
