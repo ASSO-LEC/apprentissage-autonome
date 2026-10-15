@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulaire - La Maison</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f6f9; padding: 20px; color: #2c3e50; }
+        h1 { color: #27ae60; margin-bottom: 10px; }
+        p { font-size: 1.1rem; margin-top: 0; }
+        
+        /* Conteneur d'image */
+        .image-container { margin: 15px auto; max-width: 800px; }
+        .house-image { width: 100%; height: auto; border-radius: 8px; border: 3px solid #27ae60; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        
+        /* Zone de question */
+        .question-box { font-size: 1.5rem; font-weight: bold; margin: 15px 0; padding: 10px; background-color: #e8f8f5; border-radius: 8px; display: inline-block; border: 2px solid #27ae60; }
+        
+        /* Affichage du mot */
+        .word-display { font-size: 2rem; letter-spacing: 0.5rem; margin: 15px; font-weight: bold; text-transform: uppercase; color: #2c3e50; }
+        
+        /* Clavier virtuel */
+        .letters-container { display: flex; flex-wrap: wrap; justify-content: center; max-width: 650px; margin: 0 auto; }
+        .letter-btn { margin: 4px; padding: 10px 14px; font-size: 1.1rem; cursor: pointer; background-color: #fff; border: 2px solid #27ae60; border-radius: 5px; color: #27ae60; font-weight: bold; }
+        .letter-btn:disabled { background-color: #e0e0e0; border-color: #ccc; color: #999; cursor: not-allowed; }
+        
+        /* Stats & Messages */
+        .info { font-size: 1.2rem; margin: 10px; font-weight: bold; }
+        .message { font-size: 1.4rem; margin: 15px; font-weight: bold; min-height: 35px; }
+        
+        /* Boutons d'action */
+        button.action-btn { padding: 12px 25px; font-size: 1.1rem; background-color: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 5px; }
+        button.action-btn:hover { background-color: #1e8449; }
+    </style>
+</head>
+<body>
+
+    <h1>🏠 Le Vocabulaire de la Maison</h1>
+    <p>Observe l'image et retrouve le nom correspondant au numéro affiché !</p>
+    
+    <div class="image-container">
+        <!-- Remplacez le chemin 'images/maison.jpg' par l'emplacement de votre illustration -->
+        <img src="maison.jpg" alt="Maison numérotée" class="house-image">
+    </div>
+
+    <div class="info">Vies restantes : <span id="lives" style="color: #e74c3c;">4</span></div>
+    
+    <div class="question-box" id="questionBox">Quel est le nom du n° ?</div>
+
+    <div class="word-display" id="wordDisplay"></div>
+    <div class="letters-container" id="lettersContainer"></div>
+    <div class="message" id="message"></div>
+    
+    <button class="action-btn" id="restart" onclick="initGame()">Numéro suivant 🔄</button>
+
+    <script>
+        // 1. LISTE DES 20 ÉLÉMENTS DE L'IMAGE
+        const listeMots = [
+            { id: 1, mot: "la salle de bains" },
+            { id: 2, mot: "le garage" },
+            { id: 3, mot: "le plafond" },
+            { id: 4, mot: "la cuisine" },
+            { id: 5, mot: "le salon" },
+            { id: 6, mot: "la chambre" },
+            { id: 7, mot: "le balcon" },
+            { id: 8, mot: "le bureau" },
+            { id: 9, mot: "la salle à manger" },
+            { id: 10, mot: "le couloir" },
+            { id: 11, mot: "l'entrée" },
+            { id: 12, mot: "la cave" },
+            { id: 13, mot: "la terrasse" },
+            { id: 14, mot: "les toilettes" },
+            { id: 15, mot: "l'escalier" },
+            { id: 16, mot: "1er étage" },
+            { id: 17, mot: "le mur" },
+            { id: 18, mot: "le grenier" },
+            { id: 19, mot: "le toit" },
+            { id: 20, mot: "la cheminée" }
+        ];
+
+        let currentItem = null;
+        let wordToGuess = "";
+        let displayedWord = [];
+        let maxLives = 4;
+        let currentLives = maxLives;
+
+        function normalizeString(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        function initGame() {
+            currentLives = maxLives;
+            document.getElementById("lives").textContent = currentLives;
+            document.getElementById("message").textContent = "";
+            
+            // Tirage aléatoire d'un numéro
+            const randomIndex = Math.floor(Math.random() * listeMots.length);
+            currentItem = listeMots[randomIndex];
+            wordToGuess = currentItem.mot;
+
+            // Mettre à jour la question avec le numéro à trouver
+            document.getElementById("questionBox").textContent = `Trouvez l'élément n° ${currentItem.id} !`;
+            
+            // Préparation des masques (espaces, apostrophes et chiffres pré-remplis)
+            displayedWord = [];
+            for (let char of wordToGuess) {
+                if (char === " ") {
+                    displayedWord.push(" ");
+                } else if (char === "'") {
+                    displayedWord.push("'");
+                } else if (!isNaN(char) && char !== " ") { 
+                    displayedWord.push(char); // Affiche directement le chiffre "1" pour "1er étage"
+                } else {
+                    displayedWord.push("_");
+                }
+            }
+            
+            renderWord();
+            generateKeyboard();
+        }
+
+        function renderWord() {
+            const htmlDisplay = displayedWord.map(char => {
+                if (char === " ") return "&nbsp;&nbsp;&nbsp;";
+                return char;
+            }).join(" ");
+            document.getElementById("wordDisplay").innerHTML = htmlDisplay;
+        }
+
+        function generateKeyboard() {
+            const container = document.getElementById("lettersContainer");
+            container.innerHTML = "";
+            const alphabet = "abcdefghijklmnopqrstuvwxyz";
+            for (let letter of alphabet) {
+                const btn = document.createElement("button");
+                btn.textContent = letter.toUpperCase();
+                btn.classList.add("letter-btn");
+                btn.onclick = () => guessLetter(letter, btn);
+                container.appendChild(btn);
+            }
+        }
+
+        function guessLetter(letter, buttonElement) {
+            buttonElement.disabled = true;
+            let letterFound = false;
+            const normalizedTarget = normalizeString(wordToGuess);
+
+            for (let i = 0; i < normalizedTarget.length; i++) {
+                if (normalizedTarget[i] === letter) {
+                    displayedWord[i] = wordToGuess[i];
+                    letterFound = true;
+                }
+            }
+
+            if (letterFound) {
+                renderWord();
+                checkWin();
+            } else {
+                currentLives--;
+                document.getElementById("lives").textContent = currentLives;
+                checkLose();
+            }
+        }
+
+        function checkWin() {
+            if (!displayedWord.includes("_")) {
+                document.getElementById("message").innerHTML = "🎉 Excellent ! Vous avez trouvé !";
+                disableAllButtons();
+            }
+        }
+
+        function checkLose() {
+            if (currentLives <= 0) {
+                document.getElementById("message").innerHTML = `💥 Dommage ! La réponse était : <span style="color:#d9534f;">"${wordToGuess.toUpperCase()}"</span>`;
+                disableAllButtons();
+            }
+        }
+
+        function disableAllButtons() {
+            const buttons = document.querySelectorAll(".letter-btn");
+            buttons.forEach(btn => btn.disabled = true);
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
