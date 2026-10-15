@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELF B2 — Compréhension des écrits</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-radio:checked + label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- EN-TÊTE DU TEST -->
+        <header class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-extrabold text-slate-800 border-b pb-3 mb-4">DELF B2 — Compréhension des écrits</h1>
+            <p class="text-slate-600 text-lg">Pour répondre aux questions, cochez la bonne réponse.</p>
+            <div class="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-800 text-sm font-semibold px-4 py-2 rounded-lg">
+                Total : 25 points (Exercices 1, 2 et 3)
+            </div>
+        </header>
+
+        <form id="quizForm" class="space-y-8">
+
+            <!-- ================= EXERCICE 1 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 1 : Comprendre un texte informatif ou argumentatif</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">9 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Dans un magazine d'actualité francophone, vous lisez un article sur le téléphone portable à l'école.</p>
+                    
+                    <!-- TEXTE ARTICLE -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm text-slate-700 space-y-3 leading-relaxed">
+                        <h3 class="text-base font-bold text-slate-900 border-b pb-2">L'interdiction du téléphone portable au collège</h3>
+                        <p>Selon une étude, les élèves qui fréquentent des écoles où le téléphone est interdit ont de meilleurs résultats que les autres. Dernièrement, le ministre de l'éducation nationale a souhaité durcir l'interdiction des téléphones portables au collège qui existe déjà, mais qui, en pratique, n'est pas suffisamment appliquée parce qu'aucune sanction n'est prévue.</p>
+                        <p>On semble oublier que le personnel en milieu scolaire applique déjà cette mesure, comme le rappelle Lysiane Gervais, secrétaire nationale du SNPDEN-Unsa : <em>« Dans 97% des collèges, l'utilisation du portable est interdite. Cela fonctionne plus ou moins bien. Si un élève utilise son téléphone ou s'il sonne en cours, l'appareil est confisqué et remis aux parents »</em>. Elle ajoute qu'une interdiction totale est impossible à gérer. Quand on est sur le terrain, on s'en rend bien compte.</p>
+                        <p>De plus, les élèves ont des téléphones portables au collège car ils sont équipés par leurs parents qui veulent pouvoir joindre leur enfant après la classe, parce que ça les rassure. Selon le responsable d'une fédération de parents d'élèves, il y aurait autant de parents favorables à l'interdiction des téléphones portables qu'à leur autorisation. C'est pourquoi les modalités de cette interdiction doivent être discutées avec les familles.</p>
+                        <p>Catherine Nave-Bekhti, secrétaire générale du Sgen-CFDT, juge cette nouvelle interdiction inutile. <em>« Ajouter de l'interdiction à l'interdiction ne dit pas comment on règle le problème. Tous les collèges ne sont pas équipés de casiers. Cela nécessite des équipements et suffisamment de place. L'autre élément est que certains enseignants développent un usage pédagogique des outils numériques. Un autre inconvénient à cette interdiction est le risque de priver les adolescents d'un apprentissage sur l'utilisation raisonnée d'Internet et des réseaux sociaux. Les enseignants font réfléchir leurs élèves quant à leur utilisation du numérique, aux conséquences de ce qu'ils y écrivent, au droit à l'image et au respect de l'autre. Les outils numériques contribuent à la formation des élèves. On aurait préféré une réflexion collective sur la place du numérique à l'école plutôt que de découvrir que le sujet serait à nouveau relancé, sans dialogue. Le ministère devrait ouvrir le débat à tous les acteurs de l'école. »</em></p>
+                        <p>Pour certains enseignants, le débat dépasse celui de l'école : <em>« Je parle des écrans avec les ados, je valorise la lecture de livres, mais le véritable problème c'est ce qui se passe à la maison »</em> s'inquiète Jean-Thomas Giovannoni, professeur d'anglais, qui a lui-même grandi sans télévision. <em>« Il faut que les parents apprennent à leurs enfants à garder une distance avec les écrans. »</em></p>
+                        <p class="italic text-xs text-slate-500 pt-2 border-t">D'après Céline HUSSONNOIS-ALAYA, www.bfmtv.com</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. Une enquête montre que l'usage du téléphone portable à l'école a des conséquences négatives sur... des jeunes. (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q1" value="A" class="mr-2"> A. la concentration</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q1" value="B" class="mr-2"> B. le niveau scolaire</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q1" value="C" class="mr-2"> C. les relations sociales</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Selon Lysiane Gervais, dans l'intérêt des jeunes, il faudrait... le téléphone à l'école. (2,5 pts)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="A" class="mr-2"> A. autoriser pleinement</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="B" class="mr-2"> B. tolérer sous conditions</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="C" class="mr-2"> C. interdire complètement</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Les parents seraient... l'utilisation du téléphone par les élèves à l'école. (2,5 pts)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="A" class="mr-2"> A. très opposés à</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="B" class="mr-2"> B. plutôt partagés sur</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="C" class="mr-2"> C. globalement favorables à</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. Pour Catherine Nave-Bekhti, interdire le portable à l'école est difficile par manque... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="A" class="mr-2"> A. de personnel.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="B" class="mr-2"> B. de volonté politique.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="C" class="mr-2"> C. de moyens matériels.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Selon Catherine Nave-Bekhti, interdire le portable à l'école... (0,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q5" value="A" class="mr-2"> A. serait un obstacle aux libertés individuelles.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q5" value="B" class="mr-2"> B. priverait les élèves d'une éducation aux usages d'Internet.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q5" value="C" class="mr-2"> C. empêcherait les élèves de développer des relations sociales.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Pour Catherine Nave-Bekhti, la question du numérique à l'école est... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="A" class="mr-2"> A. peu discutée.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="B" class="mr-2"> B. déjà dépassée.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="C" class="mr-2"> C. trop médiatisée.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">7. Pour Jean-Thomas Giovannoni, la question de l'usage du téléphone chez les jeunes relève principalement de la responsabilité... (0,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q7" value="A" class="mr-2"> A. de l'école.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q7" value="B" class="mr-2"> B. de la famille.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q7" value="C" class="mr-2"> C. des jeunes eux-mêmes.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 2 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 2 : Comprendre un texte informatif ou argumentatif</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">9 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous allez souvent au travail à vélo. Vous vous intéressez à cet article publié dans un journal francophone.</p>
+                    
+                    <!-- TEXTE ARTICLE VELO -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm text-slate-700 space-y-3 leading-relaxed">
+                        <h3 class="text-base font-bold text-slate-900 border-b pb-2">Aller au travail à vélo ?</h3>
+                        <p><em>« Il faut arrêter de considérer que le vélo est un sujet mineur. »</em> L'appel est de la ministre des transports, lors d'un congrès sur les transports non polluants. À cette occasion, a été annoncé un grand plan vélo destiné à faire décoller enfin ce mode de transport, notamment grâce à « l'indemnité kilométrique » : ce dispositif autorise l'employeur à dédommager ses salariés se rendant au travail à vélo (environ 0,25 euro par kilomètre parcouru).</p>
+                        <p><em>« Une indemnité versée aux cyclistes utilisant leur vélo pour se rendre au travail permet de réduire le coût d'achat du vélo et de participer aux frais d'entretien »</em>, précise Olivier Schneider, président de la FUB qui invite à ne pas voir le dispositif comme un privilège donné aux cyclistes, mais comme une façon de mettre le vélo sur un pied d'égalité avec les autres modes de transport. L'employeur a en effet déjà obligation de prendre en charge la moitié de l'abonnement aux transports en commun de ses salariés. Il a également la possibilité de verser des indemnités kilométriques à ceux qui utilisent leur véhicule personnel pour se rendre au travail.</p>
+                        <p>Le problème, c'est que cette indemnité vélo n'est pas obligatoire et que <em>« moins de 1% des actifs français travaillent pour une structure qui la propose à ses employés »</em>, pointe un rapport d'associations. Car là où elle est appliquée, cette indemnité a produit d'excellents résultats. <em>« Elle entraîne dans l'entreprise ou la collectivité une augmentation de la part prise par le vélo dans les différents modes de transport de 125% après un an »</em>, affirmait récemment l'Ademe.</p>
+                        <p><em>« Cette indemnité devrait être obligatoire dans toutes les entreprises et collectivités où des salariés la demandent »</em>, explique Yoann Rouillac, président d'un groupe de travail sur le vélo. Il n'y a là rien d'impossible, estime un député, 75% des déplacements domicile-travail font aujourd'hui moins de 5 km et 70% de ces trajets sont faits aujourd'hui en voiture. Pourtant, sur cette distance, le vélo est le mode de transport le plus performant en milieu urbain et semi-urbain. Le député invite également à prendre en considération les nombreux avantages du vélo sur l'écologie et ses bienfaits sur la santé des salariés qui sont plus en forme. Ainsi, ils gagnent en efficacité et l'employeur en profite.</p>
+                        <p>Une étude récente montre cependant que les cyclistes sont d'abord demandeurs de plus de sécurité et de stationnements vélo, aux abords des gares en particulier. <em>« La prise en compte de ces exigences nécessitera de construire de nouvelles infrastructures »</em>, explique Olivier Schneider. <em>« Il faut le faire, mais ça prendra du temps. »</em></p>
+                        <p class="italic text-xs text-slate-500 pt-2 border-t">D'après Fabrice POULIQUEN, www.20minutes.fr</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. L'indemnité kilométrique pour le vélo est financée par... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="A" class="mr-2"> A. les mairies.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="B" class="mr-2"> B. les entreprises.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="C" class="mr-2"> C. le gouvernement.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Pour Olivier Schneider, l'indemnité offerte aux usagers du vélo va... (2,5 pts)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="A" class="mr-2"> A. réduire considérablement l'utilisation des autres modes de transport.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="B" class="mr-2"> B. donner au vélo une place comparable aux autres modes de transport.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="C" class="mr-2"> C. rendre le vélo plus avantageux financièrement que les autres modes de transport.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. D'après le texte, l'indemnité kilométrique pour le vélo est encore peu pratiquée car elle est... (2,5 pts)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="A" class="mr-2"> A. facultative.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="B" class="mr-2"> B. peu connue.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="C" class="mr-2"> C. mal financée.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. Dans les entreprises qui la mettent en place, l'indemnité kilométrique pour le vélo a des effets... (0,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q4" value="A" class="mr-2"> A. positifs.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q4" value="B" class="mr-2"> B. modérés.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q4" value="C" class="mr-2"> C. décevants.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Le moyen de transport le plus efficace pour se rendre au travail en ville serait actuellement... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="A" class="mr-2"> A. le vélo.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="B" class="mr-2"> B. la voiture.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="C" class="mr-2"> C. les transports en commun.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Selon le député, l'usage du vélo permettrait aux employés d'être... (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="A" class="mr-2"> A. plus ponctuels.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="B" class="mr-2"> B. plus productifs.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="C" class="mr-2"> C. plus coopératifs.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">7. Selon Olivier Schneider, les cyclistes attendent aujourd'hui... (0,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q7" value="A" class="mr-2"> A. de nouvelles règles de circulation.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q7" value="B" class="mr-2"> B. des aides financières plus importantes.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q7" value="C" class="mr-2"> C. des installations plus adaptées aux vélos.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 3 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 3 : Comprendre le point de vue d'un locuteur francophone</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">7 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous lisez l'opinion de ces trois personnes sur un forum français dont le sujet est : <strong>« Adaptations de livres au cinéma : pour ou contre ? »</strong></p>
+                    
+                    <!-- OPINIONS DES LOCUTEURS -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 shadow-sm space-y-2">
+                            <span class="font-bold text-blue-700 block border-b pb-1">Luc</span>
+                            <p>Lorsqu'un cinéaste adapte un livre au cinéma, il donne sa propre vision de ce livre. Cela peut être perçu comme étant très réducteur ! Mais cette vision peut aussi être très différente de celle que nous nous étions faite pendant notre lecture. Elle peut donc ouvrir d'autres réflexions et finalement devenir très enrichissante. De plus, je dirais que l'adaptation cinématographique peut donner envie de lire le livre à des gens qui ne s'intéressent pas à la lecture d'habitude. Contrairement aux personnes qui vont au cinéma pour voir l'adaptation de leur roman préféré, moi, je fais l'inverse : la plupart des livres que je lis aujourd'hui, je les ai découverts à travers les films que j'ai beaucoup aimés au cinéma.</p>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 shadow-sm space-y-2">
+                            <span class="font-bold text-blue-700 block border-b pb-1">Sacha</span>
+                            <p>Même si on adore un livre, il faut, je pense, accepter que certains passages du livre soient coupés ou modifiés, car le travail d'écriture est complètement différent du travail d'adaptation cinématographique. En effet, il y a des éléments qu'on ne pourrait pas mettre dans un film pour des questions techniques. Et puis, que faut-il juger : un film par rapport au livre, ou tout simplement le film pour ce qu'il est ? Le but d'une adaptation est d'en faire quelque chose de différent. Pour ma part, je préfère parfois voir des changements, que de voir de simples « copier-coller » qui respectent trop le livre, mais qui, au final, rendent le film inintéressant, sans originalité.</p>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-lg border border-slate-200 shadow-sm space-y-2">
+                            <span class="font-bold text-blue-700 block border-b pb-1">Marjorie</span>
+                            <p>Je n'aime pas trop quand j'apprends qu'un livre que j'ai adoré se retrouvera au cinéma. J'ai l'impression de perdre le monde imaginaire que je me suis créé. Selon moi, une adaptation a beaucoup plus de chances de nous décevoir que de nous plaire. On peut donner plein d'exemples : détails du livre éliminés dans le film, changements concernant l'intrigue, acteurs qui ne correspondent pas à l'image des personnages qu'on s'était faite pendant la lecture... À chaque fois, je suis déçue, je n'arrête pas de critiquer les différences entre le livre et le film. Et puis, dans l'adaptation cinématographique, l'histoire dure beaucoup moins longtemps que dans le roman. Rien ne vaut un bon livre !</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="font-medium text-slate-800 text-lg">À quelle personne associez-vous chaque point de vue ?</p>
+
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-base mb-3">1. Il est injuste de comparer un roman à son adaptation cinématographique. (2 pts)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="A" class="mr-2"> A. Luc</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="B" class="mr-2"> B. Sacha</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="C" class="mr-2"> C. Marjorie</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-base mb-3">2. Les films adaptés de romans peuvent encourager les gens à lire. (0,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="A" class="mr-2"> A. Luc</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="B" class="mr-2"> B. Sacha</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="C" class="mr-2"> C. Marjorie</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-base mb-3">3. Un cinéaste qui adapte un livre au cinéma doit forcément prendre de la distance par rapport au livre. (1 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="A" class="mr-2"> A. Luc</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="B" class="mr-2"> B. Sacha</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="C" class="mr-2"> C. Marjorie</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-base mb-3">4. Il est plus plaisant de lire un roman que de voir son adaptation cinématographique. (1,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="A" class="mr-2"> A. Luc</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="B" class="mr-2"> B. Sacha</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="C" class="mr-2"> C. Marjorie</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-base mb-3">5. Les films adaptés de romans sont l'interprétation personnelle des cinéastes. (1,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="A" class="mr-2"> A. Luc</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="B" class="mr-2"> B. Sacha</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="C" class="mr-2"> C. Marjorie</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-base mb-3">6. Les adaptations cinématographiques détruisent l'image fictive donnée par les œuvres littéraires. (0,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q6" value="A" class="mr-2"> A. Luc</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q6" value="B" class="mr-2"> B. Sacha</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q6" value="C" class="mr-2"> C. Marjorie</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BOUTON DE VALIDATION -->
+            <div class="text-center pt-4">
+                <button type="button" onclick="validerQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-xl shadow-lg transition">
+                    Valider mes réponses
+                </button>
+            </div>
+        </form>
+
+        <!-- ZONE DE RÉSULTAT -->
+        <div id="resultatCard" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
+            <h3 class="text-2xl font-bold text-slate-800 border-b pb-2">Rapport des résultats</h3>
+            <div class="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <span class="text-lg font-medium text-slate-700">Note globale :</span>
+                <span id="scoreTotal" class="text-3xl font-extrabold text-blue-600"></span>
+            </div>
+            
+            <div id="detailCorrection" class="space-y-3"></div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE CORRECTION AUTOMATIQUE -->
+    <script>
+        function validerQuiz() {
+            let score = 0;
+
+            const questions = [
+                // EXERCICE 1 (9 pts)
+                { name: 'ex1_q1', val: 'B', pts: 1, label: 'Exercice 1 - Q1 : Conséquences de l\'usage du portable', displayVal: 'Option B (Le niveau scolaire)' },
+                { name: 'ex1_q2', val: 'B', pts: 2.5, label: 'Exercice 1 - Q2 : Avis de Lysiane Gervais', displayVal: 'Option B (Tolérer sous conditions)' },
+                { name: 'ex1_q3', val: 'B', pts: 2.5, label: 'Exercice 1 - Q3 : Position des parents', displayVal: 'Option B (Plutôt partagés sur)' },
+                { name: 'ex1_q4', val: 'C', pts: 1, label: 'Exercice 1 - Q4 : Difficulté d\'interdiction', displayVal: 'Option C (De moyens matériels)' },
+                { name: 'ex1_q5', val: 'B', pts: 0.5, label: 'Exercice 1 - Q5 : Conséquence de l\'interdiction', displayVal: 'Option B (Priverait les élèves d\'une éducation aux usages d\'Internet)' },
+                { name: 'ex1_q6', val: 'A', pts: 1, label: 'Exercice 1 - Q6 : Question du numérique à l\'école', displayVal: 'Option A (Peu discutée)' },
+                { name: 'ex1_q7', val: 'B', pts: 0.5, label: 'Exercice 1 - Q7 : Responsabilité de l\'usage', displayVal: 'Option B (De la famille)' },
+
+                // EXERCICE 2 (9 pts)
+                { name: 'ex2_q1', val: 'B', pts: 1, label: 'Exercice 2 - Q1 : Financement de l\'indemnité', displayVal: 'Option B (Les entreprises)' },
+                { name: 'ex2_q2', val: 'B', pts: 2.5, label: 'Exercice 2 - Q2 : Objectif de l\'indemnité selon Schneider', displayVal: 'Option B (Donner au vélo une place comparable aux autres modes de transport)' },
+                { name: 'ex2_q3', val: 'A', pts: 2.5, label: 'Exercice 2 - Q3 : Raison de la faible pratique', displayVal: 'Option A (Facultative)' },
+                { name: 'ex2_q4', val: 'A', pts: 0.5, label: 'Exercice 2 - Q4 : Effets dans les entreprises', displayVal: 'Option A (Positifs)' },
+                { name: 'ex2_q5', val: 'A', pts: 1, label: 'Exercice 2 - Q5 : Transport le plus efficace', displayVal: 'Option A (Le vélo)' },
+                { name: 'ex2_q6', val: 'B', pts: 1, label: 'Exercice 2 - Q6 : Effet sur les employés selon le député', displayVal: 'Option B (Plus productifs)' },
+                { name: 'ex2_q7', val: 'C', pts: 0.5, label: 'Exercice 2 - Q7 : Attentes actuelles des cyclistes', displayVal: 'Option C (Des installations plus adaptées aux vélos)' },
+
+                // EXERCICE 3 (7 pts)
+                { name: 'ex3_q1', val: 'B', pts: 2, label: 'Exercice 3 - Q1 : Injuste de comparer roman et film', displayVal: 'Option B (Sacha)' },
+                { name: 'ex3_q2', val: 'A', pts: 0.5, label: 'Exercice 3 - Q2 : Encourage à lire', displayVal: 'Option A (Luc)' },
+                { name: 'ex3_q3', val: 'B', pts: 1, label: 'Exercice 3 - Q3 : Prendre de la distance par rapport au livre', displayVal: 'Option B (Sacha)' },
+                { name: 'ex3_q4', val: 'C', pts: 1.5, label: 'Exercice 3 - Q4 : Plus plaisant de lire', displayVal: 'Option C (Marjorie)' },
+                { name: 'ex3_q5', val: 'A', pts: 1.5, label: 'Exercice 3 - Q5 : Interprétation personnelle des cinéastes', displayVal: 'Option A (Luc)' },
+                { name: 'ex3_q6', val: 'C', pts: 0.5, label: 'Exercice 3 - Q6 : Détruit l\'image fictive', displayVal: 'Option C (Marjorie)' }
+            ];
+
+            let htmlDetail = '<div class="space-y-3">';
+
+            questions.forEach(q => {
+                const checked = document.querySelector(`input[name="${q.name}"]:checked`);
+                const userVal = checked ? checked.value : '';
+                const estCorrect = (userVal === q.val);
+                
+                let userDisplay = 'Aucune réponse';
+                if (userVal) {
+                    if (q.name.startsWith('ex3_')) {
+                        const speakerMap = { 'A': 'Luc', 'B': 'Sacha', 'C': 'Marjorie' };
+                        userDisplay = speakerMap[userVal];
+                    } else {
+                        userDisplay = `Option ${userVal}`;
+                    }
+                }
+
+                if (estCorrect) {
+                    score += q.pts;
+                    htmlDetail += `
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                            <div>
+                                <span class="font-bold">✔ ${q.label}</span>
+                                <span class="text-sm block text-green-700">Votre réponse : ${userDisplay}</span>
+                            </div>
+                            <span class="font-bold">+${q.pts} pt${q.pts > 1 ? 's' : ''}</span>
+                        </div>`;
+                } else {
+                    htmlDetail += `
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">✘ ${q.label}</span>
+                                <span class="font-bold">0 pt</span>
+                            </div>
+                            <div class="text-sm mt-1">
+                                <span>Votre réponse : <span class="font-semibold text-red-600">${userDisplay}</span></span> | 
+                                <span>Réponse attendue : <span class="font-semibold text-green-700">${q.displayVal}</span></span>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            htmlDetail += '</div>';
+
+            document.getElementById('scoreTotal').innerText = `${score} / 25 points`;
+            document.getElementById('detailCorrection').innerHTML = htmlDetail;
+            document.getElementById('resultatCard').classList.remove('hidden');
+            document.getElementById('resultatCard').scrollIntoView({ behavior: 'smooth' });
+        }
+     </script>
+<script src="../../securite.js"></script>
+</body>
+</html>
