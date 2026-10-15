@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELF B2 — Compréhension de l'oral</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-radio:checked + label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- EN-TÊTE DU TEST -->
+        <header class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-extrabold text-slate-800 border-b pb-3 mb-4">DELF B2 — Compréhension de l'oral</h1>
+            <p class="text-slate-600 text-lg">Vous allez écouter plusieurs documents. Pour répondre aux questions, cochez la bonne réponse.</p>
+            <div class="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-800 text-sm font-semibold px-4 py-2 rounded-lg">
+                Total : 25 points (Exercices 1, 2 et 3)
+            </div>
+        </header>
+
+        <form id="quizForm" class="space-y-8">
+
+            <!-- ================= EXERCICE 1 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 1</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">9 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous allez écouter 2 fois un document. Vous écoutez une émission à la radio. Lisez les questions, écoutez le document puis répondez.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audios/delf-b2-tp-coll-exemple1-exercice1.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. D'après le journaliste, on trouve souvent sur les réseaux sociaux des articles sur... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q1" value="A" class="mr-2"> A. l'intérêt de la course à pied.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q1" value="B" class="mr-2"> B. les avantages du sport matinal.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q1" value="C" class="mr-2"> C. le style de vie des sportifs professionnels.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Selon le document, il est... de modifier notre rythme de sommeil. (0,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="A" class="mr-2"> A. bénéfique</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="B" class="mr-2"> B. dangereux</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q2" value="C" class="mr-2"> C. impossible</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Quel rythme de vie adoptent les sportifs professionnels ? (2 pts)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="A" class="mr-2"> A. Ils se lèvent très tôt.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="B" class="mr-2"> B. Ils dorment beaucoup.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q3" value="C" class="mr-2"> C. Ils font une sieste l'après-midi.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. D'après le journaliste, les personnes qui se couchent tard sont plus... le soir. (1,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="A" class="mr-2"> A. actives</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="B" class="mr-2"> B. fatiguées</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q4" value="C" class="mr-2"> C. détendues</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Il est socialement bien vu de se lever tôt car cela permettrait d'être plus... (0,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q5" value="A" class="mr-2"> A. efficace.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q5" value="B" class="mr-2"> B. ponctuel.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q5" value="C" class="mr-2"> C. en forme.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Faire du sport le matin est considéré comme un luxe car... (2,5 pts)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="A" class="mr-2"> A. tous les emplois ne le permettent pas.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="B" class="mr-2"> B. la vie de famille est parfois contraignante.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q6" value="C" class="mr-2"> C. on ne peut pas toujours en faire près de chez soi.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">7. La pratique du sport en fin de journée est avantageuse car elle permet... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q7" value="A" class="mr-2"> A. d'être de meilleure humeur.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q7" value="B" class="mr-2"> B. de s'endormir plus facilement.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex1_q7" value="C" class="mr-2"> C. de mieux se concentrer le lendemain.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 2 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 2</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">9 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous allez écouter 2 fois un document. Vous écoutez une émission à la radio. Lisez les questions. Écoutez le document puis répondez.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audios/delf-b2-tp-coll-exemple1-exercice2.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. L'entreprise américaine Google a lancé l'idée d'une nouvelle... (0,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="A" class="mr-2"> A. forme de réunion au travail.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="B" class="mr-2"> B. manière d'utiliser les bureaux.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q1" value="C" class="mr-2"> C. organisation du travail à distance.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Dans l'entreprise Sanofi, la nouvelle organisation concerne... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="A" class="mr-2"> A. uniquement les chefs.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="B" class="mr-2"> B. les chefs et les employés.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q2" value="C" class="mr-2"> C. uniquement les employés.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Quel est l'objectif principal de cette organisation ? (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="A" class="mr-2"> A. Limiter les retards et l'absentéisme.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="B" class="mr-2"> B. Améliorer l'utilisation des espaces de travail.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q3" value="C" class="mr-2"> C. Créer des salles de réunion supplémentaires.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. Du fait de cette organisation, les employés... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q4" value="A" class="mr-2"> A. rentrent parfois travailler chez eux.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q4" value="B" class="mr-2"> B. louent des espaces pour travailler tranquillement.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q4" value="C" class="mr-2"> C. organisent leurs rendez-vous à l'extérieur de l'entreprise.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Chez les employés, cette organisation peut... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="A" class="mr-2"> A. entraîner des conflits.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="B" class="mr-2"> B. être source de fatigue.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q5" value="C" class="mr-2"> C. diminuer la productivité.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Comment les employés les plus âgés réagissent-ils à ce système ? (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="A" class="mr-2"> A. Ils protestent et refusent de l'adopter.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="B" class="mr-2"> B. Ils s'adaptent même si ça ne leur plaît pas.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q6" value="C" class="mr-2"> C. Ils s'inquiètent pour leur avenir professionnel.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">7. La journaliste estime que les hôtels de travail... (2,5 pts)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q7" value="A" class="mr-2"> A. facilitent la mise en place du travail à distance.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q7" value="B" class="mr-2"> B. renforcent les capacités d'adaptation des salariés.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex2_q7" value="C" class="mr-2"> C. favorisent la confusion entre vie privée et vie professionnelle.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ================= EXERCICE 3 ================= -->
+            <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-xl font-bold text-slate-800">Exercice 3</h2>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">7 points</span>
+                    </div>
+                    <p class="text-base text-slate-600 mb-4">Vous allez écouter 1 fois 3 documents. Lisez les questions, écoutez les documents puis répondez.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <audio controls class="w-full">
+                            <source src="audios/delf-b2-tp-coll-exemple1-exercice3.mp3" type="audio/mpeg">
+                            Votre navigateur ne supporte pas l'élément audio.
+                        </audio>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="border-l-4 border-blue-600 pl-4 py-1 font-bold text-slate-700">DOCUMENT 1</div>
+                    
+                    <!-- Q1 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">1. Qu'est-ce qu'on constate dans l'évolution de la presse jeunesse actuellement ? (0,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="A" class="mr-2"> A. Il y a plus de titres pour tous les âges.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="B" class="mr-2"> B. Il y a plus de magazines de divertissement.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q1" value="C" class="mr-2"> C. Il y a plus d'importance donnée à l'information.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">2. Selon Elsa Maudet, les nouveaux types de magazine vont... (1 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="A" class="mr-2"> A. encourager l'écriture chez les jeunes.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="B" class="mr-2"> B. promouvoir la lecture.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q2" value="C" class="mr-2"> C. favoriser la réflexion sur l'actualité.</label>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-blue-600 pl-4 py-1 font-bold text-slate-700 pt-4">DOCUMENT 2</div>
+
+                    <!-- Q3 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">3. Pour l'intervenant, les jeux de société permettent d'être... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="A" class="mr-2"> A. plus efficace au travail.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="B" class="mr-2"> B. plus proche des autres.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q3" value="C" class="mr-2"> C. plus calme au quotidien.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">4. D'après l'intervenant, chez les plus jeunes, les jeux de société favorisent principalement... (2 pts)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="A" class="mr-2"> A. leur intégration sociale.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="B" class="mr-2"> B. leur sensation de bien-être.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q4" value="C" class="mr-2"> C. leur capacité de raisonnement.</label>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-blue-600 pl-4 py-1 font-bold text-slate-700 pt-4">DOCUMENT 3</div>
+
+                    <!-- Q5 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">5. Selon l'intervenante, un robot émotionnel est capable... (1,5 pt)</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="A" class="mr-2"> A. d'interpréter les émotions.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="B" class="mr-2"> B. de provoquer des émotions.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q5" value="C" class="mr-2"> C. de manifester des émotions.</label>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div>
+                        <p class="font-medium text-slate-800 text-lg mb-3">6. Dans quel domaine les robots sont-ils bénéfiques pour les enfants ? (0,5 pt)</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q6" value="A" class="mr-2"> A. La mobilité.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q6" value="B" class="mr-2"> B. L'apprentissage.</label>
+                            <label class="flex items-center p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50"><input type="radio" name="ex3_q6" value="C" class="mr-2"> C. La communication.</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BOUTON DE VALIDATION -->
+            <div class="text-center pt-4">
+                <button type="button" onclick="validerQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3 rounded-xl shadow-lg transition">
+                    Valider mes réponses
+                </button>
+            </div>
+        </form>
+
+        <!-- ZONE DE RÉSULTAT -->
+        <div id="resultatCard" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
+            <h3 class="text-2xl font-bold text-slate-800 border-b pb-2">Rapport des résultats</h3>
+            <div class="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <span class="text-lg font-medium text-slate-700">Note globale :</span>
+                <span id="scoreTotal" class="text-3xl font-extrabold text-blue-600"></span>
+            </div>
+            
+            <div id="detailCorrection" class="space-y-3"></div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE CORRECTION AUTOMATIQUE -->
+    <script>
+        function validerQuiz() {
+            let score = 0;
+
+            const questions = [
+                // EXERCICE 1 (9 pts)
+                { name: 'ex1_q1', val: 'B', pts: 1, label: 'Exercice 1 - Q1 : Sujet des articles', displayVal: 'Option B (Les avantages du sport matinal)' },
+                { name: 'ex1_q2', val: 'B', pts: 0.5, label: 'Exercice 1 - Q2 : Modifier son rythme', displayVal: 'Option B (Dangereux)' },
+                { name: 'ex1_q3', val: 'B', pts: 2, label: 'Exercice 1 - Q3 : Rythme des sportifs', displayVal: 'Option B (Ils dorment beaucoup)' },
+                { name: 'ex1_q4', val: 'A', pts: 1.5, label: 'Exercice 1 - Q4 : Couche-tard le soir', displayVal: 'Option A (Actives)' },
+                { name: 'ex1_q5', val: 'A', pts: 0.5, label: 'Exercice 1 - Q5 : Lever tôt en société', displayVal: 'Option A (Efficace)' },
+                { name: 'ex1_q6', val: 'A', pts: 2.5, label: 'Exercice 1 - Q6 : Sport le matin comme luxe', displayVal: 'Option A (Tous les emplois ne le permettent pas)' },
+                { name: 'ex1_q7', val: 'B', pts: 1, label: 'Exercice 1 - Q7 : Avantage du sport en fin de journée', displayVal: 'Option B (De s\'endormir plus facilement)' },
+
+                // EXERCICE 2 (9 pts)
+                { name: 'ex2_q1', val: 'B', pts: 0.5, label: 'Exercice 2 - Q1 : Idée de Google', displayVal: 'Option B (Manière d\'utiliser les bureaux)' },
+                { name: 'ex2_q2', val: 'B', pts: 1, label: 'Exercice 2 - Q2 : Organisation chez Sanofi', displayVal: 'Option B (Les chefs et les employés)' },
+                { name: 'ex2_q3', val: 'B', pts: 1, label: 'Exercice 2 - Q3 : Objectif principal', displayVal: 'Option B (Améliorer l\'utilisation des espaces de travail)' },
+                { name: 'ex2_q4', val: 'A', pts: 1.5, label: 'Exercice 2 - Q4 : Conséquence pour les employés', displayVal: 'Option A (Rentrent parfois travailler chez eux)' },
+                { name: 'ex2_q5', val: 'A', pts: 1.5, label: 'Exercice 2 - Q5 : Risque pour les salariés', displayVal: 'Option A (Entraîner des conflits)' },
+                { name: 'ex2_q6', val: 'C', pts: 1, label: 'Exercice 2 - Q6 : Réaction des plus âgés', displayVal: 'Option C (Ils s\'inquiètent pour leur avenir professionnel)' },
+                { name: 'ex2_q7', val: 'C', pts: 2.5, label: 'Exercice 2 - Q7 : Avis de la journaliste', displayVal: 'Option C (Favorisent la confusion entre vie privée et vie professionnelle)' },
+
+                // EXERCICE 3 (7 pts)
+                { name: 'ex3_q1', val: 'C', pts: 0.5, label: 'Exercice 3 - Q1 : Presse jeunesse', displayVal: 'Option C (Il y a plus d\'importance donnée à l\'information)' },
+                { name: 'ex3_q2', val: 'C', pts: 1, label: 'Exercice 3 - Q2 : Rôle des magazines', displayVal: 'Option C (Favoriser la réflexion sur l\'actualité)' },
+                { name: 'ex3_q3', val: 'B', pts: 1.5, label: 'Exercice 3 - Q3 : Apport des jeux de société', displayVal: 'Option B (Plus proche des autres)' },
+                { name: 'ex3_q4', val: 'C', pts: 2, label: 'Exercice 3 - Q4 : Effet chez les plus jeunes', displayVal: 'Option C (Leur capacité de raisonnement)' },
+                { name: 'ex3_q5', val: 'B', pts: 1.5, label: 'Exercice 3 - Q5 : Capacité du robot', displayVal: 'Option B (De provoquer des émotions)' },
+                { name: 'ex3_q6', val: 'B', pts: 0.5, label: 'Exercice 3 - Q6 : Domaine bénéfique', displayVal: 'Option B (L\'apprentissage)' }
+            ];
+
+            let htmlDetail = '<div class="space-y-3">';
+
+            questions.forEach(q => {
+                const checked = document.querySelector(`input[name="${q.name}"]:checked`);
+                const userVal = checked ? checked.value : '';
+                const estCorrect = (userVal === q.val);
+                const userDisplay = userVal ? `Option ${userVal}` : 'Aucune réponse';
+
+                if (estCorrect) {
+                    score += q.pts;
+                    htmlDetail += `
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                            <div>
+                                <span class="font-bold">✔ ${q.label}</span>
+                                <span class="text-sm block text-green-700">Votre réponse : ${userDisplay}</span>
+                            </div>
+                            <span class="font-bold">+${q.pts} pt${q.pts > 1 ? 's' : ''}</span>
+                        </div>`;
+                } else {
+                    htmlDetail += `
+                        <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold">✘ ${q.label}</span>
+                                <span class="font-bold">0 pt</span>
+                            </div>
+                            <div class="text-sm mt-1">
+                                <span>Votre réponse : <span class="font-semibold text-red-600">${userDisplay}</span></span> | 
+                                <span>Réponse attendue : <span class="font-semibold text-green-700">${q.displayVal}</span></span>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            htmlDetail += '</div>';
+
+            document.getElementById('scoreTotal').innerText = `${score} / 25 points`;
+            document.getElementById('detailCorrection').innerHTML = htmlDetail;
+            document.getElementById('resultatCard').classList.remove('hidden');
+            document.getElementById('resultatCard').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+<script src="../../securite.js"></script>
+</body>
+</html>
